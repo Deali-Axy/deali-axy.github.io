@@ -1,0 +1,3649 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>知乎和抖音为什么那么让人上瘾？推荐系统工作原理初探 - 画星星高手</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.adb8469c.css">
+      
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#_1" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="画星星高手" aria-label="画星星高手" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              画星星高手
+            </span>
+            <span class="md-header-nav__topic">
+              
+                知乎和抖音为什么那么让人上瘾？推荐系统工作原理初探
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="画星星高手" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    画星星高手
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="主页" class="md-nav__link">
+      主页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Android
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Android
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android/Android-x86-7-1-%E7%A8%B3%E5%AE%9A%E7%89%88%E5%88%9D%E4%BD%93%E9%AA%8C/" title="Android x86 7 1 稳定版初体验" class="md-nav__link">
+      Android x86 7 1 稳定版初体验
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android/%E4%B8%80%E5%8A%A03%E5%8D%87%E7%BA%A7Android9-0%E7%9A%84%E5%88%B7%E6%9C%BA%E6%8A%98%E8%85%BE%E4%B9%8B%E8%B7%AF/" title="一加3升级Android9 0的刷机折腾之路" class="md-nav__link">
+      一加3升级Android9 0的刷机折腾之路
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android/%E5%9C%A8Android%E6%A8%A1%E6%8B%9F%E5%99%A8%E9%87%8C%E5%8F%96%E5%BE%97root%E6%9D%83%E9%99%90/" title="在Android模拟器里取得root权限" class="md-nav__link">
+      在Android模拟器里取得root权限
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android/%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%AE%89%E5%8D%93%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%9A%84ADB%E7%AB%AF%E5%8F%A3%E5%8F%B7%EF%BC%9F/" title="如何查看安卓模拟器的ADB端口号？" class="md-nav__link">
+      如何查看安卓模拟器的ADB端口号？
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android/%E7%94%B5%E8%84%91%E4%B8%8A%E7%9A%84%E5%AE%89%E5%8D%93%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94PhoenixOS%E6%B5%85%E5%BA%A6%E4%BD%93%E9%AA%8C/" title="电脑上的安卓系统——PhoenixOS浅度体验" class="md-nav__link">
+      电脑上的安卓系统——PhoenixOS浅度体验
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Android开发
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Android开发
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android%E5%BC%80%E5%8F%91/Android-ORM-%E6%A1%86%E6%9E%B6%EF%BC%9AGreenDao%E5%85%A5%E9%97%A8/" title="Android ORM 框架：GreenDao入门" class="md-nav__link">
+      Android ORM 框架：GreenDao入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android%E5%BC%80%E5%8F%91/Android-Studio-%E6%8F%92%E4%BB%B6%E8%AE%B0%E5%BD%95/" title="Android Studio 插件记录" class="md-nav__link">
+      Android Studio 插件记录
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android%E5%BC%80%E5%8F%91/Android%E5%BC%80%E5%8F%91%EF%BC%9A%E4%BD%BF%E7%94%A8CardView%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E5%BC%8F%E8%AE%BE%E8%AE%A1/" title="Android开发：使用CardView实现卡片式设计" class="md-nav__link">
+      Android开发：使用CardView实现卡片式设计
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android%E5%BC%80%E5%8F%91/Android%E5%BC%80%E5%8F%91%EF%BC%9A%E5%9C%A8Linux%E7%B3%BB%E7%BB%9F%E4%B8%8A%E4%BD%BF%E7%94%A8ADB%E8%BF%9E%E6%8E%A5Android%E6%89%8B%E6%9C%BA/" title="Android开发：在Linux系统上使用ADB连接Android手机" class="md-nav__link">
+      Android开发：在Linux系统上使用ADB连接Android手机
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android%E5%BC%80%E5%8F%91/Android%E5%BC%80%E5%8F%91%EF%BC%9A%E5%AF%B9Gradle%E7%9A%84%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/" title="Android开发：对Gradle的折腾记录" class="md-nav__link">
+      Android开发：对Gradle的折腾记录
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android%E5%BC%80%E5%8F%91/Android%E5%BC%80%E5%8F%91%EF%BC%9A%E8%A7%A3%E5%86%B3%E5%9C%A8Linux%E4%B8%8A%E6%8F%90%E7%A4%BA-dev-kvm-device-permission-denied%E9%97%AE%E9%A2%98/" title="Android开发：解决在Linux上提示 dev kvm device permission denied问题" class="md-nav__link">
+      Android开发：解决在Linux上提示 dev kvm device permission denied问题
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android%E5%BC%80%E5%8F%91/%E8%AE%B0%E4%B8%80%E6%AC%A1AndroidStudio%E5%9C%A8Linux%E7%8E%AF%E5%A2%83%E4%B8%8A%E7%9A%84%E5%A5%87%E8%91%A9%E9%94%99%E8%AF%AF%EF%BC%8CArgument-for-%40NotNull-parameter-%27messag/" title="记一次AndroidStudio在Linux环境上的奇葩错误，Argument for @NotNull parameter 'messag" class="md-nav__link">
+      记一次AndroidStudio在Linux环境上的奇葩错误，Argument for @NotNull parameter 'messag
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Android%E5%BC%80%E5%8F%91/%E8%AF%A5%E6%AD%BB%E7%9A%84%E5%BA%94%E7%94%A8%E9%97%AA%E9%80%80%EF%BC%8C%E7%BB%88%E4%BA%8E%E8%A7%A3%E5%86%B3error-while-inflating-CardView/" title="该死的应用闪退，终于解决error while inflating CardView" class="md-nav__link">
+      该死的应用闪退，终于解决error while inflating CardView
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      C#
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        C#
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%85%A5%E9%97%A8%E7%AF%87/" title="Asp.Net Core 学习" class="md-nav__link">
+      Asp.Net Core 学习
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E4%B8%89%EF%BC%89%E4%BD%BF%E7%94%A8SignalR%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1%E6%A1%86%E6%9E%B6%E5%BC%80%E5%8F%91%E8%81%8A%E5%A4%A9%E5%AE%A4/" title="SignalR牛刀小试" class="md-nav__link">
+      SignalR牛刀小试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E4%BA%8C%EF%BC%89%E8%A7%86%E5%9B%BE%E3%80%81%E6%A8%A1%E5%9E%8B%E3%80%81%E6%8C%81%E4%B9%85%E5%8C%96%E3%80%81%E6%96%87%E4%BB%B6%E3%80%81%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E3%80%81%E6%97%A5%E5%BF%97/" title="Asp Net Core学习笔记：（二）视图、模型、持久化、文件、错误处理、日志" class="md-nav__link">
+      Asp Net Core学习笔记：（二）视图、模型、持久化、文件、错误处理、日志
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E5%9B%9B%EF%BC%89Blazor-WebAssembly%E5%85%A5%E9%97%A8/" title="Asp Net Core学习笔记：（四）Blazor WebAssembly入门" class="md-nav__link">
+      Asp Net Core学习笔记：（四）Blazor WebAssembly入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/C%23%E4%B8%ADAES%E5%8A%A0%E5%AF%86%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="C#中AES加密的实现" class="md-nav__link">
+      C#中AES加密的实现
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/C%23%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89%E5%A7%94%E6%89%98%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E4%BD%BF%E7%94%A8/" title="C#学习（一）委托的概念和使用" class="md-nav__link">
+      C#学习（一）委托的概念和使用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/C%23%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%A7%94%E6%89%98%E3%80%81%E5%8C%BF%E5%90%8D%E6%96%B9%E6%B3%95%E5%92%8C-Lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="C#学习（三）深入理解委托、匿名方法和 Lambda 表达式" class="md-nav__link">
+      C#学习（三）深入理解委托、匿名方法和 Lambda 表达式
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/C%23%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%8C%BF%E5%90%8D%E6%96%B9%E6%B3%95%E5%92%8C%E5%A7%94%E6%89%98%E7%9A%84%E5%A4%9A%E7%A7%8D%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/" title="C#学习（二）匿名方法和委托的多种使用方式" class="md-nav__link">
+      C#学习（二）匿名方法和委托的多种使用方式
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/NetCore%E7%88%AC%E8%99%AB%EF%BC%9ACatSpider%23-%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/" title="NetCore爬虫：CatSpider# 开发笔记" class="md-nav__link">
+      NetCore爬虫：CatSpider# 开发笔记
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/%E6%96%B9%E4%BE%BF%E7%9A%84C%23-Json%E5%BA%93%EF%BC%9AJson-Net/" title="方便的C# Json库：Json Net" class="md-nav__link">
+      方便的C# Json库：Json Net
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/%E6%A2%A6%E6%83%B3%E5%AE%B6%E8%A3%85%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95%EF%BC%8CAsp-Net-Core%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/" title="DreamingHome" class="md-nav__link">
+      DreamingHome
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../C%23/%E8%AF%95%E4%B8%80%E4%B8%8B%E7%94%A8DotNetCore%E6%9D%A5%E5%81%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%8CML-Net%E6%A1%86%E6%9E%B6%E8%B7%91%E8%B5%B7%E6%9D%A5/" title="试一下用DotNetCore来做机器学习，ML Net框架跑起来" class="md-nav__link">
+      试一下用DotNetCore来做机器学习，ML Net框架跑起来
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Django
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Django
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Django/Django%2BLogging%EF%BC%9A%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" title="Django+Logging：日志记录配置与使用方法" class="md-nav__link">
+      Django+Logging：日志记录配置与使用方法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Django/Django--%E4%BD%BF%E7%94%A8django-filer%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87/" title="Django 使用django filer上传图片" class="md-nav__link">
+      Django  使用django filer上传图片
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Django/Django-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82%E9%97%AE%E9%A2%98/" title="Django 解决跨域请求问题" class="md-nav__link">
+      Django 解决跨域请求问题
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Django/Django%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2%EF%BC%9Anginx%2Buwsgi%E6%96%B9%E5%BC%8F/" title="Django应用部署：nginx+uwsgi方式" class="md-nav__link">
+      Django应用部署：nginx+uwsgi方式
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Django/Django%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%EF%BC%9ADrf%E6%A1%86%E6%9E%B6%E5%92%8Cxadmin%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8C%97/" title="Django快速开发实践：Drf框架和xadmin配置指北" class="md-nav__link">
+      Django快速开发实践：Drf框架和xadmin配置指北
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Django/Django%E6%B8%85%E7%A9%BA%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE%E5%92%8C%E9%87%8D%E5%BB%BA%E8%A1%A8%E7%BB%93%E6%9E%84/" title="Django清空所有数据和重建表结构" class="md-nav__link">
+      Django清空所有数据和重建表结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Django/Django%E9%A1%B9%E7%9B%AE%E7%AC%94%E8%AE%B0%EF%BC%9Asessions%E5%A4%84%E7%90%86%E4%BB%A5%E5%8F%8A%E5%A4%8D%E6%9D%82%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96/" title="Django项目笔记：sessions处理以及复杂对象序列化" class="md-nav__link">
+      Django项目笔记：sessions处理以及复杂对象序列化
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Django/%E4%B8%80%E5%B0%8F%E6%97%B6%E5%AE%8C%E6%88%90%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%EF%BC%9ADjangoRestFramework%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/" title="DjangoRestFramework开发实践" class="md-nav__link">
+      DjangoRestFramework开发实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Django/%E8%A7%A3%E5%86%B3Django%E4%BD%BF%E7%94%A8Jinja2%E6%A8%A1%E7%89%88%E5%BC%95%E6%93%8E%E4%B9%8B%E5%90%8Eadmin%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决Django使用Jinja2模版引擎之后admin无法访问的问题" class="md-nav__link">
+      解决Django使用Jinja2模版引擎之后admin无法访问的问题
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Django/%E9%A1%B9%E7%9B%AE%E5%AE%8C%E6%88%90%EF%BC%8C%E5%81%9A%E4%B8%80%E4%B8%8B%E7%AE%80%E5%8D%95%E7%9A%84Django%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/" title="项目完成，做一下简单的Django实践总结" class="md-nav__link">
+      项目完成，做一下简单的Django实践总结
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Flutter
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Flutter
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Flutter/Flutter%E5%BC%80%E5%8F%91%EF%BC%9AListView%E6%89%8B%E5%8A%A8%E6%BB%9A%E5%8A%A8%E5%88%B0%E5%BA%95%E9%83%A8/" title="Flutter开发：ListView手动滚动到底部" class="md-nav__link">
+      Flutter开发：ListView手动滚动到底部
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Flutter/Flutter%E5%BC%80%E5%8F%91%EF%BC%9A%E8%BF%81%E7%A7%BBFlutter%E5%BA%94%E7%94%A8%E5%88%B0AndroidX/" title="Flutter开发：迁移Flutter应用到AndroidX" class="md-nav__link">
+      Flutter开发：迁移Flutter应用到AndroidX
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Flutter/Flutter%E6%92%AD%E6%94%BE%E9%9F%B3%E4%B9%90%E7%AE%80%E5%8D%95%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-AudioPlayers-%E4%B8%8E%E5%A1%AB%E5%9D%91/" title="Flutter播放音乐简单解决方案 AudioPlayers 与填坑" class="md-nav__link">
+      Flutter播放音乐简单解决方案 AudioPlayers 与填坑
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Flutter/Flutter%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BF%AB%E9%80%9F%E6%9E%84%E5%BB%BA%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E3%80%81%E5%9B%BD%E9%99%85%E5%8C%96%E3%80%81%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E3%80%81%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Flutter移动应用快速构建实践——状态管理、国际化、数据持久化、性能优化（二）" class="md-nav__link">
+      Flutter移动应用快速构建实践——状态管理、国际化、数据持久化、性能优化（二）
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Flutter/Windows%E4%B8%8A%E6%80%8E%E4%B9%88%E9%85%8D%E7%BD%AEflutter%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%9F%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0/" title="Windows上怎么配置flutter开发环境？这篇文章手把手教你" class="md-nav__link">
+      Windows上怎么配置flutter开发环境？这篇文章手把手教你
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Flutter/%E2%80%9C%E6%9E%81%E7%AE%80%E8%AF%97%E8%AF%8D%E2%80%9Dapp%E5%BC%80%E5%8F%91%E8%83%8C%E5%90%8E%EF%BC%9AFlutter%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BF%AB%E9%80%9F%E6%9E%84%E5%BB%BA%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E3%80%81%E5%9B%BD%E9%99%85%E5%8C%96%E3%80%81%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E3%80%81%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89/" title="“极简诗词”app开发背后：Flutter移动应用快速构建实践——状态管理、国际化、数据持久化、性能优化（一）" class="md-nav__link">
+      “极简诗词”app开发背后：Flutter移动应用快速构建实践——状态管理、国际化、数据持久化、性能优化（一）
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Flutter/%E5%88%9D%E8%A7%81Flutter%EF%BC%81%E6%A1%86%E6%9E%B6%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%BB%A5%E5%8F%8A%E6%9E%84%E5%BB%BA%E5%8F%AF%E5%8F%91%E5%B8%83%E7%9A%84%E7%AD%BE%E5%90%8DApk%E5%8C%85/" title="初见Flutter！框架简单介绍以及构建可发布的签名Apk包" class="md-nav__link">
+      初见Flutter！框架简单介绍以及构建可发布的签名Apk包
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Flutter/%E6%8A%8A%E7%88%AC%E8%99%AB%E6%94%BE%E5%88%B0%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%B7%91%EF%BC%81Flutter%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2~/" title="把爬虫放到手机上跑！Flutter爬虫框架初探~" class="md-nav__link">
+      把爬虫放到手机上跑！Flutter爬虫框架初探~
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Java
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Java
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Java/Apache-Commons-IO-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Apache Commons IO 最佳实践" class="md-nav__link">
+      Apache Commons IO 最佳实践
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Java/JavaWeb%E5%BC%80%E5%8F%91---Servlet%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%AE%9E%E9%AA%8C/" title="JavaWeb开发 Servlet的生命周期实验" class="md-nav__link">
+      JavaWeb开发   Servlet的生命周期实验
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Java/JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F/" title="JavaWeb开发 使用IDEA创建Servlet程序" class="md-nav__link">
+      JavaWeb开发   使用IDEA创建Servlet程序
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Java/Java%E4%BD%BF%E7%94%A8JDBC%E6%93%8D%E4%BD%9CSQLite/" title="Java使用JDBC操作SQLite" class="md-nav__link">
+      Java使用JDBC操作SQLite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Java/Java%E5%BC%80%E5%8F%91%EF%BC%9AJDK%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="Java开发：JDK安装和环境配置" class="md-nav__link">
+      Java开发：JDK安装和环境配置
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Java/Maven%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E9%85%8D%E7%BD%AE/" title="Maven国内镜像配置" class="md-nav__link">
+      Maven国内镜像配置
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Java/Spring-Boot%EF%BC%9A%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/" title="Spring Boot：创建第一个应用" class="md-nav__link">
+      Spring Boot：创建第一个应用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Java/%E5%9C%A8Linux-Ubuntu%E4%B8%8A%E9%85%8D%E7%BD%AE%E5%BC%80%E5%8F%91JavaFx%E7%A8%8B%E5%BA%8F-%28%E6%9B%B4%E6%96%B0%29/" title="在Linux Ubuntu上配置开发JavaFx程序 (更新)" class="md-nav__link">
+      在Linux Ubuntu上配置开发JavaFx程序 (更新)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Java/%E6%B7%B1%E5%85%A5Jar%E5%8C%85%EF%BC%9AGradle%E6%9E%84%E5%BB%BA%E5%8F%AF%E6%89%A7%E8%A1%8Cjar%E5%8C%85%E4%B8%8E%E8%AE%BF%E9%97%AEjar%E5%8C%85%E4%B8%AD%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8E%E6%96%87%E4%BB%B6/" title="深入Jar包：Gradle构建可执行jar包与访问jar包中文件夹与文件" class="md-nav__link">
+      深入Jar包：Gradle构建可执行jar包与访问jar包中文件夹与文件
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Java/%E7%AC%AC%E4%B8%80%E6%AC%A1%E7%94%A8%E4%B8%8AStruts2%E6%A1%86%E6%9E%B6%E5%81%9AWeb%E5%BC%80%E5%8F%91%E7%9A%84%E4%BD%93%E9%AA%8C%E2%80%A6%E2%80%A6/" title="SliiyStruts2" class="md-nav__link">
+      SliiyStruts2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Linux
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/CentOS6%E5%AE%89%E8%A3%85Nginx%EF%BC%8CLinux%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Nginx/" title="CentOS6安装Nginx，Linux编译安装Nginx" class="md-nav__link">
+      CentOS6安装Nginx，Linux编译安装Nginx
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Config-Software-mirrors-source-for-OpenSuSE-42-3/" title="Config Software mirrors source for OpenSuSE 42 3" class="md-nav__link">
+      Config Software mirrors source for OpenSuSE 42 3
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Debian8-stable-%E5%8D%87%E7%BA%A7Python%E7%89%88%E6%9C%AC%E5%88%B03-6/" title="Debian8 stable 升级Python版本到3 6" class="md-nav__link">
+      Debian8 stable 升级Python版本到3 6
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Debian%E4%B8%8BSSH%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="Debian下SSH服务的安装与配置" class="md-nav__link">
+      Debian下SSH服务的安装与配置
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Debian%E7%B3%BBLinux%EF%BC%9A%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E5%BA%94%E7%94%A8%E7%9A%84%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F%E6%96%87%E4%BB%B6%E5%9C%B0%E5%9D%80/" title="Debian系Linux：获取指定应用的快捷方式文件地址" class="md-nav__link">
+      Debian系Linux：获取指定应用的快捷方式文件地址
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Debian%E9%85%8D%E7%BD%AE%E9%BB%98%E8%AE%A4%E4%B8%8D%E5%BC%80%E5%90%AF%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/" title="Debian配置默认不开启图形界面" class="md-nav__link">
+      Debian配置默认不开启图形界面
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/How-to-Convert-OpenSSH-keys-to-Putty-%28-ppk%29-on-Linux/" title="How to Convert OpenSSH keys to Putty ( ppk) on Linux" class="md-nav__link">
+      How to Convert OpenSSH keys to Putty ( ppk) on Linux
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/How-to-change-mouse-cursor-and-theme-/" title="How to change mouse cursor and theme" class="md-nav__link">
+      How to change mouse cursor and theme 
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/KDE%E4%B8%8BOBS%E7%9B%B4%E6%92%AD%E9%97%AA%E5%B1%8F%E8%A7%A3%E5%86%B3/" title="KDE下OBS直播闪屏解决" class="md-nav__link">
+      KDE下OBS直播闪屏解决
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/LINUX-DESKTOP-MENU-EDITORS/" title="LINUX DESKTOP MENU EDITORS" class="md-nav__link">
+      LINUX DESKTOP MENU EDITORS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Linux--%E4%BD%BF%E7%94%A8Snap%E5%AE%89%E8%A3%85%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BE%AE%E4%BF%A1%E5%AE%A2%E6%88%B7%E7%AB%AFElectronic-Wechat/" title="Linux 使用Snap安装第三方微信客户端Electronic Wechat" class="md-nav__link">
+      Linux  使用Snap安装第三方微信客户端Electronic Wechat
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Linux%E4%B8%8B%E6%9F%A5%E7%9C%8Bdd%E5%91%BD%E4%BB%A4%E5%86%99%E5%85%A5%E8%BF%9B%E5%BA%A6/" title="Linux下查看dd命令写入进度" class="md-nav__link">
+      Linux下查看dd命令写入进度
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Linux%E5%AE%89%E8%A3%85zsh%E5%B9%B6%E4%BD%BF%E7%94%A8oh-my-zsh%E9%85%8D%E7%BD%AE/" title="Linux安装zsh并使用oh my zsh配置" class="md-nav__link">
+      Linux安装zsh并使用oh my zsh配置
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97/" title="Linux玩家必备：Ubuntu完全配置指南" class="md-nav__link">
+      Linux玩家必备：Ubuntu完全配置指南
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Linux%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Python3-6%EF%BC%8C%E7%90%86%E8%AE%BA%E4%B8%8A%E5%90%84%E4%B8%AA%E5%8F%91%E8%A1%8C%E7%89%88%E9%80%9A%E7%94%A8/" title="Linux编译安装Python3 6，理论上各个发行版通用" class="md-nav__link">
+      Linux编译安装Python3 6，理论上各个发行版通用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Linux%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E9%82%AE%E4%BB%B6%E8%BD%AC%E5%8F%91%E5%88%B0%E6%8C%87%E5%AE%9A%E9%82%AE%E7%AE%B1/" title="Linux设置系统邮件转发到指定邮箱" class="md-nav__link">
+      Linux设置系统邮件转发到指定邮箱
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Linux%EF%BC%9A%E6%8F%90%E9%AB%98%E9%BC%A0%E6%A0%87%E6%BB%9A%E8%BD%AE%E7%9A%84%E9%80%9F%E5%BA%A6/" title="Linux：提高鼠标滚轮的速度" class="md-nav__link">
+      Linux：提高鼠标滚轮的速度
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Manjaro-Linux%E5%AE%89%E8%A3%85Virtualbox%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BD%9E/" title="Manjaro Linux安装Virtualbox的那些坑与解决方案～" class="md-nav__link">
+      Manjaro Linux安装Virtualbox的那些坑与解决方案～
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Manjaro-%E5%AE%89%E8%A3%85docker%E7%AC%94%E8%AE%B0/" title="Manjaro 安装docker笔记" class="md-nav__link">
+      Manjaro 安装docker笔记
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Manjaro%E9%85%8D%E7%BD%AE/" title="Manjaro配置" class="md-nav__link">
+      Manjaro配置
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/ModuleNotFoundError--No-module-named-%27apt_pkg%27-%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/" title="ModuleNotFoundError No module named 'apt pkg' 错误解决" class="md-nav__link">
+      ModuleNotFoundError  No module named 'apt pkg' 错误解决
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Nginx%E9%85%8D%E7%BD%AEhttp%E8%B7%B3%E8%BD%AChttps-%E5%BC%BA%E5%88%B6https%E8%AE%BF%E9%97%AE/" title="Nginx配置http跳转https 强制https访问" class="md-nav__link">
+      Nginx配置http跳转https 强制https访问
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Ubuntu-16-04-%E5%8D%87%E7%BA%A7Python%E7%89%88%E6%9C%AC%E5%88%B03-6/" title="Ubuntu 16 04 升级Python版本到3 6" class="md-nav__link">
+      Ubuntu 16 04 升级Python版本到3 6
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Ubuntu-16-04-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEDocker/" title="Ubuntu 16 04 安装配置Docker" class="md-nav__link">
+      Ubuntu 16 04 安装配置Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Ubuntu-18-04-%E4%BF%AE%E5%A4%8D-Telegram-%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95/" title="Ubuntu 18 04 修复 Telegram 中文输入法" class="md-nav__link">
+      Ubuntu 18 04 修复 Telegram 中文输入法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Ubuntu-18-04-%E4%BF%AE%E6%94%B9%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2%E8%83%8C%E6%99%AF%E5%9B%BE/" title="Ubuntu 18 04 修改登录界面背景图" class="md-nav__link">
+      Ubuntu 18 04 修改登录界面背景图
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Ubuntu-18-04-%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88VLC%E6%92%AD%E6%94%BE%E5%99%A8/" title="Ubuntu 18 04 安装最新版VLC播放器" class="md-nav__link">
+      Ubuntu 18 04 安装最新版VLC播放器
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Ubuntu-18-04-%E5%BC%80%E5%90%AF%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87%E7%82%B9%E5%87%BB%E6%9C%80%E5%B0%8F%E5%8C%96/" title="Ubuntu 18 04 开启托盘图标点击最小化" class="md-nav__link">
+      Ubuntu 18 04 开启托盘图标点击最小化
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/Useful-Gnome-Plugins/" title="Useful Gnome Plugins" class="md-nav__link">
+      Useful Gnome Plugins
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/linux%E9%85%8D%E7%BD%AEsendmail%E5%8F%91%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1/" title="Linux配置sendmail发邮件服务" class="md-nav__link">
+      Linux配置sendmail发邮件服务
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/pip%E5%92%8Cgit%E9%80%9F%E5%BA%A6%E5%A4%AA%E6%85%A2%EF%BC%9F%E9%85%8D%E7%BD%AELinux%E7%BB%88%E7%AB%AF%E4%BB%A3%E7%90%86%E6%95%99%E7%A8%8B/" title="pip和git速度太慢？配置Linux终端代理教程" class="md-nav__link">
+      pip和git速度太慢？配置Linux终端代理教程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E4%B8%A4%E6%AC%BE%E7%94%9F%E4%BA%A7%E5%8A%9B%E5%B7%A5%E5%85%B7/" title="两款生产力工具" class="md-nav__link">
+      两款生产力工具
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E4%B8%BA%E4%BB%80%E4%B9%88Ubuntu%E7%82%B9%E4%BA%86%E5%85%B3%E6%9C%BA%E9%94%AE%E5%8F%98%E6%88%90%E6%B3%A8%E9%94%80%EF%BC%9F/" title="为什么Ubuntu点了关机键变成注销？" class="md-nav__link">
+      为什么Ubuntu点了关机键变成注销？
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84Linux%E6%AD%BB%E6%9C%BA%E9%87%8D%E5%90%AF%E6%96%B9%E6%B3%95/" title="你可能不知道的Linux死机重启方法" class="md-nav__link">
+      你可能不知道的Linux死机重启方法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E5%85%B3%E4%BA%8Euwsgi%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E7%AE%A1%E7%90%86/" title="关于uwsgi服务器的管理" class="md-nav__link">
+      关于uwsgi服务器的管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E5%85%B3%E9%97%ADCentOS-6-%E9%98%B2%E7%81%AB%E5%A2%99%EF%BC%8C%E5%85%B3%E9%97%ADLinux%E7%B3%BB%E7%BB%9F%E9%98%B2%E7%81%AB%E5%A2%99/" title="关闭CentOS 6 防火墙，关闭Linux系统防火墙" class="md-nav__link">
+      关闭CentOS 6 防火墙，关闭Linux系统防火墙
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E5%86%85%E5%AD%98%E4%B8%8D%E5%A4%9F%E7%94%A8%EF%BC%9F%E5%9C%A8Linux%E4%B8%8A%E4%BD%BF%E7%94%A8swapfile%E9%85%8D%E7%BD%AE%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4/" title="内存不够用？在Linux上使用swapfile配置交换空间" class="md-nav__link">
+      内存不够用？在Linux上使用swapfile配置交换空间
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E5%9C%A8Linux%E4%B8%8A%E5%AE%89%E8%A3%85Windows%E5%AD%97%E4%BD%93/" title="在Linux上安装Windows字体" class="md-nav__link">
+      在Linux上安装Windows字体
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E5%9C%A8Manjaro%E4%B8%8A%E9%85%8D%E7%BD%AE%E5%9B%BD%E5%86%85%E6%BA%90/" title="在Manjaro上配置国内源" class="md-nav__link">
+      在Manjaro上配置国内源
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E5%9C%A8Nginx%E4%B8%8A%E9%85%8D%E7%BD%AEhttps%E5%8A%A0%E5%AF%86%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="在Nginx上配置https加密服务器" class="md-nav__link">
+      在Nginx上配置https加密服务器
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E6%9F%90%E4%BA%9B%E8%BD%AF%E4%BB%B6%E4%B8%AD%E6%97%A0%E6%B3%95%E5%88%87%E6%8D%A2fcitx%E8%BE%93%E5%85%A5%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98/" title="某些软件中无法切换fcitx输入法的问题" class="md-nav__link">
+      某些软件中无法切换fcitx输入法的问题
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E7%BB%99VMware%E9%87%8C%E7%9A%84Linux%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip/" title="给VMware里的Linux虚拟机配置静态ip" class="md-nav__link">
+      给VMware里的Linux虚拟机配置静态ip
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E7%BB%99%E4%BD%A0%E7%9A%84Deepin%E7%B3%BB%E7%BB%9F%E6%8D%A2%E4%B8%BB%E9%A2%98%EF%BD%9E/" title="给你的Deepin系统换主题～" class="md-nav__link">
+      给你的Deepin系统换主题～
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E8%AE%BE%E7%BD%AELinux%E9%BB%98%E8%AE%A4%E7%9A%84%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8/" title="设置Linux默认的文件管理器" class="md-nav__link">
+      设置Linux默认的文件管理器
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E8%BD%BB%E6%9D%BE%E8%A7%A3%E5%86%B3Linux%2BWindows%E5%8F%8C%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E4%B8%8D%E4%B8%80%E8%87%B4%E9%97%AE%E9%A2%98/" title="轻松解决Linux+Windows双系统时间不一致问题" class="md-nav__link">
+      轻松解决Linux+Windows双系统时间不一致问题
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux/%E9%85%8D%E7%BD%AEMariaDB%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/" title="配置MariaDB数据库服务端远程访问" class="md-nav__link">
+      配置MariaDB数据库服务端远程访问
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      Linux评测
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Linux评测
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux%E8%AF%84%E6%B5%8B/9-Most-Beautiful-Linux-Distros-You-Need-To-Use-%282018-Edition%29/" title="9 Most Beautiful Linux Distros You Need To Use (2018 Edition)" class="md-nav__link">
+      9 Most Beautiful Linux Distros You Need To Use (2018 Edition)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux%E8%AF%84%E6%B5%8B/New-features-in-Linux-Mint-19-Cinnamon/" title="New features in Linux Mint 19 Cinnamon" class="md-nav__link">
+      New features in Linux Mint 19 Cinnamon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux%E8%AF%84%E6%B5%8B/%E5%85%B3%E4%BA%8E%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8A%98%E8%85%BE-%EF%BC%86-OpenSuSE%E5%85%BB%E8%80%81/" title="关于系统的折腾 ＆ OpenSuSE养老" class="md-nav__link">
+      关于系统的折腾 ＆ OpenSuSE养老
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux%E8%AF%84%E6%B5%8B/%E5%9B%BD%E4%BA%A7Linux%E5%8F%91%E8%A1%8C%E7%89%88Deepin%E6%B5%85%E5%BA%A6%E4%BD%93%E9%AA%8C/" title="国产Linux发行版Deepin浅度体验" class="md-nav__link">
+      国产Linux发行版Deepin浅度体验
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Linux%E8%AF%84%E6%B5%8B/%E6%9C%80%E5%A5%BD%E7%9A%84Linux%E5%8F%91%E8%A1%8C%E7%89%88%EF%BC%9AUbuntu-18-04-%E6%B7%B1%E5%BA%A6%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/" title="最好的Linux发行版：Ubuntu 18 04 深度使用体验" class="md-nav__link">
+      最好的Linux发行版：Ubuntu 18 04 深度使用体验
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      PHP
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        PHP
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../PHP/PHP-Ajax-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E6%9C%80%E4%BD%B3%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="PHP Ajax 跨域问题最佳解决方案" class="md-nav__link">
+      PHP Ajax 跨域问题最佳解决方案
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../PHP/PHP7-0-%2B-Swoole-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="PHP7 0 + Swoole 环境配置" class="md-nav__link">
+      PHP7 0 + Swoole 环境配置
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../PHP/PHP7-0-%E6%96%B0%E7%89%B9%E6%80%A7/" title="PHP7 0 新特性" class="md-nav__link">
+      PHP7 0 新特性
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Production
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Production
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Production/%E3%80%90%E5%BC%80%E6%BA%90%E3%80%91%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AAJava%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1BookManageSystem/" title="JavaBookManageSystem" class="md-nav__link">
+      JavaBookManageSystem
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Production/%E3%80%90%E5%BC%80%E6%BA%90%E3%80%91%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EJavaFX%E7%9A%84%E5%B0%8F%E6%B8%B8%E6%88%8F%EF%BC%9ACrazyAlpha/" title="【开源】发布一个基于JavaFX的小游戏：CrazyAlpha" class="md-nav__link">
+      【开源】发布一个基于JavaFX的小游戏：CrazyAlpha
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12" type="checkbox" id="nav-12">
+    
+    <label class="md-nav__link" for="nav-12">
+      Python
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-12">
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/Jupyter-Notebook-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE/" title="Jupyter Notebook 简单配置" class="md-nav__link">
+      Jupyter Notebook 简单配置
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/Python-%E6%9C%AC%E5%9C%B0%E6%97%B6%E9%97%B4%E5%92%8CUTC%E6%97%B6%E9%97%B4%E8%BD%AC%E6%8D%A2/" title="Python 本地时间和UTC时间转换" class="md-nav__link">
+      Python 本地时间和UTC时间转换
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/Python%E4%B8%AD%E7%9A%84%E4%B8%89%E5%85%83%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Python中的三元表达式" class="md-nav__link">
+      Python中的三元表达式
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/Python%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%BC%82%E5%B8%B8%EF%BC%88Exception%EF%BC%89%E4%BF%A1%E6%81%AF/" title="Python中获取异常（Exception）信息" class="md-nav__link">
+      Python中获取异常（Exception）信息
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/Python%E8%B8%A9%E5%9D%91%EF%BC%9A%E7%B1%BB%E4%B8%8E%E7%B1%BB%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E4%B8%8E%E4%BD%BF%E7%94%A8/" title="Python踩坑：类与类对象类型参数传递与使用" class="md-nav__link">
+      Python踩坑：类与类对象类型参数传递与使用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/Python%EF%BC%9A%E4%BD%BF%E7%94%A8logging%E6%A8%A1%E5%9D%97%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97/" title="Python：使用logging模块记录日志" class="md-nav__link">
+      Python：使用logging模块记录日志
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/Scrapy%E5%92%8CDjango%E4%BA%92%E6%93%8D%E4%BD%9C/" title="Scrapy和Django互操作" class="md-nav__link">
+      Scrapy和Django互操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/Using-VirtualenvWrapper-to-manage-your-virtual-environment/" title="Using VirtualenvWrapper to manage your virtual environment" class="md-nav__link">
+      Using VirtualenvWrapper to manage your virtual environment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/Using-python-virtual-environment-on-Windows/" title="Using python virtual environment on Windows" class="md-nav__link">
+      Using python virtual environment on Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/python%E5%AE%9E%E7%8E%B0%E8%A7%A3%E6%9E%90markdown%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%EF%BC%8C%E5%B9%B6%E4%B8%94%E4%BF%9D%E5%AD%98%E5%88%B0%E6%9C%AC%E5%9C%B0~/" title="Python实现解析markdown文档中的图片，并且保存到本地~" class="md-nav__link">
+      Python实现解析markdown文档中的图片，并且保存到本地~
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/python%E5%AE%9E%E7%8E%B0%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F/" title="Python实现静态变量" class="md-nav__link">
+      Python实现静态变量
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/python%EF%BC%9A%E8%A7%A3%E5%86%B3json-dump%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/" title="Python：解决json dump中文乱码问题" class="md-nav__link">
+      Python：解决json dump中文乱码问题
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/%E4%BD%BF%E7%94%A8Django%E6%90%AD%E5%BB%BA%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/" title="使用Django搭建微信小程序后端服务" class="md-nav__link">
+      使用Django搭建微信小程序后端服务
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/%E4%BD%BF%E7%94%A8Python3%E6%96%B0%E7%89%B9%E6%80%A7%E7%B1%BB%E5%9E%8B%E6%B3%A8%E8%A7%A3%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E5%8F%AF%E8%AF%BB%E6%80%A7/" title="使用Python3新特性类型注解提高代码可读性" class="md-nav__link">
+      使用Python3新特性类型注解提高代码可读性
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/%E5%85%B3%E4%BA%8EPython%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" title="关于Python的异常处理" class="md-nav__link">
+      关于Python的异常处理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/%E5%8D%87%E7%BA%A7pip%E4%B9%8B%E5%90%8E%E8%BF%9Epip%E9%83%BD%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BA%86%EF%BC%9F%E7%AE%80%E5%8D%95%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="升级pip之后连pip都不能用了？简单解决方法" class="md-nav__link">
+      升级pip之后连pip都不能用了？简单解决方法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/%E6%88%91%E7%94%A8Qt%E5%92%8CPython%E5%BC%80%E5%8F%91%E4%BA%86%E4%B8%80%E4%B8%AA%E8%A7%86%E9%A2%91%E5%90%88%E5%B9%B6%E5%B7%A5%E5%85%B7/" title="我用Qt和Python开发了一个视频合并工具" class="md-nav__link">
+      我用Qt和Python开发了一个视频合并工具
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/%E7%BC%96%E5%86%99%E7%88%AC%E8%99%AB%E8%87%AA%E5%8A%A8%E4%B8%8B%E8%BD%BD%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80%E5%AE%98%E7%BD%91%E4%B8%8A%E5%A5%BD%E7%9C%8B%E7%9A%84%E5%A3%81%E7%BA%B8/" title="编写爬虫自动下载王者荣耀官网上好看的壁纸" class="md-nav__link">
+      编写爬虫自动下载王者荣耀官网上好看的壁纸
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%BC%80%E5%8F%91%E7%AE%80%E5%8D%95%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%88%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97%EF%BC%89%EF%BC%9APython%E5%AE%9E%E7%8E%B0/" title="自己动手开发简单消息队列（异步任务队列）：Python实现" class="md-nav__link">
+      自己动手开发简单消息队列（异步任务队列）：Python实现
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Python/%E9%85%8D%E7%BD%AEpip%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E5%8A%A0%E5%BF%ABpython%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E5%AE%89%E8%A3%85%E9%80%9F%E5%BA%A6~/" title="配置pip国内镜像加快python第三方库安装速度~" class="md-nav__link">
+      配置pip国内镜像加快python第三方库安装速度~
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-13" type="checkbox" id="nav-13">
+    
+    <label class="md-nav__link" for="nav-13">
+      VB入门教程
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-13">
+        VB入门教程
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../VB%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/%E3%80%90VB%E8%B6%85%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E3%80%91%E4%B8%80%E3%80%81%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2/" title="【VB超简单入门】一、写在前面" class="md-nav__link">
+      【VB超简单入门】一、写在前面
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../VB%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/%E3%80%90VB%E8%B6%85%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E3%80%91%E4%B9%9D%E3%80%81%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F-1/" title="【VB超简单入门】九、程序执行顺序 1" class="md-nav__link">
+      【VB超简单入门】九、程序执行顺序 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../VB%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/%E3%80%90VB%E8%B6%85%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E3%80%91%E4%BA%8C%E3%80%81%E7%9F%A5%E8%AF%86%E5%87%86%E5%A4%87/" title="【VB超简单入门】二、知识准备" class="md-nav__link">
+      【VB超简单入门】二、知识准备
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../VB%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/%E3%80%90VB%E8%B6%85%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E3%80%91%E5%85%AB%E3%80%81%E5%9B%9B%E7%A7%8D%E8%BF%90%E7%AE%97/" title="【VB超简单入门】八、四种运算" class="md-nav__link">
+      【VB超简单入门】八、四种运算
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../VB%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/%E5%85%B3%E4%BA%8E%E3%80%8AVB%E8%B6%85%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8%E3%80%8B/" title="关于《VB超简单入门》" class="md-nav__link">
+      关于《VB超简单入门》
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-14" type="checkbox" id="nav-14">
+    
+    <label class="md-nav__link" for="nav-14">
+      Web前端
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-14">
+        Web前端
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Web%E5%89%8D%E7%AB%AF/%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E4%BD%BF%E7%94%A8Material-Design%E5%9B%BE%E6%A0%87/" title="在网页中使用Material Design图标" class="md-nav__link">
+      在网页中使用Material Design图标
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-15" type="checkbox" id="nav-15">
+    
+    <label class="md-nav__link" for="nav-15">
+      Windows
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-15">
+        Windows
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Windows/IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF/" title="IT之家学院：让Win10文件管理器的详细信息窗格显示更多信息" class="md-nav__link">
+      IT之家学院：让Win10文件管理器的详细信息窗格显示更多信息
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Windows/IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9%E4%BD%A0%E7%9A%84Win10%E6%A1%8C%E9%9D%A2%E6%AF%94macOS%E8%BF%98%E7%AE%80%E6%B4%81%E6%BC%82%E4%BA%AE%E9%AB%98%E5%A4%A7%E4%B8%8A/" title="IT之家学院：让你的Win10桌面比macOS还简洁漂亮高大上" class="md-nav__link">
+      IT之家学院：让你的Win10桌面比macOS还简洁漂亮高大上
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Windows/WSL%E5%B0%8F%E6%8A%80%E5%B7%A7%EF%BC%9A%E5%88%87%E6%8D%A2%E5%88%B0zsh%E4%BB%A5%E5%8F%8A%E5%8A%A0%E5%85%A5%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/" title="WSL小技巧：切换到zsh以及加入右键菜单" class="md-nav__link">
+      WSL小技巧：切换到zsh以及加入右键菜单
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Windows/Win10%E5%AE%89%E8%A3%85Ubuntu%E5%AD%90%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B/" title="Win10安装Ubuntu子系统教程" class="md-nav__link">
+      Win10安装Ubuntu子系统教程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Windows/Win10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%9F%E8%83%BD%E8%BF%90%E8%A1%8C%E5%9B%BE%E5%BD%A2%E7%A8%8B%E5%BA%8F/" title="Win10的Linux子系统也能运行图形程序" class="md-nav__link">
+      Win10的Linux子系统也能运行图形程序
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Windows/Windows10-%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8%EF%BC%8C%E6%95%B4%E7%90%86%2B%E6%8E%92%E7%89%88/" title="Windows10 快捷键大全，整理+排版" class="md-nav__link">
+      Windows10 快捷键大全，整理+排版
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Windows/Windows%E5%B9%B3%E5%8F%B0%E4%B8%8BGit%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="Windows平台下Git的安装与配置" class="md-nav__link">
+      Windows平台下Git的安装与配置
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Windows/Windows%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B8%8A%E9%85%8D%E7%BD%AESSH%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="Windows的Linux子系统上配置SSH服务器" class="md-nav__link">
+      Windows的Linux子系统上配置SSH服务器
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Windows/%E5%A6%82%E4%BD%95%E9%98%BB%E6%AD%A2Win10%E9%87%8D%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%BA%94%E7%94%A8%EF%BC%9F/" title="如何阻止Win10重置默认应用？" class="md-nav__link">
+      如何阻止Win10重置默认应用？
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Windows/%E5%BF%98%E8%AE%B0WSL%E7%9A%84root%E5%AF%86%E7%A0%81%E6%80%8E%E4%B9%88%E5%8A%9E/" title="忘记WSL的root密码怎么办" class="md-nav__link">
+      忘记WSL的root密码怎么办
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Windows/%E8%BF%99%E6%98%AF%E6%BC%94%E4%B9%A0%EF%BC%9AWin10%E8%93%9D%E5%B1%8F%EF%BC%8C%E9%9A%8F%E4%BD%A0%E5%8F%AC%E5%94%A4/" title="这是演习：Win10蓝屏，随你召唤" class="md-nav__link">
+      这是演习：Win10蓝屏，随你召唤
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-16" type="checkbox" id="nav-16">
+    
+    <label class="md-nav__link" for="nav-16">
+      书单
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-16">
+        书单
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E4%B9%A6%E5%8D%95/New-books-bought-%E3%80%8AProgramming-Python%E3%80%8B/" title="New books bought 《Programming Python》" class="md-nav__link">
+      New books bought 《Programming Python》
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E4%B9%A6%E5%8D%95/%E2%80%9C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E6%A6%82%E8%AE%BA%E2%80%9D%E7%B3%BB%E5%88%97%EF%BC%8C%E9%9B%86%E9%BD%90%E4%B8%89%E6%9C%AC%EF%BC%8C%E5%8F%AC%E5%94%A4%E7%A5%9E%E9%BE%99%EF%BC%81/" title="“计算机科学概论”系列，集齐三本，召唤神龙！" class="md-nav__link">
+      “计算机科学概论”系列，集齐三本，召唤神龙！
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E4%B9%A6%E5%8D%95/%E3%80%8AGo-Web%E7%BC%96%E7%A8%8B%E3%80%8B%E5%85%A5%E6%89%8B/" title="《Go Web编程》入手" class="md-nav__link">
+      《Go Web编程》入手
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E4%B9%A6%E5%8D%95/%E3%80%8APHP-and-MySQL-Web-Development%E3%80%8BNew-book-bought/" title="《PHP and MySQL Web Development》New book bought" class="md-nav__link">
+      《PHP and MySQL Web Development》New book bought
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E4%B9%A6%E5%8D%95/%E3%80%8A%E9%87%8D%E6%9E%84-%E6%94%B9%E5%96%84%E6%97%A2%E6%9C%89%E4%BB%A3%E7%A0%81%E3%80%8BRefactoring-Improving-the-Design-of-Existing-Code/" title="《重构 改善既有代码》Refactoring Improving the Design of Existing Code" class="md-nav__link">
+      《重构 改善既有代码》Refactoring Improving the Design of Existing Code
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E4%B9%A6%E5%8D%95/%E5%88%9A%E5%88%9A%E5%85%A5%E6%89%8B%E6%96%B0%E4%B9%A6%E4%BA%86%EF%BC%8C%E5%98%BF%E5%98%BF%EF%BC%8C%E4%B8%80%E6%9C%AC%E3%80%8APro-C%23%E3%80%8B%E5%B2%82%E4%B8%8D%E6%98%AF%E7%BE%8E%E6%BB%8B%E6%BB%8B/" title="刚刚入手新书了，嘿嘿，一本《Pro C#》岂不是美滋滋" class="md-nav__link">
+      刚刚入手新书了，嘿嘿，一本《Pro C#》岂不是美滋滋
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E4%B9%A6%E5%8D%95/%E5%98%BF%E5%98%BF%EF%BC%8C%E6%88%91%E4%B9%9F%E6%98%AF%E6%8B%A5%E6%9C%89%E5%B0%8F%E7%BA%A2%E4%B9%A6%E7%9A%84%E4%BA%BA%E4%BA%86~%E3%80%8AJavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E5%85%A5%E6%89%8B/" title="嘿嘿，我也是拥有小红书的人了~《JavaScript高级程序设计》入手" class="md-nav__link">
+      嘿嘿，我也是拥有小红书的人了~《JavaScript高级程序设计》入手
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E4%B9%A6%E5%8D%95/%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%B8%8E%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8A%E4%B8%8E%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%85%B1%E8%88%9E%E3%80%8B/" title="机器人与人工智能系列之《与机器人共舞》" class="md-nav__link">
+      机器人与人工智能系列之《与机器人共舞》
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-17" type="checkbox" id="nav-17">
+    
+    <label class="md-nav__link" for="nav-17">
+      微小说
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-17">
+        微小说
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E5%BE%AE%E5%B0%8F%E8%AF%B4/%E6%A2%A6%E4%B8%AD%E4%B9%8B%E6%83%85%EF%BC%8C%E4%BD%95%E5%BF%85%E9%9D%9E%E7%9C%9F%E2%80%94%E2%80%94%E5%A4%A9%E4%B8%8B%E5%B2%82%E5%B0%91%E6%A2%A6%E4%B8%AD%E4%BA%BA/" title="梦中之情，何必非真——天下岂少梦中人" class="md-nav__link">
+      梦中之情，何必非真——天下岂少梦中人
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-18" type="checkbox" id="nav-18" checked>
+    
+    <label class="md-nav__link" for="nav-18">
+      推荐系统
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-18">
+        推荐系统
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E6%8A%96%E9%9F%B3%E5%A4%B4%E6%9D%A1%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E7%81%AB%EF%BC%9F%E6%8F%AD%E7%A7%98%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E4%B9%8B%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95/" title="抖音头条为什么这么火？揭秘推荐系统原理之协同过滤算法" class="md-nav__link">
+      抖音头条为什么这么火？揭秘推荐系统原理之协同过滤算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        知乎和抖音为什么那么让人上瘾？推荐系统工作原理初探
+      </label>
+    
+    <a href="./" title="知乎和抖音为什么那么让人上瘾？推荐系统工作原理初探" class="md-nav__link md-nav__link--active">
+      知乎和抖音为什么那么让人上瘾？推荐系统工作原理初探
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    推荐系统简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    推荐系统分类
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    根据其是否为不同的用户推荐不同的数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    根据其数据源
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    根据其建立方式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    按推荐方法分类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    推荐系统工作流程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    欢迎交流
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-19" type="checkbox" id="nav-19">
+    
+    <label class="md-nav__link" for="nav-19">
+      搜索引擎
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-19">
+        搜索引擎
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/Whoosh%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="Whoosh搜索引擎的安装与配置" class="md-nav__link">
+      Whoosh搜索引擎的安装与配置
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2%E5%BC%95%E6%93%8E%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8ALucene%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" title="全文检索引擎原理以及Lucene简单介绍" class="md-nav__link">
+      全文检索引擎原理以及Lucene简单介绍
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-20" type="checkbox" id="nav-20">
+    
+    <label class="md-nav__link" for="nav-20">
+      日更计划
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-20">
+        日更计划
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%97%A5%E6%9B%B4%E8%AE%A1%E5%88%92/2019-05-23/" title="2019 05 23" class="md-nav__link">
+      2019 05 23
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%97%A5%E6%9B%B4%E8%AE%A1%E5%88%92/2019-06-22-1/" title="2019 06 22 1" class="md-nav__link">
+      2019 06 22 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%97%A5%E6%9B%B4%E8%AE%A1%E5%88%92/2019-06-22/" title="2019 06 22" class="md-nav__link">
+      2019 06 22
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%97%A5%E6%9B%B4%E8%AE%A1%E5%88%92/Movie--Hidden-Figures/" title="Movie Hidden Figures" class="md-nav__link">
+      Movie  Hidden Figures
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%97%A5%E6%9B%B4%E8%AE%A1%E5%88%92/Movie-the-pursuit-of-happiness/" title="Movie the pursuit of happiness" class="md-nav__link">
+      Movie the pursuit of happiness
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%97%A5%E6%9B%B4%E8%AE%A1%E5%88%92/%E3%80%90%E6%97%A5%E6%9B%B4%E3%80%91Day3%EF%BC%9A%E5%86%99%E4%BD%9C%E2%80%94%E2%80%94%E5%9C%A8%E5%BF%99%E7%A2%8C%E4%B8%AD%E5%9D%9A%E6%8C%81/" title="【日更】Day3：写作——在忙碌中坚持" class="md-nav__link">
+      【日更】Day3：写作——在忙碌中坚持
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%97%A5%E6%9B%B4%E8%AE%A1%E5%88%92/%E6%AF%8F%E5%91%A8%E6%80%BB%E7%BB%93%EF%BC%9A2019-01-21%EF%BD%9E27/" title="每周总结：2019 01 21～27" class="md-nav__link">
+      每周总结：2019 01 21～27
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%97%A5%E6%9B%B4%E8%AE%A1%E5%88%92/%E6%AF%8F%E5%91%A8%E6%80%BB%E7%BB%93%EF%BC%9A2019-01-28-~-2019-02-03/" title="每周总结：2019 01 28 ~ 2019 02 03" class="md-nav__link">
+      每周总结：2019 01 28 ~ 2019 02 03
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%97%A5%E6%9B%B4%E8%AE%A1%E5%88%92/%E6%AF%8F%E5%91%A8%E6%80%BB%E7%BB%93%EF%BC%9A2019-02-04~10/" title="每周总结：2019 02 04~10" class="md-nav__link">
+      每周总结：2019 02 04~10
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%97%A5%E6%9B%B4%E8%AE%A1%E5%88%92/%E6%AF%8F%E5%91%A8%E6%80%BB%E7%BB%93%EF%BC%9A2019-02-11~17/" title="每周总结：2019 02 11~17" class="md-nav__link">
+      每周总结：2019 02 11~17
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-21" type="checkbox" id="nav-21">
+    
+    <label class="md-nav__link" for="nav-21">
+      时评
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-21">
+        时评
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%97%B6%E8%AF%84/%E4%BB%8E%E2%80%9C%E7%83%AD%E9%97%A8%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%A4%B4%E8%84%91%E7%8E%8B%E8%80%85%E8%A2%AB%E4%B8%8B%E6%9E%B6%E2%80%9D%E7%9C%8B%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%8E%AF%E5%A2%83/" title="从“热门小程序头脑王者被下架”看微信小程序环境" class="md-nav__link">
+      从“热门小程序头脑王者被下架”看微信小程序环境
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-22" type="checkbox" id="nav-22">
+    
+    <label class="md-nav__link" for="nav-22">
+      机器学习
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-22">
+        机器学习
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/LittleWhiteOne%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1/" title="LittleWhite One" class="md-nav__link">
+      LittleWhite One
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%EF%BC%9ASurprise%E5%BA%93%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="推荐系统开发实践：Surprise库基本用法" class="md-nav__link">
+      推荐系统开发实践：Surprise库基本用法
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-23" type="checkbox" id="nav-23">
+    
+    <label class="md-nav__link" for="nav-23">
+      杂七杂八
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-23">
+        杂七杂八
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/Chrome%E6%8F%92%E4%BB%B6%E6%8B%AF%E6%95%91%E4%BD%A0%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7%E6%8E%A8%E6%96%87%E6%8E%92%E7%89%88/" title="Chrome插件拯救你的公众号推文排版" class="md-nav__link">
+      Chrome插件拯救你的公众号推文排版
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8D%95%E7%8B%AC%E5%88%A0%E9%99%A4%E5%B7%B2%E4%BF%9D%E5%AD%98%E7%9A%84%E5%9C%B0%E5%9D%80/" title="Chrome浏览器单独删除已保存的地址" class="md-nav__link">
+      Chrome浏览器单独删除已保存的地址
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E9%97%B2%E7%BD%AE%E4%B8%8D%E6%B5%AA%E8%B4%B9%EF%BC%81%E5%88%A9%E7%94%A8%E6%97%A7%E6%89%8B%E6%9C%BA%E6%90%AD%E8%AE%BEG-Fcm%E6%8E%A8%E9%80%81/" title="IT之家学院：闲置不浪费！利用旧手机搭设G Fcm推送" class="md-nav__link">
+      IT之家学院：闲置不浪费！利用旧手机搭设G Fcm推送
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/NPM-Warn--ENOENT--no-such-file-or-directory/" title="NPM Warn ENOENT no such file or directory" class="md-nav__link">
+      NPM Warn  ENOENT  no such file or directory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/Nokia-5230%E7%9A%84%E8%BF%9C%E5%8F%A4%E6%88%AA%E5%9B%BE%EF%BC%8C%E6%80%80%E5%BF%B5%E4%B8%80%E4%B8%AAS60v5/" title="Nokia 5230的远古截图，怀念一个S60v5" class="md-nav__link">
+      Nokia 5230的远古截图，怀念一个S60v5
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85NPM%E9%95%9C%E5%83%8F%E6%BA%90%E6%8F%90%E9%AB%98%E9%80%9F%E5%BA%A6/" title="使用国内NPM镜像源提高速度" class="md-nav__link">
+      使用国内NPM镜像源提高速度
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E4%BF%AE%E6%94%B9_Inotify-Watches-Limit_%E6%8F%90%E9%AB%98idea%E6%80%A7%E8%83%BD/" title="修改 Inotify Watches Limit 提高idea性能" class="md-nav__link">
+      修改 Inotify Watches Limit 提高idea性能
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E5%86%99%E7%BB%99%E5%B0%8F%E8%87%AD%E8%87%AD%E7%9A%84%E8%AF%9D%EF%BC%8C%E4%B8%83%E4%B8%AA%E6%9C%88%E5%BF%AB%E4%B9%90~/" title="写给小臭臭的话，七个月快乐~" class="md-nav__link">
+      写给小臭臭的话，七个月快乐~
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E5%96%86%E5%A4%A7%E5%B8%88%E5%86%99%E7%BB%99%E5%89%8D%E7%AB%AF%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BB%BA%E8%AE%AE/" title="书籍推荐" class="md-nav__link">
+      书籍推荐
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E5%9B%A2%E9%98%9F%E5%85%AC%E4%BC%97%E5%8F%B7%E8%BF%81%E7%A7%BB-%2B-%E5%85%AC%E4%BC%97%E5%8F%B7%E5%92%8C%E5%8D%9A%E5%AE%A2%E6%8E%A8%E8%8D%90/" title="团队公众号迁移 + 公众号和博客推荐" class="md-nav__link">
+      团队公众号迁移 + 公众号和博客推荐
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E5%A5%87%E6%80%AA%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3%E4%B9%A0%E9%A2%98%EF%BD%9E4-21/" title="操作系统作业" class="md-nav__link">
+      操作系统作业
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E5%B9%BF%E5%B7%9E%E7%9A%84%E5%A4%8F%E5%A4%A9%E6%A0%BC%E5%A4%96%E7%9A%84%E7%83%AD%EF%BC%9A9%E6%9C%88%E5%AE%9E%E8%AE%AD%E5%BF%83%E5%BE%97%E5%B0%8F%E7%BB%93/" title="广州的夏天格外的热：9月实训心得小结" class="md-nav__link">
+      广州的夏天格外的热：9月实训心得小结
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E5%BC%80%E5%A7%8B%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%96%B0%E5%8D%9A%E5%AE%A2%E4%BA%86%EF%BC%8C%E5%A4%8D%E5%8F%A4%E9%A3%8EMetro%E9%A3%8E%E6%A0%BC%EF%BC%8C%E9%A1%BA%E4%BE%BFdiss%E4%B8%80%E4%B8%8Bjs/" title="开始开发一个新博客了，复古风Metro风格，顺便diss一下js" class="md-nav__link">
+      开始开发一个新博客了，复古风Metro风格，顺便diss一下js
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E5%BC%80%E6%BA%90%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F%E5%93%AA%E5%AE%B6%E5%BC%BA%EF%BC%9F%E5%88%B0%E5%BA%95%E8%A6%81%E8%87%AA%E5%B7%B1%E5%81%9A%E8%BF%98%E6%98%AFGitHub%E8%A7%81%EF%BC%9F/" title="开源博客系统哪家强？到底要自己做还是GitHub见？" class="md-nav__link">
+      开源博客系统哪家强？到底要自己做还是GitHub见？
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E/" title="我也入坑折腾黑苹果，还成功了～" class="md-nav__link">
+      我也入坑折腾黑苹果，还成功了～
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E6%88%91%E7%9A%84%E6%96%B0%E5%8D%9A%E5%AE%A2%E4%B8%8A%E7%BA%BF%E4%BA%86%EF%BC%8C%E9%99%84%E4%B8%8AHexo%E5%8D%9A%E5%AE%A2%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/" title="我的新博客上线了，附上Hexo博客折腾记录" class="md-nav__link">
+      我的新博客上线了，附上Hexo博客折腾记录
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E6%8A%93%E4%BD%8F%E4%B9%9D%E6%9C%88%E5%B0%8F%E5%B0%BE%E5%B7%B4%E7%9A%84%E5%B0%8F%E6%80%BB%E7%BB%93%EF%BC%8C%E7%A5%96%E5%9B%BD%E7%94%9F%E6%97%A5%E5%BF%AB%E4%B9%90~/" title="抓住九月小尾巴的小总结，祖国生日快乐~" class="md-nav__link">
+      抓住九月小尾巴的小总结，祖国生日快乐~
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E8%8B%B9%E6%9E%9C%E7%AB%9F%E7%84%B6%E7%BB%99%E6%88%91%E5%8F%91%E8%BF%99%E7%A7%8D%E9%82%AE%E4%BB%B6%EF%BC%9F%E8%BF%99%E6%98%AF%E4%BB%80%E4%B9%88%E6%96%B0%E9%AA%97%E5%B1%80/" title="苹果竟然给我发这种邮件？这是什么新骗局" class="md-nav__link">
+      苹果竟然给我发这种邮件？这是什么新骗局
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E8%A7%A3%E5%86%B3Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%BA%E5%88%B6http%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0https%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决Chrome浏览器强制http重定向到https的问题" class="md-nav__link">
+      解决Chrome浏览器强制http重定向到https的问题
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E8%AF%BE%E7%A8%8B%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/" title="软件工程课程思维导图" class="md-nav__link">
+      软件工程课程思维导图
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E8%BD%BB%E6%9D%BE%E8%A7%A3%E5%86%B3%E7%99%BE%E5%BA%A6%E4%BA%91%E9%99%90%E9%80%9F%E9%97%AE%E9%A2%98/" title="轻松解决百度云限速问题" class="md-nav__link">
+      轻松解决百度云限速问题
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-24" type="checkbox" id="nav-24">
+    
+    <label class="md-nav__link" for="nav-24">
+      游戏
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-24">
+        游戏
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E6%B8%B8%E6%88%8F/%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80%E5%88%B7%E9%87%91%E5%B8%81%E5%B0%8F%E5%8A%A9%E6%89%8B%E5%8F%91%E5%B8%83/" title="王者荣耀刷金币小助手发布" class="md-nav__link">
+      王者荣耀刷金币小助手发布
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-25" type="checkbox" id="nav-25">
+    
+    <label class="md-nav__link" for="nav-25">
+      编程
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-25">
+        编程
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E7%BC%96%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E4%B8%80%EF%BC%9A-NetCore-%E5%AE%9E%E7%8E%B0%E6%A8%A1%E6%8B%9F%E5%A4%9A%E9%81%93%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%AE%80%E5%8D%95%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E7%94%A8/" title="操作系统学习一： NetCore 实现模拟多道程序设计的简单处理机调用" class="md-nav__link">
+      操作系统学习一： NetCore 实现模拟多道程序设计的简单处理机调用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E7%BC%96%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E4%B8%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%B8%8E%E6%AD%BB%E9%94%81-%E4%BB%A5%E5%8F%8A%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81--NetCore%E5%AE%9E%E7%8E%B0/" title="操作系统学习三：进程调度与死锁 以及银行家算法避免死锁 NetCore实现" class="md-nav__link">
+      操作系统学习三：进程调度与死锁 以及银行家算法避免死锁  NetCore实现
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E7%BC%96%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E4%BA%8C%EF%BC%9A%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E4%BA%92%E6%96%A5%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98--NetCore%E5%AE%9E%E7%8E%B0/" title="操作系统学习二：进程同步与互斥之生产者 消费者问题 NetCore实现" class="md-nav__link">
+      操作系统学习二：进程同步与互斥之生产者 消费者问题  NetCore实现
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E7%BC%96%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E4%B8%80%EF%BC%8C%E5%8E%BB%E9%99%A4%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E6%B3%A8%E9%87%8A/" title="编译原理学习一，去除代码中的注释" class="md-nav__link">
+      编译原理学习一，去除代码中的注释
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E7%BC%96%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E6%B5%85%E6%9E%90/" title="设计模式之代理模式浅析" class="md-nav__link">
+      设计模式之代理模式浅析
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-26" type="checkbox" id="nav-26">
+    
+    <label class="md-nav__link" for="nav-26">
+      评
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-26">
+        评
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E8%AF%84/%E3%80%8A%E5%9B%B4%E5%9F%8E%E3%80%8B%E7%89%87%E6%AE%B5%E7%AC%94%E8%AE%B0/" title="《围城》片段笔记" class="md-nav__link">
+      《围城》片段笔记
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E8%AF%84/%E5%88%9D%E8%AF%BB%E3%80%8A%E5%9B%B4%E5%9F%8E%E3%80%8B/" title="初读《围城》" class="md-nav__link">
+      初读《围城》
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E8%AF%84/%E6%88%91%E6%9C%80%E5%90%8E%E6%82%94%E7%9C%8B%E7%9A%84%E7%94%B5%E5%BD%B1%E4%B9%8B%E4%B8%80%E3%80%8A%E6%8C%AA%E5%A8%81%E7%9A%84%E6%A3%AE%E6%9E%97%E3%80%8B/" title="我最后悔看的电影之一《挪威的森林》" class="md-nav__link">
+      我最后悔看的电影之一《挪威的森林》
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E8%AF%84/%E9%9D%92%E6%98%A5%E7%9A%84%E6%A0%B7%E5%AD%90%EF%BC%8C%E6%98%AF%E6%97%A7%E6%97%B6%E5%85%89%E9%87%8C%E6%9C%80%E5%A5%BD%E7%9A%84%E6%88%91%E4%BB%AC%E3%80%82%E8%87%B4%E3%80%8A%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%97%A7%E6%97%B6%E5%85%89%E3%80%8B/" title="青春的样子，是旧时光里最好的我们。致《你好，旧时光》" class="md-nav__link">
+      青春的样子，是旧时光里最好的我们。致《你好，旧时光》
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-27" type="checkbox" id="nav-27">
+    
+    <label class="md-nav__link" for="nav-27">
+      随笔
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-27">
+        随笔
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9A%8F%E7%AC%94/2019%E5%B0%8F%E6%80%BB%E7%BB%93/" title="2019小总结" class="md-nav__link">
+      2019小总结
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9A%8F%E7%AC%94/%E4%BD%9B%E5%AD%A6%E5%85%A5%E9%97%A8%EF%BC%8C%E5%85%B3%E4%BA%8E%E3%80%8A%E8%88%AC%E8%8B%A5%E6%B3%A2%E7%BD%97%E8%9C%9C%E5%A4%9A%E5%BF%83%E7%BB%8F%E3%80%8B%E7%9A%84~/" title="佛学入门，关于《般若波罗蜜多心经》的~" class="md-nav__link">
+      佛学入门，关于《般若波罗蜜多心经》的~
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9A%8F%E7%AC%94/%E4%BD%9B%E6%9B%B0%E2%80%9C%E4%B8%89%E4%B8%8D%E5%96%84%E2%80%9D%EF%BC%8C%E5%8D%B3%EF%BC%9A%E2%80%9D%E8%B4%AA%E2%80%9C%E3%80%81%E2%80%9D%E5%97%94%E2%80%9C%E3%80%81%E2%80%9D%E7%97%B4%E2%80%9C/" title="佛曰“三不善”，即：”贪“、”嗔“、”痴“" class="md-nav__link">
+      佛曰“三不善”，即：”贪“、”嗔“、”痴“
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9A%8F%E7%AC%94/%E5%86%99%E4%B8%80%E5%86%99%E7%94%9F%E6%B4%BB%E5%90%A7%EF%BC%8C%E4%BA%BA%E7%94%9F%E4%B8%8D%E5%8F%AA%E6%98%AF%E6%9C%89%E5%AD%A6%E4%B9%A0%E5%92%8C%E5%B7%A5%E4%BD%9C%E3%80%82/" title="写一写生活吧，人生不只是有学习和工作。" class="md-nav__link">
+      写一写生活吧，人生不只是有学习和工作。
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9A%8F%E7%AC%94/%E5%A4%A7%E6%82%B2%E5%92%92%EF%BC%9A%E5%8D%83%E6%89%8B%E5%8D%83%E7%9C%BC%E8%A7%82%E4%B8%96%E9%9F%B3%E8%8F%A9%E8%90%A8%E5%B9%BF%E5%A4%A7%E5%9C%86%E6%BB%A1%E6%97%A0%E7%A2%8D%E5%A4%A7%E6%82%B2%E5%BF%83%E9%99%80%E7%BD%97%E5%B0%BC%E7%BB%8F%E5%A4%A7%E6%82%B2%E7%A5%9E%E5%92%92/" title="大悲咒：千手千眼观世音菩萨广大圆满无碍大悲心陀罗尼经大悲神咒" class="md-nav__link">
+      大悲咒：千手千眼观世音菩萨广大圆满无碍大悲心陀罗尼经大悲神咒
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9A%8F%E7%AC%94/%E6%88%91%E7%9A%842018%EF%BC%9A%E4%B8%8D%E5%BF%B5%E8%BF%87%E5%BE%80%E3%80%81%E4%B8%8D%E7%95%8F%E5%B0%86%E6%9D%A5/" title="我的2018：不念过往、不畏将来" class="md-nav__link">
+      我的2018：不念过往、不畏将来
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9A%8F%E7%AC%94/%E6%AD%A3%E6%9C%88%E5%88%9D%E4%B8%83%EF%BC%8C%E9%9B%A8%E3%80%82/" title="正月初七，雨。" class="md-nav__link">
+      正月初七，雨。
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9A%8F%E7%AC%94/%E6%B2%A1%E6%9C%89%E5%AD%A6%E4%BC%9A%E6%AD%A3%E7%A1%AE%E5%AE%A1%E8%A7%86%E8%87%AA%E5%B7%B1%EF%BC%8C%E4%B8%8D%E8%83%BD%E8%AF%B4%E6%98%AF%E7%9C%9F%E6%AD%A3%E7%9A%84%E6%88%90%E9%95%BF/" title="没有学会正确审视自己，不能说是真正的成长" class="md-nav__link">
+      没有学会正确审视自己，不能说是真正的成长
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../%E9%9A%8F%E7%AC%94/%E8%81%8A%E8%81%8A%E4%BA%92%E8%81%94%E7%BD%91%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1%EF%BC%9A%E4%BB%8E%E5%BC%A0%E5%B0%8F%E9%BE%99%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%88%B0%E4%B8%80%E7%99%BE%E5%A4%9AM%E7%9A%84%E8%AF%97%E8%AF%8DApp/" title="聊聊互联网产品设计：从张小龙的微信到一百多M的诗词App" class="md-nav__link">
+      聊聊互联网产品设计：从张小龙的微信到一百多M的诗词App
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    推荐系统简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    推荐系统分类
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    根据其是否为不同的用户推荐不同的数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    根据其数据源
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    根据其建立方式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    按推荐方法分类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    推荐系统工作流程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    欢迎交流
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>知乎和抖音为什么那么让人上瘾？推荐系统工作原理初探</h1>
+                
+                <h2 id="_1">推荐系统简介</h2>
+<p><strong>推荐系统</strong>（Recommender system）是帮助用户<strong>发现内容</strong>，<strong>克服信息过载</strong>的重要工具。它通过<strong>分析</strong>用户行为，对用户兴趣<strong>建模</strong>，从而<strong>预测</strong>用户的兴趣并给用户做<strong>推荐</strong>。</p>
+<p>{% asset_img 8869373-49154ad011c86702.png %}</p>
+<blockquote>
+<p>一位研究互联网对社会和经济影响的美国作家Clay Shirky （克莱·舍基）曾说过一句话：“人类面临的问题并非信息泛滥，而是信息过滤失效”。淘宝、亚马逊、网易云音乐、Instagram和各大视频网站等都利用推荐系统给用户推荐他们可能感兴趣的各种产品——书籍、电影、音乐、电子产品等。于用户而言，推荐系统犹如“智能”过滤器，帮助他们快速找到心仪之物。于企业而言，推荐系统以内容为驱动，为企业创收。</p>
+</blockquote>
+<h2 id="_2">推荐系统分类</h2>
+<h3 id="_3">根据其是否为不同的用户推荐不同的数据</h3>
+<ol>
+<li>基于大众行为（网站管理员自行推荐，或者基于系统所有用户的反馈统计计算出的当下比较流行的物品）</li>
+<li>个性化推荐引擎（帮你找志同道合，趣味相投的朋友，然后在此基础上实行推荐）</li>
+</ol>
+<h3 id="_4">根据其数据源</h3>
+<ol>
+<li>基于人口统计学的（用户年龄或性别相同判定为相似用户）</li>
+<li>基于内容的（物品具有相同关键词和Tag，没有考虑人为因素）</li>
+<li>基于协同过滤的推荐（发现物品，内容或用户的相关性推荐，分为三个子类，下文阐述）</li>
+</ol>
+<blockquote>
+<p>随着 Web2.0 的发展，Web 站点更加提倡用户参与和用户贡献，因此基于协同过滤的推荐机制因运而生。它的原理很简单，就是根据用户对物品或者信息的偏好，发现物品或者内容本身的相关性，或者是发现用户的相关性，然后再基于这些关联性进行推荐。 </p>
+</blockquote>
+<h3 id="_5">根据其建立方式</h3>
+<ol>
+<li>基于物品和用户本身的（用户-物品二维矩阵描述用户喜好，聚类算法）</li>
+<li>基于关联规则的（The Apriori algorithm算法是一种最有影响的挖掘布尔关联规则频繁项集的算法）</li>
+<li>基于模型的推荐（机器学习，所谓机器学习，即让计算机像人脑一样持续学习，是人工智能领域内的一个子领域）</li>
+</ol>
+<h3 id="_6">按推荐方法分类</h3>
+<ul>
+<li>基于内容推荐</li>
+<li><strong>协同过滤推荐</strong></li>
+<li><strong>基于关联规则推荐</strong></li>
+<li>基于效用推荐</li>
+<li>基于知识推荐</li>
+<li>组合推荐</li>
+</ul>
+<h2 id="_7">推荐系统工作流程</h2>
+<p>{% asset_img 8869373-8cbf91080510face.png %}</p>
+<h2 id="_8">欢迎交流</h2>
+<p>我整理了一系列的技术文章和资料，在公众号「程序设计实验室」后台回复 linux、flutter、c#、netcore、android、java、python 等可获取相关技术文章和资料，同时有任何问题都可以在公众号后台留言~</p>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../%E6%8A%96%E9%9F%B3%E5%A4%B4%E6%9D%A1%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E7%81%AB%EF%BC%9F%E6%8F%AD%E7%A7%98%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E4%B9%8B%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95/" title="抖音头条为什么这么火？揭秘推荐系统原理之协同过滤算法" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                抖音头条为什么这么火？揭秘推荐系统原理之协同过滤算法
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/Whoosh%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="Whoosh搜索引擎的安装与配置" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Whoosh搜索引擎的安装与配置
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+    
+  </body>
+</html>
