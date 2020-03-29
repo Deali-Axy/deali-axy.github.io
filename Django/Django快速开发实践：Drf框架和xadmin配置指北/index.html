@@ -3589,59 +3589,56 @@
 <h2 id="serializers">定义serializers</h2>
 <p>这个很简单，只要告诉框架你需要序列化model的哪个字段就好了。
 官方文档：<a href="https://www.django-rest-framework.org/tutorial/1-serialization/">https://www.django-rest-framework.org/tutorial/1-serialization/</a></p>
-<p>代码例子如下：</p>
-<pre><code class="python">from .models import *
-from rest_framework import serializers
+<p>代码例子如下：
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
 
-class StudentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Student
-        fields = ['name', 'gender', 'number', 'faculty', 'major', 'year']
-</code></pre>
-
+<span class="k">class</span> <span class="nc">StudentSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Student</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;number&#39;</span><span class="p">,</span> <span class="s1">&#39;faculty&#39;</span><span class="p">,</span> <span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">]</span>
+</code></pre></div></p>
 <p>附上这个Student的model代码：</p>
-<pre><code class="python">class Student(models.Model):
-    name = models.CharField('姓名', max_length=10)
-    gender = models.IntegerField('性别', default=1, choices=GenderChoices)
-    number = models.CharField('学号', max_length=20, blank=True)
-    faculty = models.CharField('学院', max_length=20, blank=True)
-    major = models.CharField('专业', max_length=20, blank=True)
-    year = models.CharField('届别', max_length=4)
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s1">&#39;姓名&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">gender</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s1">&#39;性别&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">GenderChoices</span><span class="p">)</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s1">&#39;学号&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">faculty</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s1">&#39;学院&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">major</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s1">&#39;专业&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s1">&#39;届别&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
-    def __str__(self):
-        return self.name
-</code></pre>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+</code></pre></div>
 
 <p>## 定义viewsets
 就是把queryset和serializers关联起来。</p>
 <p>贴一下代码，对应上面的student的serializers。</p>
-<pre><code class="python">from rest_framework import viewsets
-from .models import *
-from .serializers import *
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">viewsets</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.serializers</span> <span class="kn">import</span> <span class="o">*</span>
 
-class StudentViewSet(viewsets.ModelViewSet):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
-</code></pre>
+<span class="k">class</span> <span class="nc">StudentViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Student</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">StudentSerializer</span>
+</code></pre></div>
 
 <h2 id="router">配置router</h2>
 <p>可以理解为Rest Framework的urls配置。</p>
-<p>代码：</p>
-<pre><code class="python">from rest_framework import routers
-from core import views
+<p>代码：
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">routers</span>
+<span class="kn">from</span> <span class="nn">core</span> <span class="kn">import</span> <span class="n">views</span>
 
-router = routers.DefaultRouter()
-router.register('user', views.UserViewSet)
-</code></pre>
-
-<p>然后再加入Django的urls配置中：</p>
-<pre><code class="python">urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),  # 这里
-    path('api-auth/', include('rest_framework.urls')),  # 和这里
-]
-</code></pre>
-
+<span class="n">router</span> <span class="o">=</span> <span class="n">routers</span><span class="o">.</span><span class="n">DefaultRouter</span><span class="p">()</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">UserViewSet</span><span class="p">)</span>
+</code></pre></div></p>
+<p>然后再加入Django的urls配置中：
+<div class="highlight"><pre><span></span><code><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;api/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">router</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>  <span class="c1"># 这里</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;api-auth/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;rest_framework.urls&#39;</span><span class="p">)),</span>  <span class="c1"># 和这里</span>
+<span class="p">]</span>
+</code></pre></div></p>
 <p>干净利索，这个router应该和urls一样能嵌套的，不过我没有深入学Rest Framework，所以没有了解到，以后有需要再查一下文档。</p>
 <p>关于drf的简单参考文档：
 - <a href="https://juejin.im/post/5a9520dc6fb9a0634f40c2db">https://juejin.im/post/5a9520dc6fb9a0634f40c2db</a>
@@ -3658,88 +3655,82 @@ router.register('user', views.UserViewSet)
 <p>有兴趣请看看官方github：<a href="https://github.com/newpanjing/simpleui">https://github.com/newpanjing/simpleui</a></p>
 <h2 id="xadmin">安装xadmin</h2>
 <p>现在Django-xadmin好像已经不维护了，至少在github上看到是作者去写纯前端的xadmin框架了，然后安装起来也是一波三折，你直接在pip安装也不行，因为那个是xadmin的0.x版本，支持的是Django1.x的，要安装xadmin的django2分支，才能支持Django2.x，然后我一开始用上Django3，貌似这货还和Django3有兼容问题……</p>
-<p>那到底怎么安装才好啊？简单点的方法就是官方github说的：</p>
-<pre><code class="source-shell">pip install git+git://github.com/sshwsfc/xadmin.git@django2
-</code></pre>
-
-<p>不过这个方法我有时候可以有时候不行，好像是github被屏蔽了吧，唉，所以还有别的方法，就是安装打包好的wheel文件，从xadmin官方仓库把代码下载下来，然后checkout到django2分支，再运行命令打包成wheel文件，接着就可以拿去pip安装了，有空我上传到pypi，方便一下有需要的同学。</p>
-<p>安装完运行可能还会报错：TypeError: render() got an unexpected keyword argument 'renderer'，原因是集成DjangoUeditor时出错，需要需要修改虚拟环境下的boundfield.py文件，位置在<code>venv/lib/python3.6/site-packages/django/forms/boundfield.py</code>，修改内容：</p>
-<pre><code class="python">89        return widget.render(
-90            name=self.html_initial_name if only_initial else self.html_name,
-91            value=self.value(),
-92            attrs=attrs,
-93            # renderer=self.form.renderer,（93行处注释掉，就能正常运行了）
-94        )
-</code></pre>
-
+<p>那到底怎么安装才好啊？简单点的方法就是官方github说的：
+<div class="highlight"><pre><span></span><code>pip install git+git://github.com/sshwsfc/xadmin.git@django2
+</code></pre></div>
+不过这个方法我有时候可以有时候不行，好像是github被屏蔽了吧，唉，所以还有别的方法，就是安装打包好的wheel文件，从xadmin官方仓库把代码下载下来，然后checkout到django2分支，再运行命令打包成wheel文件，接着就可以拿去pip安装了，有空我上传到pypi，方便一下有需要的同学。</p>
+<p>安装完运行可能还会报错：TypeError: render() got an unexpected keyword argument 'renderer'，原因是集成DjangoUeditor时出错，需要需要修改虚拟环境下的boundfield.py文件，位置在<code>venv/lib/python3.6/site-packages/django/forms/boundfield.py</code>，修改内容：
+<div class="highlight"><pre><span></span><code><span class="mi">89</span>        <span class="k">return</span> <span class="n">widget</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
+<span class="mi">90</span>            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">html_initial_name</span> <span class="k">if</span> <span class="n">only_initial</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_name</span><span class="p">,</span>
+<span class="mi">91</span>            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span>
+<span class="mi">92</span>            <span class="n">attrs</span><span class="o">=</span><span class="n">attrs</span><span class="p">,</span>
+<span class="mi">93</span>            <span class="c1"># renderer=self.form.renderer,（93行处注释掉，就能正常运行了）</span>
+<span class="mi">94</span>        <span class="p">)</span>
+</code></pre></div></p>
 <h3 id="xadmin_1">xadmin配置</h3>
 <p>xadmin的配置和Django的差不多，但是也有一点小区别，不过还好它支持Django的messages框架，simpleui好像不支持……有毒</p>
-<p>Django admin的配置是写在每个app下面的admin.py文件的，xadmin得写在adminx.py里，然后好像也没法像Django一样用装饰器注册admin类，下面的代码展示了注册admin方法：</p>
-<pre><code class="python">xadmin.site.register(model类, admin类)
-</code></pre>
-
-<p>注意xadmin的admin类还不能像Django一样继承<code>ModelAdmin</code>类，只能继承<code>BaseAdminObject</code>或干脆不写，我看xadmin的源码是继承自<code>object</code>的（跟不写一样）</p>
-<p>下面这个例子就很全了，各种属性的配置。</p>
-<pre><code class="python">class CourseAdmin(object):
-    '''课程'''
-    list_display = [ 'name','desc','detail','degree','learn_times','students']   #显示的字段
-    search_fields = ['name', 'desc', 'detail', 'degree', 'students']             #搜索字段
-    list_filter = [ 'name','desc','detail','degree','learn_times','students']    #过滤字段
-    model_icon = 'fa fa-book'            #自定义图标
-    ordering = ['-click_nums']           #排序功能
-    readonly_fields = ['click_nums']     #只读字段，不能编辑
-    exclude = ['fav_nums']               #不显示的字段
-    inlines = [LessonInline,CourseResourceInline]    #增加章节和课程资源
-    list_editable = ['degree','desc'] #在列表页可以直接编辑的
-    list_display = ['get_zj_nums']  #直接使用函数名作为字段显示
-    list_display = ['go_to']  # 跳转到上面定义的地址
-    refresh_times = [3,5]           #自动刷新（里面是秒数）可选3或5秒
-</code></pre>
-
+<p>Django admin的配置是写在每个app下面的admin.py文件的，xadmin得写在adminx.py里，然后好像也没法像Django一样用装饰器注册admin类，下面的代码展示了注册admin方法：
+<div class="highlight"><pre><span></span><code><span class="n">xadmin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">model类</span><span class="p">,</span> <span class="n">admin类</span><span class="p">)</span>
+</code></pre></div>
+注意xadmin的admin类还不能像Django一样继承<code>ModelAdmin</code>类，只能继承<code>BaseAdminObject</code>或干脆不写，我看xadmin的源码是继承自<code>object</code>的（跟不写一样）</p>
+<p>下面这个例子就很全了，各种属性的配置。
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">CourseAdmin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;课程&#39;&#39;&#39;</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;desc&#39;</span><span class="p">,</span><span class="s1">&#39;detail&#39;</span><span class="p">,</span><span class="s1">&#39;degree&#39;</span><span class="p">,</span><span class="s1">&#39;learn_times&#39;</span><span class="p">,</span><span class="s1">&#39;students&#39;</span><span class="p">]</span>   <span class="c1">#显示的字段</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="s1">&#39;detail&#39;</span><span class="p">,</span> <span class="s1">&#39;degree&#39;</span><span class="p">,</span> <span class="s1">&#39;students&#39;</span><span class="p">]</span>             <span class="c1">#搜索字段</span>
+    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;desc&#39;</span><span class="p">,</span><span class="s1">&#39;detail&#39;</span><span class="p">,</span><span class="s1">&#39;degree&#39;</span><span class="p">,</span><span class="s1">&#39;learn_times&#39;</span><span class="p">,</span><span class="s1">&#39;students&#39;</span><span class="p">]</span>    <span class="c1">#过滤字段</span>
+    <span class="n">model_icon</span> <span class="o">=</span> <span class="s1">&#39;fa fa-book&#39;</span>            <span class="c1">#自定义图标</span>
+    <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-click_nums&#39;</span><span class="p">]</span>           <span class="c1">#排序功能</span>
+    <span class="n">readonly_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;click_nums&#39;</span><span class="p">]</span>     <span class="c1">#只读字段，不能编辑</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;fav_nums&#39;</span><span class="p">]</span>               <span class="c1">#不显示的字段</span>
+    <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">LessonInline</span><span class="p">,</span><span class="n">CourseResourceInline</span><span class="p">]</span>    <span class="c1">#增加章节和课程资源</span>
+    <span class="n">list_editable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;degree&#39;</span><span class="p">,</span><span class="s1">&#39;desc&#39;</span><span class="p">]</span> <span class="c1">#在列表页可以直接编辑的</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;get_zj_nums&#39;</span><span class="p">]</span>  <span class="c1">#直接使用函数名作为字段显示</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;go_to&#39;</span><span class="p">]</span>  <span class="c1"># 跳转到上面定义的地址</span>
+    <span class="n">refresh_times</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>           <span class="c1">#自动刷新（里面是秒数）可选3或5秒</span>
+</code></pre></div></p>
 <h3 id="admin_1">admin类的属性详情</h3>
 <ul>
 <li>model_icon：图标用的是font awesome图标，不过这个网站国内好像访问不了，所以我们用国内版的网站替代，<a href="http://www.fontawesome.com.cn/icons-ui/">http://www.fontawesome.com.cn/icons-ui/</a></li>
 <li>inlines的配置和Django的差不多，不过不能像Django一样集成xxxinline的父类……要定义的话参考下面的代码：</li>
 </ul>
-<pre><code class="python">class LessonInline(object):
-    model = Lesson
-    extra = 0
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">LessonInline</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Lesson</span>
+    <span class="n">extra</span> <span class="o">=</span> <span class="mi">0</span>
 
-class CourseResourceInline(object):
-    model = CourseResource
-    extra = 0
-</code></pre>
+<span class="k">class</span> <span class="nc">CourseResourceInline</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CourseResource</span>
+    <span class="n">extra</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div>
 
 <ul>
 <li>还有一个图表功能，不过我觉得没啥用，主要是x坐标换成char字段就显示不出来了，很恶心，例子：</li>
 </ul>
-<pre><code class="python">data_charts = {
-        &quot;user_count&quot;: {'title': u&quot;course_num&quot;, &quot;x-field&quot;: &quot;addtime&quot;, &quot;y-field&quot;: (&quot;course_num&quot;),
-                       &quot;order&quot;: ('addtime',)
-        }
-}
-</code></pre>
-
-<p>效果这样：
+<p><div class="highlight"><pre><span></span><code><span class="n">data_charts</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;user_count&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;course_num&quot;</span><span class="p">,</span> <span class="s2">&quot;x-field&quot;</span><span class="p">:</span> <span class="s2">&quot;addtime&quot;</span><span class="p">,</span> <span class="s2">&quot;y-field&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;course_num&quot;</span><span class="p">),</span>
+                       <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;addtime&#39;</span><span class="p">,)</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+效果这样：
 <img alt="" src="../Django%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%EF%BC%9ADrf%E6%A1%86%E6%9E%B6%E5%92%8Cxadmin%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8C%97.assets/8869373-b91877412c3a038c.png" /></p>
 <h3 id="admin_2">admin类的一些方法覆盖</h3>
 <p>为啥要覆盖？当然是要自定义一些操作啊，比如你要保存用户信息的时候验证某些字段，通过才给保存，不通过就给出提示，咋搞，覆盖父类函数呀！</p>
-<p>代码例子：</p>
-<pre><code class="python">class ExamineAdmin(BaseAdminObject):
-    .......
+<p>代码例子：
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ExamineAdmin</span><span class="p">(</span><span class="n">BaseAdminObject</span><span class="p">):</span>
+    <span class="o">.......</span>
 
-    def save_models(self):
-        # 获取保存的新对象
-        obj = self.new_obj
-        # 获取原来的对象，如果是创建新对象，则org_obj为空
-        org_obj = self.org_obj
+    <span class="k">def</span> <span class="nf">save_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># 获取保存的新对象</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_obj</span>
+        <span class="c1"># 获取原来的对象，如果是创建新对象，则org_obj为空</span>
+        <span class="n">org_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">org_obj</span>
 
-        if 不满足条件:
-            self.message_user(message=&quot;不满足xxx条件&quot;, level='error')
-        else:
-            return super().save_models()
-</code></pre>
-
+        <span class="k">if</span> <span class="err">不满足条件</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">message_user</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;不满足xxx条件&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_models</span><span class="p">()</span>
+</code></pre></div></p>
 <p>大概就这样，显示信息的话基本能满足，不过就算显示了“不满足xxx条件”的信息，不保存这个model对象，也还会出来一个保存成功信息，xadmin似乎没有提供api关掉，文档啥也没写，要解决这个问题还是自己啃xadmin代码吧，不然靠搜索和文档完全就是黑箱操作……无力吐槽</p>
 <p>参考：
 - <a href="http://www.liujiangblog.com/course/django/93">http://www.liujiangblog.com/course/django/93</a>
@@ -3827,6 +3818,8 @@ class CourseResourceInline(object):
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

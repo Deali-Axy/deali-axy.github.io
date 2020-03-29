@@ -3435,21 +3435,21 @@
                   <h1>Config Software mirrors source for OpenSuSE 42 3</h1>
                 
                 <p>I just wrote a shell file to finish it.</p>
-<pre><code class="bash"># Disable the system source
+<div class="highlight"><pre><span></span><code><span class="c1"># Disable the system source</span>
 sudo zypper mr -da
 
-# Add aliyun mirrors
+<span class="c1"># Add aliyun mirrors</span>
 sudo zypper addrepo -f http://mirrors.aliyun.com/opensuse/update/leap/42.3/non-oss/ openSUSE-42.3-Update-Non-Oss
 sudo zypper addrepo -f http://mirrors.aliyun.com/opensuse/distribution/leap/42.3/repo/oss/ openSUSE-42.3-Oss
 sudo zypper addrepo -f http://mirrors.aliyun.com/opensuse/distribution/leap/42.3/repo/non-oss/ openSUSE-42.3-Non-Oss
 sudo zypper addrepo -f http://mirrors.aliyun.com/packman/openSUSE_Leap_42.3/ openSUSE-42.3-packman
 
-# refresh
+<span class="c1"># refresh</span>
 sudo zypper ref
 
-# Update
-# sudo zypper up
-</code></pre>
+<span class="c1"># Update</span>
+<span class="c1"># sudo zypper up</span>
+</code></pre></div>
 
 <h2 id="about">About</h2>
 <h2 id="_1"><img alt="" src="../Config-Software-mirrors-source-for-OpenSuSE-42-3.assets/8869373-901590e019f6f85b.png" /></h2>
@@ -3528,6 +3528,8 @@ sudo zypper ref
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

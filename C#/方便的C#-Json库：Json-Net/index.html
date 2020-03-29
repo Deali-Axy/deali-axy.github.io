@@ -3532,10 +3532,10 @@
                 
                 <h2 id="_1">官网</h2>
 <p>Json.Net用法很简单，本文也只是搬运了一下官网的例子，更多用法可以查看官网，一分钟就能上手。
-https://www.newtonsoft.com/json</p>
+<a href="https://www.newtonsoft.com/json">https://www.newtonsoft.com/json</a></p>
 <h2 id="_2">使用例子</h2>
 <h3 id="_3">对象序列化</h3>
-<pre><code>Product product = new Product();
+<div class="highlight"><pre><span></span><code>Product product = new Product();
 product.Name = &quot;Apple&quot;;
 product.Expiry = new DateTime(2008, 12, 28);
 product.Sizes = new string[] { &quot;Small&quot; };
@@ -3548,15 +3548,15 @@ string json = JsonConvert.SerializeObject(product);
 //     &quot;Small&quot;
 //   ]
 // }
-</code></pre>
+</code></pre></div>
 
 <h3 id="_4">反序列化</h3>
-<pre><code>string json = @&quot;{
-  'Name': 'Bad Boys',
-  'ReleaseDate': '1995-4-7T00:00:00',
-  'Genres': [
-    'Action',
-    'Comedy'
+<div class="highlight"><pre><span></span><code>string json = @&quot;{
+  &#39;Name&#39;: &#39;Bad Boys&#39;,
+  &#39;ReleaseDate&#39;: &#39;1995-4-7T00:00:00&#39;,
+  &#39;Genres&#39;: [
+    &#39;Action&#39;,
+    &#39;Comedy&#39;
   ]
 }&quot;;
 
@@ -3564,10 +3564,10 @@ Movie m = JsonConvert.DeserializeObject&lt;Movie&gt;(json);
 
 string name = m.Name;
 // Bad Boys
-</code></pre>
+</code></pre></div>
 
 <h3 id="linq-to-json">Linq to Json</h3>
-<pre><code>JArray array = new JArray();
+<div class="highlight"><pre><span></span><code>JArray array = new JArray();
 array.Add(&quot;Manual text&quot;);
 array.Add(new DateTime(2000, 5, 23));
 
@@ -3581,13 +3581,12 @@ string json = o.ToString();
 //     &quot;2000-05-23T00:00:00&quot;
 //   ]
 // }
-</code></pre>
+</code></pre></div>
 
 <h2 id="_5">安装方法</h2>
-<p><strong>使用Nuget安装</strong></p>
-<pre><code>Install-Package Newtonsoft.Json
-</code></pre>
-
+<p><strong>使用Nuget安装</strong>
+<div class="highlight"><pre><span></span><code>Install-Package Newtonsoft.Json
+</code></pre></div></p>
 <h2 id="about">About</h2>
 <h2 id="_6"><img alt="" src="方便的C#-Json库：Json-Net.assets\8869373-901590e019f6f85b.png" /></h2>
 <p>了解更多有趣的操作请关注我的微信公众号：DealiAxy
@@ -3665,6 +3664,8 @@ string json = o.ToString();
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

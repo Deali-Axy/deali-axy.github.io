@@ -3471,41 +3471,40 @@
 <h2 id="_3">解决</h2>
 <p>今天晚上花了两个小时在查资料上，翻了Google的官方文档，下载了几个官方Samples，然而并没有发现什么有价值的解决方案，然后继续在Stack Overflow上搜索，Stack Overflow真的是程序员居家出行必备的好帮手，最后终于功夫不负有心人，找到了和我一样遇到相同问题的网友。</p>
 <p>具有参考意义的是这两个回答：</p>
-<p>https://stackoverflow.com/questions/38132148/error-while-inflating-class-android-support-v7-widget-cardview</p>
+<p><a href="https://stackoverflow.com/questions/38132148/error-while-inflating-class-android-support-v7-widget-cardview">https://stackoverflow.com/questions/38132148/error-while-inflating-class-android-support-v7-widget-cardview</a></p>
 <blockquote>
-<p>Try this it will help you remove this android:foreground="?android:attr/selectableItemBackground"</p>
-</blockquote>
-<pre><code class="xml">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-android:layout_width=&quot;wrap_content&quot;
-android:layout_height=&quot;wrap_content&quot;
-xmlns:card_view=&quot;http://schemas.android.com/apk/res-auto&quot;
-android:paddingLeft=&quot;4dp&quot;
-android:paddingRight=&quot;4dp&quot;
-android:paddingBottom=&quot;2dp&quot;&gt;
+<p>Try this it will help you remove this android:foreground="?android:attr/selectableItemBackground"
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+<span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+<span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+<span class="na">xmlns:card_view=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span>
+<span class="na">android:paddingLeft=</span><span class="s">&quot;4dp&quot;</span>
+<span class="na">android:paddingRight=</span><span class="s">&quot;4dp&quot;</span>
+<span class="na">android:paddingBottom=</span><span class="s">&quot;2dp&quot;</span><span class="nt">&gt;</span>
 
-&lt;android.support.v7.widget.CardView
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;wrap_content&quot;
-    android:id=&quot;@+id/cardview&quot;
-    card_view:cardBackgroundColor=&quot;@android:color/white&quot;
-    card_view:cardElevation=&quot;2dp&quot;
-    card_view:cardMaxElevation=&quot;2dp&quot;
-    card_view:cardUseCompatPadding=&quot;true&quot;&gt;
+<span class="nt">&lt;android.support.v7.widget.CardView</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+    <span class="na">android:id=</span><span class="s">&quot;@+id/cardview&quot;</span>
+    <span class="na">card_view:cardBackgroundColor=</span><span class="s">&quot;@android:color/white&quot;</span>
+    <span class="na">card_view:cardElevation=</span><span class="s">&quot;2dp&quot;</span>
+    <span class="na">card_view:cardMaxElevation=</span><span class="s">&quot;2dp&quot;</span>
+    <span class="na">card_view:cardUseCompatPadding=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
 
-    &lt;RelativeLayout
-        android:layout_width=&quot;match_parent&quot;
-        android:layout_height=&quot;match_parent&quot;
-        android:orientation=&quot;vertical&quot;&gt;
+    <span class="nt">&lt;RelativeLayout</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:orientation=</span><span class="s">&quot;vertical&quot;</span><span class="nt">&gt;</span>
 
 ....here i have a bunch of other layout elements
-         &lt;/RelativeLayout&gt;
-    &lt;/android.support.v7.widget.CardView&gt;
-&lt;/LinearLayout&gt;
-</code></pre>
-
+         <span class="nt">&lt;/RelativeLayout&gt;</span>
+    <span class="nt">&lt;/android.support.v7.widget.CardView&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div></p>
+</blockquote>
 <p>这个回答让我把 android:foreground 删掉，我照着删掉了，但是还是不行，但是确实SDK 23以下用这个有兼容性问题。</p>
 <p>然后是这个：
-https://stackoverflow.com/questions/28541920/error-when-inflating-cardview</p>
+<a href="https://stackoverflow.com/questions/28541920/error-when-inflating-cardview">https://stackoverflow.com/questions/28541920/error-when-inflating-cardview</a></p>
 <blockquote>
 <p>From the official notes of <a href="http://android-developers.blogspot.be/2014/10/appcompat-v21-material-design-for-pre.html">appcompat v21</a></p>
 </blockquote>
@@ -3517,7 +3516,7 @@ https://stackoverflow.com/questions/28541920/error-when-inflating-cardview</p>
 <p>Official support is not coming soon, I believe, because lollipop has a dedicated render-thread that no other version has.</p>
 <p>意思就是 <code>android:stateListAnimator="@drawable/selector_elevation"</code>这个不行，在旧版本的系统上不支持。。
 然后还是新的支持coming soon？我不信。</p>
-<p>所以最后，我把这两行代码都删掉了，感人的一幕出现了，终于可以了~~~
+<p>所以最后，我把这两行代码都删掉了，感人的一幕出现了，终于可以了<sub>~</sub>
 删掉的代码，shit！
 <code>xml
 android:stateListAnimator="@drawable/selector_elevation"
@@ -3600,6 +3599,8 @@ android:foreground="?android:attr/selectableItemBackground"</code></p>
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

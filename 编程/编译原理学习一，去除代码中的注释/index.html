@@ -3628,51 +3628,48 @@
 <p>程序主要功能就是消除已经编写好的源程序中的注释。在源程序中注释有两种形式，一种是单行注释，用“//”表示，另一种是多行注释，用“/<em>…</em>/”表示。针对这两种形式，程序中用了if..else..语句加以判断，并做出相应的处理。在这里还有可能出现另一种情况，上述两种注释符号可能出现在引号中，出现在引号中的注释符号并没有注释功能，因此在引号中出现的注释符号不应该被消除。所以，这次编写的程序将要分三种情况分析。</p>
 </blockquote>
 <h4 id="_4">第一种情况，单行注释：</h4>
-<pre><code>if (ch != temp)
+<p><div class="highlight"><pre><span></span><code>if (ch != temp)
 {
     // 这里就是单行注释
     ofile.put(ch);
     ch = ifile.get();
 }
-</code></pre>
-
-<p>或者</p>
-<pre><code>if (ch != temp)
+</code></pre></div>
+或者
+<div class="highlight"><pre><span></span><code>if (ch != temp)
 {
     /* 这里就是单行注释 */
     ofile.put(ch);
     ch = ifile.get();
 }
-</code></pre>
-
+</code></pre></div></p>
 <h4 id="_5">第二种情况，块注释：</h4>
-<pre><code>if (ifile.fail() || ofile.fail())
+<div class="highlight"><pre><span></span><code>if (ifile.fail() || ofile.fail())
 {
     cerr &lt;&lt; &quot;open file fail\n&quot;;
     return EXIT_FAILURE;
     /*返回值EXIT_FAILURE（在cstdlib库中定义）,用于向操作系统报*
     告打开文件失败*/
 }
-</code></pre>
+</code></pre></div>
 
 <h4 id="_6">第三种情况，行后注释：</h4>
-<pre><code>ifile.close(); // 关闭文件
+<div class="highlight"><pre><span></span><code>ifile.close(); // 关闭文件
 ofile.close();
 cout &lt;&lt; &quot;/////*////ret/rtr////&quot;;
 system(&quot;pause&quot;);
 return 0;
-</code></pre>
+</code></pre></div>
 
 <h4 id="_7">还有一个关键的注意点</h4>
-<p>可以看到这一行</p>
-<pre><code>cout &lt;&lt; &quot;/////*////ret/rtr////&quot;;
-</code></pre>
-
-<p>这个字符串用双引号包起来的代码中有很多斜杠，所以要避免将这些斜杠识别为注释。
+<p>可以看到这一行
+<div class="highlight"><pre><span></span><code>cout &lt;&lt; &quot;/////*////ret/rtr////&quot;;
+</code></pre></div>
+这个字符串用双引号包起来的代码中有很多斜杠，所以要避免将这些斜杠识别为注释。
 这里我用的方法是在处理注释前先把包含注释符号的字符串替换掉，等注释删除之后，再添加回去。</p>
 <h2 id="_8">实现代码</h2>
-<p>注释写得很详细啦，配合上面的思路分析，我就不再继续分析代码了～</p>
-<pre><code>var sReader = new StreamReader(filePath);
+<p>注释写得很详细啦，配合上面的思路分析，我就不再继续分析代码了～
+<div class="highlight"><pre><span></span><code>var sReader = new StreamReader(filePath);
 var newSource = &quot;&quot;;
 var inBlock = false;
 var replaceFlag = false;
@@ -3737,11 +3734,10 @@ using (var sWriter = new StreamWriter(outputPath))
     sWriter.Write(newSource);
 }
 System.Console.WriteLine(&quot;操作完成！文件路径：{0}&quot;, outputPath);
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="_9">结果测试</h2>
 <h4 id="_10">源文件</h4>
-<pre><code>#include &lt;iostream&gt;
+<div class="highlight"><pre><span></span><code>#include &lt;iostream&gt;
 #include &lt;fstream&gt;
 #include &lt;iomanip&gt;
 #include &lt;cstdlib&gt;
@@ -3749,7 +3745,7 @@ using namespace std;
 
 int main()
 {
-    cout &lt;&lt; '/';
+    cout &lt;&lt; &#39;/&#39;;
     ifstream ifile; //建立文件流对象
     ofstream ofile;
     ifile.open(&quot;f:\\上机实验题\\C++\\ConsoleApplication2\\ConsoleApplication2\\源.cpp&quot;); //打开F盘根目录下的fileIn.txt文件
@@ -3793,15 +3789,15 @@ int main()
             if (ch == 47)
             { //单行注释情况
                 ch = ifile.get();
-                while (!(ch == '\n'))
+                while (!(ch == &#39;\n&#39;))
                     ch = ifile.get();
             }
-            else if (ch == '*')
+            else if (ch == &#39;*&#39;)
             { //多行注释情况
                 while (1)
                 {
                     ch = ifile.get();
-                    while (!(ch == '*'))
+                    while (!(ch == &#39;*&#39;))
                         ch = ifile.get();
                     ch = ifile.get();
                     if (ch == 47)
@@ -3825,17 +3821,17 @@ int main()
     system(&quot;pause&quot;);
     return 0;
 }
-</code></pre>
+</code></pre></div>
 
 <h4 id="_11">处理后的结果</h4>
-<pre><code>#include &lt;iostream&gt;
+<div class="highlight"><pre><span></span><code>#include &lt;iostream&gt;
 #include &lt;fstream&gt;
 #include &lt;iomanip&gt;
 #include &lt;cstdlib&gt;
 using namespace std;
 int main()
 {
-    cout &lt;&lt; '/';
+    cout &lt;&lt; &#39;/&#39;;
     ifstream ifile; 
     ofstream ofile;
     ifile.open(&quot;f:\\上机实验题\\C++\\ConsoleApplication2\\ConsoleApplication2\\源.cpp&quot;); 
@@ -3877,15 +3873,15 @@ int main()
             if (ch == 47)
             { 
                 ch = ifile.get();
-                while (!(ch == '\n'))
+                while (!(ch == &#39;\n&#39;))
                     ch = ifile.get();
             }
-            else if (ch == '*')
+            else if (ch == &#39;*&#39;)
             { 
                 while (1)
                 {
                     ch = ifile.get();
-                    while (!(ch == '*'))
+                    while (!(ch == &#39;*&#39;))
                         ch = ifile.get();
                     ch = ifile.get();
                     if (ch == 47)
@@ -3907,7 +3903,7 @@ int main()
     system(&quot;pause&quot;);
     return 0;
 }
-</code></pre>
+</code></pre></div>
 
 <h2 id="_12">完整代码</h2>
 <p><a href="https://github.com/Deali-Axy/CompilerConstructionLearning/blob/master/code/exp/exp1/Exp1.cs">https://github.com/Deali-Axy/CompilerConstructionLearning/blob/master/code/exp/exp1/Exp1.cs</a></p>
@@ -3994,6 +3990,8 @@ int main()
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

@@ -3470,71 +3470,63 @@
 虽然之前用其他静态类型语言（例如C#/Java）的时候都搞明白了的，但是换了个动态类型的Python，总会有点令人疑惑。</p>
 <h2 id="_3">例子</h2>
 <p>让我用代码来举例子。</p>
-<p>首先定义两个类，都继承自内置的 <code>Exception</code> 类，说明这两个类是异常类。</p>
-<pre><code class="python">class Error1(Exception):
-    def __str__(self):
-        return 'error1'
+<p>首先定义两个类，都继承自内置的 <code>Exception</code> 类，说明这两个类是异常类。
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Error1</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;error1&#39;</span>
 
 
-class Error2(Exception):
-    def __init__(self):
-        print('error2 init')
+<span class="k">class</span> <span class="nc">Error2</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;error2 init&#39;</span><span class="p">)</span>
 
-    def __str__(self):
-        return 'error2'
-</code></pre>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;error2&#39;</span>
+</code></pre></div></p>
+<p>然后再定义处理异常的方法：
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="n">err</span><span class="p">:</span> <span class="nb">object</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;err:{err.__str__()}&#39;</span><span class="p">)</span>
 
-<p>然后再定义处理异常的方法：</p>
-<pre><code class="python">def error(err: object):
-    print(f'err:{err.__str__()}')
+<span class="k">def</span> <span class="nf">error2</span><span class="p">(</span><span class="n">err</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</code></pre></div></p>
+<p>接着是测试代码：
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="n">Error1</span>
+<span class="k">except</span> <span class="n">Error1</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
-def error2(err: Exception):
-    print(err)
-</code></pre>
-
-<p>接着是测试代码：</p>
-<pre><code class="python">try:
-    raise Error1
-except Error1 as e:
-    error(e)
-
-if 1 != 2:
-    error(Error2)
-</code></pre>
-
-<p>运行结果：</p>
-<pre><code class="bash">err:error1
-  File &quot;/home/test.py&quot;, line 33, in &lt;module&gt;
-    error(Error2)
-  File &quot;/home/test.py&quot;, line 19, in error
-    print(f'err:{err.__str__()}')
-TypeError: __str__() missing 1 required positional argument: 'self'
-</code></pre>
-
-<p>第一个<code>error()</code>的结果没毛病，可是第二个接抛出异常了，看看错误信息先：<code>TypeError: __str__() missing 1 required positional argument: 'self'</code>，没有提供<code>self</code>参数，因为这个参数不是<code>Error2</code>类的实例，所以自然没有<code>self</code>参数。</p>
+<span class="k">if</span> <span class="mi">1</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">error</span><span class="p">(</span><span class="n">Error2</span><span class="p">)</span>
+</code></pre></div></p>
+<p>运行结果：
+<div class="highlight"><pre><span></span><code>err:error1
+  File <span class="s2">&quot;/home/test.py&quot;</span>, line <span class="m">33</span>, in &lt;module&gt;
+    error<span class="o">(</span>Error2<span class="o">)</span>
+  File <span class="s2">&quot;/home/test.py&quot;</span>, line <span class="m">19</span>, in error
+    print<span class="o">(</span>f<span class="s1">&#39;err:{err.__str__()}&#39;</span><span class="o">)</span>
+TypeError: __str__<span class="o">()</span> missing <span class="m">1</span> required positional argument: <span class="s1">&#39;self&#39;</span>
+</code></pre></div>
+第一个<code>error()</code>的结果没毛病，可是第二个接抛出异常了，看看错误信息先：<code>TypeError: __str__() missing 1 required positional argument: 'self'</code>，没有提供<code>self</code>参数，因为这个参数不是<code>Error2</code>类的实例，所以自然没有<code>self</code>参数。</p>
 <p>到这里应该有点明白了，就是调用<code>error(Error2)</code>这个方法的时候，传入的<code>Error2</code>参数其实是<code>Error2</code>这个类型本身，并不是它的对象，有点神奇，居然把一个类型当成参数用了。</p>
 <p>那要怎么解决呢，很简单，传入<code>Error2</code>的对象就行了。
-代码如下：</p>
-<pre><code class="python">if 1 != 2:
-    error(Error2())
-</code></pre>
-
-<p>运行结果</p>
-<pre><code class="bash">error2 init
+代码如下：
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="mi">1</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">error</span><span class="p">(</span><span class="n">Error2</span><span class="p">())</span>
+</code></pre></div></p>
+<p>运行结果
+<div class="highlight"><pre><span></span><code>error2 init
 err:error2
-</code></pre>
-
+</code></pre></div></p>
 <p>没毛病了，上面代码还有个<code>error2</code>方法没有使用呢，来试试看。</p>
-<pre><code class="python">error2(Error2)
-error2(Error2())
-</code></pre>
-
-<p>运行结果</p>
-<pre><code class="bash">&lt;class '__main__.Error2'&gt;
+<p><div class="highlight"><pre><span></span><code><span class="n">error2</span><span class="p">(</span><span class="n">Error2</span><span class="p">)</span>
+<span class="n">error2</span><span class="p">(</span><span class="n">Error2</span><span class="p">())</span>
+</code></pre></div>
+运行结果
+<div class="highlight"><pre><span></span><code>&lt;class <span class="s1">&#39;__main__.Error2&#39;</span>&gt;
 error2 init
 error2
-</code></pre>
-
+</code></pre></div></p>
 <p>可以看出，使用<code>print(Object)</code>的时候，如果是一个类型，就打印这个类型的信息，是类型的对象时，才会打印<code>Object.__str__()</code>返回的结果。
 搞明白了之后其实很简单，但是Python对函数参数没有限制，即使给方法加了<code>type hints</code>，也只是起到了提示作用，不会做真正的限制或者是隐式转换，所以有时候代码写久了头晕脑胀，就容易掉进动态类型坑里了 T_T...</p>
 <p>国际惯例，放图片：
@@ -3617,6 +3609,8 @@ error2
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

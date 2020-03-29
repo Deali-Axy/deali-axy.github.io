@@ -3361,91 +3361,91 @@
                   <h1>Maven国内镜像配置</h1>
                 
                 <p>配置maven安装目录下的<code>conf/settings.xml</code>。
-在<code>&lt;mirrors&gt;</code>节点下，设置：</p>
-<pre><code class="xml">&lt;mirror&gt;
-      &lt;id&gt;aliyun-public&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun public&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/public&lt;/url&gt;
-    &lt;/mirror&gt;
+在<code>&lt;mirrors&gt;</code>节点下，设置：
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-public<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun public<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/public<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
 
-    &lt;mirror&gt;
-      &lt;id&gt;aliyun-central&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun central&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/central&lt;/url&gt;
-    &lt;/mirror&gt;
+    <span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-central<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun central<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/central<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
 
-    &lt;mirror&gt;
-      &lt;id&gt;aliyun-spring&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun spring&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/spring&lt;/url&gt;
-    &lt;/mirror&gt;
+    <span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-spring<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun spring<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/spring<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
 
-    &lt;mirror&gt;
-      &lt;id&gt;aliyun-spring-plugin&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun spring-plugin&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/spring-plugin&lt;/url&gt;
-    &lt;/mirror&gt;
+    <span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-spring-plugin<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun spring-plugin<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/spring-plugin<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
 
-    &lt;mirror&gt;
-      &lt;id&gt;aliyun-apache-snapshots&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun apache-snapshots&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/apache-snapshots&lt;/url&gt;
-    &lt;/mirror&gt;
+    <span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-apache-snapshots<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun apache-snapshots<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/apache-snapshots<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
 
-    &lt;mirror&gt;
-      &lt;id&gt;aliyun-google&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun google&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/google&lt;/url&gt;
-    &lt;/mirror&gt;
+    <span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-google<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun google<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/google<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
 
-    &lt;mirror&gt;
-      &lt;id&gt;aliyun-gradle-plugin&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun gradle-plugin&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/gradle-plugin&lt;/url&gt;
-    &lt;/mirror&gt;
+    <span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-gradle-plugin<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun gradle-plugin<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/gradle-plugin<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
 
-    &lt;mirror&gt;
-      &lt;id&gt;aliyun-jcenter&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun jcenter&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/jcenter&lt;/url&gt;
-    &lt;/mirror&gt;
+    <span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-jcenter<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun jcenter<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/jcenter<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
 
-    &lt;mirror&gt;
-      &lt;id&gt;aliyun-releases&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun releases&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/releases&lt;/url&gt;
-    &lt;/mirror&gt;
+    <span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-releases<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun releases<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/releases<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
 
-    &lt;mirror&gt;
-      &lt;id&gt;aliyun-snapshots&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun snapshots&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/snapshots&lt;/url&gt;
-    &lt;/mirror&gt;
+    <span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-snapshots<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun snapshots<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/snapshots<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
 
-    &lt;mirror&gt;
-      &lt;id&gt;aliyun-grails-core&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun grails-core&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/grails-core&lt;/url&gt;
-    &lt;/mirror&gt;
+    <span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-grails-core<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun grails-core<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/grails-core<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
 
-    &lt;mirror&gt;
-      &lt;id&gt;aliyun-mapr-public&lt;/id&gt;
-      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-      &lt;name&gt;aliyun mapr-public&lt;/name&gt;
-      &lt;url&gt;https://maven.aliyun.com/repository/mapr-public&lt;/url&gt;
-    &lt;/mirror&gt;
-</code></pre>
+    <span class="nt">&lt;mirror&gt;</span>
+      <span class="nt">&lt;id&gt;</span>aliyun-mapr-public<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;mirrorOf&gt;</span>*<span class="nt">&lt;/mirrorOf&gt;</span>
+      <span class="nt">&lt;name&gt;</span>aliyun mapr-public<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;url&gt;</span>https://maven.aliyun.com/repository/mapr-public<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/mirror&gt;</span>
+</code></pre></div></p>
                 
                   
                 
@@ -3519,6 +3519,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

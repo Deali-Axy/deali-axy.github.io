@@ -3495,53 +3495,48 @@
 <p>关于模型设计，对于关系式数据库，有一个简单的原则：想清楚再开始！
 每次修改了数据库结构都需要做<code>Migrate</code>，已有数据的数据库做改动容易引起各种错误（熟练之后很好避免），不过对于刚刚接触不久的同学来说，很多坑还是要踩的。</p>
 <h3 id="choices">关于字段choices的用法</h3>
-<p>之前用到choices的时候都是这样写：</p>
-<pre><code>type = models.IntegerField(choices=(
-        (1, '类型一'),
-        (2, '类型二'),
-        (3, '类型三'),
+<p>之前用到choices的时候都是这样写：
+<div class="highlight"><pre><span></span><code>type = models.IntegerField(choices=(
+        (1, &#39;类型一&#39;),
+        (2, &#39;类型二&#39;),
+        (3, &#39;类型三&#39;),
 ))
-</code></pre>
-
-<p>这样写的话粗看没什么问题，但是在调用，在views里面做判断的时候问题就来了，我怎么记得1234分别对应什么意思，每次写是不是都要查看一下模型里面怎么写的，严重降低开发效率。
-应该这样写：</p>
-<pre><code>    UNAUTHORIZED = 0
+</code></pre></div>
+这样写的话粗看没什么问题，但是在调用，在views里面做判断的时候问题就来了，我怎么记得1234分别对应什么意思，每次写是不是都要查看一下模型里面怎么写的，严重降低开发效率。
+应该这样写：
+<div class="highlight"><pre><span></span><code>    UNAUTHORIZED = 0
     AUTHENTICATING = 1
     AUTHORIZED = 2
     REALNAME_STATUS = (
-        (UNAUTHORIZED, '未认证'),
-        (AUTHENTICATING, '正在申请实名认证，等待审核'),
-        (AUTHORIZED, '已认证'),
+        (UNAUTHORIZED, &#39;未认证&#39;),
+        (AUTHENTICATING, &#39;正在申请实名认证，等待审核&#39;),
+        (AUTHORIZED, &#39;已认证&#39;),
     )
-    realname_status = models.IntegerField('实名认证状态', choices=REALNAME_STATUS)
-</code></pre>
-
-<p>简洁明了，又方便开发～</p>
-<p>然后choices不是定义了一个中文名嘛，我们如何获取到这个名字呢，很简单：</p>
-<pre><code>model_object.get_realname_status_display()
-</code></pre>
-
-<p>其中 <code>model_object</code> 就是模型的对象，形式就是 <code>get_字段名_display()</code>。</p>
+    realname_status = models.IntegerField(&#39;实名认证状态&#39;, choices=REALNAME_STATUS)
+</code></pre></div>
+简洁明了，又方便开发～</p>
+<p>然后choices不是定义了一个中文名嘛，我们如何获取到这个名字呢，很简单：
+<div class="highlight"><pre><span></span><code>model_object.get_realname_status_display()
+</code></pre></div>
+其中 <code>model_object</code> 就是模型的对象，形式就是 <code>get_字段名_display()</code>。</p>
 <h2 id="verbose_name">关于verbose_name的使用</h2>
 <p>我建议，每个字段都用上verbose_name，这样方便自己不说，交付的时候不用花很多时间去解释各个字段是干嘛的，别人一看就清楚了。</p>
 <p>除了
 - ManyToManyField
 - OneToOneField
 - ForeignKey</p>
-<p>这几个引用字段之外，其他类型的字段第一个参数就是verbose_name，这几个类型的字段要手动指定这个参数，像这样：</p>
-<pre><code>user = models.OneToOneField('User', verbose_name='对应用户', on_delete=models.CASCADE)
-</code></pre>
-
+<p>这几个引用字段之外，其他类型的字段第一个参数就是verbose_name，这几个类型的字段要手动指定这个参数，像这样：
+<div class="highlight"><pre><span></span><code>user = models.OneToOneField(&#39;User&#39;, verbose_name=&#39;对应用户&#39;, on_delete=models.CASCADE)
+</code></pre></div></p>
 <h2 id="related_name">related_name的使用</h2>
 <p>一开始我没理解related_name这个参数是什么意思，后面才发现原来DjangoORM这么好用，这个设计其实挺好的，related_name这个参数是用来做引用的反向查询的，举个例子：</p>
 <blockquote>
 <p>一个用户模型，被文章、视频、音乐这些很多个模型作为外键引用了，我现在只有一个用户对象，怎么获取到用户发表过的文章、视频、音乐呢，DjangoORM提供了一种简单有效的方式，就是通过不同的related_name去查询。</p>
 </blockquote>
-<p>使用的时候就是：</p>
-<pre><code>user_object.user_videos.all()
-</code></pre>
-
-<p>这个 <code>user_videos</code> 就是在视频模型里面定义好的 <code>related_name</code> 了～</p>
+<p>使用的时候就是：
+<div class="highlight"><pre><span></span><code>user_object.user_videos.all()
+</code></pre></div>
+这个 <code>user_videos</code> 就是在视频模型里面定义好的 <code>related_name</code> 了～</p>
                 
                   
                 
@@ -3615,6 +3610,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

@@ -3449,31 +3449,25 @@
                   <h1>Android开发：解决在Linux上提示 dev kvm device permission denied问题</h1>
                 
                 <h2 id="_1">操作步骤</h2>
-<p>我用的是Ubuntu系统，首先需要安装qemu-kvm：</p>
-<pre><code class="bash">sudo apt install qemu-kvm
-</code></pre>
-
-<p>将当前用户添加到kvm用户组：</p>
-<pre><code class="bash">sudo adduser $USER kvm
-</code></pre>
-
-<p>检查<code>/dev/kvm</code>所有者：</p>
-<pre><code class="bash">ls -al /dev/kvm
-</code></pre>
-
-<p>一般结果就是所有者是root以及kvm这个组</p>
-<p>添加完了之后检查一下kvm组里有没有你的用户名：</p>
-<pre><code class="bash">grep kvm /etc/group
-</code></pre>
-
-<p>一般结果就是这样：</p>
-<pre><code>kvm:x:数字:用户名
-</code></pre>
-
-<p>之后重启系统生效，如果不想重启可以运行以下命令(仍然得注销后再登录才生效)：</p>
-<pre><code class="bash">udevadm control --reload-rules &amp;&amp; udevadm trigger
-</code></pre>
-
+<p>我用的是Ubuntu系统，首先需要安装qemu-kvm：
+<div class="highlight"><pre><span></span><code>sudo apt install qemu-kvm
+</code></pre></div></p>
+<p>将当前用户添加到kvm用户组：
+<div class="highlight"><pre><span></span><code>sudo adduser <span class="nv">$USER</span> kvm
+</code></pre></div></p>
+<p>检查<code>/dev/kvm</code>所有者：
+<div class="highlight"><pre><span></span><code>ls -al /dev/kvm
+</code></pre></div>
+一般结果就是所有者是root以及kvm这个组</p>
+<p>添加完了之后检查一下kvm组里有没有你的用户名：
+<div class="highlight"><pre><span></span><code>grep kvm /etc/group
+</code></pre></div></p>
+<p>一般结果就是这样：
+<div class="highlight"><pre><span></span><code>kvm:x:数字:用户名
+</code></pre></div></p>
+<p>之后重启系统生效，如果不想重启可以运行以下命令(仍然得注销后再登录才生效)：
+<div class="highlight"><pre><span></span><code>udevadm control --reload-rules <span class="o">&amp;&amp;</span> udevadm trigger
+</code></pre></div></p>
 <p>ps：反正我选择重启</p>
 <h2 id="_2">参考资料</h2>
 <p><a href="https://stackoverflow.com/questions/37300811/android-studio-dev-kvm-device-permission-denied">https://stackoverflow.com/questions/37300811/android-studio-dev-kvm-device-permission-denied</a></p>
@@ -3552,6 +3546,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

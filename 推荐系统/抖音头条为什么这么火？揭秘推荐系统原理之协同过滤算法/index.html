@@ -3626,13 +3626,13 @@
 <h2 id="_1">协同过滤</h2>
 <p><strong>协同过滤</strong>(collaborative filtering)通过利用某兴趣相投、拥有共同经验之群体的喜好来推荐用户感兴趣的信息。</p>
 <p>协同过滤算法最大限度的利用用户之间，或物品之间的相似相关性，而后基于这些信息的基础上实行推荐。比如说，你和你的某个好友都喜欢听音乐，而你们所喜欢的曲风都差不多，你的好友对于某一首歌曲的评价很高，而这首歌你还没有听过。那么，我是不是就能将这首歌推荐给你呢？</p>
-<p>要实现协同过滤，需要以下3个<strong>步骤</strong>：</p>
+<p>要实现协同过滤，需要以下3个**步骤**：</p>
 <ol>
 <li>收集用户偏好</li>
 <li>找到相似的用户或物品</li>
 <li>计算推荐</li>
 </ol>
-<p>协同过滤在使用过程中可能会遇到样本量太少导致的两个<strong>常见问题</strong>是：</p>
+<p>协同过滤在使用过程中可能会遇到样本量太少导致的两个**常见问题**是：</p>
 <ol>
 <li><strong>稀疏性问题</strong>——因用户做出评价过少，导致算出的相关系数不准确</li>
 <li><strong>冷启动问题</strong>——因物品获得评价过少，导致无“权”进入推荐列表中</li>
@@ -3754,41 +3754,71 @@
 <blockquote>
 <p>User CF 和 Item CF 都依赖于相似度的计算，因为只有通过衡量用户之间或物品之间的相似度，才能找到用户的“邻居”，才能完成推荐。</p>
 </blockquote>
-<p><strong>相似度</strong>可通过计算<strong>欧式距离</strong>、<strong>皮尔逊相关系数</strong>、<strong>Cosine相似度</strong>、<strong>Tanimoto相关系数</strong>来衡量:</p>
+<p><strong>相似度**可通过计算**欧式距离</strong>、<strong>皮尔逊相关系数</strong>、<strong>Cosine相似度</strong>、**Tanimoto相关系数**来衡量:</p>
 <ul>
 <li>欧几里德距离（Euclidean Distance）</li>
 </ul>
-<p>$$
+<div>
+<div class="MathJax_Preview">
 d(x,y)=\sqrt{(∑(xi−yi)^2))}
-$$</p>
-<p>$$
+</div>
+<script type="math/tex; mode=display">
+d(x,y)=\sqrt{(∑(xi−yi)^2))}
+</script>
+</div>
+<div>
+<div class="MathJax_Preview">
 sim(x,y)=\frac{1}{1+d(x,y)}
-$$</p>
+</div>
+<script type="math/tex; mode=display">
+sim(x,y)=\frac{1}{1+d(x,y)}
+</script>
+</div>
 <ul>
 <li>皮尔逊相关系数（Pearson Correlation Coefficient）</li>
 </ul>
-<p>$$
+<div>
+<div class="MathJax_Preview">
 p(x,y)
 =\frac{∑x_iy_i−n\overline{x}\overline{y}}{(n−1)S_xS_y}
 =\frac{n∑x_iy_i−∑x_i∑y_i}{\sqrt{n∑x_i^2−(∑x_i)^2}\sqrt{n∑y_i^2−(∑y_i)^2}}
-$$</p>
+</div>
+<script type="math/tex; mode=display">
+p(x,y)
+=\frac{∑x_iy_i−n\overline{x}\overline{y}}{(n−1)S_xS_y}
+=\frac{n∑x_iy_i−∑x_i∑y_i}{\sqrt{n∑x_i^2−(∑x_i)^2}\sqrt{n∑y_i^2−(∑y_i)^2}}
+</script>
+</div>
 <ul>
 <li>Cosine相似度（Cosine Similarity）</li>
 </ul>
-<p>$$
+<div>
+<div class="MathJax_Preview">
 T(x,y)
 =\frac{x⋅y}{∥x∥^2×∥y∥^2}
 =\frac{\sum{x_iy_i}}{\sqrt{\sum{x_i^2}}\sqrt{\sum{y_i^2}}}
-$$</p>
+</div>
+<script type="math/tex; mode=display">
+T(x,y)
+=\frac{x⋅y}{∥x∥^2×∥y∥^2}
+=\frac{\sum{x_iy_i}}{\sqrt{\sum{x_i^2}}\sqrt{\sum{y_i^2}}}
+</script>
+</div>
 <ul>
 <li>Tanimoto系数（Tanimoto Coefficient）</li>
 </ul>
-<p>$$
+<div>
+<div class="MathJax_Preview">
 T(x,y)=\frac{x⋅y}{∥x∥^2+∥y∥^2−x⋅y}
 =\frac{\sum{xiyi}}{\sqrt{∑x_i^2}+\sqrt{∑y_i^2}−∑x_iy_i}
-$$</p>
+</div>
+<script type="math/tex; mode=display">
+T(x,y)=\frac{x⋅y}{∥x∥^2+∥y∥^2−x⋅y}
+=\frac{\sum{xiyi}}{\sqrt{∑x_i^2}+\sqrt{∑y_i^2}−∑x_iy_i}
+</script>
+</div>
 <h4 id="_6">相似邻居计算</h4>
-<p>计算出相似度后，可通过<strong>固定数量的邻居</strong>或<strong>基于相似度门槛的邻居</strong>来进行相似邻居的选定。</p>
+<p>计算出相似度后，可通过**固定数量的邻居**或**基于相似度门槛的邻居**来进行相似邻居的选定。</p>
 <h5 id="1-k">1. 固定数量的K个邻居</h5>
 <p><strong>K-neighborhoods</strong>：意思很明确，就是按分数高低降序取K个。</p>
 <blockquote>
@@ -3801,7 +3831,7 @@ $$</p>
 <p>Threshold-based neighborhoods要表现的就是“宁缺勿滥”，在数据稀疏的情况下效果是非常明显的。</p>
 </blockquote>
 <p><img alt="" src="../%E6%8A%96%E9%9F%B3%E5%A4%B4%E6%9D%A1%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E7%81%AB%EF%BC%9F%E6%8F%AD%E7%A7%98%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E4%B9%8B%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95.assets/8869373-18aa10b97ac8b2b7.png" /></p>
-<p>根据计算相似度的主体不同，可将基于协同过滤的推荐算法分为<strong>基于用户的协同过滤</strong>（UserCF）和<strong>基于物品的协同过滤</strong>(ItemCF)，两者的比较如下表：</p>
+<p>根据计算相似度的主体不同，可将基于协同过滤的推荐算法分为**基于用户的协同过滤**（UserCF）和**基于物品的协同过滤**(ItemCF)，两者的比较如下表：</p>
 <table>
 <thead>
 <tr>
@@ -3838,7 +3868,7 @@ $$</p>
 </tr>
 </tbody>
 </table>
-<p>基于<strong>用户</strong>的协同过滤举例：</p>
+<p>基于**用户**的协同过滤举例：</p>
 <table>
 <thead>
 <tr>
@@ -3874,7 +3904,7 @@ $$</p>
 </tbody>
 </table>
 <p>用户A和用户C都喜欢物品1和物品3，基于用户的协同过滤算法认为用户A和用户C喜好相似，故将用户C喜欢的物品4推荐给用户A。</p>
-<p>基于<strong>物品</strong>的协同过滤举例：</p>
+<p>基于**物品**的协同过滤举例：</p>
 <table>
 <thead>
 <tr>
@@ -3995,6 +4025,8 @@ $$
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

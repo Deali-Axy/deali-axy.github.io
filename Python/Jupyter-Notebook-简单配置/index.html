@@ -3489,36 +3489,31 @@
                   <h1>Jupyter Notebook 简单配置</h1>
                 
                 <h2 id="_1">安装主题</h2>
-<p>默认主题太丑了，必须换个好看的主题，pip安装：</p>
-<pre><code class="bash">pip install jupyterthemes
-</code></pre>
-
-<p>装完之后：</p>
-<pre><code class="bash"># 列出所有主题
+<p>默认主题太丑了，必须换个好看的主题，pip安装：
+<div class="highlight"><pre><span></span><code>pip install jupyterthemes
+</code></pre></div></p>
+<p>装完之后：
+<div class="highlight"><pre><span></span><code><span class="c1"># 列出所有主题</span>
 jt -l
-# 设置主题
-# -T 启用工具栏
-# -N 启用名称栏
+<span class="c1"># 设置主题</span>
+<span class="c1"># -T 启用工具栏</span>
+<span class="c1"># -N 启用名称栏</span>
 jt -t 主题名称 -T -N
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="_2">自动补全</h2>
 <h3 id="nbextensions">安装nbextensions</h3>
-<pre><code class="bash">pip install jupyter_contrib_nbextensions
+<div class="highlight"><pre><span></span><code>pip install jupyter_contrib_nbextensions
 jupyter contrib nbextension install --user
-</code></pre>
+</code></pre></div>
 
 <h3 id="nbextensions_configurator">安装nbextensions_configurator</h3>
-<pre><code class="bash">pip install --user jupyter_nbextensions_configurator 
-jupyter nbextensions_configurator enable --user
-</code></pre>
-
-<ul>
-<li>重启Jupyter Notebook就能看到多出来一个Nbextensions标签页。
-<img alt="" src="../Jupyter-Notebook-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE.assets/8869373-8adb09071b415ff7.png" /></li>
-<li>启用插件：
-<img alt="" src="../Jupyter-Notebook-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE.assets/8869373-4bc47aec0d52b6a6.png" /></li>
-</ul>
+<p><div class="highlight"><pre><span></span><code>pip install --user jupyter_nbextensions_configurator 
+jupyter nbextensions_configurator <span class="nb">enable</span> --user
+</code></pre></div>
+- 重启Jupyter Notebook就能看到多出来一个Nbextensions标签页。
+<img alt="" src="../Jupyter-Notebook-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE.assets/8869373-8adb09071b415ff7.png" />
+- 启用插件：
+<img alt="" src="../Jupyter-Notebook-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE.assets/8869373-4bc47aec0d52b6a6.png" /></p>
 <p>就阔以了~</p>
 <h2 id="_3">附上我的界面</h2>
 <p><img alt="" src="../Jupyter-Notebook-%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE.assets/8869373-6eeef78f393c77c2.png" />
@@ -3596,6 +3591,8 @@ jupyter nbextensions_configurator enable --user
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

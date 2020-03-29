@@ -3528,24 +3528,23 @@
 不过我的服务器上这个文件里头没有 <code>server</code> 这个节点可以配置。
 因此需要修改 <code>/etc/nginx/sites-available</code> 里头的虚拟站点配置文件。</p>
 <p>基础配置：
-在原有虚拟站点的基础上添加这部分配置就可以了</p>
-<pre><code class="nginx">server {
-    #ssl参数
-    listen              443 ssl;
-    server_name         example.com;
-    #证书文件
-    ssl_certificate     /path/to/example.com.crt;
-    #私钥文件
-    ssl_certificate_key /path/to/example.com.key;
-    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers         HIGH:!aNULL:!MD5;
-    #...
-}
-</code></pre>
-
+在原有虚拟站点的基础上添加这部分配置就可以了
+<div class="highlight"><pre><span></span><code><span class="k">server</span> <span class="p">{</span>
+    <span class="c1">#ssl参数</span>
+    <span class="kn">listen</span>              <span class="mi">443</span> <span class="s">ssl</span><span class="p">;</span>
+    <span class="kn">server_name</span>         <span class="s">example.com</span><span class="p">;</span>
+    <span class="c1">#证书文件</span>
+    <span class="kn">ssl_certificate</span>     <span class="s">/path/to/example.com.crt</span><span class="p">;</span>
+    <span class="c1">#私钥文件</span>
+    <span class="kn">ssl_certificate_key</span> <span class="s">/path/to/example.com.key</span><span class="p">;</span>
+    <span class="kn">ssl_protocols</span>       <span class="s">TLSv1</span> <span class="s">TLSv1.1</span> <span class="s">TLSv1.2</span><span class="p">;</span>
+    <span class="kn">ssl_ciphers</span>         <span class="s">HIGH:!aNULL:!MD5</span><span class="p">;</span>
+    <span class="c1">#...</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h2 id="_3">参考资料</h2>
-<p>https://aotu.io/notes/2016/08/16/nginx-https/index.html
-https://blog.csdn.net/duyusean/article/details/79348613</p>
+<p><a href="https://aotu.io/notes/2016/08/16/nginx-https/index.html">https://aotu.io/notes/2016/08/16/nginx-https/index.html</a>
+<a href="https://blog.csdn.net/duyusean/article/details/79348613">https://blog.csdn.net/duyusean/article/details/79348613</a></p>
 <p><img alt="" src="../%E5%9C%A8Nginx%E4%B8%8A%E9%85%8D%E7%BD%AEhttps%E5%8A%A0%E5%AF%86%E6%9C%8D%E5%8A%A1%E5%99%A8.assets/8869373-443aa770dd78bd67.png" /></p>
 <h2 id="about">About</h2>
 <p><img alt="" src="../%E5%9C%A8Nginx%E4%B8%8A%E9%85%8D%E7%BD%AEhttps%E5%8A%A0%E5%AF%86%E6%9C%8D%E5%8A%A1%E5%99%A8.assets/8869373-901590e019f6f85b.png" /></p>
@@ -3625,6 +3624,8 @@ https://blog.csdn.net/duyusean/article/details/79348613</p>
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

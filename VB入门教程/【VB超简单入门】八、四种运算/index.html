@@ -3479,28 +3479,24 @@
                 <h2 id="_1">前言</h2>
 <p>这几天好像看这个VB系列教程的同学很多啊，有个小同学说写得不错嘿嘿，所以我又有动力继续更新下去。说一下哈，在公众号和博客里同步更新的哟，并且博客因为可以用<code>Markdown</code>写，所以排版会更舒服一点，建议大家方便的话来博客看，博客地址：blog.deali.cn</p>
 <h2 id="_2">算术运算</h2>
-<p>算术运算包括<strong>加（+）</strong> 、 <strong>减（-）</strong> 、<strong>乘 （<code>*</code>）</strong>、<strong>除（/）</strong>、<strong>整除（\）</strong>（如<code>7\2</code>等于 3）、<strong>取余（Mod）</strong>（用来取余数，如<code>7Mod2</code>等于1，因为<code>7=3 x 2 + 1</code>，所以余数是1，好像是中学的数学知识吧= =..）、<strong>指数（^）</strong>和<strong>一元减</strong>（数值取反，负负得正，如<code>- (-6)</code>等于6）。</p>
+<p>算术运算包括**加（+）** 、 <strong>减（-）</strong> 、<strong>乘 （<code>*</code>）</strong>、<strong>除（/）</strong>、<strong>整除（\）</strong>（如<code>7\2</code>等于 3）、<strong>取余（Mod）</strong>（用来取余数，如<code>7Mod2</code>等于1，因为<code>7=3 x 2 + 1</code>，所以余数是1，好像是中学的数学知识吧= =..）、<strong>指数（^）**和**一元减</strong>（数值取反，负负得正，如<code>- (-6)</code>等于6）。</p>
 <h2 id="_3">连接运算</h2>
-<p>连接运算是将两个<strong>字符表达式</strong>连接起来，生成 一个<strong>新字符串</strong>。连接运算符有两个。即<code>+</code>和<code>&amp;</code>。 
-- 使用&amp;运算符时，参与连接的两个表达式可以不全是字符串，即&amp;运算符可强制性地将两个表达式做字符串连接。如： </p>
-<pre><code class="vb">Dim intNum As Interger
+<p>连接运算是将两个**字符表达式**连接起来，生成 一个**新字符串**。连接运算符有两个。即<code>+</code>和<code>&amp;</code>。 
+- 使用&amp;运算符时，参与连接的两个表达式可以不全是字符串，即&amp;运算符可强制性地将两个表达式做字符串连接。如： 
+<div class="highlight"><pre><span></span><code>Dim intNum As Interger
 Dim strTemp As String
 intNum = 22
 strTemp = &quot;学号是&quot; &amp; intNum 
-</code></pre>
-
-<ul>
-<li>使用+运算符时，操作数必须是字符串，否则，则产 生错误。下面的代码就是错误的！</li>
-</ul>
-<pre><code class="vb">Dim intNum As Interger
+</code></pre></div>
+- 使用+运算符时，操作数必须是字符串，否则，则产 生错误。下面的代码就是错误的！
+<div class="highlight"><pre><span></span><code>Dim intNum As Interger
 Dim strTemp As String
 intNum = 22 
 strTemp = &quot;学号是&quot; + intNum
-</code></pre>
-
-<p>可能大家看完这个还没什么感觉，但是在后面的开发中，<code>&amp;</code>运算符的作用非常大，并且非常的好用噢。</p>
+</code></pre></div>
+可能大家看完这个还没什么感觉，但是在后面的开发中，<code>&amp;</code>运算符的作用非常大，并且非常的好用噢。</p>
 <h2 id="_4">关系运算</h2>
-<p>关系运算用来比较两个<strong>表达式</strong>的大小， 包括<strong>大于（＞）</strong>、<strong>大于等于（＞＝）</strong>、<strong>小于（＜＝）</strong>、<strong>小于等于（＜＝）</strong>、<strong>等于 （＝）</strong>  和 <strong>不等于（＜＞）</strong>。 
+<p>关系运算用来比较两个**表达式**的大小， 包括**大于（＞）<strong>、**大于等于（＞＝）</strong>、<strong>小于（＜＝）</strong>、<strong>小于等于（＜＝）</strong>、<strong>等于 （＝）</strong>  和 <strong>不等于（＜＞）</strong>。 
 关系运算的结果是逻辑值True或False。
 举几个小例子，见下表：</p>
 <table>
@@ -3640,6 +3636,8 @@ Imp |  逻辑蕴含 |  （9＜6＝Imp（9＞8） |  False  | 仅当第一个表�
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

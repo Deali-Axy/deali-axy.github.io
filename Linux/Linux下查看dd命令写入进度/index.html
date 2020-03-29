@@ -3479,33 +3479,29 @@
                 <h2 id="_1">前言</h2>
 <p>Linux下有一个强力工具，dd，用来操作镜像，简直神器，唯一的不足是没有显示操作进度，不过也不是没有办法，下面介绍几个查看写入进度的方法。</p>
 <h2 id="status">status选项查看进度</h2>
-<p>如果你使用的是GNU版本的dd，并且coreutils版本高于8.24，那么可以使用status选项。例如：</p>
-<pre><code>sudo dd if=/dev/sda of=/dev/zero status=progress
-</code></pre>
-
+<p>如果你使用的是GNU版本的dd，并且coreutils版本高于8.24，那么可以使用status选项。例如：
+<div class="highlight"><pre><span></span><code>sudo dd if=/dev/sda of=/dev/zero status=progress
+</code></pre></div></p>
 <blockquote>
 <p>上面命令在Mac OS X上执行会出错，因为OS X使用的是BSD版本的命令行，不是GUN。你可以在Mac OS X上安装gun coreutils，或使用下面介绍的pv命令。</p>
 </blockquote>
 <h2 id="pv">pv命令</h2>
-<pre><code>sudo pv -tpreb /dev/sda | dd of=/dev/zero
+<p><div class="highlight"><pre><span></span><code>sudo pv -tpreb /dev/sda | dd of=/dev/zero
 sudo pv -tpreb /dev/sda | dd of=/dev/zero bs=4096 conv=notrunc,noerror
-</code></pre>
-
-<p>使用pv配合dialog还可以显示进度条对话框：</p>
-<pre><code> (sudo pv -n /dev/sda | dd of=/dev/zero) 2&gt;&amp;1 | dialog --gauge &quot;dd process bar&quot; 10 70 0
-</code></pre>
-
+</code></pre></div>
+使用pv配合dialog还可以显示进度条对话框：
+<div class="highlight"><pre><span></span><code> (sudo pv -n /dev/sda | dd of=/dev/zero) 2&gt;&amp;1 | dialog --gauge &quot;dd process bar&quot; 10 70 0
+</code></pre></div></p>
 <p><img alt="" src="../Linux%E4%B8%8B%E6%9F%A5%E7%9C%8Bdd%E5%91%BD%E4%BB%A4%E5%86%99%E5%85%A5%E8%BF%9B%E5%BA%A6.assets/8869373-e85d9c3e97a2846a.png" /></p>
 <h2 id="pkill">使用pkill打印进度</h2>
-<p>重新打开一个Shell，然后执行如下命令即可每秒输出一次进度信息</p>
-<pre><code>watch -n 1 pkill -USR1 -x dd
-</code></pre>
-
+<p>重新打开一个Shell，然后执行如下命令即可每秒输出一次进度信息
+<div class="highlight"><pre><span></span><code>watch -n 1 pkill -USR1 -x dd
+</code></pre></div></p>
 <h2 id="_2">参考资料</h2>
-<p>http://blog.topspeedsnail.com/archives/8125
-http://blog.topspeedsnail.com/archives/2748
-http://blog.topspeedsnail.com/archives/9464
-https://www.mobibrw.com/2017/7677</p>
+<p><a href="http://blog.topspeedsnail.com/archives/8125">http://blog.topspeedsnail.com/archives/8125</a>
+<a href="http://blog.topspeedsnail.com/archives/2748">http://blog.topspeedsnail.com/archives/2748</a>
+<a href="http://blog.topspeedsnail.com/archives/9464">http://blog.topspeedsnail.com/archives/9464</a>
+<a href="https://www.mobibrw.com/2017/7677">https://www.mobibrw.com/2017/7677</a></p>
                 
                   
                 
@@ -3579,6 +3575,8 @@ https://www.mobibrw.com/2017/7677</p>
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

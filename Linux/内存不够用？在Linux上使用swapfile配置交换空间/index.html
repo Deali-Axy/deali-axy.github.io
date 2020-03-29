@@ -3533,83 +3533,69 @@
                   <h1>内存不够用？在Linux上使用swapfile配置交换空间</h1>
                 
                 <h2 id="_1">前言</h2>
-<p>几个月前我还兴高采烈写了篇文章说给笔记本升级了内存配置，从乞丐版的4G一跃成为16G高富帅，然而，这几个月来我备受电脑死机的折磨，我现在有理由怀疑我可能买了假的内存条，于是没有办法，只能换回原厂的4G内存条，~~（然后准备赚部台式机）~~，<strong>问题不大。</strong>
+<p>几个月前我还兴高采烈写了篇文章说给笔记本升级了内存配置，从乞丐版的4G一跃成为16G高富帅，然而，这几个月来我备受电脑死机的折磨，我现在有理由怀疑我可能买了假的内存条，于是没有办法，只能换回原厂的4G内存条，<del>（然后准备赚部台式机）</del>，<strong>问题不大。</strong>
 换上4G内存条之后效果显著，只开了一个谷歌浏览器，内存占用就已经到了80%了，JB家的IDE是决计不敢再用了，可是这样还是难以满足系统对内存空间渴求，这时候就只能配置交换空间了。<em>（也就是虚拟内存）</em></p>
 <h2 id="swap">Swap概念</h2>
 <p>Swap分区（也称交换分区）是硬盘上的一个区域，被指定为操作系统可以临时存储数据的地方，这些数据不能再保存在RAM中。 基本上，这使您能够增加服务器在工作“内存”中保留的信息量，但有一些注意事项，主要是当RAM中没有足够的空间容纳正在使用的应用程序数据时，将使用硬盘驱动器上的交换空间。
 写入磁盘的信息将比保存在RAM中的信息慢得多，但是操作系统更愿意将应用程序数据保存在内存中，并使用交换旧数据。 总的来说，当系统的RAM耗尽时，将交换空间作为回落空间可能是一个很好的安全网，可防止非SSD存储系统出现内存不足的情况。</p>
 <h2 id="_2">检查系统信息</h2>
-<p>在开始之前，我们可以检查系统是否已经有一些可用的交换空间，可能有多个交换文件或交换分区，但通常应该是足够的。我们可以通过如下的命令来查看系统是否有交换分区：</p>
-<pre><code class="bash">sudo swapon --show
-</code></pre>
-
-<p>如果没有任何结果或者没有任何显示，说明系统当前没有可用的交换空间。free命令用来查看空闲的内存空间，其中包括交换分区的空间。</p>
-<pre><code class="bash">free -h
-</code></pre>
-
+<p>在开始之前，我们可以检查系统是否已经有一些可用的交换空间，可能有多个交换文件或交换分区，但通常应该是足够的。我们可以通过如下的命令来查看系统是否有交换分区：
+<div class="highlight"><pre><span></span><code>sudo swapon --show
+</code></pre></div>
+如果没有任何结果或者没有任何显示，说明系统当前没有可用的交换空间。free命令用来查看空闲的内存空间，其中包括交换分区的空间。
+<div class="highlight"><pre><span></span><code>free -h
+</code></pre></div></p>
 <h2 id="_3">检查硬盘驱动器分区上的可用空间</h2>
 <p>为swap分配空间的最常见方式是使用专门用于具体某个任务的单独分， 但是，改变分区方案并不是一定可行的，我们只是可以轻松地创建驻留在现有分区上的交换文件。</p>
-<p>在开始之前，我们应该通过输入以下命令来检查当前磁盘的使用情况：</p>
-<pre><code class="bash">df -h
-</code></pre>
-
+<p>在开始之前，我们应该通过输入以下命令来检查当前磁盘的使用情况：
+<div class="highlight"><pre><span></span><code>df -h
+</code></pre></div></p>
 <h2 id="swap_1">创建swap文件</h2>
 <p>由于这个系统我已经用了很久了，并且磁盘上并没有空闲的分区可以用，所以我选择手动创建一个swapfile来充当交换空间。</p>
 <p>据说交换空间的大小一般是内存的两倍，我现在只有4g的内存空间，于是当然要创建一个8G大小的交换空间了。
-使用以下命令创建swapfile</p>
-<pre><code class="bash">sudo fallocate -l 8G /swapfile
-</code></pre>
-
-<p>经过测试，OpenSuSE系统要使用以下命令才能成功创建swapfile</p>
-<pre><code class="bash">sudo dd if=/dev/zero of=/swapfile count=4096 bs=1MiB
-</code></pre>
-
-<p>使用以下命令查看是否正确创建。</p>
-<pre><code class="bash">ls -lh /swapfile
-</code></pre>
-
-<p>结果应该类似下面这样：</p>
-<pre><code class="bash">-rw-r--r-- 1 root root 8.0G Apr 26 17:04 /swapfile
-</code></pre>
-
+使用以下命令创建swapfile
+<div class="highlight"><pre><span></span><code>sudo fallocate -l 8G /swapfile
+</code></pre></div>
+经过测试，OpenSuSE系统要使用以下命令才能成功创建swapfile
+<div class="highlight"><pre><span></span><code>sudo dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/swapfile <span class="nv">count</span><span class="o">=</span><span class="m">4096</span> <span class="nv">bs</span><span class="o">=</span>1MiB
+</code></pre></div></p>
+<p>使用以下命令查看是否正确创建。
+<div class="highlight"><pre><span></span><code>ls -lh /swapfile
+</code></pre></div>
+结果应该类似下面这样：
+<div class="highlight"><pre><span></span><code>-rw-r--r-- <span class="m">1</span> root root <span class="m">8</span>.0G Apr <span class="m">26</span> <span class="m">17</span>:04 /swapfile
+</code></pre></div></p>
 <h2 id="swapfile">修改swapfile权限</h2>
-<pre><code class="bash">sudo chmod 600 /swapfile
-</code></pre>
-
-<p>查看效果</p>
-<pre><code class="bash">ls -lh /swapfile
-</code></pre>
-
-<p>结果应该类似下面这样：</p>
-<pre><code class="bash">-rw------- 1 root root 8.0G Apr 26 17:04 /swapfile
-</code></pre>
-
+<p><div class="highlight"><pre><span></span><code>sudo chmod <span class="m">600</span> /swapfile
+</code></pre></div>
+查看效果
+<div class="highlight"><pre><span></span><code>ls -lh /swapfile
+</code></pre></div></p>
+<p>结果应该类似下面这样：
+<div class="highlight"><pre><span></span><code>-rw------- <span class="m">1</span> root root <span class="m">8</span>.0G Apr <span class="m">26</span> <span class="m">17</span>:04 /swapfile
+</code></pre></div></p>
 <h2 id="_4">激活交换空间</h2>
-<pre><code class="bash">sudo mkswap /swapfile
+<div class="highlight"><pre><span></span><code>sudo mkswap /swapfile
 sudo swapon /swapfile
-</code></pre>
+</code></pre></div>
 
-<p>之后使用以下命令查看使用成功开启交换空间：</p>
-<pre><code class="bash">sudo swapon --show
-</code></pre>
-
-<p>结果类似下面这样：</p>
-<pre><code class="bash">NAME      TYPE SIZE USED PRIO
+<p>之后使用以下命令查看使用成功开启交换空间：
+<div class="highlight"><pre><span></span><code>sudo swapon --show
+</code></pre></div></p>
+<p>结果类似下面这样：
+<div class="highlight"><pre><span></span><code>NAME      TYPE SIZE USED PRIO
 /swapfile file   8G   0B   -1
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="fstab">添加到fstab</h2>
 <p>这样每次开机系统就会自动吧swapfile挂载为交换空间。
 首先请自行备份<code>fstab</code>文件。
-然后把以下配置添加到<code>fstab</code>文件末尾。</p>
-<pre><code class="bash">/swapfile none swap sw 0 0
-</code></pre>
-
-<p>或者直接使用以下命令：</p>
-<pre><code class="bash">sudo cp /etc/fstab /etc/fstab.bak
-echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab 
-</code></pre>
-
+然后把以下配置添加到<code>fstab</code>文件末尾。
+<div class="highlight"><pre><span></span><code>/swapfile none swap sw <span class="m">0</span> <span class="m">0</span>
+</code></pre></div></p>
+<p>或者直接使用以下命令：
+<div class="highlight"><pre><span></span><code>sudo cp /etc/fstab /etc/fstab.bak
+<span class="nb">echo</span> <span class="s1">&#39;/swapfile none swap sw 0 0&#39;</span> <span class="p">|</span> sudo tee -a /etc/fstab 
+</code></pre></div></p>
 <h2 id="about">About</h2>
 <p><img alt="" src="../%E5%86%85%E5%AD%98%E4%B8%8D%E5%A4%9F%E7%94%A8%EF%BC%9F%E5%9C%A8Linux%E4%B8%8A%E4%BD%BF%E7%94%A8swapfile%E9%85%8D%E7%BD%AE%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4.assets/8869373-901590e019f6f85b.png" /></p>
 <hr />
@@ -3688,6 +3674,8 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

@@ -3444,8 +3444,8 @@
 国内有些小厂的厂商 ID 可能设为 Google 或 HTC 的。其实厂商 ID 设置成什么都无所谓，只是一个标志而已。</p>
 </blockquote>
 <p>第二步，编辑<code>/etc/udev/rules.d/70-android.rules</code> 文件。写入以下内容（Ubuntu 下测试通过）：</p>
-<pre><code>SUBSYSTEM==&quot;usb&quot;, ATTRS{idVendor}==&quot;0bda&quot;, ATTRS{idProduct}==&quot;0001&quot;,MODE=&quot;0666&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>SUBSYSTEM==&quot;usb&quot;, ATTRS{idVendor}==&quot;0bda&quot;, ATTRS{idProduct}==&quot;0001&quot;,MODE=&quot;0666&quot;
+</code></pre></div>
 
 <p>其中<code>0bda</code>和<code>0001</code>分别替换成对应的厂商 ID 和产品 ID。</p>
 <p>第三步，赋予读和执行权限：<code>chmod a+rx /etc/udev/rules.d/70-android.rules</code></p>
@@ -3525,6 +3525,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

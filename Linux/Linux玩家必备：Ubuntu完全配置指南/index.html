@@ -4054,9 +4054,9 @@
 <p>我发现很多人对Linux的印象还停留在十几年前，然而现在Linux完全可以满足日常工作和生活的需求了，（除了游戏玩不了那么多），大部分要用到的软件，Linux上都有对应的解决方案或者是替代品。</p>
 <h3 id="windows">常用（国产）Windows软件</h3>
 <p>以下列表中的软件都是可以在Linux上完美运行的，感谢Deepin和项目作者的努力与无私奉献！这些软件都是依赖于Deepin-Wine，Deepin工程师调配出来的wine环境。</p>
-<p><strong>Deepin wine Ubuntu</strong> 项目主页：https://github.com/wszqkzqk/deepin-wine-ubuntu</p>
+<p><strong>Deepin wine Ubuntu</strong> 项目主页：<a href="https://github.com/wszqkzqk/deepin-wine-ubuntu">https://github.com/wszqkzqk/deepin-wine-ubuntu</a></p>
 <p>这里是Deepin-wine 容器的存档（针对Ubuntu有极少量的优化），也就是下列软件的安装包。
-<strong>Deepin wine containers for Ubuntu</strong>项目主页：https://github.com/wszqkzqk/deepin-wine-containers-for-ubuntu</p>
+**Deepin wine containers for Ubuntu**项目主页：<a href="https://github.com/wszqkzqk/deepin-wine-containers-for-ubuntu">https://github.com/wszqkzqk/deepin-wine-containers-for-ubuntu</a></p>
 <ol>
 <li><a href="https://gitee.com/wszqkzqk/deepin-wine-containers-for-ubuntu/raw/master/deepin.com.qq.im_8.9.19983deepin23_i386.deb">QQ</a></li>
 <li><a href="https://gitee.com/wszqkzqk/deepin-wine-containers-for-ubuntu/raw/master/deepin.com.qq.office_2.0.0deepin4_i386.deb">TIM</a></li>
@@ -4069,51 +4069,48 @@
 <li><a href="https://gitee.com/wszqkzqk/deepin-wine-containers-for-ubuntu/raw/master/deepin.com.thunderspeed_7.10.35.366deepin17_i386.deb">迅雷极速版</a></li>
 </ol>
 <h4 id="_4">安装方法：</h4>
-<p>可以选择使用git把这个项目克隆到本地，也可以选择直接下载完整压缩包，如果你的网络不是很稳定的话推荐下载完整压缩包。</p>
-<pre><code class="bash">git clone https://github.com/wszqkzqk/deepin-wine-ubuntu.git
-# 克隆完成之后，进入项目目录安装deepin-wine
-cd deepin-wine-ubuntu
+<p>可以选择使用git把这个项目克隆到本地，也可以选择直接下载完整压缩包，如果你的网络不是很稳定的话推荐下载完整压缩包。
+<div class="highlight"><pre><span></span><code>git clone https://github.com/wszqkzqk/deepin-wine-ubuntu.git
+<span class="c1"># 克隆完成之后，进入项目目录安装deepin-wine</span>
+<span class="nb">cd</span> deepin-wine-ubuntu
 ./install.sh
-</code></pre>
-
-<p>然后，在这个项目或上面的软件列表里下载需要的安装包进行安装：</p>
+</code></pre></div>
+然后，在这个项目或上面的软件列表里下载需要的安装包进行安装：</p>
 <blockquote>
-<p><strong>Deepin wine containers for Ubuntu</strong>项目主页：https://github.com/wszqkzqk/deepin-wine-containers-for-ubuntu</p>
+<p>**Deepin wine containers for Ubuntu**项目主页：<a href="https://github.com/wszqkzqk/deepin-wine-containers-for-ubuntu">https://github.com/wszqkzqk/deepin-wine-containers-for-ubuntu</a></p>
 </blockquote>
-<p>有关deepin wine系列应用的还可以参考一下这篇博文：https://www.lulinux.com/archives/1319</p>
+<p>有关deepin wine系列应用的还可以参考一下这篇博文：<a href="https://www.lulinux.com/archives/1319">https://www.lulinux.com/archives/1319</a></p>
 <h3 id="_5">听音乐</h3>
 <p>良心的网易云音乐出了Linux版本，在Ubuntu16.04上可以完美运行。在官网上下载安装包安装就行了～
-官网地址：https://music.163.com/#/download</p>
+官网地址：<a href="https://music.163.com/#/download">https://music.163.com/#/download</a></p>
 <h3 id="_6">输入法</h3>
 <p>搜狗输入法也挺良心的，有Linux版本，免费无广告，又能同步，比Windows版不知道良心多少倍。
-官网地址：https://pinyin.sogou.com/linux/?r=pinyin</p>
+官网地址：<a href="https://pinyin.sogou.com/linux/?r=pinyin">https://pinyin.sogou.com/linux/?r=pinyin</a></p>
 <h2 id="office">office软件</h2>
 <p>以前Linux备受诟病的一点就是office编辑太差了，现在好了，良心的金山推出了Linux版本的WPS，和Windows版本的WPS功能一样，并且没有弹窗广告！
-官网地址：http://www.wps.cn/product/wpslinux</p>
+官网地址：<a href="http://www.wps.cn/product/wpslinux">http://www.wps.cn/product/wpslinux</a></p>
 <p>下载完成之后，打开安装包所在文件夹，右键【在此处打开终端】
 输入以下命令进行安装（具体文件名视下载的版本而定）：</p>
-<pre><code class="bash">sudo dpkg -i wps-office_10.1.0.6757_amd64.deb 
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo dpkg -i wps-office_10.1.0.6757_amd64.deb 
+</code></pre></div>
 
-<p>如果安装过程有出错，大概率是缺少相关依赖包，请输入以下命令安装相关依赖：</p>
-<pre><code class="bash">sudo apt install -f
-</code></pre>
-
-<p>为了更好的使用体验，建议导入Windows字体，这样各类文档的编辑就毫无障碍了。可以参考我这篇博客：https://www.jianshu.com/p/5042a4855267</p>
+<p>如果安装过程有出错，大概率是缺少相关依赖包，请输入以下命令安装相关依赖：
+<div class="highlight"><pre><span></span><code>sudo apt install -f
+</code></pre></div></p>
+<p>为了更好的使用体验，建议导入Windows字体，这样各类文档的编辑就毫无障碍了。可以参考我这篇博客：<a href="https://www.jianshu.com/p/5042a4855267">https://www.jianshu.com/p/5042a4855267</a></p>
 <h2 id="shell">shell 命令行</h2>
 <p>我最喜欢zsh，功能强大，可定制性很高，各种配置、各种插件，玩出无限的可能性。</p>
 <h3 id="_7">安装方法：</h3>
-<pre><code class="bash">sudo apt install zsh
-</code></pre>
-
-<p>比较常见的方法是使用<code>oh-my-zsh</code>来自动管理配置，可以查看官网：https://ohmyz.sh/
-不过这里我推荐用zsh官方的<code>antigen</code>来管理，详细使用方法见其Github主页：https://github.com/zsh-users/antigen</p>
+<p><div class="highlight"><pre><span></span><code>sudo apt install zsh
+</code></pre></div>
+比较常见的方法是使用<code>oh-my-zsh</code>来自动管理配置，可以查看官网：<a href="https://ohmyz.sh/">https://ohmyz.sh/</a>
+不过这里我推荐用zsh官方的<code>antigen</code>来管理，详细使用方法见其Github主页：<a href="https://github.com/zsh-users/antigen">https://github.com/zsh-users/antigen</a></p>
 <h2 id="_8">开发相关</h2>
 <p>Linux简直就是专门为开发者打造的系统，各类开发工具一应俱全，全部工具都可以一键安装，非常方便。</p>
 <h3 id="vim">vim编辑器</h3>
 <p>用Linux的话，绝对不能错过大名鼎鼎的vim神器，无需过多解释，体验一下就知道了～</p>
-<pre><code class="bash">sudo apt install vim
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo apt install vim
+</code></pre></div>
 
 <p><strong>相关学习资料</strong>
 - Vim学习指南 <a href="http://www.linuxidc.com/Linux/2013-08/89096.htm">http://www.linuxidc.com/Linux/2013-08/89096.htm</a>
@@ -4124,16 +4121,15 @@ cd deepin-wine-ubuntu
 - Vim技巧分享:C语言设置 <a href="http://www.linuxidc.com/Linux/2012-12/77124.htm">http://www.linuxidc.com/Linux/2012-12/77124.htm</a>
 - Ubuntu中设置Vim的行号 <a href="http://www.linuxidc.com/Linux/2012-12/75485.htm">http://www.linuxidc.com/Linux/2012-12/75485.htm</a></p>
 <h3 id="sublime-text3">sublime-text3</h3>
-<p>同样一款很有名的编辑器工具，安装方法：</p>
-<pre><code class="bash">sudo add-apt-repository ppa:webupd8team/sublime-text-3    
+<p>同样一款很有名的编辑器工具，安装方法：
+<div class="highlight"><pre><span></span><code>sudo add-apt-repository ppa:webupd8team/sublime-text-3    
 sudo apt-get update    
 sudo apt-get install sublime-text
-</code></pre>
-
+</code></pre></div></p>
 <h3 id="vscode">vscode</h3>
 <p>微软开发的开源编辑器，现在已经有统一江湖的趋势了，很强，必须一试！
 直接去官网下载安装包安装即可！
-官网地址：https://code.visualstudio.com/</p>
+官网地址：<a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p>
 <h3 id="jetbrains">jetbrains全家桶</h3>
 <p>不得不说jetbrains太强了，他家的IDE真的太好用了，在Linux上使用的话，强烈推荐使用<code>jetbrains toolbox</code>来管理，这个工具在jetbrains官网可以下载，安装都是一键式操作，非常方便！
 <img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-d47259f374ac43e6.png" /></p>
@@ -4147,25 +4143,22 @@ sudo apt-get install sublime-text
 <h2 id="_11">主题美化</h2>
 <p>Linux系统最大的特色就是可以根据自己的喜好进行自定义配置，想做成什么样的外观都可以，可定制性超强。
 下面介绍一下我自己的简单美化方案，基于Ubuntu16.04（以后会补充Ubuntu18.04以上系统的方案，也就是基于Gnome桌面的方案）。
-首先要安装<code>unity tweak tool</code>，待会要通过这个工具来修改主题和图标。</p>
-<pre><code class="bash">sudo apt-get install unity-tweak-tool 
-</code></pre>
-
+首先要安装<code>unity tweak tool</code>，待会要通过这个工具来修改主题和图标。
+<div class="highlight"><pre><span></span><code>sudo apt-get install unity-tweak-tool 
+</code></pre></div></p>
 <h3 id="flatabulous">安装Flatabulous主题</h3>
-<p>Github地址：https://github.com/anmoljagetia/Flatabulous
-开始安装主题</p>
-<pre><code class="bash">sudo add-apt-repository ppa:noobslab/themes
+<p>Github地址：<a href="https://github.com/anmoljagetia/Flatabulous">https://github.com/anmoljagetia/Flatabulous</a>
+开始安装主题
+<div class="highlight"><pre><span></span><code>sudo add-apt-repository ppa:noobslab/themes
 sudo apt-get update
 sudo apt-get install flatabulous-theme
-</code></pre>
-
-<p>安装主题配套的ultra-flat-icons图标：</p>
-<pre><code class="bash">sudo add-apt-repository ppa:noobslab/icons
+</code></pre></div>
+安装主题配套的ultra-flat-icons图标：
+<div class="highlight"><pre><span></span><code>sudo add-apt-repository ppa:noobslab/icons
 sudo apt-get update
 sudo apt-get install ultra-flat-icons
-</code></pre>
-
-<p>安装完成后，打开 unity-tweak-tool ，点击主题，修改为 Flatabulous，如图：
+</code></pre></div>
+安装完成后，打开 unity-tweak-tool ，点击主题，修改为 Flatabulous，如图：
 <img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-b6c33c6f041225a3.png" /></p>
 <p>修改图标：
 <img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-da0abaf59ea6ae05.png" /></p>
@@ -4173,157 +4166,139 @@ sudo apt-get install ultra-flat-icons
 <img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-60e42186df214653.png" /></p>
 <h3 id="arc-theme">安装Arc Theme主题</h3>
 <p>这个也是Ubuntu的一款扁平化主题，Github官网地址：
-https://github.com/horst3180/arc-theme</p>
-<p>安装主题：</p>
-<pre><code class="bash">sudo add-apt-repository ppa:noobslab/themes
+<a href="https://github.com/horst3180/arc-theme">https://github.com/horst3180/arc-theme</a></p>
+<p>安装主题：
+<div class="highlight"><pre><span></span><code>sudo add-apt-repository ppa:noobslab/themes
 sudo apt-get update
 sudo apt-get install arc-theme
-</code></pre>
-
-<p>安装配套图标：</p>
-<pre><code class="bash">sudo add-apt-repository ppa:noobslab/icons
+</code></pre></div></p>
+<p>安装配套图标：
+<div class="highlight"><pre><span></span><code>sudo add-apt-repository ppa:noobslab/icons
 sudo apt-get update
 sudo apt-get install arc-icons
-</code></pre>
-
-<p><img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-c8120082cd1c6385.png" /></p>
+</code></pre></div>
+<img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-c8120082cd1c6385.png" /></p>
 <p>修改主题和图标的方法不再赘述。</p>
 <h2 id="_12">好玩的命令行终端</h2>
 <p>Linux的终端超级强大，几乎所有的工作都可以通过命令完成，终端在敲命令的同时还可以做很多有趣的事情，本小节中会列举一些好玩有趣的命令，建议大家一个个尝试～如果你们有发现更好玩的可以告诉我，一起赚。</p>
 <h3 id="boxes">boxes</h3>
 <p>顾名思义，这个命令可以把你想说的话装在盒子里面，还可以选择多种盒子，具体可以看看它的代码主页。
-Github地址：https://github.com/ascii-boxes/boxes
-安装：</p>
-<pre><code class="bash">sudo apt install boxes
-</code></pre>
-
-<p>试一下：</p>
-<pre><code class="bash">╰─$ echo hello | boxes -d diamonds -a c
-       /\          /\          /\
-    /\//\\/\    /\//\\/\    /\//\\/\
- /\//\\\///\\/\//\\\///\\/\//\\\///\\/\
-//\\\//\/\\///\\\//\/\\///\\\//\/\\///\\
-\\//\/                            \/\\//
- \/                                  \/
- /\                                  /\
-//\\             hello              //\\
-\\//                                \\//
- \/                                  \/
- /\                                  /\
-//\\/\                            /\//\\
-\\///\\/\//\\\///\\/\//\\\///\\/\//\\\//
- \/\\///\\\//\/\\///\\\//\/\\///\\\//\/
-    \/\\//\/    \/\\//\/    \/\\//\/
-       \/          \/          \/
-</code></pre>
-
+Github地址：<a href="https://github.com/ascii-boxes/boxes">https://github.com/ascii-boxes/boxes</a>
+安装：
+<div class="highlight"><pre><span></span><code>sudo apt install boxes
+</code></pre></div>
+试一下：
+<div class="highlight"><pre><span></span><code>╰─$ <span class="nb">echo</span> hello <span class="p">|</span> boxes -d diamonds -a c
+       /<span class="se">\ </span>         /<span class="se">\ </span>         /<span class="se">\</span>
+    /<span class="se">\/</span>/<span class="se">\\</span>/<span class="se">\ </span>   /<span class="se">\/</span>/<span class="se">\\</span>/<span class="se">\ </span>   /<span class="se">\/</span>/<span class="se">\\</span>/<span class="se">\</span>
+ /<span class="se">\/</span>/<span class="se">\\\/</span>//<span class="se">\\</span>/<span class="se">\/</span>/<span class="se">\\\/</span>//<span class="se">\\</span>/<span class="se">\/</span>/<span class="se">\\\/</span>//<span class="se">\\</span>/<span class="se">\</span>
+//<span class="se">\\\/</span>/<span class="se">\/\\</span>///<span class="se">\\\/</span>/<span class="se">\/\\</span>///<span class="se">\\\/</span>/<span class="se">\/\\</span>///<span class="se">\\</span>
+<span class="se">\\</span>//<span class="se">\/</span>                            <span class="se">\/\\</span>//
+ <span class="se">\/</span>                                  <span class="se">\/</span>
+ /<span class="se">\ </span>                                 /<span class="se">\</span>
+//<span class="se">\\</span>             hello              //<span class="se">\\</span>
+<span class="se">\\</span>//                                <span class="se">\\</span>//
+ <span class="se">\/</span>                                  <span class="se">\/</span>
+ /<span class="se">\ </span>                                 /<span class="se">\</span>
+//<span class="se">\\</span>/<span class="se">\ </span>                           /<span class="se">\/</span>/<span class="se">\\</span>
+<span class="se">\\</span>///<span class="se">\\</span>/<span class="se">\/</span>/<span class="se">\\\/</span>//<span class="se">\\</span>/<span class="se">\/</span>/<span class="se">\\\/</span>//<span class="se">\\</span>/<span class="se">\/</span>/<span class="se">\\\/</span>/
+ <span class="se">\/\\</span>///<span class="se">\\\/</span>/<span class="se">\/\\</span>///<span class="se">\\\/</span>/<span class="se">\/\\</span>///<span class="se">\\\/</span>/<span class="se">\/</span>
+    <span class="se">\/\\</span>//<span class="se">\/</span>    <span class="se">\/\\</span>//<span class="se">\/</span>    <span class="se">\/\\</span>//<span class="se">\/</span>
+       <span class="se">\/</span>          <span class="se">\/</span>          <span class="se">\/</span>
+</code></pre></div></p>
 <h3 id="you-get">you-get 命令行视频下载工具</h3>
 <p>很多视频网站都能下载，请自测。
-Github地址：https://github.com/soimort/you-get</p>
+Github地址：<a href="https://github.com/soimort/you-get">https://github.com/soimort/you-get</a></p>
 <h3 id="tget">tget种子下载工具</h3>
-<p>Github地址：https://github.com/jeffjose/tget</p>
+<p>Github地址：<a href="https://github.com/jeffjose/tget">https://github.com/jeffjose/tget</a></p>
 <h3 id="sl">小火车：sl</h3>
 <p>很简单，就是开火车～
-安装 &amp; 使用：</p>
-<pre><code class="bash">sudo apt install sl
+安装 &amp; 使用：
+<div class="highlight"><pre><span></span><code>sudo apt install sl
 sl
-</code></pre>
-
-<p>效果：你会看到一辆小火车在屏幕上开过去。
+</code></pre></div>
+效果：你会看到一辆小火车在屏幕上开过去。
 <img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-902924226632b72c.png" /></p>
 <h3 id="cmatrix">cmatrix代码雨</h3>
-<pre><code class="bash">sudo apt install cmatrix
+<p><div class="highlight"><pre><span></span><code>sudo apt install cmatrix
 cmatrix
-</code></pre>
-
-<p>效果：
+</code></pre></div>
+效果：
 <img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-e979eda9951c9fbf.png" /></p>
 <h3 id="screenfetch">screenfetch</h3>
-<pre><code class="bash">sudo apt install screenfetch
+<p><div class="highlight"><pre><span></span><code>sudo apt install screenfetch
 screenfetch
-</code></pre>
-
-<p>效果：
+</code></pre></div>
+效果：
 <img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-3064d4556a1ce437.png" /></p>
 <h3 id="pv">pv</h3>
-<p>你也许曾经看到过电影里的模拟字幕, 它们好像是被实时敲打出来的. 如果我么能在终端里实现这样的效果, 那不是很好? </p>
-<pre><code class="bash">sudo apt install pv
-# 使用方法
-echo 打字机啦啦啦 | pv -qL 10
-</code></pre>
-
+<p>你也许曾经看到过电影里的模拟字幕, 它们好像是被实时敲打出来的. 如果我么能在终端里实现这样的效果, 那不是很好? 
+<div class="highlight"><pre><span></span><code>sudo apt install pv
+<span class="c1"># 使用方法</span>
+<span class="nb">echo</span> 打字机啦啦啦 <span class="p">|</span> pv -qL <span class="m">10</span>
+</code></pre></div></p>
 <h3 id="_13">终端火焰</h3>
-<pre><code class="bash">sudo apt-get install libaa-bin
+<p><div class="highlight"><pre><span></span><code>sudo apt-get install libaa-bin
 aafire
-</code></pre>
-
-<p>效果：
+</code></pre></div>
+效果：
 <img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-4b12ebc097e8f1be.png" /></p>
 <h3 id="ddate">ddate精心调制的混搭日历</h3>
-<pre><code class="bash">sudo apt install ddate
-# 测试
+<div class="highlight"><pre><span></span><code>sudo apt install ddate
+<span class="c1"># 测试</span>
 ddate
-# 输出：Today is Pungenday, the 33rd day of Chaos in the YOLD 3185
-</code></pre>
+<span class="c1"># 输出：Today is Pungenday, the 33rd day of Chaos in the YOLD 3185</span>
+</code></pre></div>
 
 <h3 id="telnet-ascii">使用 Telnet 观看星球大战电影的 ASCII 演绎版本</h3>
-<p>在命令行中运行：</p>
-<pre><code class="bash">telnet towel.blinkenlights.nl
-</code></pre>
-
-<p><img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-c1c2040e210d7726.png" /></p>
+<p>在命令行中运行：
+<div class="highlight"><pre><span></span><code>telnet towel.blinkenlights.nl
+</code></pre></div>
+<img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-c1c2040e210d7726.png" /></p>
 <h3 id="_14">在终端中看天气</h3>
-<pre><code class="bash">curl wttr.in
-# 也可以指定城市名称，比如
+<p><div class="highlight"><pre><span></span><code>curl wttr.in
+<span class="c1"># 也可以指定城市名称，比如</span>
 curl wttr.in/guangzhou
-</code></pre>
-
-<p><img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-431d58a804279d07.png" /></p>
+</code></pre></div>
+<img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-431d58a804279d07.png" /></p>
 <h3 id="_15">终端艺术字</h3>
-<p>figlet是一款在终端上显示艺术字的工具。</p>
-<pre><code class="bash">sudo apt install figlet
-</code></pre>
-
-<p>运行效果</p>
-<pre><code class="bash">╰─$ echo hello | figlet
+<p>figlet是一款在终端上显示艺术字的工具。
+<div class="highlight"><pre><span></span><code>sudo apt install figlet
+</code></pre></div>
+运行效果
+<div class="highlight"><pre><span></span><code>╰─$ <span class="nb">echo</span> hello <span class="p">|</span> figlet
  _          _ _       
-| |__   ___| | | ___  
-| '_ \ / _ \ | |/ _ \ 
-| | | |  __/ | | (_) |
-|_| |_|\___|_|_|\___/ 
-</code></pre>
-
-<p><img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-3973e53bf0a1232e.png" />
+<span class="p">|</span> <span class="p">|</span>__   ___<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> ___  
+<span class="p">|</span> <span class="err">&#39;</span>_ <span class="se">\ </span>/ _ <span class="se">\ </span><span class="p">|</span> <span class="p">|</span>/ _ <span class="se">\ </span>
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span>  __/ <span class="p">|</span> <span class="p">|</span> <span class="o">(</span>_<span class="o">)</span> <span class="p">|</span>
+<span class="p">|</span>_<span class="p">|</span> <span class="p">|</span>_<span class="p">|</span><span class="se">\_</span>__<span class="p">|</span>_<span class="p">|</span>_<span class="p">|</span><span class="se">\_</span>__/ 
+</code></pre></div>
+<img alt="" src="../Linux%E7%8E%A9%E5%AE%B6%E5%BF%85%E5%A4%87%EF%BC%9AUbuntu%E5%AE%8C%E5%85%A8%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97.assets/8869373-3973e53bf0a1232e.png" />
 类似的工具还有toilet，也可以试试。</p>
 <h3 id="_16">终端贪吃蛇游戏</h3>
-<p>通过docker运行贪吃蛇游戏，运行命令如下：</p>
-<pre><code class="bash">docker run -ti dyego/snake-game
-</code></pre>
-
-<p>注意：这个命令需要系统中先安装了docker才可以，关于docker的安装使用，可以查看这篇文章：https://www.jianshu.com/p/724315d13ad7</p>
+<p>通过docker运行贪吃蛇游戏，运行命令如下：
+<div class="highlight"><pre><span></span><code>docker run -ti dyego/snake-game
+</code></pre></div>
+注意：这个命令需要系统中先安装了docker才可以，关于docker的安装使用，可以查看这篇文章：<a href="https://www.jianshu.com/p/724315d13ad7">https://www.jianshu.com/p/724315d13ad7</a></p>
 <h3 id="_17">命令行玩俄罗斯方块</h3>
-<p>Github主页：https://github.com/samtay/tetris
-下载命令：</p>
-<pre><code class="bash">curl -L https://github.com/samtay/tetris/releases/download/0.1.3/tetris-`uname -s`-`uname -m` -o tetris
+<p>Github主页：<a href="https://github.com/samtay/tetris">https://github.com/samtay/tetris</a>
+下载命令：
+<div class="highlight"><pre><span></span><code>curl -L https://github.com/samtay/tetris/releases/download/0.1.3/tetris-<span class="sb">`</span>uname -s<span class="sb">`</span>-<span class="sb">`</span>uname -m<span class="sb">`</span> -o tetris
 chmod +x tetris
-</code></pre>
-
-<p>运行命令：</p>
-<pre><code class="bash">tetris
-</code></pre>
-
+</code></pre></div>
+运行命令：
+<div class="highlight"><pre><span></span><code>tetris
+</code></pre></div></p>
 <h3 id="netease-musicbox">NetEase-MusicBox 命令行版本的网易云音乐</h3>
-<p>Github主页：https://github.com/darknessomi/musicbox
-安装：</p>
-<pre><code class="bash">pip3 install NetEase-MusicBox
+<p>Github主页：<a href="https://github.com/darknessomi/musicbox">https://github.com/darknessomi/musicbox</a>
+安装：
+<div class="highlight"><pre><span></span><code>pip3 install NetEase-MusicBox
 sudo apt install mpg123
-</code></pre>
-
-<p>运行：</p>
-<pre><code class="bash">musicbox
-</code></pre>
-
-<p>键盘按键：</p>
+</code></pre></div>
+运行：
+<div class="highlight"><pre><span></span><code>musicbox
+</code></pre></div>
+键盘按键：</p>
 <table>
 <thead>
 <tr>
@@ -4507,14 +4482,13 @@ sudo apt install mpg123
 </table>
 <p>更多操作请看Github主页的文档。</p>
 <h3 id="axel">axel多线程下载工具</h3>
-<p><strong>axel</strong>是Linux下一个不错的HTTP/<a href="http://man.linuxde.net/ftp" title="ftp命令">ftp</a>高速下载工具。支持多线程下载、断点续传，且可以从多个地址或者从一个地址的多个连接来下载同一个文件。适合网速不给力时多线程下载提高下载速度。比如在国内VPS或服务器上下载lnmp一键安装包用Axel就比<a href="http://man.linuxde.net/wget" title="wget命令">wget</a>快。</p>
-<p>安装：</p>
-<pre><code class="bash">sudo apt install axel
-</code></pre>
-
-<p>更多用法请参考：http://man.linuxde.net/axel</p>
+<p>**axel**是Linux下一个不错的HTTP/<a href="http://man.linuxde.net/ftp" title="ftp命令">ftp</a>高速下载工具。支持多线程下载、断点续传，且可以从多个地址或者从一个地址的多个连接来下载同一个文件。适合网速不给力时多线程下载提高下载速度。比如在国内VPS或服务器上下载lnmp一键安装包用Axel就比<a href="http://man.linuxde.net/wget" title="wget命令">wget</a>快。</p>
+<p>安装：
+<div class="highlight"><pre><span></span><code>sudo apt install axel
+</code></pre></div></p>
+<p>更多用法请参考：<a href="http://man.linuxde.net/axel">http://man.linuxde.net/axel</a></p>
 <h2 id="_18">写在后面</h2>
-<p>赶在春节前完成了<strong>Ubuntu完全配置指南</strong>的第一版，后续内容会持续更新，请大家保持关注，同时也借此机会祝所有读者朋友新年快乐，阖家幸福！</p>
+<p>赶在春节前完成了**Ubuntu完全配置指南**的第一版，后续内容会持续更新，请大家保持关注，同时也借此机会祝所有读者朋友新年快乐，阖家幸福！</p>
 <h2 id="_19">欢迎与我交流</h2>
 <ul>
 <li>打代码直播间：<a href="https://live.bilibili.com/11883038">https://live.bilibili.com/11883038</a></li>
@@ -4595,6 +4569,8 @@ sudo apt install mpg123
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

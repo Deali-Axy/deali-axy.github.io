@@ -3532,14 +3532,14 @@
                 
                 <h2 id="_1">前言</h2>
 <p>异常信息的获取对于程序的调试非常重要，可以有助于快速定位有错误程序语句的位置。下面介绍几种python中获取异常信息的方法，这里获取异常（Exception）信息采用try...except...程序结构。如下所示</p>
-<pre><code class="python">try:
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
 
-　　...
+　　<span class="o">...</span>
 
-except Exception, e:
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
 
-　　...
-</code></pre>
+　　<span class="o">...</span>
+</code></pre></div>
 
 <h3 id="1stre">1、str(e)</h3>
 <p>返回字符串类型，只给出异常信息，不包括异常信息的类型，如1/0的异常信息</p>
@@ -3552,41 +3552,41 @@ except Exception, e:
 <h3 id="4traceback">4、采用traceback模块</h3>
 <p>需要导入traceback模块，此时获取的信息最全，与python命令行运行程序出现错误信息一致。使用traceback.print_exc()打印异常信息到标准错误，就像没有获取一样，或者使用traceback.format_exc()将同样的输出获取为字符串。你可以向这些函数传递各种各样的参数来限制输出，或者重新打印到像文件类型的对象。</p>
 <h2 id="_2">示例如下</h2>
-<pre><code class="python">import traceback
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">traceback</span>
 
-print '########################################################'
-print &quot;1/0 Exception Info&quot;
-print '---------------------------------------------------------'
-try:
-    1/0
-except Exception, e:
-    print 'str(Exception):\t', str(Exception)
-    print 'str(e):\t\t', str(e)
-    print 'repr(e):\t', repr(e)
-    print 'e.message:\t', e.message
-    print 'traceback.print_exc():'; traceback.print_exc()
-    print 'traceback.format_exc():\n%s' % traceback.format_exc()
-print '########################################################'
-print '\n########################################################'  
-print &quot;i = int('a') Exception Info&quot;
-print '---------------------------------------------------------'
-try:
-    i = int('a')
-except Exception, e:
-    print 'str(Exception):\t', str(Exception)
-    print 'str(e):\t\t', str(e)
-    print 'repr(e):\t', repr(e)
-    print 'e.message:\t', e.message
-    print 'traceback.print_exc():'; traceback.print_exc()
-    print 'traceback.format_exc():\n%s' % traceback.format_exc()
-print '########################################################'
-</code></pre>
+<span class="k">print</span> <span class="s1">&#39;########################################################&#39;</span>
+<span class="k">print</span> <span class="s2">&quot;1/0 Exception Info&quot;</span>
+<span class="k">print</span> <span class="s1">&#39;---------------------------------------------------------&#39;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s1">&#39;str(Exception):</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="ne">Exception</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s1">&#39;str(e):</span><span class="se">\t\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s1">&#39;repr(e):</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s1">&#39;e.message:</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span>
+    <span class="k">print</span> <span class="s1">&#39;traceback.print_exc():&#39;</span><span class="p">;</span> <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s1">&#39;traceback.format_exc():</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
+<span class="k">print</span> <span class="s1">&#39;########################################################&#39;</span>
+<span class="k">print</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">########################################################&#39;</span>  
+<span class="k">print</span> <span class="s2">&quot;i = int(&#39;a&#39;) Exception Info&quot;</span>
+<span class="k">print</span> <span class="s1">&#39;---------------------------------------------------------&#39;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s1">&#39;str(Exception):</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="ne">Exception</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s1">&#39;str(e):</span><span class="se">\t\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s1">&#39;repr(e):</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s1">&#39;e.message:</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span>
+    <span class="k">print</span> <span class="s1">&#39;traceback.print_exc():&#39;</span><span class="p">;</span> <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s1">&#39;traceback.format_exc():</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
+<span class="k">print</span> <span class="s1">&#39;########################################################&#39;</span>
+</code></pre></div>
 
 <h2 id="_3">运行结果</h2>
 <p><img alt="" src="../Python%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%BC%82%E5%B8%B8%EF%BC%88Exception%EF%BC%89%E4%BF%A1%E6%81%AF.assets/8869373-e253708e182d0ea1.png" /></p>
 <p><img alt="" src="../Python%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%BC%82%E5%B8%B8%EF%BC%88Exception%EF%BC%89%E4%BF%A1%E6%81%AF.assets/8869373-1409405b7a1cfdf1.png" /></p>
 <h2 id="_4">参考资料</h2>
-<p>https://www.cnblogs.com/klchang/p/4635040.html</p>
+<p><a href="https://www.cnblogs.com/klchang/p/4635040.html">https://www.cnblogs.com/klchang/p/4635040.html</a></p>
                 
                   
                 
@@ -3660,6 +3660,8 @@ print '########################################################'
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

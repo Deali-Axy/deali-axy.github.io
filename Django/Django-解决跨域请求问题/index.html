@@ -3483,71 +3483,68 @@
 <li>在<code>views.py</code>里设置响应头，只能控制单个接口</li>
 </ul>
 <h2 id="django-cors-headers">django-cors-headers</h2>
-<p>首先安装</p>
-<pre><code class="bash">pip install django-cors-headers
-</code></pre>
+<p>首先安装
+<div class="highlight"><pre><span></span><code>pip install django-cors-headers
+</code></pre></div>
+然后在<code>settings.py</code>里配置一番就可以
+<div class="highlight"><pre><span></span><code><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">...</span>
+    <span class="s1">&#39;corsheaders&#39;</span><span class="err">，</span>
+    <span class="o">...</span>
+ <span class="p">]</span> 
 
-<p>然后在<code>settings.py</code>里配置一番就可以</p>
-<pre><code class="python">INSTALLED_APPS = [
-    ...
-    'corsheaders'，
-    ...
- ] 
+<span class="n">MIDDLEWARE_CLASSES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="o">...</span>
+    <span class="s1">&#39;corsheaders.middleware.CorsMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.middleware.common.CommonMiddleware&#39;</span><span class="p">,</span> <span class="c1"># 注意顺序</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+<span class="c1">#跨域增加忽略</span>
+<span class="n">CORS_ALLOW_CREDENTIALS</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">CORS_ORIGIN_ALLOW_ALL</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">CORS_ORIGIN_WHITELIST</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;*&#39;</span>
+<span class="p">)</span>
 
-MIDDLEWARE_CLASSES = (
-    ...
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware', # 注意顺序
-    ...
-)
-#跨域增加忽略
-CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    '*'
-)
+<span class="n">CORS_ALLOW_METHODS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;DELETE&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;OPTIONS&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;PATCH&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;PUT&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;VIEW&#39;</span><span class="p">,</span>
+<span class="p">)</span>
 
-CORS_ALLOW_METHODS = (
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-    'VIEW',
-)
-
-CORS_ALLOW_HEADERS = (
-    'XMLHttpRequest',
-    'X_FILENAME',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-    'Pragma',
-)
-</code></pre>
-
-<p>大功告成了。</p>
+<span class="n">CORS_ALLOW_HEADERS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;XMLHttpRequest&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;X_FILENAME&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;accept-encoding&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;authorization&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;content-type&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;dnt&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;origin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;user-agent&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;x-csrftoken&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;x-requested-with&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Pragma&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+大功告成了。</p>
 <h2 id="jsonp">JsonP</h2>
 <p>使用Ajax获取json数据时，存在跨域的限制。不过，在Web页面上调用js的script脚本文件时却不受跨域的影响，JSONP就是利用这个来实现跨域的传输。因此，我们需要将Ajax调用中的dataType从JSON改为JSONP（相应的API也需要支持JSONP）格式。 
 JSONP只能用于GET请求。
 本文不介绍该方法，需要的同学请自行搜索</p>
 <h2 id="viewspy">Views.py配置响应头</h2>
-<p>修改views.py中对应API的实现函数，允许其他域通过Ajax请求数据： </p>
-<pre><code class="python">def myview(request): 
-    response = HttpResponse(json.dumps({“key”: “value”, “key2”: “value”})) 
-    response[“Access-Control-Allow-Origin”] = “*”   
-    response[“Access-Control-Allow-Methods”] = “POST, GET, OPTIONS” 
-    response[“Access-Control-Max-Age”] = “1000” 
-    response[“Access-Control-Allow-Headers”] = “*” 
-    return response
-</code></pre>
-
+<p>修改views.py中对应API的实现函数，允许其他域通过Ajax请求数据： 
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">myview</span><span class="p">(</span><span class="n">request</span><span class="p">):</span> 
+    <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="err">“</span><span class="n">key</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">value</span><span class="err">”</span><span class="p">,</span> <span class="err">“</span><span class="n">key2</span><span class="err">”</span><span class="p">:</span> <span class="err">“</span><span class="n">value</span><span class="err">”</span><span class="p">}))</span> 
+    <span class="n">response</span><span class="p">[</span><span class="err">“</span><span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Allow</span><span class="o">-</span><span class="n">Origin</span><span class="err">”</span><span class="p">]</span> <span class="o">=</span> <span class="err">“</span><span class="o">*</span><span class="err">”</span>   
+    <span class="n">response</span><span class="p">[</span><span class="err">“</span><span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Allow</span><span class="o">-</span><span class="n">Methods</span><span class="err">”</span><span class="p">]</span> <span class="o">=</span> <span class="err">“</span><span class="n">POST</span><span class="p">,</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OPTIONS</span><span class="err">”</span> 
+    <span class="n">response</span><span class="p">[</span><span class="err">“</span><span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Max</span><span class="o">-</span><span class="n">Age</span><span class="err">”</span><span class="p">]</span> <span class="o">=</span> <span class="err">“</span><span class="mi">1000</span><span class="err">”</span> 
+    <span class="n">response</span><span class="p">[</span><span class="err">“</span><span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Allow</span><span class="o">-</span><span class="n">Headers</span><span class="err">”</span><span class="p">]</span> <span class="o">=</span> <span class="err">“</span><span class="o">*</span><span class="err">”</span> 
+    <span class="k">return</span> <span class="n">response</span>
+</code></pre></div></p>
 <h2 id="about">About</h2>
 <p><img alt="" src="../Django-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82%E9%97%AE%E9%A2%98.assets/8869373-901590e019f6f85b.png" /></p>
 <hr />
@@ -3626,6 +3623,8 @@ JSONP只能用于GET请求。
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

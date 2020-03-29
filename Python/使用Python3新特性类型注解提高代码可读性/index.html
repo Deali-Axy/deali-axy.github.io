@@ -3477,14 +3477,14 @@
                   <h1>使用Python3新特性类型注解提高代码可读性</h1>
                 
                 <h2 id="_1">先看代码</h2>
-<pre><code class="python">def add(x: int, y: int) -&gt; int:
-    return x + y
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</code></pre></div>
 
 <p>没用过类型注解(Type Annotations)的同学可能咋一看有点迷糊，其实上面这段代码和下面这个代码是一样的。</p>
-<pre><code class="python">def add(x, y):
-    return x + y
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</code></pre></div>
 
 <h2 id="_2">类型注解介绍</h2>
 <p>我们知道 Python 是一种动态语言，变量以及函数的参数是不区分类型。
@@ -3492,48 +3492,44 @@ Python解释器会在运行的时候动态判断变量和参数的类型，这�
 而且当你在读别人的代码的时候，也无法一眼看出变量或者参数的类型，经常要自己推敲，这样给学习带来了很大的障碍。</p>
 <p>所以Python3里有了这个新特性，可以给参数、函数返回值和变量的类型加上注解，不过这个仅仅是注释而已，对代码的运行来说没有任何影响，变量的真正类型还是会有Python解释器来确定，你所做的只是在提高代码的可读性，仅此而已。</p>
 <h2 id="_3">看代码</h2>
-<pre><code class="python">def add(x: int, y: int) -&gt; int:
-    return x + y
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 
 
-def area_calculation(radius: float) -&gt; float:
-    # 变量类型注解需要 py3.6 以上版本
-    # Var Type Annotations need python 3.6 and later
-    pi: float = 3.1415926
-    return radius * radius * pi
+<span class="k">def</span> <span class="nf">area_calculation</span><span class="p">(</span><span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="c1"># 变量类型注解需要 py3.6 以上版本</span>
+    <span class="c1"># Var Type Annotations need python 3.6 and later</span>
+    <span class="n">pi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.1415926</span>
+    <span class="k">return</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">pi</span>
 
 
-if __name__ == '__main__':
-    print(add(1, 2))
-    print(add.__annotations__)
-    print(area_calculation(2))
-    print(area_calculation.__annotations__)
-</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">add</span><span class="o">.</span><span class="n">__annotations__</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">area_calculation</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">area_calculation</span><span class="o">.</span><span class="n">__annotations__</span><span class="p">)</span>
+</code></pre></div>
 
-<p>运行结果：</p>
-<pre><code>3
-{'x': &lt;class 'int'&gt;, 'y': &lt;class 'int'&gt;, 'return': &lt;class 'int'&gt;}
+<p>运行结果：
+<div class="highlight"><pre><span></span><code>3
+{&#39;x&#39;: &lt;class &#39;int&#39;&gt;, &#39;y&#39;: &lt;class &#39;int&#39;&gt;, &#39;return&#39;: &lt;class &#39;int&#39;&gt;}
 12.5663704
-{'radius': &lt;class 'float'&gt;, 'return': &lt;class 'float'&gt;}
-</code></pre>
-
+{&#39;radius&#39;: &lt;class &#39;float&#39;&gt;, &#39;return&#39;: &lt;class &#39;float&#39;&gt;}
+</code></pre></div></p>
 <p>这里调用了函数的<code>__annotations__</code>属性，通过这个属性可以看到参数和返回值类型的注解。</p>
 <h2 id="_4">测试注解的正确性</h2>
 <p>前面说了，这个注解仅仅起到了注释的作用，不会影响代码的执行，所以即使你类型注解写错了，程序运行的时候还是会按照正确的类型去运行。
 然后，Python提供了一个工具方便我们测试代码里的类型注解正确性，<code>mypy</code></p>
-<p>首先安装：</p>
-<pre><code>pip install mypy
-</code></pre>
-
-<p>使用测试：</p>
-<pre><code>mypy filename.py
-</code></pre>
-
-<p>如果没有错误则没有输出，如果有错误则会有相应输出，如</p>
-<pre><code>$ mypy demo.py
+<p>首先安装：
+<div class="highlight"><pre><span></span><code>pip install mypy
+</code></pre></div></p>
+<p>使用测试：
+<div class="highlight"><pre><span></span><code>mypy filename.py
+</code></pre></div></p>
+<p>如果没有错误则没有输出，如果有错误则会有相应输出，如
+<div class="highlight"><pre><span></span><code>$ mypy demo.py
 demo.py:14: error: Incompatible return value type (got &quot;float&quot;, expected &quot;int&quot;)
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="about">About</h2>
 <p><img alt="" src="../%E4%BD%BF%E7%94%A8Python3%E6%96%B0%E7%89%B9%E6%80%A7%E7%B1%BB%E5%9E%8B%E6%B3%A8%E8%A7%A3%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E5%8F%AF%E8%AF%BB%E6%80%A7.assets/8869373-901590e019f6f85b.png" /></p>
 <hr />
@@ -3612,6 +3608,8 @@ demo.py:14: error: Incompatible return value type (got &quot;float&quot;, expect
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

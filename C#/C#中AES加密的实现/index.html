@@ -3465,7 +3465,7 @@
                 <h2 id="aes">AES算法简介</h2>
 <p><img alt="" src="C#中AES加密的实现.assets\8869373-b51911ad33beec87.png" /></p>
 <blockquote>
-<p><strong>高级加密标准</strong>（英语：<strong>A</strong>dvanced <strong>E</strong>ncryption <strong>S</strong>tandard，<a href="https://zh.wikipedia.org/wiki/%E7%BC%A9%E5%86%99" title="缩写">缩写</a>：AES），在<a href="https://zh.wikipedia.org/wiki/%E5%AF%86%E7%A0%81%E5%AD%A6" title="密码学">密码学</a>中又称<strong>Rijndael加密法</strong>，是<a href="https://zh.wikipedia.org/wiki/%E7%BE%8E%E5%9B%BD%E8%81%94%E9%82%A6%E6%94%BF%E5%BA%9C" title="美国联邦政府">美国联邦政府</a>采用的一种<a href="https://zh.wikipedia.org/wiki/%E5%8D%80%E5%A1%8A%E5%8A%A0%E5%AF%86" title="区块加密">区块加密</a>标准。这个标准用来替代原先的<a href="https://zh.wikipedia.org/wiki/DES" title="DES">DES</a>，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由<a href="https://zh.wikipedia.org/wiki/%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E6%A0%87%E5%87%86%E4%B8%8E%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6%E9%99%A2" title="美国国家标准与技术研究院">美国国家标准与技术研究院</a>（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为<a href="https://zh.wikipedia.org/wiki/%E5%AF%B9%E7%A7%B0%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86" title="对称密钥加密">对称密钥加密</a>中最流行的<a href="https://zh.wikipedia.org/wiki/%E6%BC%94%E7%AE%97%E6%B3%95" title="算法">算法</a>之一。</p>
+<p><strong>高级加密标准</strong>（英语：<strong>A**dvanced **E**ncryption **S**tandard，<a href="https://zh.wikipedia.org/wiki/%E7%BC%A9%E5%86%99" title="缩写">缩写</a>：AES），在<a href="https://zh.wikipedia.org/wiki/%E5%AF%86%E7%A0%81%E5%AD%A6" title="密码学">密码学</a>中又称**Rijndael加密法</strong>，是<a href="https://zh.wikipedia.org/wiki/%E7%BE%8E%E5%9B%BD%E8%81%94%E9%82%A6%E6%94%BF%E5%BA%9C" title="美国联邦政府">美国联邦政府</a>采用的一种<a href="https://zh.wikipedia.org/wiki/%E5%8D%80%E5%A1%8A%E5%8A%A0%E5%AF%86" title="区块加密">区块加密</a>标准。这个标准用来替代原先的<a href="https://zh.wikipedia.org/wiki/DES" title="DES">DES</a>，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由<a href="https://zh.wikipedia.org/wiki/%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E6%A0%87%E5%87%86%E4%B8%8E%E6%8A%80%E6%9C%AF%E7%A0%94%E7%A9%B6%E9%99%A2" title="美国国家标准与技术研究院">美国国家标准与技术研究院</a>（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为<a href="https://zh.wikipedia.org/wiki/%E5%AF%B9%E7%A7%B0%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86" title="对称密钥加密">对称密钥加密</a>中最流行的<a href="https://zh.wikipedia.org/wiki/%E6%BC%94%E7%AE%97%E6%B3%95" title="算法">算法</a>之一。</p>
 <p>该算法为<a href="https://zh.wikipedia.org/wiki/%E6%AF%94%E5%88%A9%E6%97%B6" title="比利时">比利时</a>密码学家Joan Daemen和Vincent Rijmen所设计，结合两位作者的名字，以Rijndael为名投稿高级加密标准的甄选流程。（Rijndael的发音近于"Rhine doll"）</p>
 </blockquote>
 <h2 id="aes_1">AES加密过程</h2>
@@ -3477,156 +3477,151 @@
 <li><code>MixColumns</code>—为了充分混合矩阵中各个直行的操作。这个步骤使用线性转换来混合每内联的四个字节。最后一个加密循环中省略<code>MixColumns</code>步骤，而以另一个<code>AddRoundKey</code>取代。</li>
 </ol>
 <h2 id="c">C#代码实现</h2>
-<p>定义默认密钥向量   </p>
-<pre><code class="c#">private static byte[] _aesKetByte = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF, 0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF };
-private static string _aesKeyStr = Encoding.UTF8.GetString(_aesKetByte);
-</code></pre>
+<p>定义默认密钥向量 <br />
+<div class="highlight"><pre><span></span><code><span class="k">private</span> <span class="k">static</span> <span class="kt">byte</span><span class="p">[]</span> <span class="n">_aesKetByte</span> <span class="p">=</span> <span class="p">{</span> <span class="m">0</span><span class="n">x12</span><span class="p">,</span> <span class="m">0</span><span class="n">x34</span><span class="p">,</span> <span class="m">0</span><span class="n">x56</span><span class="p">,</span> <span class="m">0</span><span class="n">x78</span><span class="p">,</span> <span class="m">0</span><span class="n">x90</span><span class="p">,</span> <span class="m">0</span><span class="n">xAB</span><span class="p">,</span> <span class="m">0</span><span class="n">xCD</span><span class="p">,</span> <span class="m">0</span><span class="n">xEF</span><span class="p">,</span> <span class="m">0</span><span class="n">x12</span><span class="p">,</span> <span class="m">0</span><span class="n">x34</span><span class="p">,</span> <span class="m">0</span><span class="n">x56</span><span class="p">,</span> <span class="m">0</span><span class="n">x78</span><span class="p">,</span> <span class="m">0</span><span class="n">x90</span><span class="p">,</span> <span class="m">0</span><span class="n">xAB</span><span class="p">,</span> <span class="m">0</span><span class="n">xCD</span><span class="p">,</span> <span class="m">0</span><span class="n">xEF</span> <span class="p">};</span>
+<span class="k">private</span> <span class="k">static</span> <span class="kt">string</span> <span class="n">_aesKeyStr</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="n">_aesKetByte</span><span class="p">);</span>
+</code></pre></div></p>
+<p>随机生成密钥
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">static</span> <span class="kt">byte</span><span class="p">[]</span> <span class="nf">GetIv</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">char</span><span class="p">[]</span> <span class="n">arrChar</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[]{</span>
+       <span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="sc">&#39;b&#39;</span><span class="p">,</span><span class="sc">&#39;d&#39;</span><span class="p">,</span><span class="sc">&#39;c&#39;</span><span class="p">,</span><span class="sc">&#39;e&#39;</span><span class="p">,</span><span class="sc">&#39;f&#39;</span><span class="p">,</span><span class="sc">&#39;g&#39;</span><span class="p">,</span><span class="sc">&#39;h&#39;</span><span class="p">,</span><span class="sc">&#39;i&#39;</span><span class="p">,</span><span class="sc">&#39;j&#39;</span><span class="p">,</span><span class="sc">&#39;k&#39;</span><span class="p">,</span><span class="sc">&#39;l&#39;</span><span class="p">,</span><span class="sc">&#39;m&#39;</span><span class="p">,</span><span class="sc">&#39;n&#39;</span><span class="p">,</span><span class="sc">&#39;p&#39;</span><span class="p">,</span><span class="sc">&#39;r&#39;</span><span class="p">,</span><span class="sc">&#39;q&#39;</span><span class="p">,</span><span class="sc">&#39;s&#39;</span><span class="p">,</span><span class="sc">&#39;t&#39;</span><span class="p">,</span><span class="sc">&#39;u&#39;</span><span class="p">,</span><span class="sc">&#39;v&#39;</span><span class="p">,</span><span class="sc">&#39;w&#39;</span><span class="p">,</span><span class="sc">&#39;z&#39;</span><span class="p">,</span><span class="sc">&#39;y&#39;</span><span class="p">,</span><span class="sc">&#39;x&#39;</span><span class="p">,</span>
+       <span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="sc">&#39;1&#39;</span><span class="p">,</span><span class="sc">&#39;2&#39;</span><span class="p">,</span><span class="sc">&#39;3&#39;</span><span class="p">,</span><span class="sc">&#39;4&#39;</span><span class="p">,</span><span class="sc">&#39;5&#39;</span><span class="p">,</span><span class="sc">&#39;6&#39;</span><span class="p">,</span><span class="sc">&#39;7&#39;</span><span class="p">,</span><span class="sc">&#39;8&#39;</span><span class="p">,</span><span class="sc">&#39;9&#39;</span><span class="p">,</span>
+       <span class="sc">&#39;A&#39;</span><span class="p">,</span><span class="sc">&#39;B&#39;</span><span class="p">,</span><span class="sc">&#39;C&#39;</span><span class="p">,</span><span class="sc">&#39;D&#39;</span><span class="p">,</span><span class="sc">&#39;E&#39;</span><span class="p">,</span><span class="sc">&#39;F&#39;</span><span class="p">,</span><span class="sc">&#39;G&#39;</span><span class="p">,</span><span class="sc">&#39;H&#39;</span><span class="p">,</span><span class="sc">&#39;I&#39;</span><span class="p">,</span><span class="sc">&#39;J&#39;</span><span class="p">,</span><span class="sc">&#39;K&#39;</span><span class="p">,</span><span class="sc">&#39;L&#39;</span><span class="p">,</span><span class="sc">&#39;M&#39;</span><span class="p">,</span><span class="sc">&#39;N&#39;</span><span class="p">,</span><span class="sc">&#39;Q&#39;</span><span class="p">,</span><span class="sc">&#39;P&#39;</span><span class="p">,</span><span class="sc">&#39;R&#39;</span><span class="p">,</span><span class="sc">&#39;T&#39;</span><span class="p">,</span><span class="sc">&#39;S&#39;</span><span class="p">,</span><span class="sc">&#39;V&#39;</span><span class="p">,</span><span class="sc">&#39;U&#39;</span><span class="p">,</span><span class="sc">&#39;W&#39;</span><span class="p">,</span><span class="sc">&#39;X&#39;</span><span class="p">,</span><span class="sc">&#39;Y&#39;</span><span class="p">,</span><span class="sc">&#39;Z&#39;</span>
+    <span class="p">};</span>
 
-<p>随机生成密钥</p>
-<pre><code class="C#">public static byte[] GetIv(int n)
-{
-    char[] arrChar = new char[]{
-       'a','b','d','c','e','f','g','h','i','j','k','l','m','n','p','r','q','s','t','u','v','w','z','y','x',
-       '0','1','2','3','4','5','6','7','8','9',
-       'A','B','C','D','E','F','G','H','I','J','K','L','M','N','Q','P','R','T','S','V','U','W','X','Y','Z'
-    };
+    <span class="n">StringBuilder</span> <span class="n">num</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="p">();</span>
 
-    StringBuilder num = new StringBuilder();
+    <span class="n">Random</span> <span class="n">rnd</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Random</span><span class="p">(</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">Millisecond</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+    <span class="p">{</span>
+        <span class="n">num</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="n">arrChar</span><span class="p">[</span><span class="n">rnd</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">arrChar</span><span class="p">.</span><span class="n">Length</span><span class="p">)].</span><span class="n">ToString</span><span class="p">());</span>
+    <span class="p">}</span>
 
-    Random rnd = new Random(DateTime.Now.Millisecond);
-    for (int i = 0; i &lt; n; i++)
-    {
-        num.Append(arrChar[rnd.Next(0, arrChar.Length)].ToString());
-    }
+    <span class="n">_aesKetByte</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">num</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+    <span class="k">return</span> <span class="n">_aesKetByte</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>AES加密</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">/// &lt;summary&gt;</span>
+<span class="c1">/// AES加密</span>
+<span class="c1">/// &lt;/summary&gt;</span>
+<span class="c1">/// &lt;param name=&quot;Data&quot;&gt;被加密的明文&lt;/param&gt;</span>
+<span class="c1">/// &lt;param name=&quot;Key&quot;&gt;密钥&lt;/param&gt;</span>
+<span class="c1">/// &lt;param name=&quot;Vector&quot;&gt;向量&lt;/param&gt;</span>
+<span class="c1">/// &lt;returns&gt;密文&lt;/returns&gt;</span>
+<span class="k">public</span> <span class="k">static</span> <span class="n">String</span> <span class="nf">AESEncrypt</span><span class="p">(</span><span class="n">String</span> <span class="n">Data</span><span class="p">,</span> <span class="n">String</span> <span class="n">Key</span><span class="p">,</span> <span class="n">String</span> <span class="n">Vector</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Byte</span><span class="p">[]</span> <span class="n">plainBytes</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">Data</span><span class="p">);</span>
 
-    _aesKetByte = Encoding.UTF8.GetBytes(num.ToString());
-    return _aesKetByte;
-}
-</code></pre>
+    <span class="n">Byte</span><span class="p">[]</span> <span class="n">bKey</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Byte</span><span class="p">[</span><span class="m">32</span><span class="p">];</span>
+    <span class="n">Array</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">Key</span><span class="p">.</span><span class="n">PadRight</span><span class="p">(</span><span class="n">bKey</span><span class="p">.</span><span class="n">Length</span><span class="p">)),</span> <span class="n">bKey</span><span class="p">,</span> <span class="n">bKey</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+    <span class="n">Byte</span><span class="p">[]</span> <span class="n">bVector</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Byte</span><span class="p">[</span><span class="m">16</span><span class="p">];</span>
+    <span class="n">Array</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">Vector</span><span class="p">.</span><span class="n">PadRight</span><span class="p">(</span><span class="n">bVector</span><span class="p">.</span><span class="n">Length</span><span class="p">)),</span> <span class="n">bVector</span><span class="p">,</span> <span class="n">bVector</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
 
-<p><strong>AES加密</strong></p>
-<pre><code class="c#">/// &lt;summary&gt;
-/// AES加密
-/// &lt;/summary&gt;
-/// &lt;param name=&quot;Data&quot;&gt;被加密的明文&lt;/param&gt;
-/// &lt;param name=&quot;Key&quot;&gt;密钥&lt;/param&gt;
-/// &lt;param name=&quot;Vector&quot;&gt;向量&lt;/param&gt;
-/// &lt;returns&gt;密文&lt;/returns&gt;
-public static String AESEncrypt(String Data, String Key, String Vector)
-{
-    Byte[] plainBytes = Encoding.UTF8.GetBytes(Data);
+    <span class="n">Byte</span><span class="p">[]</span> <span class="n">Cryptograph</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span> <span class="c1">// 加密后的密文</span>
 
-    Byte[] bKey = new Byte[32];
-    Array.Copy(Encoding.UTF8.GetBytes(Key.PadRight(bKey.Length)), bKey, bKey.Length);
-    Byte[] bVector = new Byte[16];
-    Array.Copy(Encoding.UTF8.GetBytes(Vector.PadRight(bVector.Length)), bVector, bVector.Length);
+    <span class="n">Rijndael</span> <span class="n">Aes</span> <span class="p">=</span> <span class="n">Rijndael</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+    <span class="k">try</span>
+    <span class="p">{</span>
+        <span class="c1">// 开辟一块内存流</span>
+        <span class="k">using</span> <span class="p">(</span><span class="n">MemoryStream</span> <span class="n">Memory</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MemoryStream</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="c1">// 把内存流对象包装成加密流对象</span>
+            <span class="k">using</span> <span class="p">(</span><span class="n">CryptoStream</span> <span class="n">Encryptor</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CryptoStream</span><span class="p">(</span><span class="n">Memory</span><span class="p">,</span>
+            <span class="n">Aes</span><span class="p">.</span><span class="n">CreateEncryptor</span><span class="p">(</span><span class="n">bKey</span><span class="p">,</span> <span class="n">bVector</span><span class="p">),</span>
+            <span class="n">CryptoStreamMode</span><span class="p">.</span><span class="n">Write</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="c1">// 明文数据写入加密流</span>
+                <span class="n">Encryptor</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">plainBytes</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">plainBytes</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+                <span class="n">Encryptor</span><span class="p">.</span><span class="n">FlushFinalBlock</span><span class="p">();</span>
 
-    Byte[] Cryptograph = null; // 加密后的密文
+                <span class="n">Cryptograph</span> <span class="p">=</span> <span class="n">Memory</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">catch</span>
+    <span class="p">{</span>
+        <span class="n">Cryptograph</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    Rijndael Aes = Rijndael.Create();
-    try
-    {
-        // 开辟一块内存流
-        using (MemoryStream Memory = new MemoryStream())
-        {
-            // 把内存流对象包装成加密流对象
-            using (CryptoStream Encryptor = new CryptoStream(Memory,
-            Aes.CreateEncryptor(bKey, bVector),
-            CryptoStreamMode.Write))
-            {
-                // 明文数据写入加密流
-                Encryptor.Write(plainBytes, 0, plainBytes.Length);
-                Encryptor.FlushFinalBlock();
+    <span class="k">return</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToBase64String</span><span class="p">(</span><span class="n">Cryptograph</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>AES解密</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">/// &lt;summary&gt;</span>
+<span class="c1">/// AES解密</span>
+<span class="c1">/// &lt;/summary&gt;</span>
+<span class="c1">/// &lt;param name=&quot;Data&quot;&gt;被解密的密文&lt;/param&gt;</span>
+<span class="c1">/// &lt;param name=&quot;Key&quot;&gt;密钥&lt;/param&gt;</span>
+<span class="c1">/// &lt;param name=&quot;Vector&quot;&gt;向量&lt;/param&gt;</span>
+<span class="c1">/// &lt;returns&gt;明文&lt;/returns&gt;</span>
+<span class="k">public</span> <span class="k">static</span> <span class="n">String</span> <span class="nf">AESDecrypt</span><span class="p">(</span><span class="n">String</span> <span class="n">Data</span><span class="p">,</span> <span class="n">String</span> <span class="n">Key</span><span class="p">,</span> <span class="n">String</span> <span class="n">Vector</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Byte</span><span class="p">[]</span> <span class="n">encryptedBytes</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">FromBase64String</span><span class="p">(</span><span class="n">Data</span><span class="p">);</span>
+    <span class="n">Byte</span><span class="p">[]</span> <span class="n">bKey</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Byte</span><span class="p">[</span><span class="m">32</span><span class="p">];</span>
+    <span class="n">Array</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">Key</span><span class="p">.</span><span class="n">PadRight</span><span class="p">(</span><span class="n">bKey</span><span class="p">.</span><span class="n">Length</span><span class="p">)),</span> <span class="n">bKey</span><span class="p">,</span> <span class="n">bKey</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+    <span class="n">Byte</span><span class="p">[]</span> <span class="n">bVector</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Byte</span><span class="p">[</span><span class="m">16</span><span class="p">];</span>
+    <span class="n">Array</span><span class="p">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">Vector</span><span class="p">.</span><span class="n">PadRight</span><span class="p">(</span><span class="n">bVector</span><span class="p">.</span><span class="n">Length</span><span class="p">)),</span> <span class="n">bVector</span><span class="p">,</span> <span class="n">bVector</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
 
-                Cryptograph = Memory.ToArray();
-            }
-        }
-    }
-    catch
-    {
-        Cryptograph = null;
-    }
+    <span class="n">Byte</span><span class="p">[]</span> <span class="n">original</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span> <span class="c1">// 解密后的明文</span>
 
-    return Convert.ToBase64String(Cryptograph);
-}
-</code></pre>
+    <span class="n">Rijndael</span> <span class="n">Aes</span> <span class="p">=</span> <span class="n">Rijndael</span><span class="p">.</span><span class="n">Create</span><span class="p">();</span>
+    <span class="k">try</span>
+    <span class="p">{</span>
+        <span class="c1">// 开辟一块内存流，存储密文</span>
+        <span class="k">using</span> <span class="p">(</span><span class="n">MemoryStream</span> <span class="n">Memory</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MemoryStream</span><span class="p">(</span><span class="n">encryptedBytes</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="c1">// 把内存流对象包装成加密流对象</span>
+            <span class="k">using</span> <span class="p">(</span><span class="n">CryptoStream</span> <span class="n">Decryptor</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CryptoStream</span><span class="p">(</span><span class="n">Memory</span><span class="p">,</span>
+            <span class="n">Aes</span><span class="p">.</span><span class="n">CreateDecryptor</span><span class="p">(</span><span class="n">bKey</span><span class="p">,</span> <span class="n">bVector</span><span class="p">),</span>
+            <span class="n">CryptoStreamMode</span><span class="p">.</span><span class="n">Read</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="c1">// 明文存储区</span>
+                <span class="k">using</span> <span class="p">(</span><span class="n">MemoryStream</span> <span class="n">originalMemory</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MemoryStream</span><span class="p">())</span>
+                <span class="p">{</span>
+                    <span class="n">Byte</span><span class="p">[]</span> <span class="n">Buffer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Byte</span><span class="p">[</span><span class="m">1024</span><span class="p">];</span>
+                    <span class="n">Int32</span> <span class="n">readBytes</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+                    <span class="k">while</span> <span class="p">((</span><span class="n">readBytes</span> <span class="p">=</span> <span class="n">Decryptor</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">Buffer</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">Buffer</span><span class="p">.</span><span class="n">Length</span><span class="p">))</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="n">originalMemory</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">Buffer</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">readBytes</span><span class="p">);</span>
+                    <span class="p">}</span>
 
-<p><strong>AES解密</strong></p>
-<pre><code class="c#">/// &lt;summary&gt;
-/// AES解密
-/// &lt;/summary&gt;
-/// &lt;param name=&quot;Data&quot;&gt;被解密的密文&lt;/param&gt;
-/// &lt;param name=&quot;Key&quot;&gt;密钥&lt;/param&gt;
-/// &lt;param name=&quot;Vector&quot;&gt;向量&lt;/param&gt;
-/// &lt;returns&gt;明文&lt;/returns&gt;
-public static String AESDecrypt(String Data, String Key, String Vector)
-{
-    Byte[] encryptedBytes = Convert.FromBase64String(Data);
-    Byte[] bKey = new Byte[32];
-    Array.Copy(Encoding.UTF8.GetBytes(Key.PadRight(bKey.Length)), bKey, bKey.Length);
-    Byte[] bVector = new Byte[16];
-    Array.Copy(Encoding.UTF8.GetBytes(Vector.PadRight(bVector.Length)), bVector, bVector.Length);
+                    <span class="n">original</span> <span class="p">=</span> <span class="n">originalMemory</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">catch</span>
+    <span class="p">{</span>
+        <span class="n">original</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="n">original</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>使用默认向量加解密
+<div class="highlight"><pre><span></span><code><span class="c1">/// &lt;summary&gt;</span>
+<span class="c1">/// AES加密(无向量)</span>
+<span class="c1">/// &lt;/summary&gt;</span>
+<span class="c1">/// &lt;param name=&quot;Data&quot;&gt;被加密的明文&lt;/param&gt;</span>
+<span class="c1">/// &lt;param name=&quot;Key&quot;&gt;密钥&lt;/param&gt;</span>
+<span class="c1">/// &lt;returns&gt;密文&lt;/returns&gt;</span>
+<span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">AESEncrypt</span><span class="p">(</span><span class="n">String</span> <span class="n">Data</span><span class="p">,</span> <span class="n">String</span> <span class="n">Key</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nf">AESEncrypt</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="n">Key</span><span class="p">,</span> <span class="n">_aesKeyStr</span><span class="p">);</span>
 
-    Byte[] original = null; // 解密后的明文
-
-    Rijndael Aes = Rijndael.Create();
-    try
-    {
-        // 开辟一块内存流，存储密文
-        using (MemoryStream Memory = new MemoryStream(encryptedBytes))
-        {
-            // 把内存流对象包装成加密流对象
-            using (CryptoStream Decryptor = new CryptoStream(Memory,
-            Aes.CreateDecryptor(bKey, bVector),
-            CryptoStreamMode.Read))
-            {
-                // 明文存储区
-                using (MemoryStream originalMemory = new MemoryStream())
-                {
-                    Byte[] Buffer = new Byte[1024];
-                    Int32 readBytes = 0;
-                    while ((readBytes = Decryptor.Read(Buffer, 0, Buffer.Length)) &gt; 0)
-                    {
-                        originalMemory.Write(Buffer, 0, readBytes);
-                    }
-
-                    original = originalMemory.ToArray();
-                }
-            }
-        }
-    }
-    catch
-    {
-        original = null;
-    }
-    return Encoding.UTF8.GetString(original);
-}
-</code></pre>
-
-<p>使用默认向量加解密</p>
-<pre><code class="c#">/// &lt;summary&gt;
-/// AES加密(无向量)
-/// &lt;/summary&gt;
-/// &lt;param name=&quot;Data&quot;&gt;被加密的明文&lt;/param&gt;
-/// &lt;param name=&quot;Key&quot;&gt;密钥&lt;/param&gt;
-/// &lt;returns&gt;密文&lt;/returns&gt;
-public static string AESEncrypt(String Data, String Key)
-{
-    return AESEncrypt(Data, Key, _aesKeyStr);
-
-}
-/// &lt;summary&gt;
-/// AES解密(无向量)
-/// &lt;/summary&gt;
-/// &lt;param name=&quot;Data&quot;&gt;被加密的明文&lt;/param&gt;
-/// &lt;param name=&quot;Key&quot;&gt;密钥&lt;/param&gt;
-/// &lt;returns&gt;明文&lt;/returns&gt;
-public static string AESDecrypt(String Data, String Key)
-{
-    return AESDecrypt(Data, Key, _aesKeyStr);
-}
-</code></pre>
-
+<span class="p">}</span>
+<span class="c1">/// &lt;summary&gt;</span>
+<span class="c1">/// AES解密(无向量)</span>
+<span class="c1">/// &lt;/summary&gt;</span>
+<span class="c1">/// &lt;param name=&quot;Data&quot;&gt;被加密的明文&lt;/param&gt;</span>
+<span class="c1">/// &lt;param name=&quot;Key&quot;&gt;密钥&lt;/param&gt;</span>
+<span class="c1">/// &lt;returns&gt;明文&lt;/returns&gt;</span>
+<span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">AESDecrypt</span><span class="p">(</span><span class="n">String</span> <span class="n">Data</span><span class="p">,</span> <span class="n">String</span> <span class="n">Key</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nf">AESDecrypt</span><span class="p">(</span><span class="n">Data</span><span class="p">,</span> <span class="n">Key</span><span class="p">,</span> <span class="n">_aesKeyStr</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h2 id="about">About</h2>
 <p><img alt="" src="C#中AES加密的实现.assets\8869373-901590e019f6f85b.png" /></p>
 <hr />
@@ -3705,6 +3700,8 @@ public static string AESDecrypt(String Data, String Key)
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

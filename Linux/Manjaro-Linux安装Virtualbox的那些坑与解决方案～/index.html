@@ -3550,10 +3550,9 @@
 <h3 id="virtualbox">安装virtualbox</h3>
 <p>Manjaro的官方源里面是有virtualbox的，直接打开Octopi搜一下就有了～
 <img alt="" src="../Manjaro-Linux%E5%AE%89%E8%A3%85Virtualbox%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BD%9E.assets/8869373-8c70fe572a018d12.png" /></p>
-<p>或者输入命令安装：</p>
-<pre><code>sudo pacman -S virtualbox
-</code></pre>
-
+<p>或者输入命令安装：
+<div class="highlight"><pre><span></span><code>sudo pacman -S virtualbox
+</code></pre></div></p>
 <h3 id="_3">安装内核模块</h3>
 <p>上一步把virtualbox安装好了，但这个时候还不能使用，得安装内核模块并且激活才可以。
 同样在官方源里面就有对应的内核模块可以安装，但是得查一下对应版本。</p>
@@ -3566,24 +3565,22 @@
 <code>Linux419</code>，如图：
 <img alt="" src="../Manjaro-Linux%E5%AE%89%E8%A3%85Virtualbox%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BD%9E.assets/8869373-bcd510d90d0c2fd0.png" /></p>
 <h3 id="_4">激活内核模块</h3>
-<pre><code>sudo modprobe vboxdrv
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo modprobe vboxdrv
+</code></pre></div>
 
 <h3 id="virtualbox_1">添加当前用户到<code>virtualbox</code>用户组</h3>
-<pre><code>sudo gpasswd -a [username] vboxusers
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo gpasswd -a [username] vboxusers
+</code></pre></div>
 
-<p>其中，<code>[username]</code>换成你的用户名，比如我自己的是这样</p>
-<pre><code>sudo gpasswd -a dealiaxy vboxusers
-</code></pre>
-
+<p>其中，<code>[username]</code>换成你的用户名，比如我自己的是这样
+<div class="highlight"><pre><span></span><code>sudo gpasswd -a dealiaxy vboxusers
+</code></pre></div></p>
 <h2 id="_5">坑：导入已有的虚拟机无法开机</h2>
 <p>把已经有的虚拟机导入的时候会遇到这个问题，主要是虚拟硬盘的位置改变了，在设置里面重新设置回来就好了。
 但是这时又会报错说虚拟硬盘的SSID有问题，这个时候就要重置一下SSID了～</p>
-<p>切换到虚拟硬盘文件所在目录，执行以下命令：</p>
-<pre><code> VBoxManage internalcommands sethduuid &lt;file.vdi&gt;
-</code></pre>
-
+<p>切换到虚拟硬盘文件所在目录，执行以下命令：
+<div class="highlight"><pre><span></span><code> VBoxManage internalcommands sethduuid &lt;file.vdi&gt;
+</code></pre></div></p>
 <p>把<code>&lt;file.vdi&gt;</code>换成你的虚拟硬盘文件名～</p>
 <h2 id="_6">参考资料</h2>
 <ul>
@@ -3671,6 +3668,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

@@ -3535,59 +3535,53 @@
                 <h2 id="openssh">安装openssh</h2>
 <p>这个不用啰嗦太多，首先需要安装<code>openssh-server</code>和<code>openssh-client</code>。</p>
 <h2 id="sshd-config">修改<code>sshd-config</code>配置</h2>
-<p>需要关注的就是这三行。</p>
-<pre><code class="python">UsePrivilegeSeparation no         #因为wsl没有实现chroot
-PasswordAuthentication yes
-ListenAddress 0.0.0.0                 #这一项在我的发行版里缺省为注释行。
-</code></pre>
-
-<p>其他的可以根据需求修改。</p>
-<pre><code>ListenAddress 0.0.0.0                  # 要让其他计算机能连接上需要加上这一行，或者把经常需要连接的计算机IP加入
+<p>需要关注的就是这三行。
+<div class="highlight"><pre><span></span><code><span class="n">UsePrivilegeSeparation</span> <span class="n">no</span>         <span class="c1">#因为wsl没有实现chroot</span>
+<span class="n">PasswordAuthentication</span> <span class="n">yes</span>
+<span class="n">ListenAddress</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>                 <span class="c1">#这一项在我的发行版里缺省为注释行。</span>
+</code></pre></div>
+其他的可以根据需求修改。
+<div class="highlight"><pre><span></span><code>ListenAddress 0.0.0.0                  # 要让其他计算机能连接上需要加上这一行，或者把经常需要连接的计算机IP加入
 PermitRootLogin yes                   # 允许root用户登录。
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="windowsssh">关闭Windows自带的ssh</h2>
 <p>我原本还不知道的，查了资料才知道新版Windows自带了ssh服务，不过怎么使用还没有了解。
-可以使用powershell来查看这个服务。</p>
-<pre><code class="python">PS C:\Users\user&gt; Get-Service -Name ssh*
-Status   Name               DisplayName
-------   ----               -----------
-Stopped  SshBroker          SSH Server Broker
-Stopped  SshProxy           SSH Server Proxy
-</code></pre>
-
-<p>在服务控制台里找到这两个服务停掉就行了。
+可以使用powershell来查看这个服务。
+<div class="highlight"><pre><span></span><code><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">user</span><span class="o">&gt;</span> <span class="n">Get</span><span class="o">-</span><span class="n">Service</span> <span class="o">-</span><span class="n">Name</span> <span class="n">ssh</span><span class="o">*</span>
+<span class="n">Status</span>   <span class="n">Name</span>               <span class="n">DisplayName</span>
+<span class="o">------</span>   <span class="o">----</span>               <span class="o">-----------</span>
+<span class="n">Stopped</span>  <span class="n">SshBroker</span>          <span class="n">SSH</span> <span class="n">Server</span> <span class="n">Broker</span>
+<span class="n">Stopped</span>  <span class="n">SshProxy</span>           <span class="n">SSH</span> <span class="n">Server</span> <span class="n">Proxy</span>
+</code></pre></div>
+在服务控制台里找到这两个服务停掉就行了。
 注意要先停掉<code>sshproxy</code>才可以关掉<code>sshbroker</code>。
 <img alt="" src="../Windows%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B8%8A%E9%85%8D%E7%BD%AESSH%E6%9C%8D%E5%8A%A1%E5%99%A8.assets/8869373-fc7b73140b172090.png" /></p>
 <h2 id="ssh">以调试方式启动ssh</h2>
-<pre><code class="python">/usr/sbin/sshd -d
-</code></pre>
-
-<p><code>-d</code>表明是以调试方式启动的服务，这种情况下，错误会显示在控制台上。</p>
+<p><div class="highlight"><pre><span></span><code><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">sshd</span> <span class="o">-</span><span class="n">d</span>
+</code></pre></div>
+<code>-d</code>表明是以调试方式启动的服务，这种情况下，错误会显示在控制台上。</p>
 <p>要注意即使以这种方法启动ssh server，它仍然只是在存在bash窗口时的一个子服务。一旦最后一个bash窗口关闭，这个ssh server也就关闭了，显然这不是我们想要的。接下来看看怎么将ssh server以windows服务或者后台进程来运行。</p>
 <h2 id="ssh_1">正常开启ssh</h2>
-<pre><code class="python">service ssh start
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">service</span> <span class="n">ssh</span> <span class="n">start</span>
+</code></pre></div>
 
 <h2 id="ssh_2">自动启动ssh服务</h2>
 <p>当前WSL并不支持ssh server作为服务运行。我们需要借助windows计划任务和脚本，使得在windows启动时自动运行这一服务。</p>
-<pre><code class="c">set ws=wscript.createobject(&quot;wscript.shell&quot;)
-ws.run &quot;C:\Windows\System32\bash.exe -c '/usr/sbin/sshd -D'&quot;,0
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">set</span> <span class="n">ws</span><span class="o">=</span><span class="n">wscript</span><span class="p">.</span><span class="n">createobject</span><span class="p">(</span><span class="s">&quot;wscript.shell&quot;</span><span class="p">)</span>
+<span class="n">ws</span><span class="p">.</span><span class="n">run</span> <span class="s">&quot;C:\Windows\System32</span><span class="se">\b</span><span class="s">ash.exe -c &#39;/usr/sbin/sshd -D&#39;&quot;</span><span class="p">,</span><span class="mi">0</span>
+</code></pre></div>
 
 <p>将这个文件存为vbs，并在计划任务中添加一个启动任务，触发器设置为系统启动时。
 不过使用这个方法的前提是你的WSL默认用户是root，对于默认用户不是root的必须使用sudo方式启动。
 但是！
 执行sudo时，会提示输入密码，而这时又无法拿到用户的输入。要解决这一问题，需要允许sudo在没有密码的情况下执行命令。</p>
-<p>在bash里输入命令：</p>
-<pre><code class="python">sudo visudo
-</code></pre>
-
-<pre><code class="python">#includedir /etc/sudoers.d
-username ALL=(ALL) NOPASSWD: /usr/sbin/sshd -D
-</code></pre>
-
-<p>把<code>username</code>改成你自己的用户名即可。</p>
+<p>在bash里输入命令：
+<div class="highlight"><pre><span></span><code><span class="n">sudo</span> <span class="n">visudo</span>
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><span class="c1">#includedir /etc/sudoers.d</span>
+<span class="n">username</span> <span class="n">ALL</span><span class="o">=</span><span class="p">(</span><span class="n">ALL</span><span class="p">)</span> <span class="n">NOPASSWD</span><span class="p">:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">sshd</span> <span class="o">-</span><span class="n">D</span>
+</code></pre></div>
+把<code>username</code>改成你自己的用户名即可。</p>
 <h2 id="_1">参考资料</h2>
 <p><a href="https://hbaaron.github.io/blog_2017/%E5%9C%A8wsl%E4%B8%8B%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8sshd%E5%85%A8%E6%94%BB%E7%95%A5/">hbaaron.github.io</a></p>
 <h2 id="about">About</h2>
@@ -3667,6 +3661,8 @@ username ALL=(ALL) NOPASSWD: /usr/sbin/sshd -D
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

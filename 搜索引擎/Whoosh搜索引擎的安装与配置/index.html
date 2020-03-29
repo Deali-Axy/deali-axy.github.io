@@ -3686,59 +3686,59 @@
 </blockquote>
 <p>Whoosh是一个由python实现的全文检索引擎，设计上参照了<code>Lucene</code>，配置和使用都比较方便，不过性能就不是很理想了，不过用在小型网站或者是测试场景下还是可以滴~</p>
 <p>本文介绍一下whoosh最基本的安装和使用方法，欲了解详情，请访问官方网站哈~</p>
-<p>官方文档：https://whoosh.readthedocs.io/en/latest/quickstart.html</p>
+<p>官方文档：<a href="https://whoosh.readthedocs.io/en/latest/quickstart.html">https://whoosh.readthedocs.io/en/latest/quickstart.html</a></p>
 <h2 id="whoosh_1">Whoosh安装</h2>
 <h3 id="pip">直接使用pip安装即可：</h3>
-<pre><code>pip install whoosh
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip install whoosh
+</code></pre></div>
 
 <h3 id="_1">也可以从源码安装：</h3>
-<p>详情见项目主页：https://pypi.python.org/pypi/Whoosh/</p>
+<p>详情见项目主页：<a href="https://pypi.python.org/pypi/Whoosh/">https://pypi.python.org/pypi/Whoosh/</a></p>
 <h2 id="_2">快速入门</h2>
 <p>看一下官方的快速入门例子：</p>
-<pre><code class="bash">&gt;&gt;&gt; from whoosh.index import create_in
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; from whoosh.index import create_in
 &gt;&gt;&gt; from whoosh.fields import *
-&gt;&gt;&gt; schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT)
-&gt;&gt;&gt; ix = create_in(&quot;indexdir&quot;, schema)
-&gt;&gt;&gt; writer = ix.writer()
-&gt;&gt;&gt; writer.add_document(title=u&quot;First document&quot;, path=u&quot;/a&quot;,
-...                     content=u&quot;This is the first document we've added!&quot;)
-&gt;&gt;&gt; writer.add_document(title=u&quot;Second document&quot;, path=u&quot;/b&quot;,
-...                     content=u&quot;The second one is even more interesting!&quot;)
-&gt;&gt;&gt; writer.commit()
+&gt;&gt;&gt; <span class="nv">schema</span> <span class="o">=</span> Schema<span class="o">(</span><span class="nv">title</span><span class="o">=</span>TEXT<span class="o">(</span><span class="nv">stored</span><span class="o">=</span>True<span class="o">)</span>, <span class="nv">path</span><span class="o">=</span>ID<span class="o">(</span><span class="nv">stored</span><span class="o">=</span>True<span class="o">)</span>, <span class="nv">content</span><span class="o">=</span>TEXT<span class="o">)</span>
+&gt;&gt;&gt; <span class="nv">ix</span> <span class="o">=</span> create_in<span class="o">(</span><span class="s2">&quot;indexdir&quot;</span>, schema<span class="o">)</span>
+&gt;&gt;&gt; <span class="nv">writer</span> <span class="o">=</span> ix.writer<span class="o">()</span>
+&gt;&gt;&gt; writer.add_document<span class="o">(</span><span class="nv">title</span><span class="o">=</span>u<span class="s2">&quot;First document&quot;</span>, <span class="nv">path</span><span class="o">=</span>u<span class="s2">&quot;/a&quot;</span>,
+...                     <span class="nv">content</span><span class="o">=</span>u<span class="s2">&quot;This is the first document we&#39;ve added!&quot;</span><span class="o">)</span>
+&gt;&gt;&gt; writer.add_document<span class="o">(</span><span class="nv">title</span><span class="o">=</span>u<span class="s2">&quot;Second document&quot;</span>, <span class="nv">path</span><span class="o">=</span>u<span class="s2">&quot;/b&quot;</span>,
+...                     <span class="nv">content</span><span class="o">=</span>u<span class="s2">&quot;The second one is even more interesting!&quot;</span><span class="o">)</span>
+&gt;&gt;&gt; writer.commit<span class="o">()</span>
 &gt;&gt;&gt; from whoosh.qparser import QueryParser
-&gt;&gt;&gt; with ix.searcher() as searcher:
-...     query = QueryParser(&quot;content&quot;, ix.schema).parse(&quot;first&quot;)
-...     results = searcher.search(query)
-...     results[0]
+&gt;&gt;&gt; with ix.searcher<span class="o">()</span> as searcher:
+...     <span class="nv">query</span> <span class="o">=</span> QueryParser<span class="o">(</span><span class="s2">&quot;content&quot;</span>, ix.schema<span class="o">)</span>.parse<span class="o">(</span><span class="s2">&quot;first&quot;</span><span class="o">)</span>
+...     <span class="nv">results</span> <span class="o">=</span> searcher.search<span class="o">(</span>query<span class="o">)</span>
+...     results<span class="o">[</span><span class="m">0</span><span class="o">]</span>
 ...
-{&quot;title&quot;: u&quot;First document&quot;, &quot;path&quot;: u&quot;/a&quot;}
-</code></pre>
+<span class="o">{</span><span class="s2">&quot;title&quot;</span>: u<span class="s2">&quot;First document&quot;</span>, <span class="s2">&quot;path&quot;</span>: u<span class="s2">&quot;/a&quot;</span><span class="o">}</span>
+</code></pre></div>
 
 <h2 id="_3">建立索引和模式对象</h2>
 <h3 id="_4">定义索引模式</h3>
 <p>首先要定义索引模式，以字段的形式列在索引中：</p>
-<pre><code class="python">from whoosh.fields import *
-schema = Schema(title=TEXT, path=ID, content=TEXT)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">whoosh.fields</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">TEXT</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">ID</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">TEXT</span><span class="p">)</span>
+</code></pre></div>
 
 <p>其中，<code>title</code>、<code>path</code>、<code>content</code>就是字段(field)、每个字段对应索引查找目标文件的一部分信息，上面的代码就是定义索引的模式——索引内容包括<code>title</code>、<code>path</code>、<code>content</code>这三个字段，一个字段建立了索引就能被搜索到，也能被存储。</p>
 <p>下面的代码和上面的代码是等价的：</p>
-<pre><code class="python">schema = Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">TEXT</span><span class="p">(</span><span class="n">stored</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span> <span class="n">path</span><span class="o">=</span><span class="n">ID</span><span class="p">(</span><span class="n">stored</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span> <span class="n">content</span><span class="o">=</span><span class="n">TEXT</span><span class="p">)</span>
+</code></pre></div>
 
 <p>在字段后面添加了参数(stored=True)，意味着将返回该字段的搜索结果。</p>
 <p>这样就把索引模式建立好了，只要建立一次就好了，不用重复建立，索引模式一旦建立就会随索引保存。</p>
 <h3 id="_5">定义索引模式对象</h3>
 <p>索引模式对象就是一个继承自<code>SchemaClass</code>的类，例子如下：</p>
-<pre><code class="python">from whoosh.fields import SchemaClass, TEXT, KEYWORD, ID, STORED
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">whoosh.fields</span> <span class="kn">import</span> <span class="n">SchemaClass</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">,</span> <span class="n">KEYWORD</span><span class="p">,</span> <span class="n">ID</span><span class="p">,</span> <span class="n">STORED</span>
 
-class TestSchema(SchemaClass):
-    path = ID(stored=True)
-    title = TEXT(stored=True)
-    content = TEXT
-    tags = KEYWORD
-</code></pre>
+<span class="k">class</span> <span class="nc">TestSchema</span><span class="p">(</span><span class="n">SchemaClass</span><span class="p">):</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">ID</span><span class="p">(</span><span class="n">stored</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">TEXT</span><span class="p">(</span><span class="n">stored</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">TEXT</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">KEYWORD</span>
+</code></pre></div>
 
 <h3 id="_6">索引字段类型</h3>
 <p>在上面的例子中，<code>title = TEXT(stored=True)</code>，<code>title</code>是字段名称，<code>TEXT</code>是字段类型。</p>
@@ -3753,30 +3753,30 @@ class TestSchema(SchemaClass):
 <li>whoosh.fields.DATETIME：时间对象类型</li>
 </ul>
 <h3 id="_7">官方文档</h3>
-<p>https://pythonhosted.org/Whoosh/schema.html</p>
+<p><a href="https://pythonhosted.org/Whoosh/schema.html">https://pythonhosted.org/Whoosh/schema.html</a></p>
 <h3 id="_8">选择索引存储目录</h3>
 <p>建立好索引模式之后，要选择一个文件夹来保存搜索引擎建立的索引数据。代码如下：</p>
-<pre><code class="python">import os.path
-from whoosh.index import create_in
-from whoosh.index import open_dir
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">from</span> <span class="nn">whoosh.index</span> <span class="kn">import</span> <span class="n">create_in</span>
+<span class="kn">from</span> <span class="nn">whoosh.index</span> <span class="kn">import</span> <span class="n">open_dir</span>
 
-schema = fields.Schema(title=TEXT(stored=True), path=ID(stored=True), content=TEXT)
+<span class="n">schema</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Schema</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">TEXT</span><span class="p">(</span><span class="n">stored</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span> <span class="n">path</span><span class="o">=</span><span class="n">ID</span><span class="p">(</span><span class="n">stored</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span> <span class="n">content</span><span class="o">=</span><span class="n">TEXT</span><span class="p">)</span>
 
-if not os.path.exists('index_data'):     #如果目录 index_data 不存在则创建
-    os.mkdir('index_data') 
-ix = create_in(&quot;index_data&quot;,schema)      #按照之前创建的schema模式建立索引目录
-ix = open_dir(&quot;index_data&quot;)　            #打开该目录一遍存储索引文件
-</code></pre>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;index_data&#39;</span><span class="p">):</span>     <span class="c1">#如果目录 index_data 不存在则创建</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s1">&#39;index_data&#39;</span><span class="p">)</span> 
+<span class="n">ix</span> <span class="o">=</span> <span class="n">create_in</span><span class="p">(</span><span class="s2">&quot;index_data&quot;</span><span class="p">,</span><span class="n">schema</span><span class="p">)</span>      <span class="c1">#按照之前创建的schema模式建立索引目录</span>
+<span class="n">ix</span> <span class="o">=</span> <span class="n">open_dir</span><span class="p">(</span><span class="s2">&quot;index_data&quot;</span><span class="p">)</span>　            <span class="c1">#打开该目录一遍存储索引文件</span>
+</code></pre></div>
 
 <p>上例中，用<code>create_in</code>创建一个具有前述索引模式的索引存储目录对象，所有的索引将被保存在该目录<code>index_data</code>中。</p>
 <p>之后，用<code>open_dir</code>打开这个目录。</p>
 <h2 id="_9">保存索引数据</h2>
 <p>代码如下：</p>
-<pre><code class="python">writer = ix.writer()
-writer.add_document(title=u&quot;my document&quot;, content=u&quot;this is my document&quot;, path=u&quot;/a&quot;, tags=u&quot;firlst short&quot;)
-writer.add_document(title=u&quot;my second document&quot;, content=u&quot;this is my second document&quot;, path=u&quot;/b&quot;, tags=u&quot;second short&quot;)
-writer.commit()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">writer</span> <span class="o">=</span> <span class="n">ix</span><span class="o">.</span><span class="n">writer</span><span class="p">()</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">add_document</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;my document&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;this is my document&quot;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;/a&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;firlst short&quot;</span><span class="p">)</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">add_document</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;my second document&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;this is my second document&quot;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;/b&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="sa">u</span><span class="s2">&quot;second short&quot;</span><span class="p">)</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div>
 
 <h3 id="_10">注意事项</h3>
 <ul>
@@ -3784,53 +3784,53 @@ writer.commit()
 <li>不是每个字段都必须赋值</li>
 </ul>
 <h3 id="_11">官方文档</h3>
-<p>https://pythonhosted.org/Whoosh/indexing.html</p>
+<p><a href="https://pythonhosted.org/Whoosh/indexing.html">https://pythonhosted.org/Whoosh/indexing.html</a></p>
 <h2 id="_12">开始搜索</h2>
 <ul>
 <li>建立搜索对象</li>
 </ul>
-<pre><code class="python">searcher = ix.searcher()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">searcher</span> <span class="o">=</span> <span class="n">ix</span><span class="o">.</span><span class="n">searcher</span><span class="p">()</span>
+</code></pre></div>
 
 <ul>
 <li>搜索完了要记得关闭</li>
 </ul>
-<pre><code class="python">searcher.close()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">searcher</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
 
 <ul>
 <li>推荐用下面这种写法</li>
 </ul>
-<pre><code class="python">withe ix.searcher() as searcher:
-    (do somthing)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">withe</span> <span class="n">ix</span><span class="o">.</span><span class="n">searcher</span><span class="p">()</span> <span class="k">as</span> <span class="n">searcher</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">do</span> <span class="n">somthing</span><span class="p">)</span>
+</code></pre></div>
 
 <p>或者</p>
-<pre><code class="python">try:
-    searcher = ix.searcher()
-    (do somthing)
-finally:
-    searcher.close()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">searcher</span> <span class="o">=</span> <span class="n">ix</span><span class="o">.</span><span class="n">searcher</span><span class="p">()</span>
+    <span class="p">(</span><span class="n">do</span> <span class="n">somthing</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">searcher</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
 
 <ul>
 <li>开始搜索</li>
 </ul>
 <p>以搜索content为例子</p>
-<pre><code class="python">from whoosh.qparser import QueryParser
-with ix.searcher() as searcher:
-    query = QueryParser(&quot;content&quot;,ix.schema).parse(&quot;second&quot;)
-    result = searcher.search(query)
-    results[0]
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">whoosh.qparser</span> <span class="kn">import</span> <span class="n">QueryParser</span>
+<span class="k">with</span> <span class="n">ix</span><span class="o">.</span><span class="n">searcher</span><span class="p">()</span> <span class="k">as</span> <span class="n">searcher</span><span class="p">:</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="n">QueryParser</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">,</span><span class="n">ix</span><span class="o">.</span><span class="n">schema</span><span class="p">)</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;second&quot;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">searcher</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
 
 <p>返回结果：</p>
-<pre><code class="json">{&quot;title&quot;:u&quot;my second document&quot;,&quot;path&quot;:u&quot;/a&quot;}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="err">u</span><span class="s2">&quot;my second document&quot;</span><span class="p">,</span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="err">u</span><span class="s2">&quot;/a&quot;</span><span class="p">}</span>
+</code></pre></div>
 
 <h2 id="_13">写在后面</h2>
 <p>到这里基本就ok啦，但是whoosh，或者说是全文检索引擎的使用和原理还远远不止这些，我会在后面的博客中介绍从零开始编写一个搜索引擎的方法，有兴趣的同学可以继续关注，一起学习哈~</p>
-<p>本文的结构和部分内容参考了<strong>老齐</strong>老师的博客，在此表示感谢~</p>
+<p>本文的结构和部分内容参考了**老齐**老师的博客，在此表示感谢~</p>
 <h2 id="_14">欢迎与我交流</h2>
 <ul>
 <li>打代码直播间：<a href="https://live.bilibili.com/11883038">https://live.bilibili.com/11883038</a></li>
@@ -3912,6 +3912,8 @@ with ix.searcher() as searcher:
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

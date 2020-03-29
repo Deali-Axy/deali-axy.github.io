@@ -3528,60 +3528,57 @@ MD设计语言的图标。
 <h2 id="_1">准备</h2>
 <h3 id="1">1. 使用谷歌在线字体</h3>
 <p>这是最方便的方式：</p>
-<p>引入在线CSS文件</p>
-<pre><code class="html">&lt;link href=&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot;
-      rel=&quot;stylesheet&quot;&gt;
-</code></pre>
-
+<p>引入在线CSS文件
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot;</span>
+      <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+</code></pre></div></p>
 <h3 id="2">2. 使用本地字体</h3>
 <p>由于某些你懂的原因，谷歌服务在大陆是无法使用的，所以我们可以把这些字体下载下来，然后在网页中引用即可。</p>
-<p>下载地址：https://github.com/google/material-design-icons/tree/master/iconfont</p>
-<p>新建CSS文件：</p>
-<pre><code class="css">@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
-  src: local('Material Icons'),
-    local('MaterialIcons-Regular'),
-    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
-    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
-    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
-}
+<p>下载地址：<a href="https://github.com/google/material-design-icons/tree/master/iconfont">https://github.com/google/material-design-icons/tree/master/iconfont</a></p>
+<p>新建CSS文件：
+<div class="highlight"><pre><span></span><code><span class="p">@</span><span class="k">font-face</span> <span class="p">{</span>
+  <span class="nt">font-family</span><span class="o">:</span> <span class="s1">&#39;Material Icons&#39;</span><span class="o">;</span>
+  <span class="nt">font-style</span><span class="o">:</span> <span class="nt">normal</span><span class="o">;</span>
+  <span class="nt">font-weight</span><span class="o">:</span> <span class="nt">400</span><span class="o">;</span>
+  <span class="nt">src</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="nt">https</span><span class="o">://</span><span class="nt">example</span><span class="p">.</span><span class="nc">com</span><span class="o">/</span><span class="nt">MaterialIcons-Regular</span><span class="p">.</span><span class="nc">eot</span><span class="o">);</span> <span class="c">/* For IE6-8 */</span>
+  <span class="nt">src</span><span class="o">:</span> <span class="nt">local</span><span class="o">(</span><span class="s1">&#39;Material Icons&#39;</span><span class="o">),</span>
+    <span class="nt">local</span><span class="o">(</span><span class="s1">&#39;MaterialIcons-Regular&#39;</span><span class="o">),</span>
+    <span class="nt">url</span><span class="o">(</span><span class="nt">https</span><span class="o">://</span><span class="nt">example</span><span class="p">.</span><span class="nc">com</span><span class="o">/</span><span class="nt">MaterialIcons-Regular</span><span class="p">.</span><span class="nc">woff2</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">&#39;woff2&#39;</span><span class="o">),</span>
+    <span class="nt">url</span><span class="o">(</span><span class="nt">https</span><span class="o">://</span><span class="nt">example</span><span class="p">.</span><span class="nc">com</span><span class="o">/</span><span class="nt">MaterialIcons-Regular</span><span class="p">.</span><span class="nc">woff</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">&#39;woff&#39;</span><span class="o">),</span>
+    <span class="nt">url</span><span class="o">(</span><span class="nt">https</span><span class="o">://</span><span class="nt">example</span><span class="p">.</span><span class="nc">com</span><span class="o">/</span><span class="nt">MaterialIcons-Regular</span><span class="p">.</span><span class="nc">ttf</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">&#39;truetype&#39;</span><span class="o">);</span>
+<span class="p">}</span>
 
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
+<span class="p">.</span><span class="nc">material-icons</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="p">:</span> <span class="s1">&#39;Material Icons&#39;</span><span class="p">;</span>
+  <span class="k">font-weight</span><span class="p">:</span> <span class="kc">normal</span><span class="p">;</span>
+  <span class="k">font-style</span><span class="p">:</span> <span class="kc">normal</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="p">:</span> <span class="mi">24</span><span class="kt">px</span><span class="p">;</span>  <span class="c">/* Preferred icon size */</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">text-transform</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+  <span class="k">letter-spacing</span><span class="p">:</span> <span class="kc">normal</span><span class="p">;</span>
+  <span class="k">word-wrap</span><span class="p">:</span> <span class="kc">normal</span><span class="p">;</span>
+  <span class="k">white-space</span><span class="p">:</span> <span class="kc">nowrap</span><span class="p">;</span>
+  <span class="k">direction</span><span class="p">:</span> <span class="kc">ltr</span><span class="p">;</span>
 
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
+  <span class="c">/* Support for all WebKit browsers. */</span>
+  <span class="kp">-webkit-</span><span class="n">font-smoothing</span><span class="p">:</span> <span class="n">antialiased</span><span class="p">;</span>
+  <span class="c">/* Support for Safari and Chrome. */</span>
+  <span class="n">text-rendering</span><span class="p">:</span> <span class="kc">optimizeLegibility</span><span class="p">;</span>
 
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
+  <span class="c">/* Support for Firefox. */</span>
+  <span class="kp">-moz-</span><span class="n">osx-font-smoothing</span><span class="p">:</span> <span class="n">grayscale</span><span class="p">;</span>
 
-  /* Support for IE. */
-  font-feature-settings: 'liga';
-}
-</code></pre>
-
+  <span class="c">/* Support for IE. */</span>
+  <span class="k">font-feature-settings</span><span class="p">:</span> <span class="s1">&#39;liga&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h2 id="_2">在网页中使用</h2>
 <p>在Material Design图标库中寻找你想要的图标，然后通过名字就可以把图标正确显示在网页里咯。</p>
-<p>图标库：https://material.io/tools/icons/</p>
-<p>使用举例：</p>
-<pre><code class="html">&lt;i class=&quot;material-icons&quot;&gt;face&lt;/i&gt;
-</code></pre>
-
+<p>图标库：<a href="https://material.io/tools/icons/">https://material.io/tools/icons/</a></p>
+<p>使用举例：
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;material-icons&quot;</span><span class="p">&gt;</span>face<span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+</code></pre></div></p>
 <p><img alt="" src="../%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E4%BD%BF%E7%94%A8Material-Design%E5%9B%BE%E6%A0%87.assets/8869373-72d8103d343ca04d.png" /></p>
 <h2 id="_3">欢迎交流</h2>
 <p>交流问题请在微信公众号后台留言，每一条信息我都会回复哈~
@@ -3663,6 +3660,8 @@ MD设计语言的图标。
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

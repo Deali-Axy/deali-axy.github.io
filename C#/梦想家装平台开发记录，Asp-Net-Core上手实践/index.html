@@ -3626,62 +3626,58 @@
 <li><code>DbContext</code>: 与数据库沟通的桥梁，一个数据库对应一个<code>DbContext</code></li>
 </ul>
 <h2 id="ef-core_1">注册<code>EF Core</code>服务</h2>
-<pre><code class="c#">services.AddEntityFrameworkSqlite()
-    .AddDbContext&lt;MainContext&gt;(options =&gt; options.UseSqlite(Configuration[&quot;database:connection&quot;]));
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">services</span><span class="p">.</span><span class="n">AddEntityFrameworkSqlite</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">MainContext</span><span class="p">&gt;(</span><span class="n">options</span> <span class="p">=&gt;</span> <span class="n">options</span><span class="p">.</span><span class="n">UseSqlite</span><span class="p">(</span><span class="n">Configuration</span><span class="p">[</span><span class="s">&quot;database:connection&quot;</span><span class="p">]));</span>
+</code></pre></div>
 
 <h2 id="dbcontext">数据库上下文 <code>DbContext</code></h2>
-<pre><code class="bash">public class MainContext : DbContext
-{
-    public MainContext() { }
-    public MainContext(DbContextOptions&lt;MainContext&gt; options) : base(options) { }
+<p><div class="highlight"><pre><span></span><code>public class MainContext : DbContext
+<span class="o">{</span>
+    public MainContext<span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+    public MainContext<span class="o">(</span>DbContextOptions&lt;MainContext&gt; options<span class="o">)</span> : base<span class="o">(</span>options<span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile(&quot;appsettings.json&quot;);
-        var configuration = builder.Build();
-        optionsBuilder.UseSqlite(configuration[&quot;database:connection&quot;]);
-    }
-}
-</code></pre>
-
-<p>这里我遇到一个很奇怪的问题，单纯在<code>Startup.cs</code>里面注册EFCore根本不行，运行的时候老是提示我<code>No database provider</code>，只能在<code>DbContext</code>里面再重写这个<code>OnConfiguring</code>，重新配置一遍数据库= =...</p>
+    protected override void OnConfiguring<span class="o">(</span>DbContextOptionsBuilder optionsBuilder<span class="o">)</span>
+    <span class="o">{</span>
+        var <span class="nv">builder</span> <span class="o">=</span> new ConfigurationBuilder<span class="o">()</span>.SetBasePath<span class="o">(</span>Directory.GetCurrentDirectory<span class="o">())</span>.AddJsonFile<span class="o">(</span><span class="s2">&quot;appsettings.json&quot;</span><span class="o">)</span><span class="p">;</span>
+        var <span class="nv">configuration</span> <span class="o">=</span> builder.Build<span class="o">()</span><span class="p">;</span>
+        optionsBuilder.UseSqlite<span class="o">(</span>configuration<span class="o">[</span><span class="s2">&quot;database:connection&quot;</span><span class="o">])</span><span class="p">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+这里我遇到一个很奇怪的问题，单纯在<code>Startup.cs</code>里面注册EFCore根本不行，运行的时候老是提示我<code>No database provider</code>，只能在<code>DbContext</code>里面再重写这个<code>OnConfiguring</code>，重新配置一遍数据库= =...</p>
 <h2 id="_1">数据库迁移</h2>
-<p>创建数据库迁移：</p>
-<pre><code class="bash">dotnet ef migrations add InitialCreate -v
-</code></pre>
-
-<p>查看状态：</p>
-<pre><code class="bash">dotnet ef migrations list
-</code></pre>
-
-<p>应用迁移来更新数据库：</p>
-<pre><code class="bash">dotnet ef database update -v
-</code></pre>
-
+<p>创建数据库迁移：
+<div class="highlight"><pre><span></span><code>dotnet ef migrations add InitialCreate -v
+</code></pre></div></p>
+<p>查看状态：
+<div class="highlight"><pre><span></span><code>dotnet ef migrations list
+</code></pre></div></p>
+<p>应用迁移来更新数据库：
+<div class="highlight"><pre><span></span><code>dotnet ef database update -v
+</code></pre></div></p>
 <h2 id="swagger">引入Swagger支持</h2>
 <h3 id="_2">安装依赖</h3>
-<pre><code class="nuget">Install-Package Swashbuckle.AspNetCore
-</code></pre>
+<div class="highlight"><pre><span></span><code>Install-Package Swashbuckle.AspNetCore
+</code></pre></div>
 
 <h3 id="_3">配置中间件</h3>
-<pre><code class="c#">using Swashbuckle.AspNetCore.Swagger;
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">Swashbuckle.AspNetCore.Swagger</span><span class="p">;</span>
 
-// 在Startup.ConfigureServices中配置服务
-services.AddSwaggerGen(c =&gt; { c.SwaggerDoc(&quot;v1&quot;, new OpenApiInfo {Title = &quot;My Api&quot;, Version = &quot;v1&quot;}); });
+<span class="c1">// 在Startup.ConfigureServices中配置服务</span>
+<span class="n">services</span><span class="p">.</span><span class="n">AddSwaggerGen</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="n">c</span><span class="p">.</span><span class="n">SwaggerDoc</span><span class="p">(</span><span class="s">&quot;v1&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="n">OpenApiInfo</span> <span class="p">{</span><span class="n">Title</span> <span class="p">=</span> <span class="s">&quot;My Api&quot;</span><span class="p">,</span> <span class="n">Version</span> <span class="p">=</span> <span class="s">&quot;v1&quot;</span><span class="p">});</span> <span class="p">});</span>
 
-// 在Startup.Configure中配置中间件
-app.UseSwagger();
-app.UseSwaggerUI(c =&gt; { c.SwaggerEndpoint(&quot;/swagger/v1/swagger.json&quot;, &quot;My API V1&quot;); });
-</code></pre>
+<span class="c1">// 在Startup.Configure中配置中间件</span>
+<span class="n">app</span><span class="p">.</span><span class="n">UseSwagger</span><span class="p">();</span>
+<span class="n">app</span><span class="p">.</span><span class="n">UseSwaggerUI</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="n">c</span><span class="p">.</span><span class="n">SwaggerEndpoint</span><span class="p">(</span><span class="s">&quot;/swagger/v1/swagger.json&quot;</span><span class="p">,</span> <span class="s">&quot;My API V1&quot;</span><span class="p">);</span> <span class="p">});</span>
+</code></pre></div>
 
 <p>把应用的根路径设置为<code>Swagger UI</code>，如下：</p>
-<pre><code class="C#">app.UseSwaggerUI(c =&gt;
-{
-    c.SwaggerEndpoint(&quot;/swagger/v1/swagger.json&quot;, &quot;My API V1&quot;);
-    c.RoutePrefix = string.Empty;
-});
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">app</span><span class="p">.</span><span class="n">UseSwaggerUI</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="n">c</span><span class="p">.</span><span class="n">SwaggerEndpoint</span><span class="p">(</span><span class="s">&quot;/swagger/v1/swagger.json&quot;</span><span class="p">,</span> <span class="s">&quot;My API V1&quot;</span><span class="p">);</span>
+    <span class="n">c</span><span class="p">.</span><span class="n">RoutePrefix</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
 
 <h3 id="_4">启动测试</h3>
 <p>启动应用，并导航到<code>http://localhost:&lt;port&gt;/swagger/v1/swagger.json</code>，生成的描述终结点的文档显示如下json格式。</p>
@@ -3693,89 +3689,88 @@ app.UseSwaggerUI(c =&gt; { c.SwaggerEndpoint(&quot;/swagger/v1/swagger.json&quot
 </ul>
 <h3 id="_6">自定义以及扩展</h3>
 <p>修改之前配置的Swagger服务：</p>
-<pre><code class="C#">services.AddSwaggerGen(c =&gt;
-{
-    c.SwaggerDoc(&quot;v1&quot;,
-        info: new OpenApiInfo
-        {
-            Version = &quot;v1&quot;,
-            Title = &quot;Dreaming Home 智能家装平台&quot;,
-            Description = &quot;智能家装平台 Api 文档&quot;,
-            TermsOfService = new Uri(&quot;http://blog.deali.cn&quot;),
-            Contact = new OpenApiContact
-            {
-                Name = &quot;DealiAxy&quot;,
-                Email = &quot;dealiaxy@gmail.com&quot;,
-                Url = new Uri(&quot;https://zhuanlan.zhihu.com/deali&quot;),
-            },
-            License = new OpenApiLicense
-            {
-                Name = &quot;GNU GENERAL PUBLIC LICENSE Version 2&quot;,
-                Url = new Uri(&quot;https://www.gnu.org/licenses/old-licenses/gpl-2.0.html&quot;),
-            }
-         });
-});
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">services</span><span class="p">.</span><span class="n">AddSwaggerGen</span><span class="p">(</span><span class="n">c</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="n">c</span><span class="p">.</span><span class="n">SwaggerDoc</span><span class="p">(</span><span class="s">&quot;v1&quot;</span><span class="p">,</span>
+        <span class="n">info</span><span class="p">:</span> <span class="k">new</span> <span class="n">OpenApiInfo</span>
+        <span class="p">{</span>
+            <span class="n">Version</span> <span class="p">=</span> <span class="s">&quot;v1&quot;</span><span class="p">,</span>
+            <span class="n">Title</span> <span class="p">=</span> <span class="s">&quot;Dreaming Home 智能家装平台&quot;</span><span class="p">,</span>
+            <span class="n">Description</span> <span class="p">=</span> <span class="s">&quot;智能家装平台 Api 文档&quot;</span><span class="p">,</span>
+            <span class="n">TermsOfService</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span><span class="p">(</span><span class="s">&quot;http://blog.deali.cn&quot;</span><span class="p">),</span>
+            <span class="n">Contact</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OpenApiContact</span>
+            <span class="p">{</span>
+                <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;DealiAxy&quot;</span><span class="p">,</span>
+                <span class="n">Email</span> <span class="p">=</span> <span class="s">&quot;dealiaxy@gmail.com&quot;</span><span class="p">,</span>
+                <span class="n">Url</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span><span class="p">(</span><span class="s">&quot;https://zhuanlan.zhihu.com/deali&quot;</span><span class="p">),</span>
+            <span class="p">},</span>
+            <span class="n">License</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OpenApiLicense</span>
+            <span class="p">{</span>
+                <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;GNU GENERAL PUBLIC LICENSE Version 2&quot;</span><span class="p">,</span>
+                <span class="n">Url</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span><span class="p">(</span><span class="s">&quot;https://www.gnu.org/licenses/old-licenses/gpl-2.0.html&quot;</span><span class="p">),</span>
+            <span class="p">}</span>
+         <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
 
 <p>显示接口的xml文档要先生成，然后在<code>services.AddSwaggerGen</code>里面设置才行。</p>
-<pre><code class="C#">// 为 Swagger JSON and UI设置xml文档注释路径
-//获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
-var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
-var xmlPath = Path.Combine(basePath, &quot;Doc&quot;, &quot;DreamingHome.xml&quot;);
-c.IncludeXmlComments(xmlPath);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// 为 Swagger JSON and UI设置xml文档注释路径</span>
+<span class="c1">//获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）</span>
+<span class="kt">var</span> <span class="n">basePath</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">GetDirectoryName</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">Program</span><span class="p">).</span><span class="n">Assembly</span><span class="p">.</span><span class="n">Location</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">xmlPath</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span> <span class="s">&quot;Doc&quot;</span><span class="p">,</span> <span class="s">&quot;DreamingHome.xml&quot;</span><span class="p">);</span>
+<span class="n">c</span><span class="p">.</span><span class="n">IncludeXmlComments</span><span class="p">(</span><span class="n">xmlPath</span><span class="p">);</span>
+</code></pre></div>
 
 <h3 id="_7">小结</h3>
 <p>通过上面的操作可以总结出，Swagger UI 显示上述注释代码的 <code>&lt;summary&gt;</code> 元素的内部文本作为api大的注释！</p>
 <p>当然你还可以将 remarks 元素添加到 <code>Get</code> 操作方法文档。 它可以补充 <code>&lt;summary&gt;</code> 元素中指定的信息，并提供更可靠的 Swagger UI。 <code>&lt;remarks&gt;</code> 元素内容可包含文本、JSON 或 XML。 代码如下：</p>
-<pre><code class="C#"> /// &lt;summary&gt;
- /// 这是一个带参数的get请求
- /// &lt;/summary&gt;
- /// &lt;remarks&gt;
- /// 例子:
- /// Get api/Values/1
- /// &lt;/remarks&gt;
- /// &lt;param name=&quot;id&quot;&gt;主键&lt;/param&gt;
- /// &lt;returns&gt;测试字符串&lt;/returns&gt;          
- [HttpGet(&quot;{id}&quot;)]
- public ActionResult&lt;string&gt; Get(int id)
- {
-       return $&quot;你请求的 id 是 {id}&quot;;
- }
-</code></pre>
+<div class="highlight"><pre><span></span><code> <span class="c1">/// &lt;summary&gt;</span>
+ <span class="c1">/// 这是一个带参数的get请求</span>
+ <span class="c1">/// &lt;/summary&gt;</span>
+ <span class="c1">/// &lt;remarks&gt;</span>
+ <span class="c1">/// 例子:</span>
+ <span class="c1">/// Get api/Values/1</span>
+ <span class="c1">/// &lt;/remarks&gt;</span>
+ <span class="c1">/// &lt;param name=&quot;id&quot;&gt;主键&lt;/param&gt;</span>
+ <span class="c1">/// &lt;returns&gt;测试字符串&lt;/returns&gt;          </span>
+<span class="na"> [HttpGet(&quot;{id}&quot;)]</span>
+ <span class="k">public</span> <span class="n">ActionResult</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">Get</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+ <span class="p">{</span>
+       <span class="k">return</span> <span class="err">$</span><span class="s">&quot;你请求的 id 是 {id}&quot;</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>
 
 <h3 id="_8">描述响应类型</h3>
 <blockquote>
 <p>摘录自：<a href="https://www.cnblogs.com/yanbigfeg/p/9232844.html">https://www.cnblogs.com/yanbigfeg/p/9232844.html</a></p>
 </blockquote>
 <p>接口使用者最关心的就是接口的返回内容和响应类型啦。下面展示一下201和400状态码的一个简单例子：</p>
-<p>我们需要在我们的方法上添加：</p>
-<pre><code class="C#">[ProducesResponseType(201)]
-[ProducesResponseType(400)]
-</code></pre>
-
+<p>我们需要在我们的方法上添加：
+<div class="highlight"><pre><span></span><code><span class="na">[ProducesResponseType(201)]</span>
+<span class="na">[ProducesResponseType(400)]</span>
+</code></pre></div></p>
 <p>然后添加相应的状态说明：返回value字符串如果id为空</p>
 <p>最终代码应该是这个样子：</p>
-<pre><code class="C#"> /// &lt;summary&gt;
- /// 这是一个带参数的get请求
- /// &lt;/summary&gt;
- /// &lt;remarks&gt;
- /// 例子:
- /// Get api/Values/1
- /// &lt;/remarks&gt;
- /// &lt;param name=&quot;id&quot;&gt;主键&lt;/param&gt;
- /// &lt;returns&gt;测试字符串&lt;/returns&gt; 
- /// &lt;response code=&quot;201&quot;&gt;返回value字符串&lt;/response&gt;
-/// &lt;response code=&quot;400&quot;&gt;如果id为空&lt;/response&gt;  
- // GET api/values/2
-[HttpGet(&quot;{id}&quot;)]
-[ProducesResponseType(201)]
-[ProducesResponseType(400)]
-public ActionResult&lt;string&gt; Get(int id)
-{
-     return $&quot;你请求的 id 是 {id}&quot;;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code> <span class="c1">/// &lt;summary&gt;</span>
+ <span class="c1">/// 这是一个带参数的get请求</span>
+ <span class="c1">/// &lt;/summary&gt;</span>
+ <span class="c1">/// &lt;remarks&gt;</span>
+ <span class="c1">/// 例子:</span>
+ <span class="c1">/// Get api/Values/1</span>
+ <span class="c1">/// &lt;/remarks&gt;</span>
+ <span class="c1">/// &lt;param name=&quot;id&quot;&gt;主键&lt;/param&gt;</span>
+ <span class="c1">/// &lt;returns&gt;测试字符串&lt;/returns&gt; </span>
+ <span class="c1">/// &lt;response code=&quot;201&quot;&gt;返回value字符串&lt;/response&gt;</span>
+<span class="c1">/// &lt;response code=&quot;400&quot;&gt;如果id为空&lt;/response&gt;  </span>
+ <span class="c1">// GET api/values/2</span>
+<span class="na">[HttpGet(&quot;{id}&quot;)]</span>
+<span class="na">[ProducesResponseType(201)]</span>
+<span class="na">[ProducesResponseType(400)]</span>
+<span class="k">public</span> <span class="n">ActionResult</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">Get</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="k">return</span> <span class="err">$</span><span class="s">&quot;你请求的 id 是 {id}&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="_9">运行效果</h2>
 <p><img alt="" src="../%E6%A2%A6%E6%83%B3%E5%AE%B6%E8%A3%85%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95%EF%BC%8CAsp-Net-Core%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5.assets/8869373-f92d18589ff932c2.png" /></p>
@@ -3858,6 +3853,8 @@ public ActionResult&lt;string&gt; Get(int id)
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

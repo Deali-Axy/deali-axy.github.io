@@ -3361,33 +3361,33 @@
                   <h1>Manjaro 安装docker笔记</h1>
                 
                 <p>Manjaro的官方源里面就有docker，直接安装就行。</p>
-<pre><code class="bash">sudo pacman -S docker
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo pacman -S docker
+</code></pre></div>
 
 <p>启用docker服务</p>
-<pre><code class="bash">sudo systemctl start docker
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo systemctl start docker
+</code></pre></div>
 
 <p>设置开机自启动</p>
-<pre><code class="bash">sudo systemctl enable docker
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo systemctl <span class="nb">enable</span> docker
+</code></pre></div>
 
 <p>这样安装的docker默认是只有root用户才能用，我们需要把当前用户添加到docker用户组，才可以。</p>
-<pre><code class="bash"># 如果还没有 docker group 就添加一个
+<div class="highlight"><pre><span></span><code><span class="c1"># 如果还没有 docker group 就添加一个</span>
 sudo groupadd docker
 
-# 将自己的登录名(${USER} )加入该 group 内。然后退出并重新登录就生效啦
-sudo gpasswd -a ${USER} docker
+<span class="c1"># 将自己的登录名(${USER} )加入该 group 内。然后退出并重新登录就生效啦</span>
+sudo gpasswd -a <span class="si">${</span><span class="nv">USER</span><span class="si">}</span> docker
 
-# 重启 docker 服务
+<span class="c1"># 重启 docker 服务</span>
 sudo systemctl restart docker
 
-# 切换当前会话到新 group 或者重启 X 会话
-# 注意，这一步是必须的，否则因为 groups 命令获取到的是缓存的组信息，刚添加的组信息未能生效，所以 docker images 执行时同样有错。
+<span class="c1"># 切换当前会话到新 group 或者重启 X 会话</span>
+<span class="c1"># 注意，这一步是必须的，否则因为 groups 命令获取到的是缓存的组信息，刚添加的组信息未能生效，所以 docker images 执行时同样有错。</span>
 newgrp - docker
 OR
 pkill X
-</code></pre>
+</code></pre></div>
                 
                   
                 
@@ -3461,6 +3461,8 @@ pkill X
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

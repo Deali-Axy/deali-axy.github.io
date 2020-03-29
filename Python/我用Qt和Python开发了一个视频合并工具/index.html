@@ -3500,44 +3500,43 @@
 <p>关于这书的下次再写一篇博客专门说好了，有些地方记录一下也不错。</p>
 <h2 id="python">Python</h2>
 <p>Python语言设计得还可以，库也是真的多，我想合并视频，立刻就找到一个视频编辑库，moviepy，这个库不单可以合并视频，还可以剪切，加转场效果，调大小等多种操作，很不错，稍加利用就可以开发一个视频编辑工具了。</p>
-<p>我来贴一下合并视频的代码：</p>
-<pre><code class="python">class ProcThread(QThread):
-    progress = pyqtSignal(int)
-    message = pyqtSignal(str)
-    finished = pyqtSignal()
+<p>我来贴一下合并视频的代码：
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ProcThread</span><span class="p">(</span><span class="n">QThread</span><span class="p">):</span>
+    <span class="n">progress</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">finished</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">()</span>
 
-    def __init__(self, videos: list, output_path='', parent=None):
-        super(ProcThread, self).__init__(parent)
-        self.videos = []
-        self.output_path = output_path
-        for video_file in videos:
-            print(video_file)
-            self.videos.append(VideoFileClip(video_file))
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">videos</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ProcThread</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">videos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_path</span> <span class="o">=</span> <span class="n">output_path</span>
+        <span class="k">for</span> <span class="n">video_file</span> <span class="ow">in</span> <span class="n">videos</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">video_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">videos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">VideoFileClip</span><span class="p">(</span><span class="n">video_file</span><span class="p">))</span>
 
-    def run(self) -&gt; None:
-        final_clip = concatenate_videoclips(self.videos)
-        my_logger = MyBarLogger(self.message, self.progress)
-        final_clip.write_videofile(self.output_path, logger=my_logger)
-        self.finished.emit()
-</code></pre>
-
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">final_clip</span> <span class="o">=</span> <span class="n">concatenate_videoclips</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">videos</span><span class="p">)</span>
+        <span class="n">my_logger</span> <span class="o">=</span> <span class="n">MyBarLogger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress</span><span class="p">)</span>
+        <span class="n">final_clip</span><span class="o">.</span><span class="n">write_videofile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_path</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">my_logger</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+</code></pre></div></p>
 <p>这里用了线程，Qt里面的线程类QThread，这样在处理视频的时候界面不会卡主，同时自己定义了几号信号，利用Qt的信号与槽的机制给GUI主线程反馈进度和完成情况。</p>
 <p>这部分很简单啦，顺便贴一下信号和槽连接的代码（省略了一些代码）：</p>
-<pre><code class="python">    def start(self):
-        self.thread.message.connect(self.thread_message)
-        self.thread.progress.connect(self.thread_progress)
-        self.thread.finished.connect(self.thread_finished)
+<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thread_message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thread_progress</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thread_finished</span><span class="p">)</span>
 
-    def thread_message(self, value):
-        self.statusBar.showMessage(value)
+    <span class="k">def</span> <span class="nf">thread_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statusBar</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-    def thread_progress(self, value):
-        self.progressBar.setValue(value)
+    <span class="k">def</span> <span class="nf">thread_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progressBar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-    def thread_finished(self):
-        self.btn_start.setEnabled(True)
-        QMessageBox.information(self, '处理完成', '操作完成', QMessageBox.Yes)
-</code></pre>
+    <span class="k">def</span> <span class="nf">thread_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_start</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;处理完成&#39;</span><span class="p">,</span> <span class="s1">&#39;操作完成&#39;</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">)</span>
+</code></pre></div>
 
 <p>这部分很简单没什么好说的，接下来说一下几个坑。</p>
 <h2 id="moviepy">moviepy进度展示</h2>
@@ -3561,25 +3560,24 @@
 </blockquote>
 <p>看了一下里面的内容，有个bars字段，拿出来看，是个OrderedDict对象，之前我没接触过这个数据结构，有点懵，其实它就是个排好序的dict，要遍历着实费劲，搞了半天（也有可能是熬夜写代码头脑不灵活）才弄好。</p>
 <p>moviepy更新进度的时候，就是在这个state["bars"]里面传，一个任务一个dict，这个dict里面包含title、index、total等字段，total就是工作量了，index就是现在进行到哪，到这问题就OK啦，我拿index和total一除再乘以100不就是百分比了吗？这不就完事了，然后我再把线程的信号一传，实时显示进度，完美~！</p>
-<p>贴一下代码：</p>
-<pre><code class="python">class MyBarLogger(ProgressBarLogger):
-    actions_list = []
+<p>贴一下代码：
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyBarLogger</span><span class="p">(</span><span class="n">ProgressBarLogger</span><span class="p">):</span>
+    <span class="n">actions_list</span> <span class="o">=</span> <span class="p">[]</span>
 
-    def __init__(self, message, progress):
-        self.message = message
-        self.progress = progress
-        super(MyBarLogger, self).__init__()
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">progress</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progress</span> <span class="o">=</span> <span class="n">progress</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyBarLogger</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
-    def callback(self, **changes):
-        bars = self.state.get('bars')
-        index = len(bars.values()) - 1
-        if index &gt; -1:
-            bar = list(bars.values())[index]
-            progress = int(bar['index'] / bar['total'] * 100)
-            self.progress.emit(progress)
-        if 'message' in changes: self.message.emit(changes['message'])
-</code></pre>
-
+    <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">changes</span><span class="p">):</span>
+        <span class="n">bars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bars&#39;</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">bar</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="n">index</span><span class="p">]</span>
+            <span class="n">progress</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bar</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">bar</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">progress</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;message&#39;</span> <span class="ow">in</span> <span class="n">changes</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">changes</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span>
+</code></pre></div></p>
 <h2 id="pyinstaller">pyinstaller打包</h2>
 <p>本来没什么好说的，但是打包完也太大了吧，600+m，这谁顶得住，而且打包过程还出错。
 第一次出错是：</p>
@@ -3587,11 +3585,10 @@
 <p>RecursionError: maximum recursion depth exceeded</p>
 </blockquote>
 <p>就是超出python的最大递归深度，这没办法，可能包太多了，目录太深入，解决办法是调整递归深度上限。</p>
-<p>执行 pyinstaller，会生成 filename.spec文件，在这个 filename.spec 文件开头添加代码，把递归深度调到10w：</p>
-<pre><code class="python">import sys
-sys.setrecursionlimit(100000)
-</code></pre>
-
+<p>执行 pyinstaller，会生成 filename.spec文件，在这个 filename.spec 文件开头添加代码，把递归深度调到10w：
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">setrecursionlimit</span><span class="p">(</span><span class="mi">100000</span><span class="p">)</span>
+</code></pre></div></p>
 <p>解决了问题，然后第二个问题来了，由于我代码里面用了中文，但是Windows的cmd默认不是utf-8的，报了这个错：</p>
 <blockquote>
 <p>UnicodeDecodeError: 'utf-8' codec can't decode byte 0xce in position 130: invalid continuation b</p>
@@ -3683,6 +3680,8 @@ sys.setrecursionlimit(100000)
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

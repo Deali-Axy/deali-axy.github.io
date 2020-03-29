@@ -3563,87 +3563,81 @@
 <a href="https://wiki.archlinux.org/">https://wiki.archlinux.org/</a></p>
 <h2 id="archlinuxcn">Archlinuxcn软件源</h2>
 <p>最简单就是把清华镜像添加进去。
-编辑<code>/etc/pacman.conf</code>文件，在文件的末尾添加以下内容：</p>
-<pre><code class="ini">[archlinuxcn]
-Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
-</code></pre>
-
-<p>接着执行以下命令：</p>
-<pre><code class="bash">sudo pacman -Sy archlinuxcn-keyring haveged
-sudo systemctl enable haveged
+编辑<code>/etc/pacman.conf</code>文件，在文件的末尾添加以下内容：
+<div class="highlight"><pre><span></span><code><span class="k">[archlinuxcn]</span>
+<span class="na">Server</span> <span class="o">=</span> <span class="s">https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch</span>
+</code></pre></div></p>
+<p>接着执行以下命令：
+<div class="highlight"><pre><span></span><code>sudo pacman -Sy archlinuxcn-keyring haveged
+sudo systemctl <span class="nb">enable</span> haveged
 sudo systemctl start haveged
 sudo pacman-key --init
 sudo pacman-key --populate manjaro
 sudo pacman-key --populate archlinux
 sudo pacman-key --populate archlinuxcn
-</code></pre>
-
+</code></pre></div></p>
 <p>然后就可以愉快地安装archlinuxcn源内的各种好用的软件啦～</p>
 <p>附社区镜像列表：<a href="https://github.com/archlinuxcn/mirrorlist-repo">https://github.com/archlinuxcn/mirrorlist-repo</a></p>
 <h2 id="_2">输入法</h2>
 <p>目前archlinux官方源已经删除了fcitx-qt4这个包，而搜狗依赖它，所以之前网上的方法都失效了。</p>
-<p>不过archlinuxcn里面还有这个包，所以很简单，安装方法如下：</p>
-<pre><code>sudo pacman -S fcitx-im fcitx-configtool fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 libidn fcitx-sogoupinyin fcitx-googlepinyin
-</code></pre>
-
-<p>然后添加一下环境变量：</p>
-<pre><code class="bash">mkdir ~/.config/autostart
-# 如果你安装过fcitx则会提示文件夹已经存在，不用管继续下一步
+<p>不过archlinuxcn里面还有这个包，所以很简单，安装方法如下：
+<div class="highlight"><pre><span></span><code>sudo pacman -S fcitx-im fcitx-configtool fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 libidn fcitx-sogoupinyin fcitx-googlepinyin
+</code></pre></div></p>
+<p>然后添加一下环境变量：
+<div class="highlight"><pre><span></span><code>mkdir ~/.config/autostart
+<span class="c1"># 如果你安装过fcitx则会提示文件夹已经存在，不用管继续下一步</span>
 cp /etc/xdg/autostart/fcitx-autostart.desktop ~/.config/autostart/
 
-echo &quot;GTK_IM_MODULE=fcitx
-QT_IM_MODULE=fcitx
-XMODIFIERS=@im=fcitx&quot; &gt; .pam_environment
+<span class="nb">echo</span> <span class="s2">&quot;GTK_IM_MODULE=fcitx</span>
+<span class="s2">QT_IM_MODULE=fcitx</span>
+<span class="s2">XMODIFIERS=@im=fcitx&quot;</span> &gt; .pam_environment
 
-echo &quot;export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx&quot; &gt; .xprofile
-</code></pre>
-
+<span class="nb">echo</span> <span class="s2">&quot;export GTK_IM_MODULE=fcitx</span>
+<span class="s2">export QT_IM_MODULE=fcitx</span>
+<span class="s2">export XMODIFIERS=@im=fcitx&quot;</span> &gt; .xprofile
+</code></pre></div></p>
 <p>注销之后重新登录即可使用</p>
 <p>PS：如果实在安装不了搜狗，可以试试sunpinyin+cloudpinyin的组合，参考：<a href="https://forum.manjaro.org/t/sunpinyin-cloudpinyin/114282">https://forum.manjaro.org/t/sunpinyin-cloudpinyin/114282</a></p>
 <p>参考：<a href="https://zhuanlan.zhihu.com/p/80867772">https://zhuanlan.zhihu.com/p/80867772</a></p>
 <h2 id="zsh">安装zsh</h2>
 <p>zsh这个没的说了，必须装的。
-安装</p>
-<pre><code class="bash">sudo pacman -S zsh
-</code></pre>
-
-<p>修改默认shell</p>
-<pre><code class="bash">chsh -s /bin/zsh
-</code></pre>
-
+安装
+<div class="highlight"><pre><span></span><code>sudo pacman -S zsh
+</code></pre></div></p>
+<p>修改默认shell
+<div class="highlight"><pre><span></span><code>chsh -s /bin/zsh
+</code></pre></div></p>
 <p>重启即可</p>
 <h2 id="docker">安装docker</h2>
 <p>后台开发必备～</p>
 <p>Manjaro的官方源里面就有docker，直接安装就行。</p>
-<pre><code class="bash">sudo pacman -S docker
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo pacman -S docker
+</code></pre></div>
 
 <p>启用docker服务</p>
-<pre><code class="bash">sudo systemctl start docker
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo systemctl start docker
+</code></pre></div>
 
 <p>设置开机自启动</p>
-<pre><code class="bash">sudo systemctl enable docker
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo systemctl <span class="nb">enable</span> docker
+</code></pre></div>
 
 <p>这样安装的docker默认是只有root用户才能用，我们需要把当前用户添加到docker用户组，才可以。</p>
-<pre><code class="bash"># 如果还没有 docker group 就添加一个
+<div class="highlight"><pre><span></span><code><span class="c1"># 如果还没有 docker group 就添加一个</span>
 sudo groupadd docker
 
-# 将自己的登录名(${USER} )加入该 group 内。然后退出并重新登录就生效啦
-sudo gpasswd -a ${USER} docker
+<span class="c1"># 将自己的登录名(${USER} )加入该 group 内。然后退出并重新登录就生效啦</span>
+sudo gpasswd -a <span class="si">${</span><span class="nv">USER</span><span class="si">}</span> docker
 
-# 重启 docker 服务
+<span class="c1"># 重启 docker 服务</span>
 sudo systemctl restart docker
 
-# 切换当前会话到新 group 或者重启 X 会话
-# 注意，这一步是必须的，否则因为 groups 命令获取到的是缓存的组信息，刚添加的组信息未能生效，所以 docker images 执行时同样有错。
+<span class="c1"># 切换当前会话到新 group 或者重启 X 会话</span>
+<span class="c1"># 注意，这一步是必须的，否则因为 groups 命令获取到的是缓存的组信息，刚添加的组信息未能生效，所以 docker images 执行时同样有错。</span>
 newgrp - docker
 OR
 pkill X
-</code></pre>
+</code></pre></div>
 
 <h2 id="_3">折腾网络</h2>
 <h3 id="_4">学习工具</h3>
@@ -3654,21 +3648,19 @@ pkill X
 <p>配置：<a href="https://www.teaper.dev/2019/06/02/v2ray/">https://www.teaper.dev/2019/06/02/v2ray/</a></p>
 <p>还有一个用pyqt写的一般般：<a href="https://github.com/jiangxufeng/v2rayL">https://github.com/jiangxufeng/v2rayL</a></p>
 <h3 id="git">git代理设置</h3>
-<pre><code class="bash">git config --global http.proxy &quot;http://127.0.0.1:12333&quot;
-git config --global https.proxy &quot;http://127.0.0.1:12333&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>git config --global http.proxy <span class="s2">&quot;http://127.0.0.1:12333&quot;</span>
+git config --global https.proxy <span class="s2">&quot;http://127.0.0.1:12333&quot;</span>
+</code></pre></div>
 
 <h3 id="npm">npm代理设置</h3>
-<p>（有没有等于号好像都可以）</p>
-<pre><code class="bash">npm config set proxy=http://127.0.0.1:12333
-npm config set https-proxy http://127.0.0.1:12333
-</code></pre>
-
-<p>取消代理</p>
-<pre><code class="bash">npm config delete proxy
+<p>（有没有等于号好像都可以）
+<div class="highlight"><pre><span></span><code>npm config <span class="nb">set</span> <span class="nv">proxy</span><span class="o">=</span>http://127.0.0.1:12333
+npm config <span class="nb">set</span> https-proxy http://127.0.0.1:12333
+</code></pre></div></p>
+<p>取消代理
+<div class="highlight"><pre><span></span><code>npm config delete proxy
 npm config delete https-proxy
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="_5">设置硬盘自动挂载</h2>
 <p>参考：
 - <a href="https://blog.csdn.net/weixin_43840399/article/details/93475915">https://blog.csdn.net/weixin_43840399/article/details/93475915</a>
@@ -3746,6 +3738,8 @@ npm config delete https-proxy
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

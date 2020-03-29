@@ -3421,34 +3421,34 @@
                   <h1>Python 本地时间和UTC时间转换</h1>
                 
                 <h2 id="_1">代码</h2>
-<pre><code class="python">import time
-import datetime
-def utc2local(utc_st):
-    &quot;&quot;&quot;UTC时间转本地时间（+8: 00）&quot;&quot;&quot;
-    now_stamp = time.time()
-    local_time = datetime.datetime.fromtimestamp(now_stamp)
-    utc_time = datetime.datetime.utcfromtimestamp(now_stamp)
-    offset = local_time - utc_time
-    local_st = utc_st + offset
-    return local_st
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="k">def</span> <span class="nf">utc2local</span><span class="p">(</span><span class="n">utc_st</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;UTC时间转本地时间（+8: 00）&quot;&quot;&quot;</span>
+    <span class="n">now_stamp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">local_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">now_stamp</span><span class="p">)</span>
+    <span class="n">utc_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="n">now_stamp</span><span class="p">)</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">local_time</span> <span class="o">-</span> <span class="n">utc_time</span>
+    <span class="n">local_st</span> <span class="o">=</span> <span class="n">utc_st</span> <span class="o">+</span> <span class="n">offset</span>
+    <span class="k">return</span> <span class="n">local_st</span>
 
 
-def local2utc(local_st):
-    &quot;&quot;&quot;本地时间转UTC时间（-8: 00）&quot;&quot;&quot;
-    time_struct = time.mktime(local_st.timetuple())
-    utc_st = datetime.datetime.utcfromtimestamp(time_struct)
-    return utc_st
+<span class="k">def</span> <span class="nf">local2utc</span><span class="p">(</span><span class="n">local_st</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;本地时间转UTC时间（-8: 00）&quot;&quot;&quot;</span>
+    <span class="n">time_struct</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">local_st</span><span class="o">.</span><span class="n">timetuple</span><span class="p">())</span>
+    <span class="n">utc_st</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="n">time_struct</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">utc_st</span>
 
-if __name__ == '__main__':
-    year = int(time.strftime(&quot;%Y&quot;))
-    month = int(time.strftime(&quot;%m&quot;))
-    day = int(time.strftime(&quot;%d&quot;))
-    hour = int(time.strftime(&quot;%H&quot;))
-    minute = int(time.strftime(&quot;%M&quot;))
-    second = int(time.strftime(&quot;%S&quot;))
-    local_time = datetime.datetime(year, month, day, hour, minute, second)
-    utc_time = local2utc(local_time)
-</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">))</span>
+    <span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%m&quot;</span><span class="p">))</span>
+    <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H&quot;</span><span class="p">))</span>
+    <span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%M&quot;</span><span class="p">))</span>
+    <span class="n">second</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%S&quot;</span><span class="p">))</span>
+    <span class="n">local_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">)</span>
+    <span class="n">utc_time</span> <span class="o">=</span> <span class="n">local2utc</span><span class="p">(</span><span class="n">local_time</span><span class="p">)</span>
+</code></pre></div>
 
 <p><img alt="" src="../Python-%E6%9C%AC%E5%9C%B0%E6%97%B6%E9%97%B4%E5%92%8CUTC%E6%97%B6%E9%97%B4%E8%BD%AC%E6%8D%A2.assets/8869373-480251bc54e0f626.png" /></p>
                 
@@ -3524,6 +3524,8 @@ if __name__ == '__main__':
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

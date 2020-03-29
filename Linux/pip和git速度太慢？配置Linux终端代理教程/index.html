@@ -3525,42 +3525,39 @@
 </blockquote>
 <p>MacOS和Linux系本身通过Shadowsocks代理之后，通过PAC名单可以识别出要代理的域名。但要求代理应用必须支持Sock5，如果不支持，那么也没有办法通过Shadowsocks代理。我们的Shell控制台环境是不支持Sock代理的，只支持HTTP代理。如果我们不在终端设置 <code>http_proxy</code> 代理，那么我们的Shell控制台是无法通过Shadowsocks代理的。</p>
 <h3 id="http_proxy">终端设置 http_proxy 代理方法</h3>
-<p>其实如果不嫌麻烦，我们可以通过在终端设置http_proxy来将Sock代理换成HTTP代理。这样Shell环境也可以曲线救国而使用Shadowsocks代理啦。</p>
-<pre><code>export http_proxy='http://localhost:8888'
-export https_proxy='http://localhost:8888'
-</code></pre>
-
-<p>取消代理</p>
-<pre><code>unset http_proxy
+<p>其实如果不嫌麻烦，我们可以通过在终端设置http_proxy来将Sock代理换成HTTP代理。这样Shell环境也可以曲线救国而使用Shadowsocks代理啦。
+<div class="highlight"><pre><span></span><code>export http_proxy=&#39;http://localhost:8888&#39;
+export https_proxy=&#39;http://localhost:8888&#39;
+</code></pre></div></p>
+<p>取消代理
+<div class="highlight"><pre><span></span><code>unset http_proxy
 unset https_proxy
-</code></pre>
-
+</code></pre></div></p>
 <p>如果有兴趣也可以将这个命令放在.bashrc或者.zshrc中，让我们的Shell控制台全局代理启动更加方便一些。</p>
 <h2 id="proxychains_1">安装proxychains</h2>
-<p>打开终端，输入以下命令</p>
-<pre><code>git clone https://github.com/rofl0r/proxychains-ng.git
+<p>打开终端，输入以下命令
+<div class="highlight"><pre><span></span><code>git clone https://github.com/rofl0r/proxychains-ng.git
 cd proxychains-ng
 ./configure
 make &amp;&amp; make install
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="_2">配置参数</h2>
 <p>修改/usr/local/etc/proxychains.conf 中的配置</p>
 <p>注意：Linux系不会默认生成conf文件，需要将git下来的工程中./src/proxychains.conf 里面的配置Copy到目录中，也可以手动创建，都一样没所谓
 如果proxychain4命令不手动制定配置文件路径，它会自动寻找配置。</p>
-<pre><code>[ProxyList]
+<div class="highlight"><pre><span></span><code>[ProxyList]
 # add proxy here ...
 # meanwile
 # defaults set to &quot;tor&quot;
 # socks4     127.0.0.1 9050
 socks5 127.0.0.1 1080 #这里设置自己的代理地址和端口
 #一般都是1080
-</code></pre>
+</code></pre></div>
 
 <h2 id="_3">测试一下</h2>
 <p>proxychains4配置生效之后，我们在终端使用<code>proxychains4</code>加上命令就可以在终端代理了。但是这真的可以代理了么？？？答案是MacOS不行，而Linux系的同学已经OK了。</p>
-<pre><code>proxychains4 curl -L tool.lu/ip
-</code></pre>
+<div class="highlight"><pre><span></span><code>proxychains4 curl -L tool.lu/ip
+</code></pre></div>
 
 <p>结果如图：
 <img alt="" src="../pip%E5%92%8Cgit%E9%80%9F%E5%BA%A6%E5%A4%AA%E6%85%A2%EF%BC%9F%E9%85%8D%E7%BD%AELinux%E7%BB%88%E7%AB%AF%E4%BB%A3%E7%90%86%E6%95%99%E7%A8%8B.assets/8869373-50285907393321ad.png" /></p>
@@ -3645,6 +3642,8 @@ socks5 127.0.0.1 1080 #这里设置自己的代理地址和端口
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

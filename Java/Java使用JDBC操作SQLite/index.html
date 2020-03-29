@@ -3469,116 +3469,116 @@
 <p><a href="http://www.xerial.org/trac/Xerial/wiki/SQLiteJDBC">SQLiteJDBC</a>目前查到這個版本是比較有在更新，而且在使用上跟一般的JDBC幾乎是一樣的，上手程式十分簡單。</p>
 <p>SQLiteJDBC可以由<a href="http://www.xerial.org/maven/repository/artifact/org/xerial/sqlite-jdbc/">這裡</a>下載，以下範例是由3.5.7版本製作，提供建立Table、移除Table、查詢、新增、刪除及修改等範例。</p>
 <h2 id="_1">實例代碼</h2>
-<pre><code class="java">import java.sql.*;
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">java.sql.*</span><span class="o">;</span>
 
-import org.sqlite.SQLiteConfig;
-import org.sqlite.SQLiteDataSource;
-public class MyTest {
-    public Connection getConnection() throws SQLException
-    {
-        SQLiteConfig config = new SQLiteConfig();
-        // config.setReadOnly(true);   
-        config.setSharedCache(true);
-        config.enableRecursiveTriggers(true);
-
-
-        SQLiteDataSource ds = new SQLiteDataSource(config); 
-        ds.setUrl(&quot;jdbc:sqlite:sample.db&quot;);
-        return ds.getConnection();
-        //ds.setServerName(&quot;sample.db&quot;);
+<span class="kn">import</span> <span class="nn">org.sqlite.SQLiteConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.sqlite.SQLiteDataSource</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Connection</span> <span class="nf">getConnection</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span>
+    <span class="o">{</span>
+        <span class="n">SQLiteConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SQLiteConfig</span><span class="o">();</span>
+        <span class="c1">// config.setReadOnly(true);   </span>
+        <span class="n">config</span><span class="o">.</span><span class="na">setSharedCache</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">config</span><span class="o">.</span><span class="na">enableRecursiveTriggers</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 
 
-    }
-    //create Table
-    public void createTable(Connection con )throws SQLException{
-        String sql = &quot;DROP TABLE IF EXISTS test ;create table test (id integer, name string); &quot;;
-        Statement stat = null;
-        stat = con.createStatement();
-        stat.executeUpdate(sql);
+        <span class="n">SQLiteDataSource</span> <span class="n">ds</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SQLiteDataSource</span><span class="o">(</span><span class="n">config</span><span class="o">);</span> 
+        <span class="n">ds</span><span class="o">.</span><span class="na">setUrl</span><span class="o">(</span><span class="s">&quot;jdbc:sqlite:sample.db&quot;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">ds</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+        <span class="c1">//ds.setServerName(&quot;sample.db&quot;);</span>
 
-    }
-    //drop table
-    public void dropTable(Connection con)throws SQLException{
-        String sql = &quot;drop table test &quot;;
-        Statement stat = null;
-        stat = con.createStatement();
-        stat.executeUpdate(sql);
-    }
 
-    //新增
-    public void insert(Connection con,int id,String name)throws SQLException{
-        String sql = &quot;insert into test (id,name) values(?,?)&quot;;
-        PreparedStatement pst = null;
-        pst = con.prepareStatement(sql);
-        int idx = 1 ; 
-        pst.setInt(idx++, id);
-        pst.setString(idx++, name);
-        pst.executeUpdate();
+    <span class="o">}</span>
+    <span class="c1">//create Table</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">createTable</span><span class="o">(</span><span class="n">Connection</span> <span class="n">con</span> <span class="o">)</span><span class="kd">throws</span> <span class="n">SQLException</span><span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&quot;DROP TABLE IF EXISTS test ;create table test (id integer, name string); &quot;</span><span class="o">;</span>
+        <span class="n">Statement</span> <span class="n">stat</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">stat</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+        <span class="n">stat</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
 
-    }
-    //修改
-    public void update(Connection con,int id,String name)throws SQLException{
-        String sql = &quot;update test set name = ? where id = ?&quot;;
-        PreparedStatement pst = null;
-        pst = con.prepareStatement(sql);
-        int idx = 1 ; 
-        pst.setString(idx++, name);
-        pst.setInt(idx++, id);
-        pst.executeUpdate();
-    }
-    //刪除
-    public void delete(Connection con,int id)throws SQLException{
-        String sql = &quot;delete from test where id = ?&quot;;
-        PreparedStatement pst = null;
-        pst = con.prepareStatement(sql);
-        int idx = 1 ; 
-        pst.setInt(idx++, id);
-        pst.executeUpdate();
-    }
+    <span class="o">}</span>
+    <span class="c1">//drop table</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dropTable</span><span class="o">(</span><span class="n">Connection</span> <span class="n">con</span><span class="o">)</span><span class="kd">throws</span> <span class="n">SQLException</span><span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&quot;drop table test &quot;</span><span class="o">;</span>
+        <span class="n">Statement</span> <span class="n">stat</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">stat</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+        <span class="n">stat</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+    <span class="o">}</span>
 
-    public void selectAll(Connection con)throws SQLException{
-        String sql = &quot;select * from test&quot;;
-        Statement stat = null;
-        ResultSet rs = null;
-        stat = con.createStatement();
-        rs = stat.executeQuery(sql);
-        while(rs.next())
-        {
-            System.out.println(rs.getInt(&quot;id&quot;)+&quot;\t&quot;+rs.getString(&quot;name&quot;));
-        }
-    }
-    public static void main(String args[]) throws SQLException{
-        MyTest test = new MyTest();
-        Connection con = test.getConnection();
-        //建立table
-        test.createTable(con);
-        //新增資料
-        test.insert(con, 1, &quot;第一個&quot;);
-        test.insert(con, 2, &quot;第二個&quot;);
-        //查詢顯示資料
-        System.out.println(&quot;新增二筆資料後狀況:&quot;);
-        test.selectAll(con);
+    <span class="c1">//新增</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">insert</span><span class="o">(</span><span class="n">Connection</span> <span class="n">con</span><span class="o">,</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span><span class="kd">throws</span> <span class="n">SQLException</span><span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&quot;insert into test (id,name) values(?,?)&quot;</span><span class="o">;</span>
+        <span class="n">PreparedStatement</span> <span class="n">pst</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">pst</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">;</span> 
+        <span class="n">pst</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">idx</span><span class="o">++,</span> <span class="n">id</span><span class="o">);</span>
+        <span class="n">pst</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">idx</span><span class="o">++,</span> <span class="n">name</span><span class="o">);</span>
+        <span class="n">pst</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
 
-        //修改資料
-        System.out.println(&quot;修改第一筆資料後狀況:&quot;);
-        test.update(con, 1, &quot;這個值被改變了!&quot;);
-        //查詢顯示資料
-        test.selectAll(con);
+    <span class="o">}</span>
+    <span class="c1">//修改</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="n">Connection</span> <span class="n">con</span><span class="o">,</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span><span class="kd">throws</span> <span class="n">SQLException</span><span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&quot;update test set name = ? where id = ?&quot;</span><span class="o">;</span>
+        <span class="n">PreparedStatement</span> <span class="n">pst</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">pst</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">;</span> 
+        <span class="n">pst</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">idx</span><span class="o">++,</span> <span class="n">name</span><span class="o">);</span>
+        <span class="n">pst</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">idx</span><span class="o">++,</span> <span class="n">id</span><span class="o">);</span>
+        <span class="n">pst</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="c1">//刪除</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Connection</span> <span class="n">con</span><span class="o">,</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span><span class="kd">throws</span> <span class="n">SQLException</span><span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&quot;delete from test where id = ?&quot;</span><span class="o">;</span>
+        <span class="n">PreparedStatement</span> <span class="n">pst</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">pst</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">;</span> 
+        <span class="n">pst</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">idx</span><span class="o">++,</span> <span class="n">id</span><span class="o">);</span>
+        <span class="n">pst</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+    <span class="o">}</span>
 
-        //刪除資料
-        System.out.println(&quot;刪除第一筆資料後狀況:&quot;);
-        test.delete(con, 1);
-        //查詢顯示資料
-        test.selectAll(con);
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">selectAll</span><span class="o">(</span><span class="n">Connection</span> <span class="n">con</span><span class="o">)</span><span class="kd">throws</span> <span class="n">SQLException</span><span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&quot;select * from test&quot;</span><span class="o">;</span>
+        <span class="n">Statement</span> <span class="n">stat</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">stat</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+        <span class="n">rs</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+        <span class="k">while</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span>
+        <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">)+</span><span class="s">&quot;\t&quot;</span><span class="o">+</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">));</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">{</span>
+        <span class="n">MyTest</span> <span class="n">test</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyTest</span><span class="o">();</span>
+        <span class="n">Connection</span> <span class="n">con</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+        <span class="c1">//建立table</span>
+        <span class="n">test</span><span class="o">.</span><span class="na">createTable</span><span class="o">(</span><span class="n">con</span><span class="o">);</span>
+        <span class="c1">//新增資料</span>
+        <span class="n">test</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="n">con</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="s">&quot;第一個&quot;</span><span class="o">);</span>
+        <span class="n">test</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="n">con</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="s">&quot;第二個&quot;</span><span class="o">);</span>
+        <span class="c1">//查詢顯示資料</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;新增二筆資料後狀況:&quot;</span><span class="o">);</span>
+        <span class="n">test</span><span class="o">.</span><span class="na">selectAll</span><span class="o">(</span><span class="n">con</span><span class="o">);</span>
 
-        //刪除table
-        test.dropTable(con);
+        <span class="c1">//修改資料</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;修改第一筆資料後狀況:&quot;</span><span class="o">);</span>
+        <span class="n">test</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">con</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="s">&quot;這個值被改變了!&quot;</span><span class="o">);</span>
+        <span class="c1">//查詢顯示資料</span>
+        <span class="n">test</span><span class="o">.</span><span class="na">selectAll</span><span class="o">(</span><span class="n">con</span><span class="o">);</span>
 
-        con.close();
+        <span class="c1">//刪除資料</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;刪除第一筆資料後狀況:&quot;</span><span class="o">);</span>
+        <span class="n">test</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">con</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+        <span class="c1">//查詢顯示資料</span>
+        <span class="n">test</span><span class="o">.</span><span class="na">selectAll</span><span class="o">(</span><span class="n">con</span><span class="o">);</span>
 
-    }
-}
-</code></pre>
+        <span class="c1">//刪除table</span>
+        <span class="n">test</span><span class="o">.</span><span class="na">dropTable</span><span class="o">(</span><span class="n">con</span><span class="o">);</span>
+
+        <span class="n">con</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <h2 id="_2">說明</h2>
 <p>SQLite並沒有使用者登入的的機制，所以只需要告知要存取的資料庫檔案位置就可以使用了。jdbc:sqlite:sample.db其中sample.db就是檔案名稱，也可指定其路徑位置c:\sample.db。</p>
@@ -3587,7 +3587,7 @@ public class MyTest {
 <p>原本沒有sample.db這個檔案也被自動建立了，在專案目錄底下。</p>
 <p><img alt="" src="../Java%E4%BD%BF%E7%94%A8JDBC%E6%93%8D%E4%BD%9CSQLite.assets/8869373-c0f8c827ac9ab10c.png" /></p>
 <h2 id="_3">參考資料</h2>
-<p>https://blog.yslifes.com/archives/971</p>
+<p><a href="https://blog.yslifes.com/archives/971">https://blog.yslifes.com/archives/971</a></p>
                 
                   
                 
@@ -3661,6 +3661,8 @@ public class MyTest {
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

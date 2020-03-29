@@ -3496,11 +3496,10 @@
 <p>输入：<code>cat /etc/issue</code>   查看版本</p>
 <h2 id="service">通过service关闭</h2>
 <p>service命令开启以及关闭防火墙为即时生效，下次重启机器的时候会自动复原。</p>
-<p>查看防火墙状态：</p>
-<pre><code>service iptables status
-</code></pre>
-
-<p>记得在CentOS6.9中是输入iptables，网上有些教程使用<code>service iptable status</code>命令并不可行。</p>
+<p>查看防火墙状态：
+<div class="highlight"><pre><span></span><code>service iptables status
+</code></pre></div>
+记得在CentOS6.9中是输入iptables，网上有些教程使用<code>service iptable status</code>命令并不可行。</p>
 <p>关闭防火墙：<code>service iptables stop</code></p>
 <p>打开防火墙：<code>service iptables start</code></p>
 <h2 id="etcinitdiptables">通过：<code>/etc/init.d/iptables</code> 进行操作</h2>
@@ -3588,6 +3587,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

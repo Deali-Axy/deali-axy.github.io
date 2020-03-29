@@ -3507,12 +3507,11 @@
 <p>在 Windows Subsystem for Linux 中，执行 chsh -s /bin/zsh 并不能成功地将默认 shell 修改为 zsh。在打开 WSL 时，默认 shell 仍然为 bash。 这是因为WSL 在启动时并没有执行 login 相关的组件，而这些组件和默认 shell 有关。Microsoft 已经知晓了这个问题，但并没有计划去解决。</p>
 <h3 id="_2">方法</h3>
 <p>我们可以通过一个简易的 workaround 可以使在打开 WSL 时同时打开 zsh。
-在 ~/.bashrc 中添加</p>
-<pre><code class="bash">bash -c zsh
-</code></pre>
-
+在 ~/.bashrc 中添加
+<div class="highlight"><pre><span></span><code>bash -c zsh
+</code></pre></div></p>
 <h3 id="_3">参考资料</h3>
-<p>https://github.com/Microsoft/WSL/issues/477</p>
+<p><a href="https://github.com/Microsoft/WSL/issues/477">https://github.com/Microsoft/WSL/issues/477</a></p>
 <h2 id="_4">加入右键菜单</h2>
 <ol>
 <li>
@@ -3614,6 +3613,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

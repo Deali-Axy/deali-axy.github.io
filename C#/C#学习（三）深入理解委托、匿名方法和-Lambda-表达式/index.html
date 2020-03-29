@@ -3563,108 +3563,100 @@
                 <h2 id="_1">前言</h2>
 <p>lambda的概念建立在委托的基础上，委托，实现了类型安全的回调方法。在.NET 中回调无处不在，所以委托也无处不在，事件模型建立在委托机制上，Lambda 表达式本质上就是一种匿名委托。本文中将完成一次关于委托的旅行，全面阐述委托及其核心话题，逐一梳理委托、委托链、事件、匿名方法和 Lambda 表达式。</p>
 <h2 id="_2">委托的定义</h2>
-<p>了解委托，从其定义开始，通常一个委托被声明为：</p>
-<pre><code class="c#">public delegate void CalculateDelegate(Int32 x, Int32 y);
-</code></pre>
+<p>了解委托，从其定义开始，通常一个委托被声明为：
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">delegate</span> <span class="k">void</span> <span class="nf">CalculateDelegate</span><span class="p">(</span><span class="n">Int32</span> <span class="n">x</span><span class="p">,</span> <span class="n">Int32</span> <span class="n">y</span><span class="p">);</span>
+</code></pre></div>
+关键字 delegate 用于声明一个委托类型 CalculateDelegate，可以对其添加访问修饰符，默认其返回值类型为 void，接受两个 Int32 型参数 x 和 y，但是委托并不等同与方法，而是一个引用类型，类似于 C++中的函数指针，稍后在委托本质里将对此有所交代。</p>
+<p>下面的示例将介绍如何通过委托来实现一个计算器模拟程序，在此基础上来了解关于委托的定义、创建和应用：
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 
-<p>关键字 delegate 用于声明一个委托类型 CalculateDelegate，可以对其添加访问修饰符，默认其返回值类型为 void，接受两个 Int32 型参数 x 和 y，但是委托并不等同与方法，而是一个引用类型，类似于 C++中的函数指针，稍后在委托本质里将对此有所交代。</p>
-<p>下面的示例将介绍如何通过委托来实现一个计算器模拟程序，在此基础上来了解关于委托的定义、创建和应用：</p>
-<pre><code class="c#">using System;
+<span class="k">namespace</span> <span class="nn">DelegateAndEvent</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">DeepInto</span>
+    <span class="p">{</span>
+        <span class="c1">//声明一个委托</span>
+        <span class="k">public</span> <span class="k">delegate</span> <span class="k">void</span> <span class="nf">CalculateDelegate</span><span class="p">(</span><span class="n">Int32</span> <span class="n">x</span><span class="p">,</span> <span class="n">Int32</span> <span class="n">y</span><span class="p">);</span>
 
-namespace DelegateAndEvent
-{
-    public class DeepInto
-    {
-        //声明一个委托
-        public delegate void CalculateDelegate(Int32 x, Int32 y);
+        <span class="c1">//创建与委托关联的方法，二者具有相同的返回值类型和参数列表</span>
+        <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Add</span><span class="p">(</span><span class="n">Int32</span> <span class="n">x</span><span class="p">,</span> <span class="n">Int32</span> <span class="n">y</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">x</span> <span class="p">+</span> <span class="n">y</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        //创建与委托关联的方法，二者具有相同的返回值类型和参数列表
-        public static void Add(Int32 x, Int32 y)
-        {
-            Console.WriteLine(x + y);
-        }
+        <span class="c1">//定义委托类型变量</span>
+        <span class="k">private</span> <span class="k">static</span> <span class="n">CalculateDelegate</span> <span class="n">myDelegate</span><span class="p">;</span>
 
-        //定义委托类型变量
-        private static CalculateDelegate myDelegate;
-
-        public static void Run()
-        {
-            //进行委托绑定
-            myDelegate = new CalculateDelegate(Add);
-            //回调 Add 方法
-            myDelegate(100, 200);
-        }
-    }
-}
-</code></pre>
-
+        <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="c1">//进行委托绑定</span>
+            <span class="n">myDelegate</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CalculateDelegate</span><span class="p">(</span><span class="n">Add</span><span class="p">);</span>
+            <span class="c1">//回调 Add 方法</span>
+            <span class="n">myDelegate</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <p>上述示例，在类 DelegateEx 内部声明了一个 CalculateDelegate 委托类型，它具有和关联方法Add 完全相同的返回值类型和参数列表，否则将导致编译时错误。将方法 Add 传递给 CalculateDelegate 构造器，也就是将方法 Add 指派给 CalculateDelegate 委托，并将该引用赋给 myDelegate 变量，也就表示 myDeleage 变量保存了指向 Add 方法的引用，以此实现对 Add 的回调。</p>
-<p>由此可见，委托表示了对其回调方法的签名，可以将方法当作参数进行传递，并根据传入的方法来动态的改变方法调用。只要为委托提供相同签名的方法，就可以与委托绑定，例如：</p>
-<pre><code class="c#">public static void Subtract(Int32 x, Int32 y) {
-    Console.WriteLine(x - y);
-}
-</code></pre>
-
-<p>同样，可以将方法 Subtract 分配给委托，通过参数传递实现方法回调，例如：</p>
-<pre><code class="C#">public static void Main()
-{
-    //进行委托绑定
-    myDelegate = new CalculateDelegate(Subtract);
-    myDelegate(100, 200);
-}
-</code></pre>
-
+<p>由此可见，委托表示了对其回调方法的签名，可以将方法当作参数进行传递，并根据传入的方法来动态的改变方法调用。只要为委托提供相同签名的方法，就可以与委托绑定，例如：
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Subtract</span><span class="p">(</span><span class="n">Int32</span> <span class="n">x</span><span class="p">,</span> <span class="n">Int32</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">x</span> <span class="p">-</span> <span class="n">y</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>同样，可以将方法 Subtract 分配给委托，通过参数传递实现方法回调，例如：
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">//进行委托绑定</span>
+    <span class="n">myDelegate</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CalculateDelegate</span><span class="p">(</span><span class="n">Subtract</span><span class="p">);</span>
+    <span class="n">myDelegate</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h2 id="_3">多播委托和委托链</h2>
-<p>在上述委托实现中，Add 方法和 Subtract 可以绑定于同一个委托类型 myDelegate，由此可以很容易想到将多个方法绑定到一个委托变量，在调用一个方法时，可以依次执行其绑定的所有方法，这种技术称为多播委托。在.NET 中提供了相当简洁的语法来创建委托链，以+=和-=操作符分别进行绑定和解除绑定的操作，多个方法绑定到一个委托变量就形成一个委托链，对其调用时，将会依次调用所有绑定的回调方法。例如：</p>
-<pre><code class="C#">myDelegate = new CalculateDelegate(Add);
-myDelegate += new CalculateDelegate(Subtract);
-myDelegate += new CalculateDelegate(Multiply);
-myDelegate(100, 200);
-</code></pre>
-
-<p>上述执行将在控制台依次输出 300、-100 和 20000 三个结果，可见多播委托按照委托链顺序调用所有绑定的方法，同样以-=操作可以解除委托链上的绑定，例如：</p>
-<pre><code class="c#">myDelegate -= new CalculateDelegate(Add);
-myDelegate(100, 200);
-</code></pre>
-
+<p>在上述委托实现中，Add 方法和 Subtract 可以绑定于同一个委托类型 myDelegate，由此可以很容易想到将多个方法绑定到一个委托变量，在调用一个方法时，可以依次执行其绑定的所有方法，这种技术称为多播委托。在.NET 中提供了相当简洁的语法来创建委托链，以+=和-=操作符分别进行绑定和解除绑定的操作，多个方法绑定到一个委托变量就形成一个委托链，对其调用时，将会依次调用所有绑定的回调方法。例如：
+<div class="highlight"><pre><span></span><code><span class="n">myDelegate</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CalculateDelegate</span><span class="p">(</span><span class="n">Add</span><span class="p">);</span>
+<span class="n">myDelegate</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">CalculateDelegate</span><span class="p">(</span><span class="n">Subtract</span><span class="p">);</span>
+<span class="n">myDelegate</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">CalculateDelegate</span><span class="p">(</span><span class="n">Multiply</span><span class="p">);</span>
+<span class="n">myDelegate</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">);</span>
+</code></pre></div></p>
+<p>上述执行将在控制台依次输出 300、-100 和 20000 三个结果，可见多播委托按照委托链顺序调用所有绑定的方法，同样以-=操作可以解除委托链上的绑定，例如：
+<div class="highlight"><pre><span></span><code><span class="n">myDelegate</span> <span class="p">-=</span> <span class="k">new</span> <span class="n">CalculateDelegate</span><span class="p">(</span><span class="n">Add</span><span class="p">);</span>
+<span class="n">myDelegate</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">);</span>
+</code></pre></div></p>
 <p>结果将只有-100 和 20000 被输出，可见通过-=操作解除了 Add 方法。
-事实上，+=和-=操作分别调用了 Deleagate.Combine 和 Deleagate.Remove 方法，由对应的 IL 可知：</p>
-<pre><code class="c#">.method public hidebysig static void Main() cil managed
-{
-.entrypoint
-// 代码大小 151 (0x97)
-.maxstack 4
-IL_0000: nop
-IL_0001: ldnull
-IL_0002: ldftn void 
-InsideDotNet.NewFeature.CSharp3.DelegateEx::Add(int32, int32)
-//部分省略……
-IL_0023: call class [mscorlib]System.Delegate [mscorlib]System.Delegate:: Combine(class [ms
-corlib]System.Delegate, class [mscorlib]System.Delegate)
-//部分省略……
-IL_0043: call class [mscorlib]System.Delegate [mscorlib]System.Delegate:: Combine(class [ms
-corlib]System.Delegate, class [mscorlib]System.Delegate)
-//部分省略……
-IL_0075: call class [mscorlib]System.Delegate [mscorlib]System.Delegate:: Remove(class [ms
-corlib]System.Delegate, class [mscorlib]System.Delegate)
-//部分省略……
-IL_0095: nop
-IL_0096: ret
-} // end of method DelegateEx::Main
-</code></pre>
-
-<p>所以，上述操作实际等效于：</p>
-<pre><code class="c#">public static void Main()
-{
-    myDelegate = (CalculateDelegate)Delegate.Combine(new CalculateDelegate(Add),
-        new CalculateDelegate(Subtract), new CalculateDelegate(Multiply));
-    myDelegate(100, 200);
-    myDelegate = (CalculateDelegate)Delegate.Remove(myDelegate, 
-        new CalculateDelegate(Add));
-    myDelegate(100, 200);
-}
-</code></pre>
-
+事实上，+=和-=操作分别调用了 Deleagate.Combine 和 Deleagate.Remove 方法，由对应的 IL 可知：
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">method</span> <span class="k">public</span> <span class="n">hidebysig</span> <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">()</span> <span class="n">cil</span> <span class="n">managed</span>
+<span class="p">{</span>
+<span class="p">.</span><span class="n">entrypoint</span>
+<span class="c1">// 代码大小 151 (0x97)</span>
+<span class="p">.</span><span class="n">maxstack</span> <span class="m">4</span>
+<span class="n">IL_0000</span><span class="p">:</span> <span class="n">nop</span>
+<span class="n">IL_0001</span><span class="p">:</span> <span class="n">ldnull</span>
+<span class="n">IL_0002</span><span class="p">:</span> <span class="n">ldftn</span> <span class="k">void</span> 
+<span class="n">InsideDotNet</span><span class="p">.</span><span class="n">NewFeature</span><span class="p">.</span><span class="n">CSharp3</span><span class="p">.</span><span class="n">DelegateEx</span><span class="p">::</span><span class="n">Add</span><span class="p">(</span><span class="n">int32</span><span class="p">,</span> <span class="n">int32</span><span class="p">)</span>
+<span class="c1">//部分省略……</span>
+<span class="n">IL_0023</span><span class="p">:</span> <span class="n">call</span> <span class="k">class</span> <span class="p">[</span><span class="n">mscorlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span> <span class="p">[</span><span class="n">mscorlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span><span class="p">::</span> <span class="n">Combine</span><span class="p">(</span><span class="k">class</span> <span class="p">[</span><span class="n">ms</span>
+<span class="n">corlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span><span class="p">,</span> <span class="k">class</span> <span class="p">[</span><span class="n">mscorlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span><span class="p">)</span>
+<span class="c1">//部分省略……</span>
+<span class="n">IL_0043</span><span class="p">:</span> <span class="n">call</span> <span class="k">class</span> <span class="p">[</span><span class="n">mscorlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span> <span class="p">[</span><span class="n">mscorlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span><span class="p">::</span> <span class="n">Combine</span><span class="p">(</span><span class="k">class</span> <span class="p">[</span><span class="n">ms</span>
+<span class="n">corlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span><span class="p">,</span> <span class="k">class</span> <span class="p">[</span><span class="n">mscorlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span><span class="p">)</span>
+<span class="c1">//部分省略……</span>
+<span class="n">IL_0075</span><span class="p">:</span> <span class="n">call</span> <span class="k">class</span> <span class="p">[</span><span class="n">mscorlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span> <span class="p">[</span><span class="n">mscorlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span><span class="p">::</span> <span class="n">Remove</span><span class="p">(</span><span class="k">class</span> <span class="p">[</span><span class="n">ms</span>
+<span class="n">corlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span><span class="p">,</span> <span class="k">class</span> <span class="p">[</span><span class="n">mscorlib</span><span class="p">]</span><span class="n">System</span><span class="p">.</span><span class="n">Delegate</span><span class="p">)</span>
+<span class="c1">//部分省略……</span>
+<span class="n">IL_0095</span><span class="p">:</span> <span class="n">nop</span>
+<span class="n">IL_0096</span><span class="p">:</span> <span class="n">ret</span>
+<span class="p">}</span> <span class="c1">// end of method DelegateEx::Main</span>
+</code></pre></div></p>
+<p>所以，上述操作实际等效于：
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">myDelegate</span> <span class="p">=</span> <span class="p">(</span><span class="n">CalculateDelegate</span><span class="p">)</span><span class="n">Delegate</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="k">new</span> <span class="n">CalculateDelegate</span><span class="p">(</span><span class="n">Add</span><span class="p">),</span>
+        <span class="k">new</span> <span class="nf">CalculateDelegate</span><span class="p">(</span><span class="n">Subtract</span><span class="p">),</span> <span class="k">new</span> <span class="n">CalculateDelegate</span><span class="p">(</span><span class="n">Multiply</span><span class="p">));</span>
+    <span class="n">myDelegate</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">);</span>
+    <span class="n">myDelegate</span> <span class="p">=</span> <span class="p">(</span><span class="n">CalculateDelegate</span><span class="p">)</span><span class="n">Delegate</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">myDelegate</span><span class="p">,</span> 
+        <span class="k">new</span> <span class="nf">CalculateDelegate</span><span class="p">(</span><span class="n">Add</span><span class="p">));</span>
+    <span class="n">myDelegate</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <p>另外，多播委托返回值一般为 void，委托类型为非 void 类型时，多播委托将返回最后一个调
 用的方法的执行结果，所以在实际的应用中不被推荐。</p>
 <h2 id="_4">委托的本质</h2>
@@ -3672,7 +3664,7 @@ IL_0096: ret
 <p><img alt="" src="C#学习（三）深入理解委托、匿名方法和-Lambda-表达式.assets\8869373-26e9af8bb7c7cdb0.png" /></p>
 <p>所以，委托本质上仍旧是一个类，该类继承自 System.MulticastDelegate 类，该类维护一个带有链接的委托列表，在调用多播委托时，将按照委托列表的委托顺序而调用的。还包括一个接受两个参数的构造函数和 3 个重要方法：BeginInvoke、EndInvoke 和 Invoke。</p>
 <p>首先来了解 CalculateDelegate 的构造函数，它包括了两个参数：第一个参数表示一个对象引用，它指向了当前委托调用回调函数的实例，在本例中即指向一个 DelegateEx 对象；第二个参数标识了回调方法，也就是 Add 方法。因此，在创建一个委托类型实例时，将会为其初始化一个指向对象的引用和一个标识回调方法的整数，这是由编译器完成的。那么一个回调方法是如何被执行的，继续以 IL 代码来分析委托的调用，即可显露端倪（在此仅分析委托关联 Add 方法时的情况）：</p>
-<pre><code class="il">.method public hidebysig static void Main() cil managed
+<div class="highlight"><pre><span></span><code>.method public hidebysig static void Main() cil managed
 {
 .entrypoint
 // 代码大小 37 (0x25)
@@ -3694,61 +3686,60 @@ IL_001e: callvirt instance void InsideDotNet.NewFeature.CSharp3.DelegateEx/ Calc
 e::Invoke(int32, int32)
 IL_0023: nop
 IL_0024: ret} // end of method DelegateEx::Main
-</code></pre>
+</code></pre></div>
 
-<p>在 IL 代码中可见，首先调用 CalculateDelegate 的构造函数来创建一个 myDelegate 实例，然后通过 CalculateDelegate::Invoke 执行回调方法调用，可见真正执行调用的是 Invoke 方法。因此，你也可以通过 Invoke 在代码中显示调用，例如：</p>
-<pre><code class="c#">myDelegate.Invoke(100, 200
-</code></pre>
-
+<p>在 IL 代码中可见，首先调用 CalculateDelegate 的构造函数来创建一个 myDelegate 实例，然后通过 CalculateDelegate::Invoke 执行回调方法调用，可见真正执行调用的是 Invoke 方法。因此，你也可以通过 Invoke 在代码中显示调用，例如：
+<div class="highlight"><pre><span></span><code><span class="n">myDelegate</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span>
+</code></pre></div></p>
 <p>其执行过程和隐式调用是一样的，注意在.NET 1.0 中 C#编译器是不允许显示调用的，以后的版本中修正了这一限制。</p>
 <p>另外，Invoke 方法直接对当前线程调用回调方法，在异步编程环境中，除了 Invoke 方法，也会生成 BeginInvoke 和 EndInvoke 方法来完成一定的工作。这也就是委托类中另外两个方法的作用。</p>
 <h2 id="_5">委托和事件</h2>
 <p>.NET 的事件模型建立在委托机制之上，透彻的了解了委托才能明白的分析事件。可以说，事件是对委托的封装，从委托的示例中可知，在客户端可以随意对委托进行操作，一定程度上破坏了面向的对象的封装机制，因此事件实现了对委托的封装。
 下面，通过将委托的示例进行改造，来完成一个事件的定义过程：</p>
-<pre><code class="c#">using System;
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 
-namespace DelegateAndEvent
-{
-    public class Calculator
-    {
-        //定义一个 CalculateEventArgs，
-        //用于存放事件引发时向处理程序传递的状态信息
-        public class CalculateEventArgs : EventArgs
-        {
-            public readonly Int32 x, y;
+<span class="k">namespace</span> <span class="nn">DelegateAndEvent</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Calculator</span>
+    <span class="p">{</span>
+        <span class="c1">//定义一个 CalculateEventArgs，</span>
+        <span class="c1">//用于存放事件引发时向处理程序传递的状态信息</span>
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">CalculateEventArgs</span> <span class="p">:</span> <span class="n">EventArgs</span>
+        <span class="p">{</span>
+            <span class="k">public</span> <span class="k">readonly</span> <span class="n">Int32</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
 
-            public CalculateEventArgs(Int32 x, Int32 y)
-            {
-                this.x = x;
-                this.y = y;
-            }
-        }
+            <span class="k">public</span> <span class="nf">CalculateEventArgs</span><span class="p">(</span><span class="n">Int32</span> <span class="n">x</span><span class="p">,</span> <span class="n">Int32</span> <span class="n">y</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="n">x</span> <span class="p">=</span> <span class="n">x</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="n">y</span> <span class="p">=</span> <span class="n">y</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-        //声明事件委托
-        public delegate void CalculateEventHandler(object sender, CalculateEventArgs e);
+        <span class="c1">//声明事件委托</span>
+        <span class="k">public</span> <span class="k">delegate</span> <span class="k">void</span> <span class="nf">CalculateEventHandler</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">CalculateEventArgs</span> <span class="n">e</span><span class="p">);</span>
 
-        //定义事件成员，提供外部绑定
-        public event CalculateEventHandler MyCalculate;
+        <span class="c1">//定义事件成员，提供外部绑定</span>
+        <span class="k">public</span> <span class="k">event</span> <span class="n">CalculateEventHandler</span> <span class="n">MyCalculate</span><span class="p">;</span>
 
-        //提供受保护的虚方法，可以由子类覆写来拒绝监视
-        protected virtual void OnCalculate(CalculateEventArgs e)
-        {
-            if (MyCalculate != null)
-            {
-                MyCalculate(this, e);
-            }
-        }
+        <span class="c1">//提供受保护的虚方法，可以由子类覆写来拒绝监视</span>
+        <span class="k">protected</span> <span class="k">virtual</span> <span class="k">void</span> <span class="nf">OnCalculate</span><span class="p">(</span><span class="n">CalculateEventArgs</span> <span class="n">e</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">MyCalculate</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">MyCalculate</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">e</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-        //进行计算，调用该方法表示有新的计算发生
-        public void Calculate(Int32 x, Int32 y)
-        {
-            CalculateEventArgs e = new CalculateEventArgs(x, y);
-            //通知所有的事件的注册者
-            OnCalculate(e);
-        }
-    }
-}
-</code></pre>
+        <span class="c1">//进行计算，调用该方法表示有新的计算发生</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Calculate</span><span class="p">(</span><span class="n">Int32</span> <span class="n">x</span><span class="p">,</span> <span class="n">Int32</span> <span class="n">y</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">CalculateEventArgs</span> <span class="n">e</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CalculateEventArgs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+            <span class="c1">//通知所有的事件的注册者</span>
+            <span class="n">OnCalculate</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>示例中，对计算器模拟程序做了简要的修改，从二者的对比中可以体会事件的完整定义过程，主要包括：</p>
 <ul>
@@ -3759,95 +3750,90 @@ namespace DelegateAndEvent
 <li>定义一个触发事件的方法，例如 Calculate 被调用时，表示有新的计算发生。</li>
 </ul>
 <p>一个事件的完整程序就这样定义好了。然后，还需要定义一个事件触发程序，用来监听事件：</p>
-<pre><code class="c#">//定义事件触发者
-public class CalculatorManager
-{
-    //定义消息通知方法
-    public void Add(object sender, Calculator.CalculateEventArgs e)
-    {
-        Console.WriteLine(e.x + e.y);
-    }
+<div class="highlight"><pre><span></span><code><span class="c1">//定义事件触发者</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">CalculatorManager</span>
+<span class="p">{</span>
+    <span class="c1">//定义消息通知方法</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">Calculator</span><span class="p">.</span><span class="n">CalculateEventArgs</span> <span class="n">e</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">x</span> <span class="p">+</span> <span class="n">e</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    public void Substract(object sender, Calculator.CalculateEventArgs e)
-    {
-        Console.WriteLine(e.x - e.y);
-    }
-}
-</code></pre>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Substract</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">Calculator</span><span class="p">.</span><span class="n">CalculateEventArgs</span> <span class="n">e</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">x</span> <span class="p">-</span> <span class="n">e</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
-<p>最后，实现一个事件的处理程序：</p>
-<pre><code class="c#">public class Test_Calculator
-{
-    public static void Run()
-    {
-        Calculator calculator = new Calculator();
-        //事件触发者
-        CalculatorManager cm = new CalculatorManager();
-        //事件绑定
-        calculator.MyCalculate += cm.Add;
-        calculator.Calculate(100, 200);
-        calculator.MyCalculate += cm.Substract;
-        calculator.Calculate(100, 200);
-        //事件注销
-        calculator.MyCalculate -= cm.Add;
-        calculator.Calculate(100, 200);
-    }
-}
-</code></pre>
-
-<p>如果对设计模式有所了解，上述实现过程实质是 Observer 模式在委托中的应用，在.NET 中对Observer 模式的应用严格的遵守了相关的规范。在 Windows Form 程序开发中，对一个Button 的Click 就对应了事件的响应，例如：</p>
-<pre><code class="c#">this.button1.Click += new System.EventHandler(this.button1_Clic
-</code></pre>
-
+<p>最后，实现一个事件的处理程序：
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Test_Calculator</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Calculator</span> <span class="n">calculator</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Calculator</span><span class="p">();</span>
+        <span class="c1">//事件触发者</span>
+        <span class="n">CalculatorManager</span> <span class="n">cm</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CalculatorManager</span><span class="p">();</span>
+        <span class="c1">//事件绑定</span>
+        <span class="n">calculator</span><span class="p">.</span><span class="n">MyCalculate</span> <span class="p">+=</span> <span class="n">cm</span><span class="p">.</span><span class="n">Add</span><span class="p">;</span>
+        <span class="n">calculator</span><span class="p">.</span><span class="n">Calculate</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">);</span>
+        <span class="n">calculator</span><span class="p">.</span><span class="n">MyCalculate</span> <span class="p">+=</span> <span class="n">cm</span><span class="p">.</span><span class="n">Substract</span><span class="p">;</span>
+        <span class="n">calculator</span><span class="p">.</span><span class="n">Calculate</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">);</span>
+        <span class="c1">//事件注销</span>
+        <span class="n">calculator</span><span class="p">.</span><span class="n">MyCalculate</span> <span class="p">-=</span> <span class="n">cm</span><span class="p">.</span><span class="n">Add</span><span class="p">;</span>
+        <span class="n">calculator</span><span class="p">.</span><span class="n">Calculate</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>如果对设计模式有所了解，上述实现过程实质是 Observer 模式在委托中的应用，在.NET 中对Observer 模式的应用严格的遵守了相关的规范。在 Windows Form 程序开发中，对一个Button 的Click 就对应了事件的响应，例如：
+<div class="highlight"><pre><span></span><code><span class="k">this</span><span class="p">.</span><span class="n">button1</span><span class="p">.</span><span class="n">Click</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">EventHandler</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">button1_Clic</span>
+</code></pre></div></p>
 <p>用于将 button1_Click 方法绑定到 button1 的 Click 事件上，当有按钮被按下时，将会触发执行
-button1_Click 方法：</p>
-<pre><code class="c#">private void button1_Click(object sender, EventArgs e) { }
-</code></pre>
-
+button1_Click 方法：
+<div class="highlight"><pre><span></span><code><span class="k">private</span> <span class="k">void</span> <span class="nf">button1_Click</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div></p>
 <h2 id="_6">匿名方法</h2>
-<p>匿名方法以内联方式放入委托对象的使用位置，而避免创建一个委托来关联回调方法，也就是由委托调用了匿名的方法，将方法代码和委托实例直接关联，在语法上有简洁和直观的好处。例如以匿名方法来绑定 Click 事件将变得非常简单：</p>
-<pre><code class="c#">button1.Click += delegate
-{
-    MessageBox.Show(&quot;Hello world.&quot;);
-};
-</code></pre>
+<p>匿名方法以内联方式放入委托对象的使用位置，而避免创建一个委托来关联回调方法，也就是由委托调用了匿名的方法，将方法代码和委托实例直接关联，在语法上有简洁和直观的好处。例如以匿名方法来绑定 Click 事件将变得非常简单：
+<div class="highlight"><pre><span></span><code><span class="n">button1</span><span class="p">.</span><span class="n">Click</span> <span class="p">+=</span> <span class="k">delegate</span>
+<span class="p">{</span>
+    <span class="n">MessageBox</span><span class="p">.</span><span class="n">Show</span><span class="p">(</span><span class="s">&quot;Hello world.&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></p>
+<p>因此，有必要以匿名方法来实现本节开始的委托示例，了解其实现过程和底层实质，例如：
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">AnonymousMethodEx</span>
+<span class="p">{</span>
+    <span class="k">delegate</span> <span class="k">void</span> <span class="nf">CalculateDelegate</span><span class="p">(</span><span class="n">Int32</span> <span class="n">x</span><span class="p">,</span> <span class="n">Int32</span> <span class="n">y</span><span class="p">);</span>
 
-<p>因此，有必要以匿名方法来实现本节开始的委托示例，了解其实现过程和底层实质，例如：</p>
-<pre><code class="c#">class AnonymousMethodEx
-{
-    delegate void CalculateDelegate(Int32 x, Int32 y);
-
-    public static void Run()
-    {
-        //匿名方法
-        CalculateDelegate mySubstractDelegate = delegate(Int32 x, Int32 y) { Console.WriteLine(x - y); };
-        CalculateDelegate myAddDelegate = delegate(Int32 x, Int32 y) { Console.WriteLine(x + y); };
-        mySubstractDelegate(100, 200);
-    }
-}
-</code></pre>
-
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">//匿名方法</span>
+        <span class="n">CalculateDelegate</span> <span class="n">mySubstractDelegate</span> <span class="p">=</span> <span class="k">delegate</span><span class="p">(</span><span class="n">Int32</span> <span class="n">x</span><span class="p">,</span> <span class="n">Int32</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">x</span> <span class="p">-</span> <span class="n">y</span><span class="p">);</span> <span class="p">};</span>
+        <span class="n">CalculateDelegate</span> <span class="n">myAddDelegate</span> <span class="p">=</span> <span class="k">delegate</span><span class="p">(</span><span class="n">Int32</span> <span class="n">x</span><span class="p">,</span> <span class="n">Int32</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">x</span> <span class="p">+</span> <span class="n">y</span><span class="p">);</span> <span class="p">};</span>
+        <span class="n">mySubstractDelegate</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <p>事实上，匿名方法和委托在 IL 层是等效的，编译器为匿名方法增加了两个静态成员和静态方法，如图：
 <img alt="" src="C#学习（三）深入理解委托、匿名方法和-Lambda-表达式.assets\8869373-32f118858929f082.png" /></p>
 <p>由编译器生成的两个静态成员和静态方法，辅助实现了委托调用一样的语法结构，这正是匿名方法在底层的真相。</p>
 <h2 id="lambda">Lambda表达式</h2>
 <p>Lambda 表达式是 Functional Programming 的核心概念，现在 C# 3.0 中也引入了 Lambda 表达式来实现更加简洁的语法，并且为 LINQ 提供了语法基础，这些将在本书第 12 章有所交代。再次应用 Lambda 表达式来实现相同的过程，其代码为：</p>
-<pre><code class="c#">using System;
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 
-namespace Lambda
-{
-    public class LambdaExpressionEx
-    {
-        delegate void CalculateDelegate(Int32 x, Int32 y);
+<span class="k">namespace</span> <span class="nn">Lambda</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">LambdaExpressionEx</span>
+    <span class="p">{</span>
+        <span class="k">delegate</span> <span class="k">void</span> <span class="nf">CalculateDelegate</span><span class="p">(</span><span class="n">Int32</span> <span class="n">x</span><span class="p">,</span> <span class="n">Int32</span> <span class="n">y</span><span class="p">);</span>
 
-        public static void Run()
-        {
-            CalculateDelegate myDelegate = (x, y) =&gt; Console.WriteLine(x - y);
-            myDelegate(100, 200);
-        }
-    }
-}
-</code></pre>
+        <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">CalculateDelegate</span> <span class="n">myDelegate</span> <span class="p">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">x</span> <span class="p">-</span> <span class="n">y</span><span class="p">);</span>
+            <span class="n">myDelegate</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>分析 Lambda 表达式的 IL 代码，可知编译器同样自动生成了相应的静态成员和静态方法，Lambda 表达式在本质上仍然是一个委托。带来这一切便利的是编译器，在此对 IL 上的细节不再做进一步分析。</p>
 <h2 id="_7">规则</h2>
@@ -3943,6 +3929,8 @@ namespace Lambda
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

@@ -3518,63 +3518,61 @@
                 
                 <h2 id="_1">首先是构建数据集</h2>
 <p>这里我使用了随机生成用户和项目，以及用户对项目的评价，喜欢（1）与不喜欢（0）</p>
-<pre><code class="python">import random
-import pandas
-import numpy as np
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-def build_dataframe() -&gt; pandas.DataFrame:
-    datasets = {
-        'userID': [],
-        'itemID': [],
-        'rating': []
-    }
-    # 生成所有用户
-    users = [user for user in np.arange(1, 1000)]
-    # 从数据库取出所有文章
-    items = [item for item in np.arange(1, 10000)]
-    # 模拟评分
-    for user in users:
-        # 选n篇用户看过的文章
-        viewed_items = random.sample(items, 100)
-        for item in viewed_items:
-            rating = random.randint(0, 1)
-            datasets['userID'].append(user)
-            datasets['itemID'].append(item)
-            datasets['rating'].append(rating)
+<span class="k">def</span> <span class="nf">build_dataframe</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="n">datasets</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;userID&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;itemID&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;rating&#39;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+    <span class="c1"># 生成所有用户</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="p">[</span><span class="n">user</span> <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)]</span>
+    <span class="c1"># 从数据库取出所有文章</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)]</span>
+    <span class="c1"># 模拟评分</span>
+    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
+        <span class="c1"># 选n篇用户看过的文章</span>
+        <span class="n">viewed_items</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">viewed_items</span><span class="p">:</span>
+            <span class="n">rating</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">datasets</span><span class="p">[</span><span class="s1">&#39;userID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+            <span class="n">datasets</span><span class="p">[</span><span class="s1">&#39;itemID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">datasets</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rating</span><span class="p">)</span>
 
-    return pandas.DataFrame(datasets)
-</code></pre>
+    <span class="k">return</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span>
+</code></pre></div>
 
 <h2 id="_2">准备训练模型</h2>
 <h3 id="_3">自动交叉验证</h3>
 <p>Surprise工具库拥有一系列内置函数和数据集供你使用，它强大到你只需要简单地写几行代码就能使用交叉验证法。</p>
 <p>为了从pandas数据帧中加载数据集，需要使用load_frim_df()方法，也要使用Reader类，但是只有rating_scale参数必须指定。数据帧必须有三列，对应于用户（原始）ID，项目（原始）ID以及此顺序中的评级。因此，每行对应于给定的评级。因为可以轻松地重新排序数据帧的列。</p>
 <p>这里使用我自己生成随机数据集，效果很差，还是用MovieLens的数据集比较好</p>
-<pre><code class="python">from surprise import NormalPredictor,SVD,KNNBasic
-from surprise import Dataset
-from surprise import Reader
-from surprise.model_selection import cross_validate
+<p><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">NormalPredictor</span><span class="p">,</span><span class="n">SVD</span><span class="p">,</span><span class="n">KNNBasic</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Reader</span>
+<span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">cross_validate</span>
 
-print('构建数据集')
-df = build_dataframe()
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;构建数据集&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">build_dataframe</span><span class="p">()</span>
 
-# 同样需要定义 Reader 对象，但只需指定 rating_scale 参数。
-reader = Reader(rating_scale=(0, 1))
+<span class="c1"># 同样需要定义 Reader 对象，但只需指定 rating_scale 参数。</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">(</span><span class="n">rating_scale</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
-# 传入的列必须对应着 userID，itemID 和 rating（严格按此顺序）。
-data = Dataset.load_from_df(df[['userID', 'itemID', 'rating']], reader)
+<span class="c1"># 传入的列必须对应着 userID，itemID 和 rating（严格按此顺序）。</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_from_df</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;userID&#39;</span><span class="p">,</span> <span class="s1">&#39;itemID&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]],</span> <span class="n">reader</span><span class="p">)</span>
 
-# 使用MovieLens-100k数据集
-data = Dataset.load_builtin('ml-100k')
+<span class="c1"># 使用MovieLens-100k数据集</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_builtin</span><span class="p">(</span><span class="s1">&#39;ml-100k&#39;</span><span class="p">)</span>
 
-# 然后即可根据需要来操作此数据集，例如调用cross_validate
-print('交叉验证')
-cross_validate(KNNBasic(), data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
-
-</code></pre>
-
-<p>运行结果</p>
-<pre><code>构建数据集
+<span class="c1"># 然后即可根据需要来操作此数据集，例如调用cross_validate</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;交叉验证&#39;</span><span class="p">)</span>
+<span class="n">cross_validate</span><span class="p">(</span><span class="n">KNNBasic</span><span class="p">(),</span> <span class="n">data</span><span class="p">,</span> <span class="n">measures</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RMSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div>
+运行结果
+<div class="highlight"><pre><span></span><code>构建数据集
 交叉验证
 Computing the msd similarity matrix...
 Done computing similarity matrix.
@@ -3594,227 +3592,220 @@ MAE (testset)     0.7755  0.7777  0.7767  0.7726  0.7614  0.7728  0.0059
 Fit time          0.59    0.67    0.61    0.58    0.62    0.61    0.03    
 Test time         3.59    3.78    3.74    3.48    3.46    3.61    0.13    
 
-{'test_rmse': array([0.98610945, 0.98482529, 0.98062869, 0.97590553, 0.96393148]),
-'test_mae': array([0.7754694 , 0.77774512, 0.77666541, 0.77260546, 0.76140967]),
-'fit_time': (0.5875513553619385,
+{&#39;test_rmse&#39;: array([0.98610945, 0.98482529, 0.98062869, 0.97590553, 0.96393148]),
+&#39;test_mae&#39;: array([0.7754694 , 0.77774512, 0.77666541, 0.77260546, 0.76140967]),
+&#39;fit_time&#39;: (0.5875513553619385,
 0.6657052040100098,
 0.614863395690918,
 0.5803155899047852,
 0.6159660816192627),
-'test_time': (3.592573404312134,
+&#39;test_time&#39;: (3.592573404312134,
 3.7826573848724365,
 3.736438751220703,
 3.481112241744995,
 3.4585647583007812)}
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="-fit">训练集-测试集划分和拟合函数fit()</h2>
 <p>不想进行交叉验证法，也可以使用<code>train_test_split()</code>将测试集与训练集划按你给定大小进行划分，并使用选定的精度评价指标。<code>fit()</code>函数将在训练集上使用算法，<code>test()</code>函数返回在测试集中的预测</p>
-<pre><code class="python">from surprise import SVD
-from surprise import Reader
-from surprise import Dataset
-from surprise import accuracy
-from surprise.model_selection import train_test_split
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">SVD</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Reader</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">accuracy</span>
+<span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
-df = build_dataframe()
-reader = Reader(rating_scale=(0, 1))
-data = Dataset.load_from_df(df[['userID', 'itemID', 'rating']], reader)
+<span class="n">df</span> <span class="o">=</span> <span class="n">build_dataframe</span><span class="p">()</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">(</span><span class="n">rating_scale</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_from_df</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;userID&#39;</span><span class="p">,</span> <span class="s1">&#39;itemID&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]],</span> <span class="n">reader</span><span class="p">)</span>
 
-# 随机抽取训练集和测试集，测试集占总数据集的25%
-trainset, testset = train_test_split(data, test_size=.25)
+<span class="c1"># 随机抽取训练集和测试集，测试集占总数据集的25%</span>
+<span class="n">trainset</span><span class="p">,</span> <span class="n">testset</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=.</span><span class="mi">25</span><span class="p">)</span>
 
-# 将使用SVD算法
-algo = SVD()
+<span class="c1"># 将使用SVD算法</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">SVD</span><span class="p">()</span>
 
-# 用训练集训练模型，用测试集来得到评级结果
-algo.fit(trainset)
-predictions = algo.test(testset)
+<span class="c1"># 用训练集训练模型，用测试集来得到评级结果</span>
+<span class="n">algo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
 
-# 计算均方根误差RMSE
-accuracy.rmse(predictions)
-</code></pre>
+<span class="c1"># 计算均方根误差RMSE</span>
+<span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+</code></pre></div>
 
-<p>运行结果</p>
-<pre><code>RMSE: 0.5205
+<p>运行结果
+<div class="highlight"><pre><span></span><code>RMSE: 0.5205
 0.5204505667249893
-</code></pre>
-
+</code></pre></div></p>
 <p>也可以使用一行代码来实现训练和测试算法：</p>
-<pre><code class="python">predictions = algo.fit(trainset).test(testset)
-accuracy.rmse(predictions)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">predictions</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
+<span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+</code></pre></div>
 
-<p>运行结果</p>
-<pre><code>RMSE: 0.5194
+<p>运行结果
+<div class="highlight"><pre><span></span><code>RMSE: 0.5194
 0.5194365387027055
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="predict">训练整个数据集和predict()预测函数</h2>
 <p>显然，我们也可以简单地将算法拟合到整个数据集。使用<code>build_full_trainset()</code>方法来实现，然后通过直接调用<code>predict()</code>方法来预测正确率，假如使用：“user id:196, item id:302，是否喜欢:1”来验证(确保训练集中包含这个)。</p>
-<pre><code class="python">from surprise import KNNBasic
-from surprise import Dataset
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">KNNBasic</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Dataset</span>
 
-df = build_dataframe()
-reader = Reader(rating_scale=(0, 1))
-data = Dataset.load_from_df(df[['userID', 'itemID', 'rating']], reader)
+<span class="n">df</span> <span class="o">=</span> <span class="n">build_dataframe</span><span class="p">()</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">(</span><span class="n">rating_scale</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_from_df</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;userID&#39;</span><span class="p">,</span> <span class="s1">&#39;itemID&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]],</span> <span class="n">reader</span><span class="p">)</span>
 
-# 取回训练集
-trainset = data.build_full_trainset()
+<span class="c1"># 取回训练集</span>
+<span class="n">trainset</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">build_full_trainset</span><span class="p">()</span>
 
-# 构建算法并训练
-algo = KNNBasic()
-algo.fit(trainset)
+<span class="c1"># 构建算法并训练</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">KNNBasic</span><span class="p">()</span>
+<span class="n">algo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
 
-uid = 1
-iid = 1
+<span class="n">uid</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">iid</span> <span class="o">=</span> <span class="mi">1</span>
 
-# 获取指定用户和电影的评级结果
-pred = algo.predict(uid, iid, r_ui=1, verbose=True)
-</code></pre>
+<span class="c1"># 获取指定用户和电影的评级结果</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">uid</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">r_ui</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div>
 
-<p>运行结果</p>
-<pre><code>Computing the msd similarity matrix...
+<p>运行结果
+<div class="highlight"><pre><span></span><code>Computing the msd similarity matrix...
 Done computing similarity matrix.
-user: 1          item: 1          r_ui = 0.00   est = 0.65   {'actual_k': 6, 'was_impossible': False}
-</code></pre>
-
+user: 1          item: 1          r_ui = 0.00   est = 0.65   {&#39;actual_k&#39;: 6, &#39;was_impossible&#39;: False}
+</code></pre></div></p>
 <p>注意：<code>predict()</code>使用原始id（原始id和内部id的区别以后再详细说明）。如果使用的数据集是从文件中读取的，那么原始ID是字符串（即使它们代表数字），不过我这里用的是dataframe，所以不用这么用。</p>
 <h2 id="_4">使用交叉验证法迭代器</h2>
 <p>为了更好的评估模型，我们还可以实现交叉验证迭代器（p次k折交叉验证）。对split()方法划分的每个迭代器都使用test()方法进行预测。</p>
-<pre><code class="python">from surprise import SVD
-from surprise import Dataset
-from surprise import accuracy
-from surprise.model_selection import KFold
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">SVD</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">accuracy</span>
+<span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
 
-df = build_dataframe()
-reader = Reader(rating_scale=(0, 1))
-data = Dataset.load_from_df(df[['userID', 'itemID', 'rating']], reader)
+<span class="n">df</span> <span class="o">=</span> <span class="n">build_dataframe</span><span class="p">()</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">(</span><span class="n">rating_scale</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_from_df</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;userID&#39;</span><span class="p">,</span> <span class="s1">&#39;itemID&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]],</span> <span class="n">reader</span><span class="p">)</span>
 
-# 定义几次k折交叉验证迭代
-kf = KFold(n_splits=3)
+<span class="c1"># 定义几次k折交叉验证迭代</span>
+<span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
-algo = SVD()
+<span class="n">algo</span> <span class="o">=</span> <span class="n">SVD</span><span class="p">()</span>
 
-for trainset, testset in kf.split(data):
-    # 训练和测试算法
-    algo.fit(trainset)
-    predictions = algo.test(testset)
+<span class="k">for</span> <span class="n">trainset</span><span class="p">,</span> <span class="n">testset</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="c1"># 训练和测试算法</span>
+    <span class="n">algo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
 
-    # 计算和打印均方根误差
-    accuracy.rmse(predictions, verbose=True)
-</code></pre>
+    <span class="c1"># 计算和打印均方根误差</span>
+    <span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div>
 
-<p>运行结果</p>
-<pre><code>RMSE: 0.5188
+<p>运行结果
+<div class="highlight"><pre><span></span><code>RMSE: 0.5188
 RMSE: 0.5192
 RMSE: 0.5200
-</code></pre>
-
+</code></pre></div></p>
 <p>其他的交叉验证法如LeaveOneOut（留一法）和 ShuffleSplit（打散组合法）将样本集合随机“打散”后划分为训练集、测试集）也能使用。Surprise的交叉验证工具的设计灵感来自优秀的scikit-learn API。</p>
 <p>训练集和测试集分别预定义成文件的情况是交叉验证的一个特例。 例如<code>movielens-100K</code>数据集已经提供了5个训练文件和5个测试文件(u1.base,u1.test,…,u5.base,u5.test)。可以使用<code>surprise.mode_selection.split.PredefinedKFold</code>对象来解决这种情况：</p>
-<pre><code class="python">import os
-from surprise import SVD
-from surprise import Dataset
-from surprise import Reader
-from surprise import accuracy
-from surprise.model_selection import PredefinedKFold
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">SVD</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Reader</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">accuracy</span>
+<span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">PredefinedKFold</span>
 
-# 数据集文件夹位置
-files_dir = os.path.expanduser('~/.surprise_data/ml-100k/ml-100k/')
+<span class="c1"># 数据集文件夹位置</span>
+<span class="n">files_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/.surprise_data/ml-100k/ml-100k/&#39;</span><span class="p">)</span>
 
-# 这次，使用内置函数Reader读取数据
-reader = Reader('ml-100k')
+<span class="c1"># 这次，使用内置函数Reader读取数据</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">(</span><span class="s1">&#39;ml-100k&#39;</span><span class="p">)</span>
 
-# 定义folds_files为包含文件路径的元组列表：
-# [(u1.base, u1.test), (u2.base, u2.test),...(u5.base, u5.test)]
-train_file = files_dir + 'u%d.base'
-test_file = files_dir + 'u%d.test'
-folds_files = [(train_file % i, test_file % i) for i in (1, 2, 3, 4, 5)]
+<span class="c1"># 定义folds_files为包含文件路径的元组列表：</span>
+<span class="c1"># [(u1.base, u1.test), (u2.base, u2.test),...(u5.base, u5.test)]</span>
+<span class="n">train_file</span> <span class="o">=</span> <span class="n">files_dir</span> <span class="o">+</span> <span class="s1">&#39;u</span><span class="si">%d</span><span class="s1">.base&#39;</span>
+<span class="n">test_file</span> <span class="o">=</span> <span class="n">files_dir</span> <span class="o">+</span> <span class="s1">&#39;u</span><span class="si">%d</span><span class="s1">.test&#39;</span>
+<span class="n">folds_files</span> <span class="o">=</span> <span class="p">[(</span><span class="n">train_file</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">test_file</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
 
-# 分别载入数据集
-data = Dataset.load_from_folds(folds_files, reader=reader)
-pkf = PredefinedKFold()
+<span class="c1"># 分别载入数据集</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_from_folds</span><span class="p">(</span><span class="n">folds_files</span><span class="p">,</span> <span class="n">reader</span><span class="o">=</span><span class="n">reader</span><span class="p">)</span>
+<span class="n">pkf</span> <span class="o">=</span> <span class="n">PredefinedKFold</span><span class="p">()</span>
 
-algo = SVD()
+<span class="n">algo</span> <span class="o">=</span> <span class="n">SVD</span><span class="p">()</span>
 
-for trainset, testset in pkf.split(data):
-    # 训练和测试
-    algo.fit(trainset)
-    predictions = algo.test(testset)
+<span class="k">for</span> <span class="n">trainset</span><span class="p">,</span> <span class="n">testset</span> <span class="ow">in</span> <span class="n">pkf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="c1"># 训练和测试</span>
+    <span class="n">algo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
 
-    # 计算和打印均方根误差
-    accuracy.rmse(predictions, verbose=True)
-</code></pre>
+    <span class="c1"># 计算和打印均方根误差</span>
+    <span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div>
 
-<p>运行结果</p>
-<pre><code>RMSE: 0.9509
+<p>运行结果
+<div class="highlight"><pre><span></span><code>RMSE: 0.9509
 RMSE: 0.9374
 RMSE: 0.9333
 RMSE: 0.9330
 RMSE: 0.9323
-</code></pre>
-
+</code></pre></div></p>
 <p>当然，也可以只加载单个文件进行训练和加载单个文件进行测试。但是，folds_files参数仍然需要是一个列表的形式。</p>
 <h2 id="gridsearchcv">使用GridSearchCV调参</h2>
 <p><code>cross_validate()</code>函数输出给定参数集的交叉验证过程的准确度度量。如果想知道哪个参数组合产生最佳结果，可以使用<code>GridSearchCV</code>类。给定拥有一些参数的字典，该类将详尽地尝试所有参数组合并报告任何精度测量的最佳参数（在不同的分割上取平均值）。</p>
 <p>下面是为SVD算法的参数n_epochs，lr_all和reg_all调参的例子：</p>
-<pre><code class="python">from surprise import SVD
-from surprise import Dataset
-from surprise.model_selection import GridSearchCV
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">SVD</span>
+<span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span> <span class="nn">surprise.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
 
-# 自动构建数据集
-df = build_dataframe()
-reader = Reader(rating_scale=(0, 1))
-data = Dataset.load_from_df(df[['userID', 'itemID', 'rating']], reader)
+<span class="c1"># 自动构建数据集</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">build_dataframe</span><span class="p">()</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">Reader</span><span class="p">(</span><span class="n">rating_scale</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">load_from_df</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;userID&#39;</span><span class="p">,</span> <span class="s1">&#39;itemID&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]],</span> <span class="n">reader</span><span class="p">)</span>
 
-# 指定参数选择范围
-param_grid = {'n_epochs': [5, 10], 'lr_all': [0.002, 0.005],
-              'reg_all': [0.4, 0.6]}
+<span class="c1"># 指定参数选择范围</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_epochs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;lr_all&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.002</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">],</span>
+              <span class="s1">&#39;reg_all&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">]}</span>
 
-gs = GridSearchCV(SVD, param_grid, measures=['rmse', 'mae'], cv=3)
+<span class="n">gs</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">SVD</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">measures</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rmse&#39;</span><span class="p">,</span> <span class="s1">&#39;mae&#39;</span><span class="p">],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
-gs.fit(data)
+<span class="n">gs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-# 打印最好的均方根误差RMSE
-print(gs.best_score['rmse'])
+<span class="c1"># 打印最好的均方根误差RMSE</span>
+<span class="k">print</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">best_score</span><span class="p">[</span><span class="s1">&#39;rmse&#39;</span><span class="p">])</span>
 
-# 打印取得最好RMSE的参数集合
-print(gs.best_params['rmse'])
+<span class="c1"># 打印取得最好RMSE的参数集合</span>
+<span class="k">print</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">best_params</span><span class="p">[</span><span class="s1">&#39;rmse&#39;</span><span class="p">])</span>
 
-# 现在可以使用产生最佳RMSE的算法
-algo = gs.best_estimator['rmse']
-algo.fit(data.build_full_trainset())
-</code></pre>
+<span class="c1"># 现在可以使用产生最佳RMSE的算法</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">best_estimator</span><span class="p">[</span><span class="s1">&#39;rmse&#39;</span><span class="p">]</span>
+<span class="n">algo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">build_full_trainset</span><span class="p">())</span>
+</code></pre></div>
 
-<p>运行结果</p>
-<pre><code>0.5035192355809749
-{'n_epochs': 5, 'lr_all': 0.005, 'reg_all': 0.6}
+<p>运行结果
+<div class="highlight"><pre><span></span><code>0.5035192355809749
+{&#39;n_epochs&#39;: 5, &#39;lr_all&#39;: 0.005, &#39;reg_all&#39;: 0.6}
 &lt;surprise.prediction_algorithms.matrix_factorization.SVD at 0x23985147a08&gt;
-</code></pre>
-
+</code></pre></div></p>
 <p>一旦调用了<code>fit()</code>，<code>best_estimator</code>属性就会为我们提供一个具有最佳参数集的算法实例。在此使用3折交叉验证法评估平均<code>RMSE</code>和<code>MAE</code>，也可以使用任何交叉验证迭代器。</p>
 <p>注意：字典参数（例如bsl_options和sim_options）需要特殊处理。 见下面的用法示例：</p>
-<pre><code class="python">param_grid = {'k': [10, 20],
-              'sim_options': {'name': ['msd', 'cosine'],
-                              'min_support': [1, 5],
-                              'user_based': [False]}
-              }
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+              <span class="s1">&#39;sim_options&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;msd&#39;</span><span class="p">,</span> <span class="s1">&#39;cosine&#39;</span><span class="p">],</span>
+                              <span class="s1">&#39;min_support&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                              <span class="s1">&#39;user_based&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">False</span><span class="p">]}</span>
+              <span class="p">}</span>
+</code></pre></div>
 
 <p>当然，两者可以组合，例如在<code>KNNBaseline</code>算法中：</p>
-<pre><code class="python">param_grid = {'bsl_options': {'method': ['als', 'sgd'],
-                              'reg': [1, 2]},
-              'k': [2, 3],
-              'sim_options': {'name': ['msd', 'cosine'],
-                              'min_support': [1, 5],
-                              'user_based': [False]}
-              }
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;bsl_options&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;als&#39;</span><span class="p">,</span> <span class="s1">&#39;sgd&#39;</span><span class="p">],</span>
+                              <span class="s1">&#39;reg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]},</span>
+              <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+              <span class="s1">&#39;sim_options&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;msd&#39;</span><span class="p">,</span> <span class="s1">&#39;cosine&#39;</span><span class="p">],</span>
+                              <span class="s1">&#39;min_support&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                              <span class="s1">&#39;user_based&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">False</span><span class="p">]}</span>
+              <span class="p">}</span>
+</code></pre></div>
 
 <p>进一步分析，<code>cv_results</code>属性所有的信息可以导出为pandas数据帧，并保存为.csv文件：</p>
-<pre><code class="python">results_df = pd.DataFrame.from_dict(gs.cv_results)
-results_df.to_csv('cv_result.csv')
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">cv_results</span><span class="p">)</span>
+<span class="n">results_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;cv_result.csv&#39;</span><span class="p">)</span>
+</code></pre></div>
                 
                   
                 
@@ -3888,6 +3879,8 @@ results_df.to_csv('cv_result.csv')
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

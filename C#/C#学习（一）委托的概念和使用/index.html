@@ -3525,66 +3525,66 @@
 </blockquote>
 <p>根据使用其他语言的经验，在Python和js中，函数（方法）也是一种类型，可以赋值给变量，然后通过变量来调用。C#里也差不多是这个道理，不过C#的委托可以存入多个函数（方法），当调用这个委托的时候同时调用多个方法，这个叫做多播委托。委托具体的实现细节我还没了解，等接下来的学习中继续深入哈～</p>
 <h2 id="_2">代码例子</h2>
-<pre><code class="c#">using System;
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 
-namespace DelegateAndEvent
-{
-    class Program
-    {
-        delegate void voidDelegate();
+<span class="k">namespace</span> <span class="nn">DelegateAndEvent</span>
+<span class="p">{</span>
+    <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">delegate</span> <span class="k">void</span> <span class="nf">voidDelegate</span><span class="p">();</span>
 
-        delegate int intDelegate();
+        <span class="k">delegate</span> <span class="kt">int</span> <span class="nf">intDelegate</span><span class="p">();</span>
 
-        static void Main(string[] args)
-        {
-            // 定义一个多播委托
-            voidDelegate d1 = T1;
-            d1 += T2;
-            d1 += T3;
-            d1 += T4;
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// 定义一个多播委托</span>
+            <span class="n">voidDelegate</span> <span class="n">d1</span> <span class="p">=</span> <span class="n">T1</span><span class="p">;</span>
+            <span class="n">d1</span> <span class="p">+=</span> <span class="n">T2</span><span class="p">;</span>
+            <span class="n">d1</span> <span class="p">+=</span> <span class="n">T3</span><span class="p">;</span>
+            <span class="n">d1</span> <span class="p">+=</span> <span class="n">T4</span><span class="p">;</span>
 
-            // 执行委托
-            // 会同时执行t1,t2,t3,t4四个方法
-            d1();
-        }
+            <span class="c1">// 执行委托</span>
+            <span class="c1">// 会同时执行t1,t2,t3,t4四个方法</span>
+            <span class="n">d1</span><span class="p">();</span>
+        <span class="p">}</span>
 
-        static void T1()
-        {
-            Console.WriteLine(&quot;1&quot;);
-        }
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">T1</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        static void T2()
-        {
-            Console.WriteLine(&quot;2&quot;);
-        }
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">T2</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;2&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        static void T3()
-        {
-            Console.WriteLine(&quot;3&quot;);
-        }
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">T3</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;3&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        static void T4()
-        {
-            Console.WriteLine(&quot;4&quot;);
-        }
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">T4</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;4&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        static int Q1()
-        {
-            return 1;
-        }
+        <span class="k">static</span> <span class="kt">int</span> <span class="nf">Q1</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="m">1</span><span class="p">;</span>
+        <span class="p">}</span>
 
-        static int Q2()
-        {
-            return 2;
-        }
+        <span class="k">static</span> <span class="kt">int</span> <span class="nf">Q2</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="m">2</span><span class="p">;</span>
+        <span class="p">}</span>
 
-        static int Q3()
-        {
-            return 3;
-        }
-    }
-}
-</code></pre>
+        <span class="k">static</span> <span class="kt">int</span> <span class="nf">Q3</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="m">3</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="_3">一点理解</h2>
 <p>要理解委托，得先理解C#的类型系统，CLR支持两种基本类型，值类型和引用类型。下面这张图就可以比较清楚的看到C#的类型系统，大部分同学都是只学过Java的，可能没有深入学过C语言或C++，C#之所以能在各种场景下保持高性能（比如游戏引擎这种计算密集场景），很大程度就是优秀的类型系统设计。</p>
@@ -3686,6 +3686,8 @@ namespace DelegateAndEvent
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

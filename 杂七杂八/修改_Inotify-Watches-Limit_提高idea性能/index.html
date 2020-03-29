@@ -3473,14 +3473,14 @@
 <h2 id="_2">解决方法</h2>
 <blockquote>
 <p>Add the following line to either /etc/sysctl.conf file or a new *.conf file (e.g. idea.conf) under /etc/sysctl.d/ directory:
-<code>bash
-fs.inotify.max_user_watches = 524288</code>
+<div class="highlight"><pre><span></span><code>fs.inotify.max_user_watches <span class="o">=</span> <span class="m">524288</span>
+</code></pre></div>
 Then run this command to apply the change:
-<code>bash
-sudo sysctl -p --system</code></p>
+<div class="highlight"><pre><span></span><code>sudo sysctl -p --system
+</code></pre></div></p>
 </blockquote>
 <h2 id="_3">官网说明</h2>
-<p>https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit</p>
+<p><a href="https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit">https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit</a></p>
 <h2 id="about">About</h2>
 <p><img alt="" src="../%E4%BF%AE%E6%94%B9_Inotify-Watches-Limit_%E6%8F%90%E9%AB%98idea%E6%80%A7%E8%83%BD.assets/8869373-901590e019f6f85b.png" /></p>
 <hr />
@@ -3559,6 +3559,8 @@ Every post was in my blog：<a href="http://blog.deali.cn">blog.deali.cn</a></p>
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

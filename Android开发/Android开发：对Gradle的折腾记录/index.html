@@ -3498,31 +3498,29 @@
 今天下午在配置环境时，这货浪费了我好久的时间。
 一开始是Gradle文件下载不了，手动下载之后就依赖包下载不了，醉了，各种找镜像和手动下载折腾了半天都没弄好。（没有经验）
 你问我为啥不用代理？？啥子，我设置了socks代理了啊，可是他根本不理我，该下载不了的地方还是下载不了，maven仓库照样不能用。
-更多的废话就不说了，直接说<strong>解决方法：</strong>
+更多的废话就不说了，直接说**解决方法：**
 设置代理的正确姿势应该是这样，编辑<code>gradle.properties</code>：</p>
 <blockquote>
 <p>这个文件的位置：
 Linux/Mac系统：<code>~/.gradle/gradle.properties</code>
 Windows系统：<code>C:\Users\你的用户名\.gradle\gradle.properties</code></p>
 </blockquote>
-<p>设置socks代理有用算我输好吧，还有https必须要设置！</p>
-<pre><code class="gradle">systemProp.http.proxyHost=127.0.0.1
+<p>设置socks代理有用算我输好吧，还有https必须要设置！
+<div class="highlight"><pre><span></span><code>systemProp.http.proxyHost=127.0.0.1
 systemProp.http.proxyPort=1080
 systemProp.https.proxyHost=127.0.0.1
 systemProp.https.proxyPort=1080
-</code></pre>
-
-<p>设置完代理之后在<code>Project Root</code>里输入<code>./gradlew build</code>，应该就没什么问题了，如果有错误再根据提示信息解决就行了，我比较喜欢用命令行操作，比IDE直观。</p>
+</code></pre></div>
+设置完代理之后在<code>Project Root</code>里输入<code>./gradlew build</code>，应该就没什么问题了，如果有错误再根据提示信息解决就行了，我比较喜欢用命令行操作，比IDE直观。</p>
 <h2 id="gradle_1">优化Gradle速度</h2>
-<p>Gradle的性能差是众所周知的，怎么解决，堆硬件呗，~~不充钱你也想变强？~~
-不多说，还是编辑这个<code>gradle.properties</code>：</p>
-<pre><code class="gradle">org.gradle.daemon=true
+<p>Gradle的性能差是众所周知的，怎么解决，堆硬件呗，<del>不充钱你也想变强？</del>
+不多说，还是编辑这个<code>gradle.properties</code>：
+<div class="highlight"><pre><span></span><code>org.gradle.daemon=true
 org.gradle.parallel=true
 org.gradle.configureondemand=true
 org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
-</code></pre>
-
-<p>并且在IDE里面设置一下：
+</code></pre></div>
+并且在IDE里面设置一下：
 <img alt="" src="../Android%E5%BC%80%E5%8F%91%EF%BC%9A%E5%AF%B9Gradle%E7%9A%84%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95.assets/8869373-c3b60a47109fc04d.png" />
 <img alt="" src="../Android%E5%BC%80%E5%8F%91%EF%BC%9A%E5%AF%B9Gradle%E7%9A%84%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95.assets/8869373-7d32ec6e9aa98177.png" /></p>
 <h2 id="emmmm">emmmm</h2>
@@ -3605,6 +3603,8 @@ org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryErro
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

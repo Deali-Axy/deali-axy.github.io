@@ -3363,30 +3363,30 @@
                 <p>蓝屏似乎是很多<a href="http://www.ithome.com/">IT之家</a>用户不希望看到的东西，虽然在<a href="http://win10.ithome.com/">Win10</a>中你还可以扫描屏幕下方二维码参与微软互动赢取大……那个，蓝屏的好处就是为专业人员提供问题信息，比如当前的内存转储，有助于排查和解决问题。当然，可能光是默认蓝屏给出的信息不够，此时可以<a href="http://www.ithome.com/html/win10/267949.htm">开启Win10蓝屏详细信息显示</a>。</p>
 <p><img alt="" src="../%E8%BF%99%E6%98%AF%E6%BC%94%E4%B9%A0%EF%BC%9AWin10%E8%93%9D%E5%B1%8F%EF%BC%8C%E9%9A%8F%E4%BD%A0%E5%8F%AC%E5%94%A4.assets/8869373-34191dba43c60092.png" /></p>
 <p>▲这二维码居然“上位”了……VM12虚拟机测试结果</p>
-<p>微软在<a href="http://win10.ithome.com/">Windows10</a>中安排了手动“调取”蓝屏的方式，那就是<strong>按住右Ctrl键，然后连续按两次Scroll Lock  ↓ </strong>。不过该功能默认被锁定，估计是怕普通用户误操作带来麻烦。但对于专业人员和喜欢折腾的用户来说，可以手动解锁该技能。</p>
+<p>微软在<a href="http://win10.ithome.com/">Windows10</a>中安排了手动“调取”蓝屏的方式，那就是**按住右Ctrl键，然后连续按两次Scroll Lock  ↓ **。不过该功能默认被锁定，估计是怕普通用户误操作带来麻烦。但对于专业人员和喜欢折腾的用户来说，可以手动解锁该技能。</p>
 <p><strong>具体方法如下：</strong></p>
 <p>1、进入计算机属性→ 高级系统设置→ 高级→ 启动和故障恢复→ 设置，如下图 ——</p>
 <p><img alt="" src="../%E8%BF%99%E6%98%AF%E6%BC%94%E4%B9%A0%EF%BC%9AWin10%E8%93%9D%E5%B1%8F%EF%BC%8C%E9%9A%8F%E4%BD%A0%E5%8F%AC%E5%94%A4.assets/8869373-23b9613ce7607591.jpg" /></p>
 <p><img alt="" src="../%E8%BF%99%E6%98%AF%E6%BC%94%E4%B9%A0%EF%BC%9AWin10%E8%93%9D%E5%B1%8F%EF%BC%8C%E9%9A%8F%E4%BD%A0%E5%8F%AC%E5%94%A4.assets/8869373-a2dc33bf7005616a.png" /></p>
 <p><img alt="" src="../%E8%BF%99%E6%98%AF%E6%BC%94%E4%B9%A0%EF%BC%9AWin10%E8%93%9D%E5%B1%8F%EF%BC%8C%E9%9A%8F%E4%BD%A0%E5%8F%AC%E5%94%A4.assets/8869373-60a3de8cf17d7302.png" /></p>
-<p>2、在“系统失败”中<strong>取消</strong><strong>勾选“自动重新启动”</strong>，在“写入调试信息”中选择“<strong>自动内存转储</strong>”（默认），点击“确定”，如下图 ——</p>
+<p>2、在“系统失败”中**取消****勾选“自动重新启动”<strong>，在“写入调试信息”中选择“**自动内存转储</strong>”（默认），点击“确定”，如下图 ——</p>
 <p><img alt="" src="../%E8%BF%99%E6%98%AF%E6%BC%94%E4%B9%A0%EF%BC%9AWin10%E8%93%9D%E5%B1%8F%EF%BC%8C%E9%9A%8F%E4%BD%A0%E5%8F%AC%E5%94%A4.assets/8869373-313770e77ae2612d.png" /></p>
-<p>3、在Cortana搜索栏输入<strong>regedit</strong>，按回车键进入注册表编辑器</p>
+<p>3、在Cortana搜索栏输入**regedit**，按回车键进入注册表编辑器</p>
 <p>4、USB键盘用户定位到（适合大多数用户）</p>
 <p><strong>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\kbdhid\Parameters</strong></p>
 <p>PS/2键盘用户定位到（现在较少见，多见于十几年前的老机器）</p>
 <p><strong>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\i8042prt\Parameters</strong></p>
-<p>5、新建<strong>DWORD（32位）值</strong>（如下图），命名为<strong>CrashOnCtrlScroll</strong>。需要注意的是，此处可能有一个Bug导致默认值为0时，一定几率造成键盘暂时失效（几率不算大，但USB键盘用户修改PS/2注册表或反过来等误操作会有较高几率造成键盘临时失效），可以通过复制粘贴等方式把0改为1，通过屏幕键盘的手写功能也可以，反正你得把0改成1，“确定”之后键盘恢复；也可以用鼠标直接删掉该值，键盘也可立即恢复</p>
+<p>5、新建**DWORD（32位）值**（如下图），命名为**CrashOnCtrlScroll**。需要注意的是，此处可能有一个Bug导致默认值为0时，一定几率造成键盘暂时失效（几率不算大，但USB键盘用户修改PS/2注册表或反过来等误操作会有较高几率造成键盘临时失效），可以通过复制粘贴等方式把0改为1，通过屏幕键盘的手写功能也可以，反正你得把0改成1，“确定”之后键盘恢复；也可以用鼠标直接删掉该值，键盘也可立即恢复</p>
 <p><img alt="" src="../%E8%BF%99%E6%98%AF%E6%BC%94%E4%B9%A0%EF%BC%9AWin10%E8%93%9D%E5%B1%8F%EF%BC%8C%E9%9A%8F%E4%BD%A0%E5%8F%AC%E5%94%A4.assets/8869373-9b48aef7465eed04.png" /></p>
 <p>▲USB键盘</p>
 <p><img alt="" src="../%E8%BF%99%E6%98%AF%E6%BC%94%E4%B9%A0%EF%BC%9AWin10%E8%93%9D%E5%B1%8F%EF%BC%8C%E9%9A%8F%E4%BD%A0%E5%8F%AC%E5%94%A4.assets/8869373-83c1a6ecec63afea.png" /></p>
 <p>▲PS/2键盘</p>
-<p>6、把数值数据改为<strong>1</strong>，“确定”后<strong>重启系统</strong>应用配置，如下图 ——</p>
+<p>6、把数值数据改为**1**，“确定”后**重启系统**应用配置，如下图 ——</p>
 <p><img alt="" src="../%E8%BF%99%E6%98%AF%E6%BC%94%E4%B9%A0%EF%BC%9AWin10%E8%93%9D%E5%B1%8F%EF%BC%8C%E9%9A%8F%E4%BD%A0%E5%8F%AC%E5%94%A4.assets/8869373-c9a951028aeaa140.png" /></p>
 <p>▲USB键盘</p>
 <p><img alt="" src="../%E8%BF%99%E6%98%AF%E6%BC%94%E4%B9%A0%EF%BC%9AWin10%E8%93%9D%E5%B1%8F%EF%BC%8C%E9%9A%8F%E4%BD%A0%E5%8F%AC%E5%94%A4.assets/8869373-1f81eb4d2b0f0050.png" /></p>
 <p>▲PS/2键盘</p>
-<p>此时<strong>按住右Ctrl键，并连续按两次Scroll Lock</strong>，激动人心的蓝屏召唤成功。注意，这是真<strong>蓝屏</strong>，不是出个画面而已，<strong>需要重启电脑才能恢复使用</strong>。所以这个召唤大法该怎么用比较恰当，各位还须三思而行。另外，如果你想用蓝屏来达到不可告人的目的，最好对方不懂电脑和英文，因为最后的“<strong>Stop code：MANUALLY INITIATED CRASH</strong>”（<strong>停止码：手动启动崩溃</strong>）已经出卖了你……</p>
+<p>此时**按住右Ctrl键，并连续按两次Scroll Lock**，激动人心的蓝屏召唤成功。注意，这是真**蓝屏**，不是出个画面而已，<strong>需要重启电脑才能恢复使用</strong>。所以这个召唤大法该怎么用比较恰当，各位还须三思而行。另外，如果你想用蓝屏来达到不可告人的目的，最好对方不懂电脑和英文，因为最后的“<strong>Stop code：MANUALLY INITIATED CRASH</strong>”（<strong>停止码：手动启动崩溃</strong>）已经出卖了你……</p>
                 
                   
                 
@@ -3460,6 +3460,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

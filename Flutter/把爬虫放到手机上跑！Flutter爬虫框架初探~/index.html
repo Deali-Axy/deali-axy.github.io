@@ -3514,28 +3514,27 @@
 <li>进入详情页面会自动与爬虫任务的logging对象进行绑定，可以看到日志输出</li>
 </ol>
 <h2 id="_3">简单的例子</h2>
-<p>写一个简单的例子，运行后会爬取CN Radio网站的新闻。</p>
-<pre><code class="dart">import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_spider_fx/framework/index.dart';
+<p>写一个简单的例子，运行后会爬取CN Radio网站的新闻。
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="s1">&#39;package:flutter/src/widgets/framework.dart&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">&#39;package:flutter_spider_fx/framework/index.dart&#39;</span><span class="p">;</span>
 
-class CNRadioNewsSpider extends SpiderTask {
-  var url = 'http://news.cnr.cn/';
+<span class="kd">class</span> <span class="nc">CNRadioNewsSpider</span> <span class="kd">extends</span> <span class="n">SpiderTask</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://news.cnr.cn/&#39;</span><span class="p">;</span>
 
-  CNRadioNewsSpider(BuildContext context) : super(context, 'CNRadioNewsSpider');
+  <span class="n">CNRadioNewsSpider</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="o">:</span> <span class="k">super</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;CNRadioNewsSpider&#39;</span><span class="p">);</span>
 
-  @override
-  start() async {
-    super.start();
-    var dom = await CatHttp.getDocument(url, encoding: 'gb2312');
-    var links = dom.querySelectorAll('.contentPanel .lh30 a');
-    links.forEach((link) {
-      logging.debug(link.attributes['href']);
-      logging.info(link.text);
-    });
-  }
-}
-</code></pre>
-
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">start</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">.</span><span class="n">start</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="n">dom</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">CatHttp</span><span class="p">.</span><span class="n">getDocument</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nl">encoding:</span> <span class="s1">&#39;gb2312&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="n">links</span> <span class="o">=</span> <span class="n">dom</span><span class="p">.</span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;.contentPanel .lh30 a&#39;</span><span class="p">);</span>
+    <span class="n">links</span><span class="p">.</span><span class="n">forEach</span><span class="p">((</span><span class="n">link</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">link</span><span class="p">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]);</span>
+      <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">link</span><span class="p">.</span><span class="n">text</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h2 id="_4">框架代码</h2>
 <p>了解详情可以在GitHub查看项目代码~</p>
 <p>项目地址：<a href="https://github.com/Deali-Axy/flutter_spider_fx">https://github.com/Deali-Axy/flutter_spider_fx</a></p>
@@ -3621,6 +3620,8 @@ class CNRadioNewsSpider extends SpiderTask {
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

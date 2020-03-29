@@ -3545,18 +3545,18 @@
                   <h1>Ubuntu 16 04 安装配置Docker</h1>
                 
                 <h2 id="_1">安装相关包</h2>
-<pre><code>$ sudo apt-get update # 先更新一下软件源库信息
+<div class="highlight"><pre><span></span><code>$ sudo apt-get update # 先更新一下软件源库信息
 
 $ sudo apt-get install \
     apt-transport-https \
     ca-certificates \
     curl \
     software-properties-common
-</code></pre>
+</code></pre></div>
 
 <h2 id="_2">添加软件仓库</h2>
 <h4 id="_3">官方仓库</h4>
-<pre><code># 添加 Docker 官方的 GPG 密钥（为了确认所下载软件包的合法性，需要添加软件源的 GPG 密钥）
+<div class="highlight"><pre><span></span><code># 添加 Docker 官方的 GPG 密钥（为了确认所下载软件包的合法性，需要添加软件源的 GPG 密钥）
 $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 # 设置稳定版本的apt仓库地址
@@ -3564,62 +3564,57 @@ $ sudo add-apt-repository \
    &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable&quot;
-</code></pre>
+</code></pre></div>
 
 <h4 id="_4">阿里云仓库</h4>
-<pre><code>$ curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+<div class="highlight"><pre><span></span><code>$ curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
 
 $ sudo add-apt-repository \
      &quot;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \
      $(lsb_release -cs) \
      stable&quot;
-</code></pre>
+</code></pre></div>
 
 <h2 id="docker">安装docker</h2>
-<pre><code>$ sudo apt-get update
+<div class="highlight"><pre><span></span><code>$ sudo apt-get update
 $ sudo apt-get install docker-ce # 安装最新版的docker
-</code></pre>
+</code></pre></div>
 
-<p>如果需要安装指定版本的，使用以下命令：</p>
-<pre><code>$ apt-cache policy docker-ce # 查看可供安装的所有docker版本
+<p>如果需要安装指定版本的，使用以下命令：
+<div class="highlight"><pre><span></span><code>$ apt-cache policy docker-ce # 查看可供安装的所有docker版本
 $ sudo apt-get install docker-ce=18.03.0~ce-0~ubuntu # 安装指定版本的docker
 ``
 # 检查docker是否安装成功
 $ docker --version # 查看安装的docker版本
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="_5">添加访问权限</h2>
-<p>这个时候运行docker的话，如果不是root用户会报错：</p>
-<pre><code class="bash">Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.26/images/json: dial unix /var/run/docker.sock: connect: permission denied
-</code></pre>
-
-<p>看一下权限</p>
-<pre><code class="bash">$ cd /var/run
-$ ll | grep docker
-# 输出如下
-drwx------  8 root  root    180 11月 21 16:36 docker
--rw-r--r--  1 root  root      5 11月 21 16:35 docker.pid
-srw-rw----  1 root  docker    0 11月 21 16:35 docker.sock
-</code></pre>
-
+<p>这个时候运行docker的话，如果不是root用户会报错：
+<div class="highlight"><pre><span></span><code>Got permission denied <span class="k">while</span> trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.26/images/json: dial unix /var/run/docker.sock: connect: permission denied
+</code></pre></div></p>
+<p>看一下权限
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /var/run
+$ ll <span class="p">|</span> grep docker
+<span class="c1"># 输出如下</span>
+drwx------  <span class="m">8</span> root  root    <span class="m">180</span> 11月 <span class="m">21</span> <span class="m">16</span>:36 docker
+-rw-r--r--  <span class="m">1</span> root  root      <span class="m">5</span> 11月 <span class="m">21</span> <span class="m">16</span>:35 docker.pid
+srw-rw----  <span class="m">1</span> root  docker    <span class="m">0</span> 11月 <span class="m">21</span> <span class="m">16</span>:35 docker.sock
+</code></pre></div></p>
 <p>可以看到 <code>docker.sock</code> 的所有者是 <code>docker</code> 这个组。所以我们要把当前用户添加到这个组里。</p>
-<pre><code class="bash">$ sudo gpasswd -a ${USER} docker
-</code></pre>
+<div class="highlight"><pre><span></span><code>$ sudo gpasswd -a <span class="si">${</span><span class="nv">USER</span><span class="si">}</span> docker
+</code></pre></div>
 
-<p>重启docker</p>
-<pre><code class="bash">sudo service docker restart
-</code></pre>
-
-<p>切换当前会话到新 group 或者重启 X 会话</p>
-<pre><code class="bash">newgrp - docker
-</code></pre>
-
+<p>重启docker
+<div class="highlight"><pre><span></span><code>sudo service docker restart
+</code></pre></div></p>
+<p>切换当前会话到新 group 或者重启 X 会话
+<div class="highlight"><pre><span></span><code>newgrp - docker
+</code></pre></div></p>
 <blockquote>
 <p>注意:最后一步是必须的，否则因为 groups 命令获取到的是缓存的组信息，刚添加的组信息未能生效，所以 docker images 执行时同样有错。</p>
 </blockquote>
 <h2 id="docker_1">运行docker测试</h2>
 <p>这个时候就可以运行helloworld测试啦～</p>
-<pre><code>$ docker run hello-world
+<p><div class="highlight"><pre><span></span><code>$ docker run hello-world
 
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
@@ -3641,13 +3636,12 @@ Share images, automate workflows, and more with a free Docker ID:
 
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
-</code></pre>
-
-<p>到这里就安装完成了～</p>
+</code></pre></div>
+到这里就安装完成了～</p>
 <h2 id="_6">参考资料</h2>
-<p>https://docs.docker.com/get-started/#test-docker-version
-https://www.jianshu.com/p/a12558da034e
-https://www.jianshu.com/p/95e397570896</p>
+<p><a href="https://docs.docker.com/get-started/#test-docker-version">https://docs.docker.com/get-started/#test-docker-version</a>
+<a href="https://www.jianshu.com/p/a12558da034e">https://www.jianshu.com/p/a12558da034e</a>
+<a href="https://www.jianshu.com/p/95e397570896">https://www.jianshu.com/p/95e397570896</a></p>
 <h2 id="about">About</h2>
 <p><img alt="" src="../Ubuntu-16-04-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEDocker.assets/8869373-901590e019f6f85b.png" /></p>
 <hr />
@@ -3726,6 +3720,8 @@ https://www.jianshu.com/p/95e397570896</p>
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

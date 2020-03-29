@@ -3511,58 +3511,58 @@
 </li>
 </ul>
 <h2 id="_3">实现代码</h2>
-<pre><code class="php">class Printer {    //代理对象,一台打印机
-    public function printSth() {
-        echo 'I can print &lt;br&gt;';
-    }
+<div class="highlight"><pre><span></span><code><span class="x">class Printer {    //代理对象,一台打印机</span>
+<span class="x">    public function printSth() {</span>
+<span class="x">        echo &#39;I can print &lt;br&gt;&#39;;</span>
+<span class="x">    }</span>
 
-    // some more function below
-    // ...
-}
+<span class="x">    // some more function below</span>
+<span class="x">    // ...</span>
+<span class="x">}</span>
 
-class TextShop {    //这是一个文印处理店,只文印,卖纸,不照相
-    private $printer;
+<span class="x">class TextShop {    //这是一个文印处理店,只文印,卖纸,不照相</span>
+<span class="x">    private $printer;</span>
 
-    public function __construct(Printer $printer) {
-        $this-&gt;printer = $printer;
-    }
+<span class="x">    public function __construct(Printer $printer) {</span>
+<span class="x">        $this-&gt;printer = $printer;</span>
+<span class="x">    }</span>
 
-    public function sellPaper() {    //卖纸
-        echo 'give you some paper &lt;br&gt;';
-    }
+<span class="x">    public function sellPaper() {    //卖纸</span>
+<span class="x">        echo &#39;give you some paper &lt;br&gt;&#39;;</span>
+<span class="x">    }</span>
 
-    public function __call($method, $args) {    //将代理对象有的功能交给代理对象处理
-        if(method_exists($this-&gt;printer, $method)) {
-            $this-&gt;printer-&gt;$method($args);
-        }
-    }
-}
+<span class="x">    public function __call($method, $args) {    //将代理对象有的功能交给代理对象处理</span>
+<span class="x">        if(method_exists($this-&gt;printer, $method)) {</span>
+<span class="x">            $this-&gt;printer-&gt;$method($args);</span>
+<span class="x">        }</span>
+<span class="x">    }</span>
+<span class="x">}</span>
 
-class PhotoShop {    //这是一个照相店,只文印,拍照,不卖纸
-    private $printer;
+<span class="x">class PhotoShop {    //这是一个照相店,只文印,拍照,不卖纸</span>
+<span class="x">    private $printer;</span>
 
-    public function __construct(Printer $printer) {
-        $this-&gt;printer = $printer;
-    }
+<span class="x">    public function __construct(Printer $printer) {</span>
+<span class="x">        $this-&gt;printer = $printer;</span>
+<span class="x">    }</span>
 
-    public function takePhotos() {    //照相
-        echo 'take photos for you &lt;br&gt;';
-    }
+<span class="x">    public function takePhotos() {    //照相</span>
+<span class="x">        echo &#39;take photos for you &lt;br&gt;&#39;;</span>
+<span class="x">    }</span>
 
-    public function __call($method, $args) {    //将代理对象有的功能交给代理对象处理
-        if(method_exists($this-&gt;printer, $method)) {
-            $this-&gt;printer-&gt;$method($args);
-        }
-    }
-}
+<span class="x">    public function __call($method, $args) {    //将代理对象有的功能交给代理对象处理</span>
+<span class="x">        if(method_exists($this-&gt;printer, $method)) {</span>
+<span class="x">            $this-&gt;printer-&gt;$method($args);</span>
+<span class="x">        }</span>
+<span class="x">    }</span>
+<span class="x">}</span>
 
-$printer = new Printer();
-$textShop = new TextShop($printer);
-$photoShop = new PhotoShop($printer);
+<span class="x">$printer = new Printer();</span>
+<span class="x">$textShop = new TextShop($printer);</span>
+<span class="x">$photoShop = new PhotoShop($printer);</span>
 
-$textShop-&gt;printSth();
-$photoShop-&gt;printSth();
-</code></pre>
+<span class="x">$textShop-&gt;printSth();</span>
+<span class="x">$photoShop-&gt;printSth();</span>
+</code></pre></div>
 
 <p>文印处理店和照相店都具有文印的功能,所以我们可以将文印的功能代理给一台打印机,这里打印机只有一个功能,假如打印机还有n个功能,我们使用<code>__call()</code>方法就能够省去很多重复的代码了</p>
 <p>假如是使用继承,这样语境上就不合理,一个店显然不应该继承一台打印机</p>
@@ -3570,49 +3570,48 @@ $photoShop-&gt;printSth();
 <p>所以此处使用代理是最佳选择</p>
 <h2 id="java">Java的代理模式</h2>
 <p>Java中的代理模式实现其实类似,只不过Java没有__call()方法,需要手动声明printSth()方法,然后在方法体里去调用$printer的printSth()方法
-或者可以用<code>InvocationHandler</code>代理接口来实现代理，</p>
-<pre><code class="java">public interface InvocationHandler { 
-   public Object invoke(Object proxy, Method method, Object[] args) throw Throwable; 
-}
+或者可以用<code>InvocationHandler</code>代理接口来实现代理，
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">InvocationHandler</span> <span class="o">{</span> 
+   <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">proxy</span><span class="o">,</span> <span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="k">throw</span> <span class="n">Throwable</span><span class="o">;</span> 
+<span class="o">}</span>
 
-//日志代理实现   
-public class LogHandler implement InvocationHandler{ 
+<span class="c1">//日志代理实现   </span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LogHandler</span> <span class="n">implement</span> <span class="n">InvocationHandler</span><span class="o">{</span> 
 
-   private Object target; 
+   <span class="kd">private</span> <span class="n">Object</span> <span class="n">target</span><span class="o">;</span> 
 
-   public LogHandler(Object target){ 
-       this.target = target; 
-   } 
-   public Object invoke(Object proxy, Method method, Object[] args ) throw Throwable{ 
+   <span class="kd">public</span> <span class="nf">LogHandler</span><span class="o">(</span><span class="n">Object</span> <span class="n">target</span><span class="o">){</span> 
+       <span class="k">this</span><span class="o">.</span><span class="na">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">;</span> 
+   <span class="o">}</span> 
+   <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">proxy</span><span class="o">,</span> <span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span> <span class="k">throw</span> <span class="n">Throwable</span><span class="o">{</span> 
 
-       //记录函数的初始状况参数等信息 
-       log4j.info(“开始:方法”+ method.getName() + “参数”+Arrays.toString(args) );
+       <span class="c1">//记录函数的初始状况参数等信息 </span>
+       <span class="n">log4j</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="err">“</span><span class="n">开始</span><span class="o">:</span><span class="n">方法</span><span class="err">”</span><span class="o">+</span> <span class="n">method</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="err">“</span><span class="n">参数</span><span class="err">”</span><span class="o">+</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">args</span><span class="o">)</span> <span class="o">);</span>
 
-       Object result = method.invoke(target, args); 
+       <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">target</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span> 
 
-       //记录函数的执行状况与返回值 
-       log4j.info(“结束:方法”+ method.getName() + “返回值”+ result ); 
+       <span class="c1">//记录函数的执行状况与返回值 </span>
+       <span class="n">log4j</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="err">“</span><span class="n">结束</span><span class="o">:</span><span class="n">方法</span><span class="err">”</span><span class="o">+</span> <span class="n">method</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="err">“</span><span class="n">返回值</span><span class="err">”</span><span class="o">+</span> <span class="n">result</span> <span class="o">);</span> 
 
-   }
-}
+   <span class="o">}</span>
+<span class="o">}</span>
 
-//主函数   
-public class Main{ 
-   public static void main(String[ ] args){ 
-       //例子中生成报告的功能，生成报告需要记录日志。
-       ReportGenerator reportGeneratorImpl  = new SMSReportGenerator (); 
+<span class="c1">//主函数   </span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span> 
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[</span> <span class="o">]</span> <span class="n">args</span><span class="o">){</span> 
+       <span class="c1">//例子中生成报告的功能，生成报告需要记录日志。</span>
+       <span class="n">ReportGenerator</span> <span class="n">reportGeneratorImpl</span>  <span class="o">=</span> <span class="k">new</span> <span class="n">SMSReportGenerator</span> <span class="o">();</span> 
 
-       //通过系统提供的Proxy.newProxyInstance创建动态代理实例 
-       ReportGenerator reportGenerator = (ReportGenerator ) Proxy.newProxyInstance(  
-           reportGeneratorImpl.getClass().getClassLoader(), 
-           reportGeneratorImpl.getClass().getInterfaces(), 
-           new LogHandler(reportGeneratorImpl)
-       ) ; 
-       ...
-   }
-}
-</code></pre>
-
+       <span class="c1">//通过系统提供的Proxy.newProxyInstance创建动态代理实例 </span>
+       <span class="n">ReportGenerator</span> <span class="n">reportGenerator</span> <span class="o">=</span> <span class="o">(</span><span class="n">ReportGenerator</span> <span class="o">)</span> <span class="n">Proxy</span><span class="o">.</span><span class="na">newProxyInstance</span><span class="o">(</span>  
+           <span class="n">reportGeneratorImpl</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getClassLoader</span><span class="o">(),</span> 
+           <span class="n">reportGeneratorImpl</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getInterfaces</span><span class="o">(),</span> 
+           <span class="k">new</span> <span class="n">LogHandler</span><span class="o">(</span><span class="n">reportGeneratorImpl</span><span class="o">)</span>
+       <span class="o">)</span> <span class="o">;</span> 
+       <span class="o">...</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></p>
 <p>但是 Java Reflection API 实现的动态代理结构十分复杂，不易理解。
 有接触过Spring框架的朋友应该对Spring的<code>AOP</code>（面向切片编程）有所了解，Spring使用注解的方式来实现代理模式比<code>Java Reflection API</code>方式直观得多了。本文就不再赘述了。</p>
 <h2 id="about">About</h2>
@@ -3692,6 +3691,8 @@ public class Main{
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

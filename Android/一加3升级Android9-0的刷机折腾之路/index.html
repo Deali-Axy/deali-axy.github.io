@@ -3590,17 +3590,16 @@
 <h3 id="recovery_2">刷入新的recovery镜像</h3>
 <p>手机用数据线连接电脑，开启USB调试模式。
 首先运行<code>adb devices</code>看看能不能识别到手机，能识别到才能进行下述步骤。
-输入以下命令：</p>
-<pre><code># 进入fastboot模式
+输入以下命令：
+<div class="highlight"><pre><span></span><code># 进入fastboot模式
 adb reboot bootloader
 # 刷入新的recovery镜像
 # TWRP_recovery.img可以替换成你下载的镜像名称
 fastboot flash recovery TWRP_recovery.img
 # 重启进入recovery模式
 fastboot boot TWRP_recovery.img
-</code></pre>
-
-<p>完成以上步骤就刷入新的recovery了，好像必须3.2.0以上的twrp才可以刷Android9.0包（猜测而已，没有实测）。</p>
+</code></pre></div>
+完成以上步骤就刷入新的recovery了，好像必须3.2.0以上的twrp才可以刷Android9.0包（猜测而已，没有实测）。</p>
 <p>进入twrp之后就选择安装刷机包根据提示操作就行了～反正有中文界面的，很简单～
 刷机完成之后第一次进入系统可能提示解密失败，那就得清除全部数据了，所以我在上面说一定要备份好数据！！！</p>
 <h2 id="_6">附</h2>
@@ -3681,6 +3680,8 @@ fastboot boot TWRP_recovery.img
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

@@ -3609,16 +3609,14 @@
 <p>首先启动Linux子系统bash：
 按Win+R，打开运行窗口，输入<code>bash</code>，按回车。
 <img alt="" src="../Win10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%9F%E8%83%BD%E8%BF%90%E8%A1%8C%E5%9B%BE%E5%BD%A2%E7%A8%8B%E5%BA%8F.assets/8869373-ff19a1e1cf258a4b.png" /></p>
-<p>先更新一下软件仓库：</p>
-<pre><code class="bash">sudo apt update
-</code></pre>
-
+<p>先更新一下软件仓库：
+<div class="highlight"><pre><span></span><code>sudo apt update
+</code></pre></div></p>
 <p><img alt="" src="../Win10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%9F%E8%83%BD%E8%BF%90%E8%A1%8C%E5%9B%BE%E5%BD%A2%E7%A8%8B%E5%BA%8F.assets/8869373-5708e214c8aee296.png" /></p>
 <p>哇好多软件要升级的，那先<code>sudo apt upgrade</code>升级一下吧。
-升级完成之后，来开始安装Gimp。</p>
-<pre><code class="bash">sudo apt install gimp
-</code></pre>
-
+升级完成之后，来开始安装Gimp。
+<div class="highlight"><pre><span></span><code>sudo apt install gimp
+</code></pre></div></p>
 <p><img alt="" src="../Win10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%9F%E8%83%BD%E8%BF%90%E8%A1%8C%E5%9B%BE%E5%BD%A2%E7%A8%8B%E5%BA%8F.assets/8869373-0c41b7610e193acf.png" /></p>
 <p>这里他问你要不要继续，我们按<code>y</code>继续。好像Gimp还挺大的。不过没事，我现在有100m的网络。</p>
 <p>OK~现在已经下载好了，开始在一系列安装操作了，都是全自动的，看他表演就行。
@@ -3626,11 +3624,10 @@
 <img alt="" src="../Win10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%9F%E8%83%BD%E8%BF%90%E8%A1%8C%E5%9B%BE%E5%BD%A2%E7%A8%8B%E5%BA%8F.assets/8869373-f90fe22e25b95405.png" /></p>
 <h2 id="gimp_1">启动Gimp</h2>
 <p>经过漫长的等待，终于安装好了，嘿嘿，Linux比起Windows还是快，我要是安装个PS肯定不止这么久。</p>
-<p>现在终于可以运行Gimp了，不过！要先做一件事：</p>
-<pre><code class="bash">DISPLAY=:0 gimp
-</code></pre>
-
-<p>上面这个命令你不打进去能运行Gimp算我输。
+<p>现在终于可以运行Gimp了，不过！要先做一件事：
+<div class="highlight"><pre><span></span><code><span class="nv">DISPLAY</span><span class="o">=</span>:0 gimp
+</code></pre></div>
+上面这个命令你不打进去能运行Gimp算我输。
 <img alt="" src="../Win10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%9F%E8%83%BD%E8%BF%90%E8%A1%8C%E5%9B%BE%E5%BD%A2%E7%A8%8B%E5%BA%8F.assets/8869373-68f80590f6a0f6a9.png" /></p>
 <p>成功启动Gimp！</p>
 <p><img alt="" src="../Win10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%9F%E8%83%BD%E8%BF%90%E8%A1%8C%E5%9B%BE%E5%BD%A2%E7%A8%8B%E5%BA%8F.assets/8869373-27c933eeb769383c.png" /></p>
@@ -3641,11 +3638,10 @@
 <h3 id="leaf-pad">Leaf Pad</h3>
 <p>(图片来源于网络，待会安装完可以看看在Windows里面的效果。)
 <img alt="" src="../Win10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%9F%E8%83%BD%E8%BF%90%E8%A1%8C%E5%9B%BE%E5%BD%A2%E7%A8%8B%E5%BA%8F.assets/8869373-572f66b706986370.png" /></p>
-<p>首先还是通过apt安装</p>
-<pre><code class="bash">sudo apt install leafpad
-</code></pre>
-
-<p><img alt="" src="../Win10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%9F%E8%83%BD%E8%BF%90%E8%A1%8C%E5%9B%BE%E5%BD%A2%E7%A8%8B%E5%BA%8F.assets/8869373-394e5508365eb300.png" /></p>
+<p>首先还是通过apt安装
+<div class="highlight"><pre><span></span><code>sudo apt install leafpad
+</code></pre></div>
+<img alt="" src="../Win10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%9F%E8%83%BD%E8%BF%90%E8%A1%8C%E5%9B%BE%E5%BD%A2%E7%A8%8B%E5%BA%8F.assets/8869373-394e5508365eb300.png" /></p>
 <p>然后输入<code>leafpad</code>运行。
 啊？怎么回事
 <img alt="" src="../Win10%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B9%9F%E8%83%BD%E8%BF%90%E8%A1%8C%E5%9B%BE%E5%BD%A2%E7%A8%8B%E5%BA%8F.assets/8869373-688368482b6a6e4d.png" /></p>
@@ -3733,6 +3729,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

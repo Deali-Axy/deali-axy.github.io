@@ -3581,21 +3581,20 @@
 <p>判断顾名思义就是判断啦，比如判断两个是的大小，判断用户名和密码是否匹配等等。
 判断又有两种类型的语句，条件语句和选择语句。</p>
 <h3 id="_4">条件语句</h3>
-<p>下面是一个简单的条件语句结构：</p>
-<pre><code class="vb">if 条件1 then
+<p>下面是一个简单的条件语句结构：
+<div class="highlight"><pre><span></span><code>if 条件1 then
     dosth()
 elseif 条件2 then
     dosth2()
 else
     dosth3()
 end if
-</code></pre>
-
+</code></pre></div></p>
 <p>对于 <code>if</code> 语句，是这样执行的，如果 <code>条件</code> 表达式的值为 <code>true</code> ，那么就执行 <code>then</code> 后面的代码块，如果为 <code>false</code> ，就执行 <code>else</code> 后面的语句。</p>
 <p>举个例子：</p>
 <h4 id="_5">判断两个数的大小</h4>
-<p>代码功能：判断两个数的大小，输出最大的数。</p>
-<pre><code class="vb">dim a as integer
+<p>代码功能：判断两个数的大小，输出最大的数。
+<div class="highlight"><pre><span></span><code>dim a as integer
 a = 1
 dim b as integer
 b = 2
@@ -3605,29 +3604,26 @@ if a &gt; b then
 else
     print b
 end if
-</code></pre>
-
-<p>代码执行结果：</p>
-<pre><code>2
-</code></pre>
-
+</code></pre></div></p>
+<p>代码执行结果：
+<div class="highlight"><pre><span></span><code>2
+</code></pre></div></p>
 <h4 id="_6">判断用户名</h4>
-<p>代码功能：判断用户名是否为管理员</p>
-<pre><code class="vb">dim username as string
+<p>代码功能：判断用户名是否为管理员
+<div class="highlight"><pre><span></span><code>dim username as string
 username = inputbox(&quot;enter your username&quot;)
 if username = &quot;admin&quot; then
     print &quot;you are super user&quot;
 else
     print &quot;you are not super user&quot;
 end if
-</code></pre>
-
+</code></pre></div></p>
 <p>运行结果：</p>
 <p>输入：<code>admin</code></p>
 <p>输出：<code>you are super user</code></p>
 <h4 id="_7">根据季节说月份</h4>
-<p>代码功能：根据用户输入的季节输出对应月份</p>
-<pre><code class="vb">dim season as string
+<p>代码功能：根据用户输入的季节输出对应月份
+<div class="highlight"><pre><span></span><code>dim season as string
 season = inputbox(&quot;please enter season&quot;)
 if season = &quot;spring&quot; then
     print &quot;Jan, Feb, Mar&quot;
@@ -3638,8 +3634,7 @@ elseif season = &quot;autumn&quot; then
 elseif season = &quot;winter&quot; then
     print &quot;Oct, Nov, Dec&quot;
 end if
-</code></pre>
-
+</code></pre></div></p>
 <p>运行结果：</p>
 <p>输入：<code>spring</code></p>
 <p>输出：<code>Jan, Feb, Mar</code></p>
@@ -3647,8 +3642,8 @@ end if
 <p>在上面的例子里面，有一个根据季节说月份的，一年只有四个季节，所以问题还不大，可以写四个 <code>if else if</code> 语句来判断，假如现在要反过来，根据月份说季节，难道要写12个语句不成？</p>
 <p>为了解决代码太罗嗦的问题，VB中采用了 <code>select</code> 的选择语句，和C语言里的 <code>switch</code> 语句差不多，不过VB的 <code>select</code> 语句功能更强大！</p>
 <p><strong>语法：</strong></p>
-<p><strong>值选择，即根据变量的不同值，执行不同的操作。</strong></p>
-<pre><code class="vb">select case 变量
+<p><strong>值选择，即根据变量的不同值，执行不同的操作。</strong>
+<div class="highlight"><pre><span></span><code>select case 变量
     case 1
         call dosth1()
     case 2
@@ -3658,12 +3653,11 @@ end if
     case else
         call dosth4()
 end select
-</code></pre>
-
+</code></pre></div></p>
 <p><strong><code>select case</code> 语句如何运行？</strong>
 VB先计算测试表达式，然后将表达式的 值与每个<code>Case</code>的值进行比较。若相等， 就执行与该<code>Case</code>相关联的语句块。如果 不止一个<code>Case</code>与测试表达式匹配，那么 只对第一个匹配的Case执行与之相关联 的语句块；如果在表达式列表中没有一 个值与测试表达式相匹配，则执行<code>Case Else</code>子句中的语句。</p>
-<p><strong>可以对每个<code>Case</code>语句设置多个比较值</strong></p>
-<pre><code class="vb">' 飞机棋游戏
+<p><strong>可以对每个<code>Case</code>语句设置多个比较值</strong>
+<div class="highlight"><pre><span></span><code>&#39; 飞机棋游戏
 dim number as integer
 number = int(rnd * 6) + 1
 select case number
@@ -3672,10 +3666,9 @@ select case number
     case 2,3,4,5
         print &quot;不起飞&quot;
 end select
-</code></pre>
-
-<p><strong>也可以用设定范围的方法来设置多个比较值</strong></p>
-<pre><code class="vb">dim score as integer
+</code></pre></div></p>
+<p><strong>也可以用设定范围的方法来设置多个比较值</strong>
+<div class="highlight"><pre><span></span><code>dim score as integer
 score = inputbox(&quot;请输入考试分数&quot;)
 select case score
     case 90 to 100
@@ -3687,11 +3680,10 @@ select case score
     case else
         print &quot;不及格&quot;
 end select
-</code></pre>
-
+</code></pre></div></p>
 <p><strong>条件选择，VB的 <code>select</code> 语句独有的功能，很好用。</strong>
-相当于简化版本的 <code>if else if</code> 结构。</p>
-<pre><code class="vb">dim score as integer
+相当于简化版本的 <code>if else if</code> 结构。
+<div class="highlight"><pre><span></span><code>dim score as integer
 score = inputbox(&quot;请输入考试分数&quot;)
 select case sorce
     case is &lt; 60
@@ -3706,8 +3698,7 @@ select case sorce
     case is &gt; 90
         print &quot;优秀&quot;
 end select
-</code></pre>
-
+</code></pre></div></p>
 <p>由于时间和篇幅关系，不再举更多例子，更详细的语法介绍将在下次更新时展开，敬请关注哈~</p>
 <h2 id="end">end</h2>
 <p>关于程序执行顺序本文就介绍到这里了，循环和跳转将在接下来的文章中介绍，希望同学们持续关注哈~</p>
@@ -3789,6 +3780,8 @@ end select
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

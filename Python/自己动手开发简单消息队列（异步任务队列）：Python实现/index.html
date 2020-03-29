@@ -3531,268 +3531,267 @@
 <h2 id="_2">优先级队列</h2>
 <p>Python标准库已经有实现好的优先级队列了，但是当在相同优先级下传入同样的对象时，他会自动比较这些对象，不过我们的Task类没有实现相关的运算符重载，所以无法比较。</p>
 <p>要解决这个问题，要不就在Task里面实现运算符重载，要不就是自己实现一个优先级队列，我选择后者。</p>
-<pre><code class="python">class PriorityQueue:
-    &quot;&quot;&quot;
-    自己实现的优先级队列，使用了Python的堆
-    &quot;&quot;&quot;
-    def __init__(self):
-        self._index = 0
-        self.queue = []
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">PriorityQueue</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    自己实现的优先级队列，使用了Python的堆</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="p">[]</span>
 
-    def push(self, priority, val):
-        heapq.heappush(self.queue, (priority, self._index, val))
-        self._index += 1
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">,</span> <span class="p">(</span><span class="n">priority</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index</span> <span class="o">+=</span> <span class="mi">1</span>
 
-    def pop(self):
-        return heapq.heappop(self.queue)[-1]
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-    @property
-    def empty(self):
-        return len(self.queue) == 0
-</code></pre>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</code></pre></div>
 
 <h2 id="_3">输出重定向</h2>
 <p>其实这个挺坑的了，毕竟是异步任务队列，难免涉及到线程的竞争问题，又没办法单独控制每个人物的输出，不过我还是做了，小项目的话还是可以用的（其实就是懒得移植一下已有代码）</p>
 <p>代码如下，同样是使用队列来实现输出缓冲区，大小可以自己调整，默认支持输出到控制台、文件或者返回列表。</p>
 <p>一般重定向输出的话需要自己实现可以输出处理函数，直接给Redirection类的custom 属性赋值即可。</p>
-<pre><code class="python">class Redirection:
-    def __init__(self, buffer_size=512):
-        self.buffer = Queue(maxsize=512)
-        self._console = sys.stdout
-        # 自定义的输出端
-        self.custom = None
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Redirection</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">512</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_console</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+        <span class="c1"># 自定义的输出端</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">custom</span> <span class="o">=</span> <span class="bp">None</span>
 
-    def write(self, output_stream):
-        # 加入缓冲区队列
-        self.buffer.put(output_stream)
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_stream</span><span class="p">):</span>
+        <span class="c1"># 加入缓冲区队列</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">output_stream</span><span class="p">)</span>
 
-    def to_console(self):
-        sys.stdout = self._console
-        # 出列
-        while not self.buffer.empty():
-            print(self.buffer.get())
+    <span class="k">def</span> <span class="nf">to_console</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console</span>
+        <span class="c1"># 出列</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+            <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
 
-    def to_file(self, file_path):
-        with open(file_path, 'w+') as f:
-            sys.stdout = f
-            while not self.buffer.empty():
-                print(self.buffer.get())
-            f.close()
+    <span class="k">def</span> <span class="nf">to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">f</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+                <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-    def to_custom(self):
-        while not self.buffer.empty():
-            self.custom(self.buffer.get())
+    <span class="k">def</span> <span class="nf">to_custom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">custom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
 
-    def to_list(self):
-        data = []
-        while not self.buffer.empty():
-            data.append(self.buffer.get())
-        return data
+    <span class="k">def</span> <span class="nf">to_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">data</span>
 
-    def flush(self):
-        self.buffer.empty()
+    <span class="k">def</span> <span class="nf">flush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span>
 
-    def reset(self):
-        sys.stdout = self._console
-</code></pre>
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console</span>
+</code></pre></div>
 
 <h2 id="task">Task类</h2>
 <p>没什么好说的，定义任务类，Task，代码如下：</p>
-<pre><code class="python">class Task:
-    def __init__(self, func, callback=None, priority=Priority.MIDDLE, args=(), kwargs={}):
-        &quot;&quot;&quot;
-        Args:
-            func: 需要执行的函数
-            callback:  执行完的回调函数
-            priority: 优先级
-            *args:
-            **kwargs:
-        &quot;&quot;&quot;
-        self._id = uuid.uuid4().hex
-        self.function = func
-        self.callback = callback
-        self.priority = priority
-        self.args = args
-        self.kwargs = kwargs
-        # 任务运行过程的输出，stdout的输出
-        self._outputs: Redirection = None
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Task</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="n">Priority</span><span class="o">.</span><span class="n">MIDDLE</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            func: 需要执行的函数</span>
+<span class="sd">            callback:  执行完的回调函数</span>
+<span class="sd">            priority: 优先级</span>
+<span class="sd">            *args:</span>
+<span class="sd">            **kwargs:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="n">callback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">priority</span> <span class="o">=</span> <span class="n">priority</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="c1"># 任务运行过程的输出，stdout的输出</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="p">:</span> <span class="n">Redirection</span> <span class="o">=</span> <span class="bp">None</span>
 
-    @property
-    def id(self):
-        return self._id
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
 
-    @property
-    def outputs(self) -&gt; Redirection:
-        return self._outputs
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Redirection</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span>
 
-    @outputs.setter
-    def outputs(self, value: Redirection):
-        self._outputs = value
+    <span class="nd">@outputs.setter</span>
+    <span class="k">def</span> <span class="nf">outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Redirection</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span> <span class="o">=</span> <span class="n">value</span>
 
-    def run(self):
-        try:
-            if self.callback:
-                # 回调函数原型 callback(task_obj, result)
-                result = self.callback(self, self.function(*self.args, **self.kwargs))
-            else:
-                result = self.function(*self.args, **self.kwargs)
-            return result
-        except Exception as e:
-            if self.callback:
-                result = self.callback(self, e)
-            else:
-                result = e
-            return result
-</code></pre>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
+                <span class="c1"># 回调函数原型 callback(task_obj, result)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">e</span>
+            <span class="k">return</span> <span class="n">result</span>
+</code></pre></div>
 
 <p>使用起来很简单，如下：</p>
-<pre><code class="python">def fun1(num1, num2):
-    print(f'num1={num1}')
-    print(f'num2={num2}')
-    return num1 + num2
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">fun1</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;num1={num1}&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;num2={num2}&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span>
 
-Task(
-    func=fun1,
-    callback=lambda task, result: print(f'task result: {result}'),
-)
+<span class="n">Task</span><span class="p">(</span>
+    <span class="n">func</span><span class="o">=</span><span class="n">fun1</span><span class="p">,</span>
+    <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">task</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;task result: {result}&#39;</span><span class="p">),</span>
+<span class="p">)</span>
 
-# 也可以写成这样
-Task(
-    func=lambda num1, num2: num1 + num2,
-    callback=lambda task, result: print(f'task result: {result}'),
-    args=[2, 3]
-)
-</code></pre>
+<span class="c1"># 也可以写成这样</span>
+<span class="n">Task</span><span class="p">(</span>
+    <span class="n">func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">:</span> <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span><span class="p">,</span>
+    <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">task</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;task result: {result}&#39;</span><span class="p">),</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div>
 
 <h2 id="_4">任务队列</h2>
 <p>最后是实现任务队列，也很简单，根据任务的优先级进行调度即可。</p>
-<pre><code class="python">class TaskQueue:
-    &quot;&quot;&quot;
-    基于线程的异步任务队列
-    todo 下次做一个基于进程的队列，充分利用多核CPU性能
-    &quot;&quot;&quot;
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">TaskQueue</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    基于线程的异步任务队列</span>
+<span class="sd">    todo 下次做一个基于进程的队列，充分利用多核CPU性能</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    def __init__(self, output_redirect=False):
-        self.queue = PriorityQueue()
-        self.output_redirect = output_redirect
-        self._redirect_objs = {}
-        self._results = {}
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_redirect</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">PriorityQueue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_redirect</span> <span class="o">=</span> <span class="n">output_redirect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_redirect_objs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span> <span class="o">=</span> <span class="p">{}</span>
 
-    def put(self, task: Task):
-        &quot;&quot;&quot;
-        将task加入任务列表
-        Args:
-            task:
-        Returns:返回task id
-        &quot;&quot;&quot;
-        self.queue.push(task.priority, task)
-        return task.id
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">:</span> <span class="n">Task</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        将task加入任务列表</span>
+<span class="sd">        Args:</span>
+<span class="sd">            task:</span>
+<span class="sd">        Returns:返回task id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">priority</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">task</span><span class="o">.</span><span class="n">id</span>
 
-    def get(self):
-        return self.queue.pop()
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 
-    def run(self):
-        while not self.queue.empty:
-            task = self.get()
-            # 开启新线程
-            t = threading.Thread(target=self._task_wrapper, name=task.id, args=[task])
-            self._log(f'Start thread {task.id}')
-            t.start()
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="c1"># 开启新线程</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_task_wrapper</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">task</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Start thread {task.id}&#39;</span><span class="p">)</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-    def get_output(self, task_id: str) -&gt; Redirection:
-        return self._redirect_objs.get(task_id, None)
+    <span class="k">def</span> <span class="nf">get_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Redirection</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_redirect_objs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task_id</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
-    def get_result(self, task_id: str):
-        return self._results.get(task_id, None)
+    <span class="k">def</span> <span class="nf">get_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task_id</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
-    @staticmethod
-    def _log(msg: str):
-        &quot;&quot;&quot;日志输出接口，可以替换为日志组件&quot;&quot;&quot;
-        print(f'[TaskQueue] {msg}')
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_log</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;日志输出接口，可以替换为日志组件&quot;&quot;&quot;</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;[TaskQueue] {msg}&#39;</span><span class="p">)</span>
 
-    def _task_wrapper(self, task: Task):
-        if self.output_redirect:
-            if task.id in self._redirect_objs:
-                redirect_obj = self._redirect_objs[task.id]
-            else:
-                redirect_obj = Redirection(2048)
-                self._redirect_objs[task.id] = redirect_obj
-            # 重定向输出
-            sys.stdout = redirect_obj
-            task.outputs = redirect_obj
-            result = task.run()
-            # 恢复默认输出
-            redirect_obj.reset()
-            self._log(f'Task finished. {task.id}')
-        else:
-            result = task.run()
+    <span class="k">def</span> <span class="nf">_task_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">:</span> <span class="n">Task</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_redirect</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_redirect_objs</span><span class="p">:</span>
+                <span class="n">redirect_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_redirect_objs</span><span class="p">[</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">redirect_obj</span> <span class="o">=</span> <span class="n">Redirection</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_redirect_objs</span><span class="p">[</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">redirect_obj</span>
+            <span class="c1"># 重定向输出</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">redirect_obj</span>
+            <span class="n">task</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="n">redirect_obj</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+            <span class="c1"># 恢复默认输出</span>
+            <span class="n">redirect_obj</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Task finished. {task.id}&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 
-        # 保存结果
-        self._results[task.id] = result
-</code></pre>
+        <span class="c1"># 保存结果</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+</code></pre></div>
 
 <p>整个项目代码就在这了，很简单，也有很多不足的地方，不过小项目用用勉强还可以吧~</p>
 <p>过几天发布到pip，有需要的同学直接pip安装就可以使用，请关注博客更新。</p>
 <h2 id="demo">Demo</h2>
-<p>附上使用任务队列的demo代码：</p>
-<pre><code class="python">if __name__ == '__main__':
-    task_queue = TaskQueue(output_redirect=True)
+<p>附上使用任务队列的demo代码：
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">task_queue</span> <span class="o">=</span> <span class="n">TaskQueue</span><span class="p">(</span><span class="n">output_redirect</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 
-    def fun1():
-        time.sleep(2)
-        return 1
+    <span class="k">def</span> <span class="nf">fun1</span><span class="p">():</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
 
 
-    def fun2():
-        time.sleep(3)
-        return 2
+    <span class="k">def</span> <span class="nf">fun2</span><span class="p">():</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">2</span>
 
 
-    task_queue.put(Task(
-        func=fun1,
-        callback=lambda task, result: print(f'task1 result: {result}'),
-    ))
-    task_queue.put(Task(
-        func=fun2,
-        callback=lambda task, result: print(f'task2 result: {result}'),
-    ))
+    <span class="n">task_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">Task</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">fun1</span><span class="p">,</span>
+        <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">task</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;task1 result: {result}&#39;</span><span class="p">),</span>
+    <span class="p">))</span>
+    <span class="n">task_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">Task</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">fun2</span><span class="p">,</span>
+        <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">task</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;task2 result: {result}&#39;</span><span class="p">),</span>
+    <span class="p">))</span>
 
 
-    def custom_output(msg):
-        print(f'[custom] {msg}')
+    <span class="k">def</span> <span class="nf">custom_output</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;[custom] {msg}&#39;</span><span class="p">)</span>
 
 
-    def fun3(num1, num2):
-        print(f'num1={num1}')
-        print(f'num2={num2}')
-        return num1 + num2
+    <span class="k">def</span> <span class="nf">fun3</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;num1={num1}&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;num2={num2}&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span>
 
 
-    def callback(task_obj, result):
-        print(f'task3 result={result}')
-        output = task_obj.outputs
-        output.custom = custom_output
-        output.reset()
-        output.to_custom()
+    <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">task_obj</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;task3 result={result}&#39;</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">task_obj</span><span class="o">.</span><span class="n">outputs</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">custom</span> <span class="o">=</span> <span class="n">custom_output</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">to_custom</span><span class="p">()</span>
 
 
-    task_queue.put(Task(func=fun3, callback=callback, args=[2, 3]))
+    <span class="n">task_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">Task</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">fun3</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
 
-    print('task queue run')
-    task_queue.run()
-    print('do other things...')
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;task queue run&#39;</span><span class="p">)</span>
+    <span class="n">task_queue</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;do other things...&#39;</span><span class="p">)</span>
 
-    for i in range(0, 100):
-        print(i * i)
-</code></pre>
-
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span>
+</code></pre></div></p>
 <h2 id="_5">参考资料</h2>
 <ul>
 <li>运算符重载 <a href="https://blog.csdn.net/goodlixueyong/article/details/52589979">https://blog.csdn.net/goodlixueyong/article/details/52589979</a></li>
 <li><a href="https://www.open-open.com/code/view/1433410658322">https://www.open-open.com/code/view/1433410658322</a></li>
 <li>Celery异步任务队列 <a href="https://www.cnblogs.com/StitchSun/p/8552488.html">https://www.cnblogs.com/StitchSun/p/8552488.html</a></li>
-<li>https://zhuanlan.zhihu.com/p/37637660</li>
+<li><a href="https://zhuanlan.zhihu.com/p/37637660">https://zhuanlan.zhihu.com/p/37637660</a></li>
 </ul>
 <h2 id="_6">欢迎交流</h2>
 <p>交流问题请在微信公众号后台留言，每一条信息我都会回复哈~
@@ -3873,6 +3872,8 @@ Task(
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

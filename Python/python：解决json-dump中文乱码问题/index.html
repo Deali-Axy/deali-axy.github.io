@@ -3449,27 +3449,27 @@
                   <h1>Python：解决json dump中文乱码问题</h1>
                 
                 <h2 id="python27">Python2.7</h2>
-<pre><code class="python"># -*- coding: utf-8 -*-
-m = {'a' : '你好'}
+<div class="highlight"><pre><span></span><code><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="n">m</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span> <span class="p">:</span> <span class="s1">&#39;你好&#39;</span><span class="p">}</span>
 
-print m
-=&gt;{'a': '\xe4\xbd\xa0\xe5\xa5\xbd'}
+<span class="k">print</span> <span class="n">m</span>
+<span class="o">=&gt;</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\xe4\xbd\xa0\xe5\xa5\xbd</span><span class="s1">&#39;</span><span class="p">}</span>
 
-print json.dumps(m)
-=&gt;{&quot;a&quot;: &quot;\u4f60\u597d&quot;}
+<span class="k">print</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\u4f60\u597d</span><span class="s2">&quot;</span><span class="p">}</span>
 
-print json.dumps(m,ensure_ascii=False)
-=&gt;{&quot;a&quot;: &quot;浣犲ソ&quot;}
+<span class="k">print</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">ensure_ascii</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;浣犲ソ&quot;</span><span class="p">}</span>
 
-print json.dumps(m,ensure_ascii=False).decode('utf8').encode('gb2312')
-=&gt;{&quot;a&quot;: &quot;你好&quot;}
-</code></pre>
+<span class="k">print</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">ensure_ascii</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;gb2312&#39;</span><span class="p">)</span>
+<span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;你好&quot;</span><span class="p">}</span>
+</code></pre></div>
 
 <h2 id="python3">Python3</h2>
-<pre><code class="python">print json.dumps(m,ensure_ascii=False)
+<div class="highlight"><pre><span></span><code><span class="k">print</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">ensure_ascii</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
-=&gt;{&quot;a&quot;: &quot;你好&quot;}
-</code></pre>
+<span class="o">=&gt;</span><span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;你好&quot;</span><span class="p">}</span>
+</code></pre></div>
 
 <h2 id="about">About</h2>
 <p><img alt="" src="../python%EF%BC%9A%E8%A7%A3%E5%86%B3json-dump%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98.assets/8869373-901590e019f6f85b.png" /></p>
@@ -3549,6 +3549,8 @@ print json.dumps(m,ensure_ascii=False).decode('utf8').encode('gb2312')
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

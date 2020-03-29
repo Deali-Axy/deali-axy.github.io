@@ -3519,14 +3519,12 @@
                 <h2 id="_1">前言</h2>
 <p>上次简单介绍了委托的概念和使用，今天继续，并且引入匿名方法的概念，匿名方法在很多语言里面都有，比如Python、js、java8，尤其js，前端小伙伴可能深受js回调地狱之苦，这里面匿名方法功不可没。</p>
 <p>js的匿名方法就像这样：
-这还没用lambda，因为我想下篇再介绍lambda。</p>
-<pre><code class="js">document.querySelector('.btn').onclick = function () { };
-</code></pre>
-
-<p>Python的大概这样：</p>
-<pre><code class="python">max = lambda a : a + 1
-</code></pre>
-
+这还没用lambda，因为我想下篇再介绍lambda。
+<div class="highlight"><pre><span></span><code><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.btn&#39;</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+</code></pre></div></p>
+<p>Python的大概这样：
+<div class="highlight"><pre><span></span><code><span class="nb">max</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span> <span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+</code></pre></div></p>
 <h2 id="_2">几个概念</h2>
 <h3 id="_3">实例委托</h3>
 <p>一旦声明了委托类型，委托对象必须使用 new 关键字来创建，且与一个特定的方法有关。当创建委托时，传递到 new 语句的参数就像方法调用一样书写，但是不带有参数。</p>
@@ -3543,106 +3541,105 @@ C# 中使用事件机制实现线程间的通信。</p>
 </ul>
 <p>关于事件的详细使用我会在后面的笔记上记录。</p>
 <h2 id="_6">上代码</h2>
-<p>先上笔记代码，里面有详细的注释：</p>
-<pre><code class="c#">using System;
+<p>先上笔记代码，里面有详细的注释：
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 
-namespace DelegateAndEvent
-{
-    class Program
-    {
-        delegate void voidDelegate();
+<span class="k">namespace</span> <span class="nn">DelegateAndEvent</span>
+<span class="p">{</span>
+    <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">delegate</span> <span class="k">void</span> <span class="nf">voidDelegate</span><span class="p">();</span>
 
-        delegate int intDelegate();
+        <span class="k">delegate</span> <span class="kt">int</span> <span class="nf">intDelegate</span><span class="p">();</span>
 
-        delegate int doubleParamsDelegate(int num1, int num2);
+        <span class="k">delegate</span> <span class="kt">int</span> <span class="nf">doubleParamsDelegate</span><span class="p">(</span><span class="kt">int</span> <span class="n">num1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="p">);</span>
 
-        static void Main(string[] args)
-        {
-            // 定义一个多播委托
-            voidDelegate d1 = T1;
-            d1 += T2;
-            d1 += T3;
-            d1 += T4;
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// 定义一个多播委托</span>
+            <span class="n">voidDelegate</span> <span class="n">d1</span> <span class="p">=</span> <span class="n">T1</span><span class="p">;</span>
+            <span class="n">d1</span> <span class="p">+=</span> <span class="n">T2</span><span class="p">;</span>
+            <span class="n">d1</span> <span class="p">+=</span> <span class="n">T3</span><span class="p">;</span>
+            <span class="n">d1</span> <span class="p">+=</span> <span class="n">T4</span><span class="p">;</span>
 
-            // 执行委托
-            // 会同时执行t1,t2,t3,t4四个方法
-            d1();
+            <span class="c1">// 执行委托</span>
+            <span class="c1">// 会同时执行t1,t2,t3,t4四个方法</span>
+            <span class="n">d1</span><span class="p">();</span>
 
-            intDelegate d2 = Q1;
-            d2 += Q2;
-            d2 += Q3;
+            <span class="n">intDelegate</span> <span class="n">d2</span> <span class="p">=</span> <span class="n">Q1</span><span class="p">;</span>
+            <span class="n">d2</span> <span class="p">+=</span> <span class="n">Q2</span><span class="p">;</span>
+            <span class="n">d2</span> <span class="p">+=</span> <span class="n">Q3</span><span class="p">;</span>
 
-            Console.WriteLine(&quot;&quot;);
-            Console.WriteLine(&quot;&quot;);
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
 
-            // 执行
-            // 会得到最后一个返回值，
-            Console.WriteLine(d2());
+            <span class="c1">// 执行</span>
+            <span class="c1">// 会得到最后一个返回值，</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">d2</span><span class="p">());</span>
 
-            // 两种委托赋值方式
-            d1 = T1;
-            d1 = new voidDelegate(T1);
+            <span class="c1">// 两种委托赋值方式</span>
+            <span class="n">d1</span> <span class="p">=</span> <span class="n">T1</span><span class="p">;</span>
+            <span class="n">d1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">voidDelegate</span><span class="p">(</span><span class="n">T1</span><span class="p">);</span>
 
-            // 利用委托将函数作为参数传递
-            Func(T1);
-            Func(T2);
+            <span class="c1">// 利用委托将函数作为参数传递</span>
+            <span class="n">Func</span><span class="p">(</span><span class="n">T1</span><span class="p">);</span>
+            <span class="n">Func</span><span class="p">(</span><span class="n">T2</span><span class="p">);</span>
 
-            // 匿名方法
-            // 定义匿名方法委托
-            voidDelegate anonymousMethod = delegate { Console.WriteLine(&quot;hello&quot;); };
-            // 作为参数传递
-            Func(anonymousMethod);
+            <span class="c1">// 匿名方法</span>
+            <span class="c1">// 定义匿名方法委托</span>
+            <span class="n">voidDelegate</span> <span class="n">anonymousMethod</span> <span class="p">=</span> <span class="k">delegate</span> <span class="p">{</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">);</span> <span class="p">};</span>
+            <span class="c1">// 作为参数传递</span>
+            <span class="n">Func</span><span class="p">(</span><span class="n">anonymousMethod</span><span class="p">);</span>
 
-            // 定义有参数和返回值的匿名方法
-            doubleParamsDelegate max = delegate(int num1, int num2) { return num1 &gt; num2 ? num1 : num2; };
-            // 换成lambda表达式
-            max = (a, b) =&gt; a &gt; b ? a : b;
-            max(1, 2);
-        }
+            <span class="c1">// 定义有参数和返回值的匿名方法</span>
+            <span class="n">doubleParamsDelegate</span> <span class="n">max</span> <span class="p">=</span> <span class="k">delegate</span><span class="p">(</span><span class="kt">int</span> <span class="n">num1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">num1</span> <span class="p">&gt;</span> <span class="n">num2</span> <span class="p">?</span> <span class="n">num1</span> <span class="p">:</span> <span class="n">num2</span><span class="p">;</span> <span class="p">};</span>
+            <span class="c1">// 换成lambda表达式</span>
+            <span class="n">max</span> <span class="p">=</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">a</span> <span class="p">&gt;</span> <span class="n">b</span> <span class="p">?</span> <span class="n">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
+            <span class="n">max</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        static void T1()
-        {
-            Console.WriteLine(&quot;1&quot;);
-        }
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">T1</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        static void T2()
-        {
-            Console.WriteLine(&quot;2&quot;);
-        }
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">T2</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;2&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        static void T3()
-        {
-            Console.WriteLine(&quot;3&quot;);
-        }
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">T3</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;3&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        static void T4()
-        {
-            Console.WriteLine(&quot;4&quot;);
-        }
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">T4</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;4&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        static int Q1()
-        {
-            return 1;
-        }
+        <span class="k">static</span> <span class="kt">int</span> <span class="nf">Q1</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="m">1</span><span class="p">;</span>
+        <span class="p">}</span>
 
-        static int Q2()
-        {
-            return 2;
-        }
+        <span class="k">static</span> <span class="kt">int</span> <span class="nf">Q2</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="m">2</span><span class="p">;</span>
+        <span class="p">}</span>
 
-        static int Q3()
-        {
-            return 3;
-        }
+        <span class="k">static</span> <span class="kt">int</span> <span class="nf">Q3</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="m">3</span><span class="p">;</span>
+        <span class="p">}</span>
 
-        static void Func(voidDelegate func)
-        {
-            func();
-        }
-    }
-}
-</code></pre>
-
+        <span class="k">static</span> <span class="k">void</span> <span class="nf">Func</span><span class="p">(</span><span class="n">voidDelegate</span> <span class="n">func</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">func</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <p>就这样，C#的匿名方法就是new一个委托，不过基本没人用这个，因为远古版本的C#就已经支持lambda表达式了，lambda就是定义匿名方法的简便方式，而且又优雅，下篇我再记录lambda表达式的使用。</p>
 <p>本文主要记录委托的多种使用方法，如传值、事件、传递函数参数等。</p>
 <p>还有更多练习代码等我整理出来放到github上。</p>
@@ -3725,6 +3722,8 @@ namespace DelegateAndEvent
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

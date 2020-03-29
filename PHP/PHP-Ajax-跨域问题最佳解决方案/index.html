@@ -3511,39 +3511,39 @@
 <pre><code>XMLHttpRequest cannot load http://server.abc.com/server.php. No 'Access-Control-Allow-Origin' header is present on the requested resource.Origin 'http://client.abc.com' is therefore not allowed access.
 </code></pre>
 <h2 id="_2">最简单的解决</h2>
-<pre><code class="php">header('content-type:application/json;charset=utf8');  
-// 指定允许其他域名访问  
-header('Access-Control-Allow-Origin:*');  
-// 响应类型  
-header('Access-Control-Allow-Methods:POST');  
-// 响应头设置  
-header('Access-Control-Allow-Headers:x-requested-with,content-type');
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="x">header(&#39;content-type:application/json;charset=utf8&#39;);  </span>
+<span class="x">// 指定允许其他域名访问  </span>
+<span class="x">header(&#39;Access-Control-Allow-Origin:*&#39;);  </span>
+<span class="x">// 响应类型  </span>
+<span class="x">header(&#39;Access-Control-Allow-Methods:POST&#39;);  </span>
+<span class="x">// 响应头设置  </span>
+<span class="x">header(&#39;Access-Control-Allow-Headers:x-requested-with,content-type&#39;);</span>
+</code></pre></div>
 
 <h2 id="1">1、允许单个域名访问</h2>
 <p>指定某域名<code>client.abc.com</code>跨域访问，则只需在<code>server.abc.com/a.php</code>文件头部添加如下代码：</p>
-<pre><code class="php">header('Access-Control-Allow-Origin:http://client.abc.com');
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="x">header(&#39;Access-Control-Allow-Origin:http://client.abc.com&#39;);</span>
+</code></pre></div>
 
 <h2 id="2">2、允许多个域名访问</h2>
 <p>指定多个域名，在<code>server.php</code>文件头部添加如下代码：</p>
-<pre><code class="php">$origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : '';
-//$_SERVER['HTTP_ORIGN']获得请求访问的域名
+<div class="highlight"><pre><span></span><code><span class="x">$origin = isset($_SERVER[&#39;HTTP_ORIGIN&#39;])? $_SERVER[&#39;HTTP_ORIGIN&#39;] : &#39;&#39;;</span>
+<span class="x">//$_SERVER[&#39;HTTP_ORIGN&#39;]获得请求访问的域名</span>
 
-$allow_origin = array(
-  'http://client.abc.com',
-  'http://client2.abc.com'
-);
+<span class="x">$allow_origin = array(</span>
+<span class="x">  &#39;http://client.abc.com&#39;,</span>
+<span class="x">  &#39;http://client2.abc.com&#39;</span>
+<span class="x">);</span>
 
-if(in_array($origin, $allow_origin)){
-header('Access-Control-Allow-Origin:'.$origin);
-}
-</code></pre>
+<span class="x">if(in_array($origin, $allow_origin)){</span>
+<span class="x">header(&#39;Access-Control-Allow-Origin:&#39;.$origin);</span>
+<span class="x">}</span>
+</code></pre></div>
 
 <h2 id="3">3、允许所有域名访问</h2>
 <p>允许所有域名访问则只需在php文件头部添加如下代码：</p>
-<pre><code class="php">header('Access-Control-Allow-Origin:*');
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="x">header(&#39;Access-Control-Allow-Origin:*&#39;);</span>
+</code></pre></div>
 
 <h2 id="about">About</h2>
 <h2 id="_3"><img alt="" src="../PHP-Ajax-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E6%9C%80%E4%BD%B3%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.assets/8869373-901590e019f6f85b.png" /></h2>
@@ -3622,6 +3622,8 @@ header('Access-Control-Allow-Origin:'.$origin);
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

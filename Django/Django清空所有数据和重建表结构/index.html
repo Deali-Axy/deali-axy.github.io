@@ -3435,18 +3435,18 @@
                   <h1>Django清空所有数据和重建表结构</h1>
                 
                 <h2 id="_1">清空所有数据</h2>
-<pre><code class="bash">python manage.py flush
-</code></pre>
+<div class="highlight"><pre><span></span><code>python manage.py flush
+</code></pre></div>
 
 <h2 id="_2">重建表结构</h2>
 <ol>
 <li>删除数据库中所有表</li>
 <li>删除应用文件夹下的<code>migrations</code>目录内所有文件，除了<code>__init__.py</code></li>
-<li>执行以下命令</li>
-</ol>
-<pre><code class="bash">python manage.py makemigrations
+<li>执行以下命令
+<div class="highlight"><pre><span></span><code>python manage.py makemigrations
 python manage.py migrate
-</code></pre>
+</code></pre></div></li>
+</ol>
                 
                   
                 
@@ -3520,6 +3520,8 @@ python manage.py migrate
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

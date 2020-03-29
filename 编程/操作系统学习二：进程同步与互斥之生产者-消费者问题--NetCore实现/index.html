@@ -3502,89 +3502,88 @@
 <p>生产者线程生产物品（通过等待一个时间模拟生产过程），然后将物品放置在一个空缓冲区中供消费者线程消费（通过将缓冲区数组元素值设为产品编号模拟放入过程）。消费者线程从缓冲区中获得物品，然后释放缓冲区（通过将缓冲区数组元素值设为0模拟取出过程）。当生产者线程生产物品时，如果没有空缓冲区可用，那么生产者线程必须等待消费者线程释放出一个空缓冲区。当消费者线程消费物品时，如果没有满的缓冲区，那么消费者线程将被阻塞，直到新的物品被生产出来。</p>
 <p>根据给出的相关函数，实现生产者消费者问题。为了分析结果，要求用文件保存缓冲区变化过程。</p>
 <h2 id="_3">伪代码</h2>
-<p>下面给出的是解决这一问题的部分代码和伪代码，后面附上完整代码</p>
-<pre><code class="cpp">#include &lt;windows.h&gt;    //大多数API函数都在这个头文件中定义
-#include &lt;stdio.h&gt;
-#include &lt;iostream.h&gt;
+<p>下面给出的是解决这一问题的部分代码和伪代码，后面附上完整代码
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;windows.h&gt;    //大多数API函数都在这个头文件中定义</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream.h&gt;</span><span class="cp"></span>
 
-const unsigned short SIZE_OF_BUFFER = 10;   //缓冲区个数 
-unsigned short ProductID = 0;     //生产的产品号
-unsigned short ConsumeID = 0;    //将被消耗的产品号
-unsigned short in = 0;         //产品进缓冲区时的缓冲区下标
-unsigned short out = 0;       //产品出缓冲区时的缓冲区下标
+<span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">SIZE_OF_BUFFER</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>   <span class="c1">//缓冲区个数 </span>
+<span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">ProductID</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">//生产的产品号</span>
+<span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">ConsumeID</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>    <span class="c1">//将被消耗的产品号</span>
+<span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">in</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>         <span class="c1">//产品进缓冲区时的缓冲区下标</span>
+<span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">out</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>       <span class="c1">//产品出缓冲区时的缓冲区下标</span>
 
-//缓冲区是个循环队列
-int g_buffer[SIZE_OF_BUFFER];    //用整型数组模拟缓冲区
-bool  g_continue = true;      //当g_continue = false结束程序
+<span class="c1">//缓冲区是个循环队列</span>
+<span class="kt">int</span> <span class="n">g_buffer</span><span class="p">[</span><span class="n">SIZE_OF_BUFFER</span><span class="p">];</span>    <span class="c1">//用整型数组模拟缓冲区</span>
+<span class="kt">bool</span>  <span class="n">g_continue</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>      <span class="c1">//当g_continue = false结束程序</span>
 
-HANDLE g_hMutex;          // g_hMutex是互斥信号量的句柄         
-HANDLE g_hEmptySemaphore;     //即empty信号量的句柄
-HANDLE g_hFullSemaphore;     //即full信号量的句柄
+<span class="n">HANDLE</span> <span class="n">g_hMutex</span><span class="p">;</span>          <span class="c1">// g_hMutex是互斥信号量的句柄         </span>
+<span class="n">HANDLE</span> <span class="n">g_hEmptySemaphore</span><span class="p">;</span>     <span class="c1">//即empty信号量的句柄</span>
+<span class="n">HANDLE</span> <span class="n">g_hFullSemaphore</span><span class="p">;</span>     <span class="c1">//即full信号量的句柄</span>
 
-DWORD WINAPI Producer(LPVOID);    //生产者线程
-DWORD WINAPI Consumer(LPVOID);    //消费者线程
+<span class="n">DWORD</span> <span class="n">WINAPI</span> <span class="nf">Producer</span><span class="p">(</span><span class="n">LPVOID</span><span class="p">);</span>    <span class="c1">//生产者线程</span>
+<span class="n">DWORD</span> <span class="n">WINAPI</span> <span class="nf">Consumer</span><span class="p">(</span><span class="n">LPVOID</span><span class="p">);</span>    <span class="c1">//消费者线程</span>
 
-//请完成主函数，主函数中要完成创建各信号量对象和创建各线程的工作
-main(…)
-{    …         
-//创建生产者和消费者线程
-CreateThread(…, Producer, …);
-CreateThread(…, Consumer, …);
-…
-}
+<span class="c1">//请完成主函数，主函数中要完成创建各信号量对象和创建各线程的工作</span>
+<span class="n">main</span><span class="p">(</span><span class="err">…</span><span class="p">)</span>
+<span class="p">{</span>    <span class="err">…</span>         
+<span class="c1">//创建生产者和消费者线程</span>
+<span class="n">CreateThread</span><span class="p">(</span><span class="err">…</span><span class="p">,</span> <span class="n">Producer</span><span class="p">,</span> <span class="err">…</span><span class="p">);</span>
+<span class="n">CreateThread</span><span class="p">(</span><span class="err">…</span><span class="p">,</span> <span class="n">Consumer</span><span class="p">,</span> <span class="err">…</span><span class="p">);</span>
+<span class="err">…</span>
+<span class="p">}</span>
 
-//请完成模拟生产者把新生产的产品放入缓冲区的过程
+<span class="c1">//请完成模拟生产者把新生产的产品放入缓冲区的过程</span>
 
-void AddToBuffer()
-{
-    ...
-}
+<span class="kt">void</span> <span class="n">AddToBuffer</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
 
-//请完成模拟消费者从缓冲区中取出一个产品的过程
-void TakeFromBuffer()
-{
-…
-}
+<span class="c1">//请完成模拟消费者从缓冲区中取出一个产品的过程</span>
+<span class="kt">void</span> <span class="n">TakeFromBuffer</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="err">…</span>
+<span class="p">}</span>
 
-//请根据伪代码完成生产者线程函数
-Producer()
-{
-    …                  //获取线程ID
-    while(TRUE)
-    {   //模拟生产过程，生产一个物品
-        sleep(rand);    //可以给出时间参数，1000为1秒，休眠时间 
-        P(empty);                       //请求一个空缓冲区
-        //操作缓冲区池
-        P(mutex);
-        …       //输出线程ID，这样可以看出是哪一个线程在工作
-        AddToBuffer();  //将物品放置在一个空缓冲区中
-        V(mutex);                   
-        V(full);    //用信号通知一个满的缓冲区
-    }
-   return 0;
-}
+<span class="c1">//请根据伪代码完成生产者线程函数</span>
+<span class="n">Producer</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="err">…</span>                  <span class="c1">//获取线程ID</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span>
+    <span class="p">{</span>   <span class="c1">//模拟生产过程，生产一个物品</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="n">rand</span><span class="p">);</span>    <span class="c1">//可以给出时间参数，1000为1秒，休眠时间 </span>
+        <span class="n">P</span><span class="p">(</span><span class="n">empty</span><span class="p">);</span>                       <span class="c1">//请求一个空缓冲区</span>
+        <span class="c1">//操作缓冲区池</span>
+        <span class="n">P</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+        <span class="err">…</span>       <span class="c1">//输出线程ID，这样可以看出是哪一个线程在工作</span>
+        <span class="n">AddToBuffer</span><span class="p">();</span>  <span class="c1">//将物品放置在一个空缓冲区中</span>
+        <span class="n">V</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>                   
+        <span class="n">V</span><span class="p">(</span><span class="n">full</span><span class="p">);</span>    <span class="c1">//用信号通知一个满的缓冲区</span>
+    <span class="p">}</span>
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-//请根据伪代码完成消费者线程函数       
-Consumer()
-{
-    …                  //获取线程ID
-    while(TRUE)
-    {       
-        P(full);                            //请求一个满缓冲区
-        //操作缓冲区池
-        P(mutex);
-…       //输出线程ID，这样可以看出是哪一个线程在工作
-        TakeFromBuffer();  //从一个满缓冲区中取产品
-        V(mutex);                       
-        V(empty);   //用信号通知一个空的缓冲区
-        sleep(rand);                    //休眠时间，模拟消费产品
-    }
-    return 0;
-}
-</code></pre>
-
+<span class="c1">//请根据伪代码完成消费者线程函数       </span>
+<span class="n">Consumer</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="err">…</span>                  <span class="c1">//获取线程ID</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span>
+    <span class="p">{</span>       
+        <span class="n">P</span><span class="p">(</span><span class="n">full</span><span class="p">);</span>                            <span class="c1">//请求一个满缓冲区</span>
+        <span class="c1">//操作缓冲区池</span>
+        <span class="n">P</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+<span class="err">…</span>       <span class="c1">//输出线程ID，这样可以看出是哪一个线程在工作</span>
+        <span class="n">TakeFromBuffer</span><span class="p">();</span>  <span class="c1">//从一个满缓冲区中取产品</span>
+        <span class="n">V</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>                       
+        <span class="n">V</span><span class="p">(</span><span class="n">empty</span><span class="p">);</span>   <span class="c1">//用信号通知一个空的缓冲区</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="n">rand</span><span class="p">);</span>                    <span class="c1">//休眠时间，模拟消费产品</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h2 id="_4">实现代码</h2>
-<pre><code class="cs">using System;
+<div class="highlight"><pre><span></span><code>using System;
 using System.Dynamic;
 using System.Threading;
 
@@ -3791,10 +3790,10 @@ namespace OperatingSystemExperiment.Exp2 {
         }
     }
 }
-</code></pre>
+</code></pre></div>
 
 <h2 id="_5">运行结果</h2>
-<pre><code>生产线程 4 工作中
+<div class="highlight"><pre><span></span><code>生产线程 4 工作中
 Produce the 1 product to buffer.
 0: 1 &lt;- 下一个可取出产品消费的地方
 1: 0 &lt;- 可放下一个产品的位置
@@ -4112,7 +4111,7 @@ Produce the 23 product to buffer.
 7: 0
 8: 0
 9: 0
-</code></pre>
+</code></pre></div>
 
 <p><img alt="" src="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E4%BA%8C%EF%BC%9A%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B8%8E%E4%BA%92%E6%96%A5%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98--NetCore%E5%AE%9E%E7%8E%B0.assets/8869373-97cc9e458eb48fb3.png" /></p>
 <h2 id="_6">欢迎与我交流</h2>
@@ -4196,6 +4195,8 @@ Produce the 23 product to buffer.
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

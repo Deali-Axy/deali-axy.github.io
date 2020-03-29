@@ -3697,85 +3697,85 @@
                   <h1>Python：使用logging模块记录日志</h1>
                 
                 <h2 id="_1">先看看基本用法例子</h2>
-<pre><code class="python"># -*- coding: utf-8 -*-
+<div class="highlight"><pre><span></span><code><span class="c1"># -*- coding: utf-8 -*-</span>
 
-import logging
-import sys
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
-# 获取logger实例，如果参数为空则返回root logger
-logger = logging.getLogger(&quot;AppName&quot;)
+<span class="c1"># 获取logger实例，如果参数为空则返回root logger</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;AppName&quot;</span><span class="p">)</span>
 
-# 指定logger输出格式
-formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s')
+<span class="c1"># 指定logger输出格式</span>
+<span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)-8s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
 
-# 文件日志
-file_handler = logging.FileHandler(&quot;test.log&quot;)
-file_handler.setFormatter(formatter)  # 可以通过setFormatter指定输出格式
+<span class="c1"># 文件日志</span>
+<span class="n">file_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="s2">&quot;test.log&quot;</span><span class="p">)</span>
+<span class="n">file_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>  <span class="c1"># 可以通过setFormatter指定输出格式</span>
 
-# 控制台日志
-console_handler = logging.StreamHandler(sys.stdout)
-console_handler.formatter = formatter  # 也可以直接给formatter赋值
+<span class="c1"># 控制台日志</span>
+<span class="n">console_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+<span class="n">console_handler</span><span class="o">.</span><span class="n">formatter</span> <span class="o">=</span> <span class="n">formatter</span>  <span class="c1"># 也可以直接给formatter赋值</span>
 
-# 为logger添加的日志处理器
-logger.addHandler(file_handler)
-logger.addHandler(console_handler)
+<span class="c1"># 为logger添加的日志处理器</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">file_handler</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">console_handler</span><span class="p">)</span>
 
-# 指定日志的最低输出级别，默认为WARN级别
-logger.setLevel(logging.INFO)
+<span class="c1"># 指定日志的最低输出级别，默认为WARN级别</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 
-# 输出不同级别的log
-logger.debug('this is debug info')
-logger.info('this is information')
-logger.warn('this is warning message')
-logger.error('this is error message')
-logger.fatal('this is fatal message, it is same as logger.critical')
-logger.critical('this is critical message')
+<span class="c1"># 输出不同级别的log</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;this is debug info&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;this is information&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;this is warning message&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;this is error message&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">fatal</span><span class="p">(</span><span class="s1">&#39;this is fatal message, it is same as logger.critical&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;this is critical message&#39;</span><span class="p">)</span>
 
-# 2016-10-08 21:59:19,493 INFO    : this is information
-# 2016-10-08 21:59:19,493 WARNING : this is warning message
-# 2016-10-08 21:59:19,493 ERROR   : this is error message
-# 2016-10-08 21:59:19,493 CRITICAL: this is fatal message, it is same as logger.critical
-# 2016-10-08 21:59:19,493 CRITICAL: this is critical message
+<span class="c1"># 2016-10-08 21:59:19,493 INFO    : this is information</span>
+<span class="c1"># 2016-10-08 21:59:19,493 WARNING : this is warning message</span>
+<span class="c1"># 2016-10-08 21:59:19,493 ERROR   : this is error message</span>
+<span class="c1"># 2016-10-08 21:59:19,493 CRITICAL: this is fatal message, it is same as logger.critical</span>
+<span class="c1"># 2016-10-08 21:59:19,493 CRITICAL: this is critical message</span>
 
-# 移除一些日志处理器
-logger.removeHandler(file_handler)
-</code></pre>
+<span class="c1"># 移除一些日志处理器</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="n">file_handler</span><span class="p">)</span>
+</code></pre></div>
 
 <h2 id="_2">格式化输出日志</h2>
-<pre><code class="python"># 格式化输出
-service_name = &quot;Booking&quot;
-logger.error('%s service is down!' % service_name)  # 使用python自带的字符串格式化，不推荐
-logger.error('%s service is down!', service_name)  # 使用logger的格式化，推荐
-logger.error('%s service is %s!', service_name, 'down')  # 多参数格式化
-logger.error('{} service is {}'.format(service_name, 'down')) # 使用format函数，推荐
+<div class="highlight"><pre><span></span><code><span class="c1"># 格式化输出</span>
+<span class="n">service_name</span> <span class="o">=</span> <span class="s2">&quot;Booking&quot;</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> service is down!&#39;</span> <span class="o">%</span> <span class="n">service_name</span><span class="p">)</span>  <span class="c1"># 使用python自带的字符串格式化，不推荐</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> service is down!&#39;</span><span class="p">,</span> <span class="n">service_name</span><span class="p">)</span>  <span class="c1"># 使用logger的格式化，推荐</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> service is </span><span class="si">%s</span><span class="s1">!&#39;</span><span class="p">,</span> <span class="n">service_name</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="p">)</span>  <span class="c1"># 多参数格式化</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;{} service is {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">service_name</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="p">))</span> <span class="c1"># 使用format函数，推荐</span>
 
-# 2016-10-08 21:59:19,493 ERROR   : Booking service is down!
-</code></pre>
+<span class="c1"># 2016-10-08 21:59:19,493 ERROR   : Booking service is down!</span>
+</code></pre></div>
 
 <h2 id="_3">记录异常信息</h2>
 <p>当你使用logging模块记录异常信息时，不需要传入该异常对象，只要你直接调用logger.error() 或者 logger.exception()就可以将当前异常记录下来。</p>
-<pre><code class="python"># 记录异常信息
+<div class="highlight"><pre><span></span><code><span class="c1"># 记录异常信息</span>
 
-try:
-    1 / 0
-except:
-    # 等同于error级别，但是会额外记录当前抛出的异常堆栈信息
-    logger.exception('this is an exception message')
+<span class="k">try</span><span class="p">:</span>
+    <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="c1"># 等同于error级别，但是会额外记录当前抛出的异常堆栈信息</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s1">&#39;this is an exception message&#39;</span><span class="p">)</span>
 
-# 2016-10-08 21:59:19,493 ERROR   : this is an exception message
-# Traceback (most recent call last):
-#   File &quot;D:/Git/py_labs/demo/use_logging.py&quot;, line 45, in 
-#     1 / 0
-# ZeroDivisionError: integer division or modulo by zero
-</code></pre>
+<span class="c1"># 2016-10-08 21:59:19,493 ERROR   : this is an exception message</span>
+<span class="c1"># Traceback (most recent call last):</span>
+<span class="c1">#   File &quot;D:/Git/py_labs/demo/use_logging.py&quot;, line 45, in </span>
+<span class="c1">#     1 / 0</span>
+<span class="c1"># ZeroDivisionError: integer division or modulo by zero</span>
+</code></pre></div>
 
 <h2 id="logging">logging配置要点</h2>
 <h3 id="getlogger">GetLogger()方法</h3>
 <p>这是最基本的入口，该方法参数可以为空，默认的logger名称是root，如果在同一个程序中一直都使用同名的logger，其实会拿到同一个实例，使用这个技巧就可以跨模块调用同样的logger来记录日志。</p>
 <p>另外你也可以通过日志名称来区分同一程序的不同模块，比如这个例子。</p>
-<pre><code class="python">logger = logging.getLogger(&quot;App.UI&quot;)
-logger = logging.getLogger(&quot;App.Service&quot;)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;App.UI&quot;</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;App.Service&quot;</span><span class="p">)</span>
+</code></pre></div>
 
 <h3 id="formatter">Formatter日志格式</h3>
 <p><strong>Formatter对象定义了log信息的结构和内容，构造时需要带两个参数：</strong></p>
@@ -3825,165 +3825,165 @@ Logging包含很多handler, 可能用到的有下面几种</p>
 </ul>
 <h3 id="loggingbasicconfig">logging.basicConfig</h3>
 <p><code>basicConfig()</code>提供了非常便捷的方式让你配置logging模块并马上开始使用，可以参考下面的例子。具体可以配置的项目请查阅<a href="https://docs.python.org/2/library/logging.html#logging.basicConfig">官方文档</a>。</p>
-<pre><code class="python">import logging
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
 
-logging.basicConfig(filename='example.log',level=logging.DEBUG)
-logging.debug('This message should go to the log file')
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;example.log&#39;</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;This message should go to the log file&#39;</span><span class="p">)</span>
 
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
-logging.debug('This message should appear on the console')
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1">:</span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;This message should appear on the console&#39;</span><span class="p">)</span>
 
-logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
-logging.warning('is when this event was logged.')
-</code></pre>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %I:%M:%S %p&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;is when this event was logged.&#39;</span><span class="p">)</span>
+</code></pre></div>
 
 <p>备注： 其实你甚至可以什么都不配置直接使用默认值在控制台中打log，用这样的方式替换print语句对日后项目维护会有很大帮助。</p>
 <h3 id="logging_1">通过文件配置logging</h3>
 <p>如果你希望通过配置文件来管理logging，可以参考这个<a href="https://docs.python.org/2/library/logging.config.html">官方文档</a>。在log4net或者log4j中这是很常见的方式。</p>
-<pre><code class="python"># logging.conf
-[loggers]
-keys=root
+<div class="highlight"><pre><span></span><code><span class="c1"># logging.conf</span>
+<span class="p">[</span><span class="n">loggers</span><span class="p">]</span>
+<span class="n">keys</span><span class="o">=</span><span class="n">root</span>
 
-[logger_root]
-level=DEBUG
-handlers=consoleHandler
-#,timedRotateFileHandler,errorTimedRotateFileHandler
+<span class="p">[</span><span class="n">logger_root</span><span class="p">]</span>
+<span class="n">level</span><span class="o">=</span><span class="n">DEBUG</span>
+<span class="n">handlers</span><span class="o">=</span><span class="n">consoleHandler</span>
+<span class="c1">#,timedRotateFileHandler,errorTimedRotateFileHandler</span>
 
-#################################################
-[handlers]
-keys=consoleHandler,timedRotateFileHandler,errorTimedRotateFileHandler
+<span class="c1">#################################################</span>
+<span class="p">[</span><span class="n">handlers</span><span class="p">]</span>
+<span class="n">keys</span><span class="o">=</span><span class="n">consoleHandler</span><span class="p">,</span><span class="n">timedRotateFileHandler</span><span class="p">,</span><span class="n">errorTimedRotateFileHandler</span>
 
-[handler_consoleHandler]
-class=StreamHandler
-level=DEBUG
-formatter=simpleFormatter
-args=(sys.stdout,)
+<span class="p">[</span><span class="n">handler_consoleHandler</span><span class="p">]</span>
+<span class="n">class</span><span class="o">=</span><span class="n">StreamHandler</span>
+<span class="n">level</span><span class="o">=</span><span class="n">DEBUG</span>
+<span class="n">formatter</span><span class="o">=</span><span class="n">simpleFormatter</span>
+<span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,)</span>
 
-[handler_timedRotateFileHandler]
-class=handlers.TimedRotatingFileHandler
-level=DEBUG
-formatter=simpleFormatter
-args=('debug.log', 'H')
+<span class="p">[</span><span class="n">handler_timedRotateFileHandler</span><span class="p">]</span>
+<span class="n">class</span><span class="o">=</span><span class="n">handlers</span><span class="o">.</span><span class="n">TimedRotatingFileHandler</span>
+<span class="n">level</span><span class="o">=</span><span class="n">DEBUG</span>
+<span class="n">formatter</span><span class="o">=</span><span class="n">simpleFormatter</span>
+<span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;debug.log&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">)</span>
 
-[handler_errorTimedRotateFileHandler]
-class=handlers.TimedRotatingFileHandler
-level=WARN
-formatter=simpleFormatter
-args=('error.log', 'H')
+<span class="p">[</span><span class="n">handler_errorTimedRotateFileHandler</span><span class="p">]</span>
+<span class="n">class</span><span class="o">=</span><span class="n">handlers</span><span class="o">.</span><span class="n">TimedRotatingFileHandler</span>
+<span class="n">level</span><span class="o">=</span><span class="n">WARN</span>
+<span class="n">formatter</span><span class="o">=</span><span class="n">simpleFormatter</span>
+<span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;error.log&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">)</span>
 
-#################################################
-[formatters]
-keys=simpleFormatter, multiLineFormatter
+<span class="c1">#################################################</span>
+<span class="p">[</span><span class="n">formatters</span><span class="p">]</span>
+<span class="n">keys</span><span class="o">=</span><span class="n">simpleFormatter</span><span class="p">,</span> <span class="n">multiLineFormatter</span>
 
-[formatter_simpleFormatter]
-format= %(levelname)s %(threadName)s %(asctime)s:   %(message)s
-datefmt=%H:%M:%S
+<span class="p">[</span><span class="n">formatter_simpleFormatter</span><span class="p">]</span>
+<span class="n">format</span><span class="o">=</span> <span class="o">%</span><span class="p">(</span><span class="n">levelname</span><span class="p">)</span><span class="n">s</span> <span class="o">%</span><span class="p">(</span><span class="n">threadName</span><span class="p">)</span><span class="n">s</span> <span class="o">%</span><span class="p">(</span><span class="n">asctime</span><span class="p">)</span><span class="n">s</span><span class="p">:</span>   <span class="o">%</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="n">s</span>
+<span class="n">datefmt</span><span class="o">=%</span><span class="n">H</span><span class="p">:</span><span class="o">%</span><span class="n">M</span><span class="p">:</span><span class="o">%</span><span class="n">S</span>
 
-[formatter_multiLineFormatter]
-format= ------------------------- %(levelname)s -------------------------
- Time:      %(asctime)s
- Thread:    %(threadName)s
- File:      %(filename)s(line %(lineno)d)
- Message:
- %(message)s
+<span class="p">[</span><span class="n">formatter_multiLineFormatter</span><span class="p">]</span>
+<span class="n">format</span><span class="o">=</span> <span class="o">-------------------------</span> <span class="o">%</span><span class="p">(</span><span class="n">levelname</span><span class="p">)</span><span class="n">s</span> <span class="o">-------------------------</span>
+ <span class="n">Time</span><span class="p">:</span>      <span class="o">%</span><span class="p">(</span><span class="n">asctime</span><span class="p">)</span><span class="n">s</span>
+ <span class="n">Thread</span><span class="p">:</span>    <span class="o">%</span><span class="p">(</span><span class="n">threadName</span><span class="p">)</span><span class="n">s</span>
+ <span class="n">File</span><span class="p">:</span>      <span class="o">%</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="n">s</span><span class="p">(</span><span class="n">line</span> <span class="o">%</span><span class="p">(</span><span class="n">lineno</span><span class="p">)</span><span class="n">d</span><span class="p">)</span>
+ <span class="n">Message</span><span class="p">:</span>
+ <span class="o">%</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="n">s</span>
 
-datefmt=%Y-%m-%d %H:%M:%S
-</code></pre>
+<span class="n">datefmt</span><span class="o">=%</span><span class="n">Y</span><span class="o">-%</span><span class="n">m</span><span class="o">-%</span><span class="n">d</span> <span class="o">%</span><span class="n">H</span><span class="p">:</span><span class="o">%</span><span class="n">M</span><span class="p">:</span><span class="o">%</span><span class="n">S</span>
+</code></pre></div>
 
 <p>假设以上的配置文件放在和模块相同的目录，代码中的调用如下。</p>
-<pre><code class="python">import os
-filepath = os.path.join(os.path.dirname(__file__), 'logging.conf')
-logging.config.fileConfig(filepath)
-return logging.getLogger()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;logging.conf&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fileConfig</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+</code></pre></div>
 
 <h2 id="_4">日志重复输出的坑</h2>
 <p>你有可能会看到你打的日志会重复显示多次，可能的原因有很多，但总结下来无非就一个，日志中使用了重复的handler。</p>
 <h3 id="_5">第一坑</h3>
-<pre><code class="python">import logging
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
 
-logging.basicConfig(level=logging.DEBUG)
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 
-fmt = '%(levelname)s:%(message)s'
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(logging.Formatter(fmt))
-logging.getLogger().addHandler(console_handler)
+<span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1">:</span><span class="si">%(message)s</span><span class="s1">&#39;</span>
+<span class="n">console_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+<span class="n">console_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">fmt</span><span class="p">))</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">console_handler</span><span class="p">)</span>
 
-logging.info('hello!')
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;hello!&#39;</span><span class="p">)</span>
 
-# INFO:root:hello!
-# INFO:hello!
-</code></pre>
+<span class="c1"># INFO:root:hello!</span>
+<span class="c1"># INFO:hello!</span>
+</code></pre></div>
 
 <p>上面这个例子出现了重复日志，因为在第3行调用basicConfig()方法时系统会默认创建一个handler，如果你再添加一个控制台handler时就会出现重复日志。</p>
 <h3 id="_6">第二坑</h3>
-<pre><code class="python">import logging
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
 
-def get_logger():
-    fmt = '%(levelname)s:%(message)s'
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(logging.Formatter(fmt))
-    logger = logging.getLogger('App')
-    logger.setLevel(logging.INFO)
-    logger.addHandler(console_handler)
-    return logger
+<span class="k">def</span> <span class="nf">get_logger</span><span class="p">():</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1">:</span><span class="si">%(message)s</span><span class="s1">&#39;</span>
+    <span class="n">console_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+    <span class="n">console_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">fmt</span><span class="p">))</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;App&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">console_handler</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">logger</span>
 
-def call_me():
-    logger = get_logger()
-    logger.info('hi')
+<span class="k">def</span> <span class="nf">call_me</span><span class="p">():</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">)</span>
 
-call_me()
-call_me()
+<span class="n">call_me</span><span class="p">()</span>
+<span class="n">call_me</span><span class="p">()</span>
 
-# INFO:hi
-# INFO:hi
-# INFO:hi
-</code></pre>
+<span class="c1"># INFO:hi</span>
+<span class="c1"># INFO:hi</span>
+<span class="c1"># INFO:hi</span>
+</code></pre></div>
 
 <p>在这个例子里hi居然打印了三次，如果再调用一次call_me()呢？我告诉你会打印6次。why? 因为你每次调用get_logger()方法时都会给它加一个新的handler，你是自作自受。正常的做法应该是全局只配置logger一次。</p>
 <h3 id="_7">第三坑</h3>
-<pre><code class="python">import logging
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
 
-def get_logger():
-    fmt = '%(levelname)s: %(message)s'
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(logging.Formatter(fmt))
-    logger = logging.getLogger('App')
-    logger.setLevel(logging.INFO)
-    logger.addHandler(console_handler)
-    return logger
+<span class="k">def</span> <span class="nf">get_logger</span><span class="p">():</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span>
+    <span class="n">console_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+    <span class="n">console_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">fmt</span><span class="p">))</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;App&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">console_handler</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">logger</span>
 
-def foo():
-    logging.basicConfig(format='[%(name)s]: %(message)s')
-    logging.warn('some module use root logger')
+<span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;[</span><span class="si">%(name)s</span><span class="s1">]: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;some module use root logger&#39;</span><span class="p">)</span>
 
-def main():
-    logger = get_logger()
-    logger.info('App start.')
-    foo()
-    logger.info('App shutdown.')
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;App start.&#39;</span><span class="p">)</span>
+    <span class="n">foo</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;App shutdown.&#39;</span><span class="p">)</span>
 
-main()
+<span class="n">main</span><span class="p">()</span>
 
-# INFO: App start.
-# [root]: some module use root logger
-# INFO: App shutdown.
-# [App]: App shutdown.
-</code></pre>
+<span class="c1"># INFO: App start.</span>
+<span class="c1"># [root]: some module use root logger</span>
+<span class="c1"># INFO: App shutdown.</span>
+<span class="c1"># [App]: App shutdown.</span>
+</code></pre></div>
 
 <p>为嘛最后的App shutdown打印了两次？所以在Stackoverflow上很多人都问，我应该怎么样把root logger关掉，root logger太坑爹坑妈了。只要你在程序中使用过root logger，那么默认你打印的所有日志都算它一份。上面的例子没有什么很好的办法，我建议你招到那个没有经过大脑就使用root logger的人，乱棍打死他或者开除他。</p>
 <p>如果你真的想禁用root logger，有两个不是办法的办法：</p>
-<pre><code class="python">logging.getLogger().handlers = []  # 删除所有的handler
-logging.getLogger().setLevel(logging.CRITICAL)  # 将它的级别设置到最高
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 删除所有的handler</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span><span class="p">)</span>  <span class="c1"># 将它的级别设置到最高</span>
+</code></pre></div>
 
 <h2 id="_8">小结</h2>
 <p>Python中的日志模块作为标准库的一部分，功能还是比较完善的。个人觉得上手简单，另外也支持比如过滤，文件锁等高级功能，能满足大多数项目需求。</p>
 <h2 id="_9">本文整理自以下几个博客和文档：</h2>
 <ul>
-<li>官方文档：https://docs.python.org/2.7/library/logging.html</li>
-<li>http://blog.csdn.net/balderfan/article/details/7644807</li>
-<li>http://python.jobbole.com/86887/</li>
+<li>官方文档：<a href="https://docs.python.org/2.7/library/logging.html">https://docs.python.org/2.7/library/logging.html</a></li>
+<li><a href="http://blog.csdn.net/balderfan/article/details/7644807">http://blog.csdn.net/balderfan/article/details/7644807</a></li>
+<li><a href="http://python.jobbole.com/86887/">http://python.jobbole.com/86887/</a></li>
 </ul>
 <h2 id="about">About</h2>
 <h2 id="_10"><img alt="" src="../Python%EF%BC%9A%E4%BD%BF%E7%94%A8logging%E6%A8%A1%E5%9D%97%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97.assets/8869373-901590e019f6f85b.png" /></h2>
@@ -4062,6 +4062,8 @@ logging.getLogger().setLevel(logging.CRITICAL)  # 将它的级别设置到最高
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

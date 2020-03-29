@@ -3598,10 +3598,10 @@
 </li>
 </ol>
 <p>Cardview 是Android 5.0 才引入的，所以需要导入这个依赖包。</p>
-<pre><code class="gradle">dependencies {
-    implementation 'com.android.support:cardview-v7:27.1.1'
+<div class="highlight"><pre><span></span><code>dependencies {
+    implementation &#39;com.android.support:cardview-v7:27.1.1&#39;
 }
-</code></pre>
+</code></pre></div>
 
 <ol>
 <li>Create Cards<blockquote>
@@ -3623,28 +3623,27 @@
 <p>Google用一句话介绍了CardView：一个带圆角和阴影背景的FrameLayout。CardView在Android Lollipop（API 21）及以上版本的系统中适配较好，本文我们以一个具体的例子来学习CardView的基本使用和注意事项，效果图如下：</p>
 <p><img alt="" src="../Android%E5%BC%80%E5%8F%91%EF%BC%9A%E4%BD%BF%E7%94%A8CardView%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E5%BC%8F%E8%AE%BE%E8%AE%A1.assets/8869373-dbb473d82614922a.png" /></p>
 <p>这是一个list列表，列表中的item使用了卡片式设计，主要利用CardView控件实现，下面来分析一下布局文件的核心代码。</p>
-<pre><code class="xml">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
-    xmlns:card_view=&quot;http://schemas.android.com/apk/res-auto&quot;
-    ... &gt;
-    &lt;!-- A CardView that contains a TextView --&gt;
-    &lt;android.support.v7.widget.CardView
-        xmlns:card_view=&quot;http://schemas.android.com/apk/res-auto&quot;
-        android:id=&quot;@+id/card_view&quot;
-        android:layout_gravity=&quot;center&quot;
-        android:layout_width=&quot;200dp&quot;
-        android:layout_height=&quot;200dp&quot;
-        card_view:cardCornerRadius=&quot;4dp&quot;&gt;
+<p><div class="highlight"><pre><span></span><code><span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+    <span class="na">xmlns:tools=</span><span class="s">&quot;http://schemas.android.com/tools&quot;</span>
+    <span class="na">xmlns:card_view=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span>
+    <span class="err">...</span> <span class="nt">&gt;</span>
+    <span class="c">&lt;!-- A CardView that contains a TextView --&gt;</span>
+    <span class="nt">&lt;android.support.v7.widget.CardView</span>
+        <span class="na">xmlns:card_view=</span><span class="s">&quot;http://schemas.android.com/apk/res-auto&quot;</span>
+        <span class="na">android:id=</span><span class="s">&quot;@+id/card_view&quot;</span>
+        <span class="na">android:layout_gravity=</span><span class="s">&quot;center&quot;</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;200dp&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;200dp&quot;</span>
+        <span class="na">card_view:cardCornerRadius=</span><span class="s">&quot;4dp&quot;</span><span class="nt">&gt;</span>
 
-        &lt;TextView
-            android:id=&quot;@+id/info_text&quot;
-            android:layout_width=&quot;match_parent&quot;
-            android:layout_height=&quot;match_parent&quot; /&gt;
-    &lt;/android.support.v7.widget.CardView&gt;
-&lt;/LinearLayout&gt;
-</code></pre>
-
-<p>可以看出，核心部分在于CardView的属性使用，下面我们针对几个特殊的属性逐一分析，深化了解。</p>
+        <span class="nt">&lt;TextView</span>
+            <span class="na">android:id=</span><span class="s">&quot;@+id/info_text&quot;</span>
+            <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+            <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/android.support.v7.widget.CardView&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div>
+可以看出，核心部分在于CardView的属性使用，下面我们针对几个特殊的属性逐一分析，深化了解。</p>
 <h2 id="z">关于Z轴</h2>
 <p>Android5.0 引入了Z轴的概念，可以让组件呈现3D效果.</p>
 <p><img alt="" src="../Android%E5%BC%80%E5%8F%91%EF%BC%9A%E4%BD%BF%E7%94%A8CardView%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E5%BC%8F%E8%AE%BE%E8%AE%A1.assets/8869373-a0fc7ea8a0da7528.png" /></p>
@@ -3661,59 +3660,58 @@
 <h2 id="lift-on-touch">lift-on-touch</h2>
 <p>根据官网<a href="https://material.google.com/motion/material-motion.html#">Material motion</a>部分对交互动作规范的指导，Cards、Button等视图应该有一个触摸抬起（lift-on-touch）的交互效果，也就是在三维立体空间上的Z轴发生位移，从而产生一个阴影加深的效果，与Ripple效果共同使用，官网给了一个很好的示例图：
 <img alt="" src="../Android%E5%BC%80%E5%8F%91%EF%BC%9A%E4%BD%BF%E7%94%A8CardView%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E5%BC%8F%E8%AE%BE%E8%AE%A1.assets/8869373-840421b58db987ed.png" /></p>
-<p>在实现这个效果也很简单，可以在<code>res/drawable</code>目录下建立一个lift_on_touch.xml文件，内容如下：</p>
-<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;!-- animate the translationZ property of a view when pressed --&gt;
-&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
-    &lt;item
-        android:state_enabled=&quot;true&quot;
-        android:state_pressed=&quot;true&quot;&gt;
-        &lt;set&gt;
-            &lt;objectAnimator
-                android:duration=&quot;@android:integer/config_shortAnimTime&quot;
-                android:propertyName=&quot;translationZ&quot;
-                android:valueTo=&quot;6dp&quot;
-                android:valueType=&quot;floatType&quot;/&gt;
-        &lt;/set&gt;
-    &lt;/item&gt;
-    &lt;item&gt;
-        &lt;set&gt;
-            &lt;objectAnimator
-                android:duration=&quot;@android:integer/config_shortAnimTime&quot;
-                android:propertyName=&quot;translationZ&quot;
-                android:valueTo=&quot;0&quot;
-                android:valueType=&quot;floatType&quot;/&gt;
-        &lt;/set&gt;
-    &lt;/item&gt;
-&lt;/selector&gt;
-</code></pre>
-
+<p>在实现这个效果也很简单，可以在<code>res/drawable</code>目录下建立一个lift_on_touch.xml文件，内容如下：
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="c">&lt;!-- animate the translationZ property of a view when pressed --&gt;</span>
+<span class="nt">&lt;selector</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span>
+        <span class="na">android:state_enabled=</span><span class="s">&quot;true&quot;</span>
+        <span class="na">android:state_pressed=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;set&gt;</span>
+            <span class="nt">&lt;objectAnimator</span>
+                <span class="na">android:duration=</span><span class="s">&quot;@android:integer/config_shortAnimTime&quot;</span>
+                <span class="na">android:propertyName=</span><span class="s">&quot;translationZ&quot;</span>
+                <span class="na">android:valueTo=</span><span class="s">&quot;6dp&quot;</span>
+                <span class="na">android:valueType=</span><span class="s">&quot;floatType&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/set&gt;</span>
+    <span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>
+        <span class="nt">&lt;set&gt;</span>
+            <span class="nt">&lt;objectAnimator</span>
+                <span class="na">android:duration=</span><span class="s">&quot;@android:integer/config_shortAnimTime&quot;</span>
+                <span class="na">android:propertyName=</span><span class="s">&quot;translationZ&quot;</span>
+                <span class="na">android:valueTo=</span><span class="s">&quot;0&quot;</span>
+                <span class="na">android:valueType=</span><span class="s">&quot;floatType&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/set&gt;</span>
+    <span class="nt">&lt;/item&gt;</span>
+<span class="nt">&lt;/selector&gt;</span>
+</code></pre></div></p>
 <p>即通过属性动画动态改变translationZ值，沿着Z轴，从0dp到6dp变化。这里的6dp值也是有出处的，参考<a href="https://github.com/google/iosched/blob/master/android/src/main/res/values/dimens.xml#L122">Google I/O 2014 app</a>和<a href="https://developer.android.com/training/material/shadows-clipping.html#Elevation">Assign Elevation to Your Views</a>。然后将其赋值给<code>android:stateListAnimator</code>属性即可。由于<code>stateListAnimator</code>属性只适用于Lollipop及以上版本，为了隐藏xml中的版本警告，可以指定<code>tools:targetApi="lollipop"</code>。</p>
 <p>关于这个功能，需要补充说明一点。这里的<code>lift_on_touch.xml</code>，严格意义上来讲，属于anim资源，同时适用于API 21及以上版本，所以按道理上来讲应该将其放置在<code>res/anim-v21</code>目录下，然后使用<code>@anim/lift_on_touch</code>赋值给<code>stateListAnimator</code>属性，而不是例子中的<code>@drawable/lift_on_touch</code>方法。但是放置在<code>res/anim-v21</code>目录下会产生一个“错误”提示：</p>
-<pre><code>&lt;selector style=&quot;box-sizing: border-box;&quot;&gt;XML file should be in either “animator” or “drawable”,not “anim”&lt;/selector&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code>&lt;selector style=&quot;box-sizing: border-box;&quot;&gt;XML file should be in either “animator” or “drawable”,not “anim”&lt;/selector&gt;
+</code></pre></div>
 
 <p>虽然这个“错误”不影响编译运行，但是对于追求完美主义的程序员们来说还是碍眼，所以本例中我选择将其放在了<code>res/drawable</code>目录下，大家可以自行斟酌使用。</p>
 <p>关于对lift-on-touch效果的理解，YouToBe网站有个视频解说，感兴趣的话可以参看看，地址如下：
 <a href="https://www.youtube.com/watch?v=YaG_ljfzeUw">DesignBytes: Paper and Ink: The Materials that Matter</a></p>
 <h2 id="_6">总结说明</h2>
 <p>CardView还有一些其他属性可供使用，比如cardElevation设置阴影大小，contentPadding代替普通android:padding属性等，比较基础，本文就不一一介绍了，大家可以在官网上参考学习。从上面的介绍可以看出，在使用CardView时基本上都会用到一些标准配置的属性，我们可以借助style属性，将其封装到styles.xml文件中，统一管理，比如：</p>
-<pre><code class="xml">&lt;style name=&quot;AppCardView&quot; parent=&quot;@style/CardView.Light&quot;&gt;
-        &lt;item name=&quot;cardPreventCornerOverlap&quot;&gt;false&lt;/item&gt;
-        &lt;item name=&quot;cardUseCompatPadding&quot;&gt;true&lt;/item&gt;
-        &lt;item name=&quot;android:foreground&quot;&gt;?attr/selectableItemBackground&lt;/item&gt;
-        &lt;item name=&quot;android:stateListAnimator&quot; tools:targetApi=&quot;lollipop&quot;&gt;@anim/lift_up&lt;/item&gt;
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">&quot;AppCardView&quot;</span> <span class="na">parent=</span><span class="s">&quot;@style/CardView.Light&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;cardPreventCornerOverlap&quot;</span><span class="nt">&gt;</span>false<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;cardUseCompatPadding&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;android:foreground&quot;</span><span class="nt">&gt;</span>?attr/selectableItemBackground<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">&quot;android:stateListAnimator&quot;</span> <span class="na">tools:targetApi=</span><span class="s">&quot;lollipop&quot;</span><span class="nt">&gt;</span>@anim/lift_up<span class="nt">&lt;/item&gt;</span>
         ......
-&lt;/style&gt;
-</code></pre>
+<span class="nt">&lt;/style&gt;</span>
+</code></pre></div>
 
 <h2 id="_7">参考资料</h2>
 <ul>
-<li>谷歌官方文档 https://developer.android.com/reference/android/support/v7/widget/CardView</li>
-<li>谷歌官方文档 https://developer.android.com/guide/topics/ui/layout/cardview</li>
-<li>http://yifeng.studio/2016/10/18/android-cardview/</li>
-<li>https://www.jianshu.com/p/b105019028b6</li>
-<li>http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/1025/3621.html</li>
+<li>谷歌官方文档 <a href="https://developer.android.com/reference/android/support/v7/widget/CardView">https://developer.android.com/reference/android/support/v7/widget/CardView</a></li>
+<li>谷歌官方文档 <a href="https://developer.android.com/guide/topics/ui/layout/cardview">https://developer.android.com/guide/topics/ui/layout/cardview</a></li>
+<li><a href="http://yifeng.studio/2016/10/18/android-cardview/">http://yifeng.studio/2016/10/18/android-cardview/</a></li>
+<li><a href="https://www.jianshu.com/p/b105019028b6">https://www.jianshu.com/p/b105019028b6</a></li>
+<li><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/1025/3621.html">http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/1025/3621.html</a></li>
 </ul>
 <h2 id="_8">欢迎与我交流</h2>
 <ul>
@@ -3795,6 +3793,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

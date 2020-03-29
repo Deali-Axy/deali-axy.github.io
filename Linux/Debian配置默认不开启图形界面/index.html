@@ -3483,90 +3483,83 @@
 现在的Linux发行版默认登陆界面几乎都是默认为GUI界面，如果按照旧版本的修改inittab文件，在一些比较新的版本是没有这个文件的(Linux的启动服务机制发生改变)</p>
 </blockquote>
 <h2 id="grub">修改Grub配置文件</h2>
-<p>打开grup配置文件</p>
-<pre><code class="python">nano /etc/default/grub 
-</code></pre>
+<p>打开grup配置文件
+<div class="highlight"><pre><span></span><code><span class="n">nano</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">grub</span> 
+</code></pre></div>
+修改
+<div class="highlight"><pre><span></span><code><span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="err">””</span> <span class="err">为</span><span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="err">”</span><span class="n">text</span><span class="err">”</span> 
+</code></pre></div>
+更新grub
+<div class="highlight"><pre><span></span><code><span class="n">update</span><span class="o">-</span><span class="n">grub</span> 
+</code></pre></div>
+更新系统服务管理器配置
+<div class="highlight"><pre><span></span><code><span class="n">systemctl</span> <span class="nb">set</span><span class="o">-</span><span class="n">default</span> <span class="n">multi</span><span class="o">-</span><span class="n">user</span><span class="o">.</span><span class="n">target</span> 
+</code></pre></div>
+重启：<code>init 6</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># If you change this file, run ‘update-grub’ afterwards to update </span>
+<span class="c1"># /boot/grub/grub.cfg. </span>
+<span class="c1"># For full documentation of the options in this file, see: </span>
+<span class="c1"># info -f grub -n ‘Simple configuration’</span>
 
-<p>修改</p>
-<pre><code class="py">GRUB_CMDLINE_LINUX=”” 为GRUB_CMDLINE_LINUX=”text” 
-</code></pre>
+<span class="n">GRUB_DEFAULT</span><span class="o">=</span><span class="mi">0</span> 
+<span class="n">GRUB_TIMEOUT</span><span class="o">=</span><span class="mi">5</span> 
+<span class="n">GRUB_DISTRIBUTOR</span><span class="o">=</span><span class="n">lsb_release</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">s</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span> <span class="o">||</span> <span class="n">echo</span> <span class="n">Debian</span> 
+<span class="n">GRUB_CMDLINE_LINUX_DEFAULT</span><span class="o">=</span><span class="s2">&quot;quiet&quot;</span>
+<span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&quot;text&quot;</span>
 
-<p>更新grub</p>
-<pre><code class="py">update-grub 
-</code></pre>
+<span class="c1"># Uncomment to enable BadRAM filtering, modify to suit your needs </span>
+<span class="c1"># This works with Linux (no patch required) and with any kernel that obtains </span>
+<span class="c1"># the memory map information from GRUB (GNU Mach, kernel of FreeBSD …) </span>
+<span class="c1">#GRUB_BADRAM=”0x01234567,0xfefefefe,0x89abcdef,0xefefefef”</span>
 
-<p>更新系统服务管理器配置</p>
-<pre><code class="py">systemctl set-default multi-user.target 
-</code></pre>
+<span class="c1"># Uncomment to disable graphical terminal (grub-pc only) </span>
+<span class="c1">#GRUB_TERMINAL=console</span>
 
-<p>重启：<code>init 6</code></p>
-<pre><code class="python">
-# If you change this file, run ‘update-grub’ afterwards to update 
-# /boot/grub/grub.cfg. 
-# For full documentation of the options in this file, see: 
-# info -f grub -n ‘Simple configuration’
+<span class="c1"># The resolution used on graphical terminal </span>
+<span class="c1"># note that you can use only modes which your graphic card supports via VBE </span>
+<span class="c1"># you can see them in real GRUB with the command `vbeinfo’ </span>
+<span class="c1">#GRUB_GFXMODE=640x480</span>
 
-GRUB_DEFAULT=0 
-GRUB_TIMEOUT=5 
-GRUB_DISTRIBUTOR=lsb_release -i -s 2&gt; /dev/null || echo Debian 
-GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet&quot;
-GRUB_CMDLINE_LINUX=&quot;text&quot;
+<span class="c1"># Uncomment if you don’t want GRUB to pass “root=UUID=xxx” parameter to Linux </span>
+<span class="c1">#GRUB_DISABLE_LINUX_UUID=true</span>
 
-# Uncomment to enable BadRAM filtering, modify to suit your needs 
-# This works with Linux (no patch required) and with any kernel that obtains 
-# the memory map information from GRUB (GNU Mach, kernel of FreeBSD …) 
-#GRUB_BADRAM=”0x01234567,0xfefefefe,0x89abcdef,0xefefefef”
+<span class="c1"># Uncomment to disable generation of recovery mode menu entries </span>
+<span class="c1">#GRUB_DISABLE_RECOVERY=”true”</span>
 
-# Uncomment to disable graphical terminal (grub-pc only) 
-#GRUB_TERMINAL=console
-
-# The resolution used on graphical terminal 
-# note that you can use only modes which your graphic card supports via VBE 
-# you can see them in real GRUB with the command `vbeinfo’ 
-#GRUB_GFXMODE=640x480
-
-# Uncomment if you don’t want GRUB to pass “root=UUID=xxx” parameter to Linux 
-#GRUB_DISABLE_LINUX_UUID=true
-
-# Uncomment to disable generation of recovery mode menu entries 
-#GRUB_DISABLE_RECOVERY=”true”
-
-# Uncomment to get a beep at grub start 
-#GRUB_INIT_TUNE=”480 440 1”
-</code></pre>
+<span class="c1"># Uncomment to get a beep at grub start </span>
+<span class="c1">#GRUB_INIT_TUNE=”480 440 1”</span>
+</code></pre></div>
 
 <h2 id="debian-root">解除debian root用户登陆限制</h2>
-<p>打开gdm配置文件：</p>
-<pre><code class="py">nano /etc/gdm3/deamon.conf 
-</code></pre>
-
-<p>配置安全设置：
+<p>打开gdm配置文件：
+<div class="highlight"><pre><span></span><code><span class="n">nano</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">gdm3</span><span class="o">/</span><span class="n">deamon</span><span class="o">.</span><span class="n">conf</span> 
+</code></pre></div>
+配置安全设置：
 <code>[security]</code> 下一行添加 <code>AllowRoot = ture</code>
 去除gdm登陆用户名检测：
 打开文件 <code>/etc/pam.d/gdm-autologin</code>，并其相关配置信息删除或注释掉：<code>auth required pam_succeed_if.so user != root quiet_success</code></p>
-<p>修改后的gdm-autologin文件：</p>
-<pre><code class="py">#%PAM-1.0 
-auth requisite pam_nologin.so 
-#auth required pam_succeed_if.so user != root quiet_success 
-auth required pam_permit.so 
-@include common-account 
-# SELinux needs to be the first session rule. This ensures that any 
-# lingering context has been cleared. Without this it is possible 
-# that a module could execute code in the wrong domain. 
-session [success=ok ignore=ignore module_unknown=ignore default=bad] pam_selinux.so close 
-session required pam_loginuid.so 
-# SELinux needs to intervene at login time to ensure that the process 
-# starts in the proper default security context. Only sessions which are 
-# intended to run in the user’s context should be run after this. 
-session [success=ok ignore=ignore module_unknown=ignore default=bad] pam_selinux.so open 
-session optional pam_keyinit.so force revoke 
-session required pam_limits.so 
-session required pam_env.so readenv=1 
-session required pam_env.so readenv=1 envfile=/etc/default/locale 
-@include common-session 
-@include common-password
-</code></pre>
-
+<p>修改后的gdm-autologin文件：
+<div class="highlight"><pre><span></span><code><span class="c1">#%PAM-1.0 </span>
+<span class="n">auth</span> <span class="n">requisite</span> <span class="n">pam_nologin</span><span class="o">.</span><span class="n">so</span> 
+<span class="c1">#auth required pam_succeed_if.so user != root quiet_success </span>
+<span class="n">auth</span> <span class="n">required</span> <span class="n">pam_permit</span><span class="o">.</span><span class="n">so</span> 
+<span class="nd">@include</span> <span class="n">common</span><span class="o">-</span><span class="n">account</span> 
+<span class="c1"># SELinux needs to be the first session rule. This ensures that any </span>
+<span class="c1"># lingering context has been cleared. Without this it is possible </span>
+<span class="c1"># that a module could execute code in the wrong domain. </span>
+<span class="n">session</span> <span class="p">[</span><span class="n">success</span><span class="o">=</span><span class="n">ok</span> <span class="n">ignore</span><span class="o">=</span><span class="n">ignore</span> <span class="n">module_unknown</span><span class="o">=</span><span class="n">ignore</span> <span class="n">default</span><span class="o">=</span><span class="n">bad</span><span class="p">]</span> <span class="n">pam_selinux</span><span class="o">.</span><span class="n">so</span> <span class="n">close</span> 
+<span class="n">session</span> <span class="n">required</span> <span class="n">pam_loginuid</span><span class="o">.</span><span class="n">so</span> 
+<span class="c1"># SELinux needs to intervene at login time to ensure that the process </span>
+<span class="c1"># starts in the proper default security context. Only sessions which are </span>
+<span class="c1"># intended to run in the user’s context should be run after this. </span>
+<span class="n">session</span> <span class="p">[</span><span class="n">success</span><span class="o">=</span><span class="n">ok</span> <span class="n">ignore</span><span class="o">=</span><span class="n">ignore</span> <span class="n">module_unknown</span><span class="o">=</span><span class="n">ignore</span> <span class="n">default</span><span class="o">=</span><span class="n">bad</span><span class="p">]</span> <span class="n">pam_selinux</span><span class="o">.</span><span class="n">so</span> <span class="nb">open</span> 
+<span class="n">session</span> <span class="n">optional</span> <span class="n">pam_keyinit</span><span class="o">.</span><span class="n">so</span> <span class="n">force</span> <span class="n">revoke</span> 
+<span class="n">session</span> <span class="n">required</span> <span class="n">pam_limits</span><span class="o">.</span><span class="n">so</span> 
+<span class="n">session</span> <span class="n">required</span> <span class="n">pam_env</span><span class="o">.</span><span class="n">so</span> <span class="n">readenv</span><span class="o">=</span><span class="mi">1</span> 
+<span class="n">session</span> <span class="n">required</span> <span class="n">pam_env</span><span class="o">.</span><span class="n">so</span> <span class="n">readenv</span><span class="o">=</span><span class="mi">1</span> <span class="n">envfile</span><span class="o">=/</span><span class="n">etc</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">locale</span> 
+<span class="nd">@include</span> <span class="n">common</span><span class="o">-</span><span class="n">session</span> 
+<span class="nd">@include</span> <span class="n">common</span><span class="o">-</span><span class="n">password</span>
+</code></pre></div></p>
 <h2 id="about">About</h2>
 <h2 id="_2"><img alt="" src="../Debian%E9%85%8D%E7%BD%AE%E9%BB%98%E8%AE%A4%E4%B8%8D%E5%BC%80%E5%90%AF%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2.assets/8869373-901590e019f6f85b.png" /></h2>
 <p>了解更多有趣的操作请关注我的微信公众号：DealiAxy
@@ -3644,6 +3637,8 @@ session required pam_env.so readenv=1 envfile=/etc/default/locale
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

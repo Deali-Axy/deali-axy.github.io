@@ -3630,50 +3630,45 @@
 <p>最近笔者把一个django项目部署到一个新的服务器上，而这个服务器给的是CentOS6版本的系统，官方源很旧，yum管理器被运维搞坏了，没办法加载epel源，所以想要用nginx就只能自己编译安装咯～</p>
 <h2 id="nginx">下载nginx代码</h2>
 <p>首先到Nginx的官网下载安装文件。
-链接：http://nginx.org/
+链接：<a href="http://nginx.org/">http://nginx.org/</a>
 我用的版本是：nginx-1.12.1.tar.gz</p>
 <h2 id="_2">安装编译所需环境</h2>
 <h3 id="gcc">安装gcc</h3>
-<p>安装 nginx 需要先将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境，则需要安装：</p>
-<pre><code>yum install gcc-c++
-</code></pre>
-
+<p>安装 nginx 需要先将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境，则需要安装：
+<div class="highlight"><pre><span></span><code>yum install gcc-c++
+</code></pre></div></p>
 <h3 id="pcre-pcre-devel">安装PCRE pcre-devel</h3>
-<p>PCRE(Perl Compatible Regular Expressions) 是一个Perl库，包括 perl 兼容的正则表达式库。nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 linux 上安装 pcre 库，pcre-devel 是使用 pcre 开发的一个二次开发库。nginx也需要此库。命令：</p>
-<pre><code>yum install -y pcre pcre-devel
-</code></pre>
-
+<p>PCRE(Perl Compatible Regular Expressions) 是一个Perl库，包括 perl 兼容的正则表达式库。nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 linux 上安装 pcre 库，pcre-devel 是使用 pcre 开发的一个二次开发库。nginx也需要此库。命令：
+<div class="highlight"><pre><span></span><code>yum install -y pcre pcre-devel
+</code></pre></div></p>
 <h3 id="zlib">安装zlib</h3>
-<p>zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库。</p>
-<pre><code>yum install -y zlib zlib-devel
-</code></pre>
-
+<p>zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库。
+<div class="highlight"><pre><span></span><code>yum install -y zlib zlib-devel
+</code></pre></div></p>
 <h3 id="openssl">安装OpenSSL</h3>
 <p>OpenSSL 是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及 SSL 协议，并提供丰富的应用程序供测试或其它目的使用。
-nginx 不仅支持 http 协议，还支持 https（即在ssl协议上传输http），所以需要在 Centos 安装 OpenSSL 库。</p>
-<pre><code>yum install -y openssl openssl-devel
-</code></pre>
-
+nginx 不仅支持 http 协议，还支持 https（即在ssl协议上传输http），所以需要在 Centos 安装 OpenSSL 库。
+<div class="highlight"><pre><span></span><code>yum install -y openssl openssl-devel
+</code></pre></div></p>
 <p>安装完成以上四项之后才可以执行安装Nginx。</p>
 <h2 id="nginx_1">安装nginx</h2>
 <h3 id="_3">解压</h3>
-<pre><code>tar zxvf nginx-1.12.1.tar.gz
-</code></pre>
+<div class="highlight"><pre><span></span><code>tar zxvf nginx-1.12.1.tar.gz
+</code></pre></div>
 
 <h3 id="_4">编译</h3>
-<pre><code>cd nginx-1.12.1
+<div class="highlight"><pre><span></span><code>cd nginx-1.12.1
 ./configure
 make
 make install
-</code></pre>
+</code></pre></div>
 
-<p>执行完以上命令之后就完成Nginx的安装，但解压目录并不是安装目录，以下通过下面的命令进行查找安装目录，本机执行完成安装目录为：<code>/usr/local/nginx</code></p>
-<pre><code>whereis nginx
-</code></pre>
-
+<p>执行完以上命令之后就完成Nginx的安装，但解压目录并不是安装目录，以下通过下面的命令进行查找安装目录，本机执行完成安装目录为：<code>/usr/local/nginx</code>
+<div class="highlight"><pre><span></span><code>whereis nginx
+</code></pre></div></p>
 <h3 id="nginx_2">启动与停止nginx</h3>
 <p>启动、停止nginx必须进入安装目录的sbin目录中执行，也可以外面执行，但需要写全目录</p>
-<pre><code># 启动
+<div class="highlight"><pre><span></span><code># 启动
 /usr/local/nginx/sbin/nginx
 
 # 停止
@@ -3681,28 +3676,25 @@ make install
 /usr/local/nginx/sbin/nginx -s stop
 # 下面命令待nginx进程处理任务完毕进行停止
 /usr/local/nginx/sbin/nginx -s quit
-</code></pre>
+</code></pre></div>
 
 <h3 id="_5">重新加载配置文件</h3>
-<p>重新加载配置文件，当 ngin x的配置文件 nginx.conf 修改后，要想让配置生效需要重启 nginx，使用-s reload不用先停止 ngin x再启动 nginx 即可将配置信息在 nginx 中生效</p>
-<pre><code>/usr/local/nginx/sbin/nginx -s reload
-</code></pre>
-
-<p>推荐的重启nginx顺序：对 nginx 进行重启相当于先停止再启动，即先执行停止命令再执行启动命令。</p>
-<pre><code>/usr/local/nginx/sbin/nginx -s quit
+<p>重新加载配置文件，当 ngin x的配置文件 nginx.conf 修改后，要想让配置生效需要重启 nginx，使用-s reload不用先停止 ngin x再启动 nginx 即可将配置信息在 nginx 中生效
+<div class="highlight"><pre><span></span><code>/usr/local/nginx/sbin/nginx -s reload
+</code></pre></div></p>
+<p>推荐的重启nginx顺序：对 nginx 进行重启相当于先停止再启动，即先执行停止命令再执行启动命令。
+<div class="highlight"><pre><span></span><code>/usr/local/nginx/sbin/nginx -s quit
 /usr/local/nginx/sbin/nginx
-</code></pre>
-
+</code></pre></div></p>
 <blockquote>
 <p>PS：推荐把<code>/usr/local/nginx/sbin/</code>加入到环境变量里面，这样使用nginx的时候就不用输入整个目录了。</p>
 </blockquote>
 <h2 id="_6">设置开机自启动</h2>
 <p>编辑：<code>/etc/rc.local</code>
 增加一行：<code>/usr/local/nginx/sbin/nginx</code></p>
-<p>设置执行权限：</p>
-<pre><code>chmod 755 rc.local
-</code></pre>
-
+<p>设置执行权限：
+<div class="highlight"><pre><span></span><code>chmod 755 rc.local
+</code></pre></div></p>
 <h2 id="about">About</h2>
 <p><img alt="" src="../CentOS6%E5%AE%89%E8%A3%85Nginx%EF%BC%8CLinux%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Nginx.assets/8869373-901590e019f6f85b.png" /></p>
 <hr />
@@ -3781,6 +3773,8 @@ make install
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

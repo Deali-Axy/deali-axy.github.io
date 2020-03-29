@@ -3589,10 +3589,10 @@
                   <h1>操作系统学习三：进程调度与死锁 以及银行家算法避免死锁  NetCore实现</h1>
                 
                 <h2 id="_1">前言</h2>
-<p>这是操作系统学习的第三篇啦，关于进程调度有很多内容，操作系统在调度进程的时候最容易遇到的问题就是死锁了，<strong>银行家算法</strong>是一个典型的避免死锁算法。</p>
+<p>这是操作系统学习的第三篇啦，关于进程调度有很多内容，操作系统在调度进程的时候最容易遇到的问题就是死锁了，**银行家算法**是一个典型的避免死锁算法。</p>
 <h2 id="_2">死锁的概念</h2>
 <p>先来了解一下死锁的基本概念：<strong>一组竞争系统资源或相互通信的进程相互的“永久”阻塞。若无外力作用，这组进程将永远不能继续执行。</strong></p>
-<p>看下面两幅图片，左边是可能产生死锁的状态，四辆汽车（进程）要竞争同一个资源（通过路口），如果系统调度不当，就会陷入死锁状态，如右图<em>（每辆车占据一个车道（资源），所需车道（资源）被另一辆车占据。）</em>。</p>
+<p>看下面两幅图片，左边是可能产生死锁的状态，四辆汽车（进程）要竞争同一个资源（通过路口），如果系统调度不当，就会陷入死锁状态，如右图*（每辆车占据一个车道（资源），所需车道（资源）被另一辆车占据。）*。</p>
 <p><img alt="" src="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E4%B8%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%B8%8E%E6%AD%BB%E9%94%81-%E4%BB%A5%E5%8F%8A%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81--NetCore%E5%AE%9E%E7%8E%B0.assets/8869373-1404068f0d4e4cce.png" /></p>
 <h2 id="_3">产生死锁的原因</h2>
 <p>产生死锁的原因主要有两点：</p>
@@ -3633,17 +3633,17 @@
 <blockquote>
 <ul>
 <li>
-<p>前面三个条件是必要条件，<strong>环路条件</strong>是必要条件。</p>
+<p>前面三个条件是必要条件，**环路条件**是必要条件。</p>
 </li>
 <li>
-<p>第一个<strong>互斥</strong>是资源的固有属性，没办法禁止的。</p>
+<p>第一个**互斥**是资源的固有属性，没办法禁止的。</p>
 </li>
 <li>只要破坏后面3个条件中的任意条件，就可以预防或者避免死锁。</li>
 </ul>
 </blockquote>
 <h2 id="_5">银行家算法</h2>
 <p>这是仿照银行发放贷款时采取的控制方式而设计的一种死锁避免算法。其特点是所有客户的信用额度可以超过银行的全部资本。</p>
-<p>银行家算法的目标：<strong>所有客户的信用额度之和可以超过银行的全部资本，这就是杠杆。 </strong></p>
+<p>银行家算法的目标：**所有客户的信用额度之和可以超过银行的全部资本，这就是杠杆。 **</p>
 <h2 id="_6">主要思想</h2>
 <p>银行家算法的主要思想如下：</p>
 <ol>
@@ -3700,12 +3700,12 @@
 <p>1． 如果<code>Request ≤Need[i]</code>，则转向步骤2；否则，认为出错，因为它所请求的资源数已超过它当前的最大需求量。</p>
 <p>2． 如果<code>Request ≤Available</code>，则转向步骤3；否则，表示系统中尚无足够的资源满足进程i的申请，进程i必须等待。</p>
 <p>3． 系统试探性地把资源分配给进程i，并修改下面数据结构中的数值：</p>
-<pre><code class="c++">Available = Available - Request 
+<div class="highlight"><pre><span></span><code><span class="n">Available</span> <span class="o">=</span> <span class="n">Available</span> <span class="o">-</span> <span class="n">Request</span> 
 
-Allocation[i]= Allocation[i]+ Request
+<span class="n">Allocation</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span> <span class="n">Allocation</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span> <span class="n">Request</span>
 
-Need[i]= Need[i] - Request 
-</code></pre>
+<span class="n">Need</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span> <span class="n">Need</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">Request</span> 
+</code></pre></div>
 
 <p>4． 系统执行安全性算法，检查此次资源分配后，系统是否处于安全状态。如果安全才正式将资源分配给进程i，以完成本次分配；否则，将试探分配作废，恢复原来的资源分配状态，让进程i等待。</p>
 <h2 id="_10">安全性测试算法</h2>
@@ -3729,345 +3729,345 @@ Need[i]= Need[i] - Request
 <p>好啦，关于概念和原理都讲清楚了，接下来贴上代码。</p>
 <p>代码里已经写了详细的注释了，虽然是面向过程的写法，但是结构也很清晰。</p>
 <p><strong>首先定义进程类</strong></p>
-<pre><code class="c#">namespace OperatingSystemExperiment.Exp3 {
-    public class ProcessExp3 {
-        public int Id;
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span> <span class="nn">OperatingSystemExperiment.Exp3</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">ProcessExp3</span> <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">Id</span><span class="p">;</span>
 
-        /// &lt;summary&gt;
-        /// 进程最大（各类）资源需求数：信用额度
-        /// &lt;/summary&gt;
-        public int[] Max;
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// 进程最大（各类）资源需求数：信用额度</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">public</span> <span class="kt">int</span><span class="p">[]</span> <span class="n">Max</span><span class="p">;</span>
 
-        /// &lt;summary&gt;
-        /// 已分配给进程的资源：贷款
-        /// &lt;/summary&gt;
-        public int[] Allocation;
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// 已分配给进程的资源：贷款</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">public</span> <span class="kt">int</span><span class="p">[]</span> <span class="n">Allocation</span><span class="p">;</span>
 
-        /// &lt;summary&gt;
-        /// 进程还需要的资源：信用额度 - 贷款
-        /// &lt;/summary&gt;
-        public int[] Need;
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// 进程还需要的资源：信用额度 - 贷款</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">public</span> <span class="kt">int</span><span class="p">[]</span> <span class="n">Need</span><span class="p">;</span>
 
-        public ProcessExp3(int id) =&gt; this.Id = id;
+        <span class="k">public</span> <span class="nf">ProcessExp3</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="n">Id</span> <span class="p">=</span> <span class="n">id</span><span class="p">;</span>
 
 
-        public void EvaluateNeedResource()
-        {
-            Need = new int[Max.Length];
-            for (var i = 0; i &lt; Max.Length; i++) {
-                Need[i] = Max[i] - Allocation[i];
-            }
-        }
-    }
-}
-</code></pre>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">EvaluateNeedResource</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Need</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">Max</span><span class="p">.</span><span class="n">Length</span><span class="p">];</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">Max</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+                <span class="n">Need</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">=</span> <span class="n">Max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">-</span> <span class="n">Allocation</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p><strong>算法实现代码：</strong></p>
-<pre><code class="c#">using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
 
-namespace OperatingSystemExperiment.Exp3 {
-    public class Main {
-        private int _resourceClassesCount = 0;
-        private int _processCount = 0;
+<span class="k">namespace</span> <span class="nn">OperatingSystemExperiment.Exp3</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Main</span> <span class="p">{</span>
+        <span class="k">private</span> <span class="kt">int</span> <span class="n">_resourceClassesCount</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+        <span class="k">private</span> <span class="kt">int</span> <span class="n">_processCount</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
 
-        private List&lt;ProcessExp3&gt; _processes = new List&lt;ProcessExp3&gt;();
+        <span class="k">private</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ProcessExp3</span><span class="p">&gt;</span> <span class="n">_processes</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ProcessExp3</span><span class="p">&gt;();</span>
 
-        /// &lt;summary&gt;
-        /// 系统全部可分配资源：银行流动资金
-        /// &lt;/summary&gt;
-        private List&lt;int&gt; _resource = new List&lt;int&gt;();
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// 系统全部可分配资源：银行流动资金</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">private</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">_resource</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
 
-        /// &lt;summary&gt;
-        /// 系统剩余可分配资源
-        /// &lt;/summary&gt;
-        private List&lt;int&gt; _available = new List&lt;int&gt;();
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// 系统剩余可分配资源</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">private</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">_available</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
 
-        private Main()
-        {
-            // 获取当前系统资源分配状态
-            LoadAllAvailableResource();
-            LoadProcessMaxResource();
+        <span class="k">private</span> <span class="nf">Main</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="c1">// 获取当前系统资源分配状态</span>
+            <span class="n">LoadAllAvailableResource</span><span class="p">();</span>
+            <span class="n">LoadProcessMaxResource</span><span class="p">();</span>
 
-            var continueFlag = true;
-            while (continueFlag) {
-                mainLoop:
-                // 获取各进程已分配资源
-                LoadAllocationResource();
-                // 评估每个进程还需要的资源
-                EvaluateNeedResource();
+            <span class="kt">var</span> <span class="n">continueFlag</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">continueFlag</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">mainLoop</span><span class="p">:</span>
+                <span class="c1">// 获取各进程已分配资源</span>
+                <span class="n">LoadAllocationResource</span><span class="p">();</span>
+                <span class="c1">// 评估每个进程还需要的资源</span>
+                <span class="n">EvaluateNeedResource</span><span class="p">();</span>
 
-                // 打印各数据结构当前值
-                PrintStatus();
-                Console.Write(&quot;请输入要操作的进程号：&quot;);
-                if (!int.TryParse(Console.ReadLine(), out var procId)) {
-                    Console.WriteLine(&quot;\n请输入数字！&quot;);
-                    if (QueryExit()) Environment.Exit(0);
-                    else goto mainLoop;
-                }
+                <span class="c1">// 打印各数据结构当前值</span>
+                <span class="n">PrintStatus</span><span class="p">();</span>
+                <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;请输入要操作的进程号：&quot;</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(!</span><span class="kt">int</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">(),</span> <span class="k">out</span> <span class="kt">var</span> <span class="n">procId</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\n请输入数字！&quot;</span><span class="p">);</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">QueryExit</span><span class="p">())</span> <span class="n">Environment</span><span class="p">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+                    <span class="k">else</span> <span class="k">goto</span> <span class="n">mainLoop</span><span class="p">;</span>
+                <span class="p">}</span>
 
-                if (procId &lt; 0 || procId &gt;= _processes.Count) {
-                    Console.WriteLine(&quot;\n不存在进程号为 {0} 的进程！&quot;, procId);
-                    if (QueryExit()) Environment.Exit(0);
-                    else goto mainLoop;
-                }
+                <span class="k">if</span> <span class="p">(</span><span class="n">procId</span> <span class="p">&lt;</span> <span class="m">0</span> <span class="p">||</span> <span class="n">procId</span> <span class="p">&gt;=</span> <span class="n">_processes</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\n不存在进程号为 {0} 的进程！&quot;</span><span class="p">,</span> <span class="n">procId</span><span class="p">);</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">QueryExit</span><span class="p">())</span> <span class="n">Environment</span><span class="p">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+                    <span class="k">else</span> <span class="k">goto</span> <span class="n">mainLoop</span><span class="p">;</span>
+                <span class="p">}</span>
 
-                Console.Write(&quot;请输入资源请求向量：&quot;);
-                var request = Console.ReadLine();
-                var requestVector = Array.ConvertAll(request?.Split(' '), int.Parse);
+                <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;请输入资源请求向量：&quot;</span><span class="p">);</span>
+                <span class="kt">var</span> <span class="n">request</span> <span class="p">=</span> <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+                <span class="kt">var</span> <span class="n">requestVector</span> <span class="p">=</span> <span class="n">Array</span><span class="p">.</span><span class="n">ConvertAll</span><span class="p">(</span><span class="n">request</span><span class="p">?.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">),</span> <span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">);</span>
 
-                // 检查资源请求是否合理
-                var proc = _processes[procId];
-                Console.WriteLine(&quot;银行家算法检验中...&quot;);
-                for (var i = 0; i &lt; requestVector.Length; i++) {
-                    if (requestVector[i] &gt; proc.Need[i]) {
-                        Console.WriteLine(&quot;分配失败！资源类型 {0}，请求数量 {1}，超过进程所需数量 {2}&quot;,
-                            i, requestVector[i], proc.Need[i]);
-                        if (QueryExit()) Environment.Exit(0);
-                        else goto mainLoop;
-                    }
+                <span class="c1">// 检查资源请求是否合理</span>
+                <span class="kt">var</span> <span class="n">proc</span> <span class="p">=</span> <span class="n">_processes</span><span class="p">[</span><span class="n">procId</span><span class="p">];</span>
+                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;银行家算法检验中...&quot;</span><span class="p">);</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">requestVector</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">requestVector</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">proc</span><span class="p">.</span><span class="n">Need</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+                        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;分配失败！资源类型 {0}，请求数量 {1}，超过进程所需数量 {2}&quot;</span><span class="p">,</span>
+                            <span class="n">i</span><span class="p">,</span> <span class="n">requestVector</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">proc</span><span class="p">.</span><span class="n">Need</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">QueryExit</span><span class="p">())</span> <span class="n">Environment</span><span class="p">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+                        <span class="k">else</span> <span class="k">goto</span> <span class="n">mainLoop</span><span class="p">;</span>
+                    <span class="p">}</span>
 
-                    if (requestVector[i] &gt; proc.Max[i]) {
-                        Console.WriteLine(&quot;分配失败！资源类型 {0}，请求数量 {1}，超过进程最大资源数量 {2}&quot;,
-                            i, requestVector[i], proc.Need[i]);
-                        if (QueryExit()) Environment.Exit(0);
-                        else goto mainLoop;
-                    }
-                }
+                    <span class="k">if</span> <span class="p">(</span><span class="n">requestVector</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">proc</span><span class="p">.</span><span class="n">Max</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+                        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;分配失败！资源类型 {0}，请求数量 {1}，超过进程最大资源数量 {2}&quot;</span><span class="p">,</span>
+                            <span class="n">i</span><span class="p">,</span> <span class="n">requestVector</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">proc</span><span class="p">.</span><span class="n">Need</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">QueryExit</span><span class="p">())</span> <span class="n">Environment</span><span class="p">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+                        <span class="k">else</span> <span class="k">goto</span> <span class="n">mainLoop</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
 
-                // 保存当前状态
-                var tempAvailable = new List&lt;int&gt;(_available);
-                var tempAllocation = (int[]) proc.Allocation.Clone();
-                var tempNeed = (int[]) proc.Need.Clone();
-                // 资源预分配
-                for (var i = 0; i &lt; _resourceClassesCount; i++) {
-                    proc.Allocation[i] += requestVector[i];
-                    proc.Need[i] -= requestVector[i];
-                }
+                <span class="c1">// 保存当前状态</span>
+                <span class="kt">var</span> <span class="n">tempAvailable</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;(</span><span class="n">_available</span><span class="p">);</span>
+                <span class="kt">var</span> <span class="n">tempAllocation</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">[])</span> <span class="n">proc</span><span class="p">.</span><span class="n">Allocation</span><span class="p">.</span><span class="n">Clone</span><span class="p">();</span>
+                <span class="kt">var</span> <span class="n">tempNeed</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">[])</span> <span class="n">proc</span><span class="p">.</span><span class="n">Need</span><span class="p">.</span><span class="n">Clone</span><span class="p">();</span>
+                <span class="c1">// 资源预分配</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">_resourceClassesCount</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+                    <span class="n">proc</span><span class="p">.</span><span class="n">Allocation</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">+=</span> <span class="n">requestVector</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                    <span class="n">proc</span><span class="p">.</span><span class="n">Need</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">-=</span> <span class="n">requestVector</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="p">}</span>
 
-                if (SecurityEvaluate()) {
-                    Console.WriteLine(&quot;正在为进程 {0} 分配资源&quot;, proc.Id);
-                    // 写入资源分配文件
-                    var writer = new StreamWriter(Path.Combine(
-                        Environment.CurrentDirectory, &quot;Exp3&quot;, &quot;input&quot;, &quot;Allocation_list.txt&quot;), false);
-                    foreach (var p in _processes) {
-                        // 使用LinQ语句，构造输出行
-                        var line = p.Allocation.Aggregate(&quot;&quot;, (current, allocation) =&gt; current + (allocation + &quot; &quot;));
+                <span class="k">if</span> <span class="p">(</span><span class="n">SecurityEvaluate</span><span class="p">())</span> <span class="p">{</span>
+                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;正在为进程 {0} 分配资源&quot;</span><span class="p">,</span> <span class="n">proc</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
+                    <span class="c1">// 写入资源分配文件</span>
+                    <span class="kt">var</span> <span class="n">writer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamWriter</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span>
+                        <span class="n">Environment</span><span class="p">.</span><span class="n">CurrentDirectory</span><span class="p">,</span> <span class="s">&quot;Exp3&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;Allocation_list.txt&quot;</span><span class="p">),</span> <span class="k">false</span><span class="p">);</span>
+                    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">_processes</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="c1">// 使用LinQ语句，构造输出行</span>
+                        <span class="kt">var</span> <span class="n">line</span> <span class="p">=</span> <span class="n">p</span><span class="p">.</span><span class="n">Allocation</span><span class="p">.</span><span class="n">Aggregate</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">allocation</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">current</span> <span class="p">+</span> <span class="p">(</span><span class="n">allocation</span> <span class="p">+</span> <span class="s">&quot; &quot;</span><span class="p">));</span>
 
-                        writer.WriteLine(line.Trim());
-                    }
+                        <span class="n">writer</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">Trim</span><span class="p">());</span>
+                    <span class="p">}</span>
 
-                    Console.WriteLine(&quot;已经保存新的分配状态！&quot;);
-                    writer.Close();
-                }
-                else {
-                    Console.WriteLine(&quot;恢复试分配前的状态。&quot;);
-                    // 恢复预分配之前的状态
-                    _available = tempAvailable;
-                    proc.Allocation = tempAllocation;
-                    proc.Need = tempNeed;
-                }
+                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;已经保存新的分配状态！&quot;</span><span class="p">);</span>
+                    <span class="n">writer</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;恢复试分配前的状态。&quot;</span><span class="p">);</span>
+                    <span class="c1">// 恢复预分配之前的状态</span>
+                    <span class="n">_available</span> <span class="p">=</span> <span class="n">tempAvailable</span><span class="p">;</span>
+                    <span class="n">proc</span><span class="p">.</span><span class="n">Allocation</span> <span class="p">=</span> <span class="n">tempAllocation</span><span class="p">;</span>
+                    <span class="n">proc</span><span class="p">.</span><span class="n">Need</span> <span class="p">=</span> <span class="n">tempNeed</span><span class="p">;</span>
+                <span class="p">}</span>
 
-                continueFlag = !QueryExit();
-            }
-        }
+                <span class="n">continueFlag</span> <span class="p">=</span> <span class="p">!</span><span class="n">QueryExit</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-        /// &lt;summary&gt;
-        /// 安全性算法
-        /// &lt;/summary&gt;
-        private bool SecurityEvaluate()
-        {
-            var work = _available;
-            var finish = new bool[_processCount];
-            var found = false; // 判断标志
-            var finishCount = 0; // 满足条件的进程数目
-            var safeQueue = new List&lt;int&gt;();
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// 安全性算法</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">private</span> <span class="kt">bool</span> <span class="nf">SecurityEvaluate</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">work</span> <span class="p">=</span> <span class="n">_available</span><span class="p">;</span>
+            <span class="kt">var</span> <span class="n">finish</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">bool</span><span class="p">[</span><span class="n">_processCount</span><span class="p">];</span>
+            <span class="kt">var</span> <span class="n">found</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// 判断标志</span>
+            <span class="kt">var</span> <span class="n">finishCount</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="c1">// 满足条件的进程数目</span>
+            <span class="kt">var</span> <span class="n">safeQueue</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
 
-            while (finishCount &lt; _processCount) {
-                for (var procId = 0; procId &lt; _processCount; procId++) {
-                    var proc = _processes[procId];
+            <span class="k">while</span> <span class="p">(</span><span class="n">finishCount</span> <span class="p">&lt;</span> <span class="n">_processCount</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">procId</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">procId</span> <span class="p">&lt;</span> <span class="n">_processCount</span><span class="p">;</span> <span class="n">procId</span><span class="p">++)</span> <span class="p">{</span>
+                    <span class="kt">var</span> <span class="n">proc</span> <span class="p">=</span> <span class="n">_processes</span><span class="p">[</span><span class="n">procId</span><span class="p">];</span>
 
-                    if (!finish[procId]) {
-                        for (var resId = 0; resId &lt; work.Count; resId++) {
-                            Debug.WriteLine(&quot;安全性测试，procId={0} resId=(1)&quot;, procId, resId);
-                            if (proc.Need[resId] &gt; work[resId]) {
-                                Debug.WriteLine(&quot;NotFound! procId={0} resId={1}&quot;, procId, resId);
-                                found = false;
-                            }
-                            else {
-                                Debug.WriteLine(&quot;Found! procId={0} resId={1}&quot;, procId, resId);
-                                found = true;
-                            }
-                        }
-                    }
+                    <span class="k">if</span> <span class="p">(!</span><span class="n">finish</span><span class="p">[</span><span class="n">procId</span><span class="p">])</span> <span class="p">{</span>
+                        <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">resId</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">resId</span> <span class="p">&lt;</span> <span class="n">work</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span> <span class="n">resId</span><span class="p">++)</span> <span class="p">{</span>
+                            <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;安全性测试，procId={0} resId=(1)&quot;</span><span class="p">,</span> <span class="n">procId</span><span class="p">,</span> <span class="n">resId</span><span class="p">);</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">proc</span><span class="p">.</span><span class="n">Need</span><span class="p">[</span><span class="n">resId</span><span class="p">]</span> <span class="p">&gt;</span> <span class="n">work</span><span class="p">[</span><span class="n">resId</span><span class="p">])</span> <span class="p">{</span>
+                                <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;NotFound! procId={0} resId={1}&quot;</span><span class="p">,</span> <span class="n">procId</span><span class="p">,</span> <span class="n">resId</span><span class="p">);</span>
+                                <span class="n">found</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+                            <span class="p">}</span>
+                            <span class="k">else</span> <span class="p">{</span>
+                                <span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Found! procId={0} resId={1}&quot;</span><span class="p">,</span> <span class="n">procId</span><span class="p">,</span> <span class="n">resId</span><span class="p">);</span>
+                                <span class="n">found</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+                            <span class="p">}</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
 
-                    if (found) {
-                        // 模拟释放资源
-                        for (var t = 0; t &lt; work.Count; t++) {
-                            work[t] += proc.Allocation[t];
-                        }
+                    <span class="k">if</span> <span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="c1">// 模拟释放资源</span>
+                        <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">t</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">t</span> <span class="p">&lt;</span> <span class="n">work</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span> <span class="n">t</span><span class="p">++)</span> <span class="p">{</span>
+                            <span class="n">work</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="p">+=</span> <span class="n">proc</span><span class="p">.</span><span class="n">Allocation</span><span class="p">[</span><span class="n">t</span><span class="p">];</span>
+                        <span class="p">}</span>
 
-                        // 保存进程号
-                        finish[procId] = true;
-                        finishCount++;
-                        // 加入安全队列
-                        safeQueue.Add(procId);
-                        // 重置状态
-                        found = false;
-                    }
-                }
-            }
+                        <span class="c1">// 保存进程号</span>
+                        <span class="n">finish</span><span class="p">[</span><span class="n">procId</span><span class="p">]</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+                        <span class="n">finishCount</span><span class="p">++;</span>
+                        <span class="c1">// 加入安全队列</span>
+                        <span class="n">safeQueue</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">procId</span><span class="p">);</span>
+                        <span class="c1">// 重置状态</span>
+                        <span class="n">found</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
 
-            Console.WriteLine(&quot;安全序列如下：&quot;);
-            // 打印安全序列
-            var output = &quot;&quot;;
-            foreach (var procId in safeQueue) {
-                output += &quot;P&quot; + procId + &quot;,&quot;;
-            }
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;安全序列如下：&quot;</span><span class="p">);</span>
+            <span class="c1">// 打印安全序列</span>
+            <span class="kt">var</span> <span class="n">output</span> <span class="p">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">procId</span> <span class="k">in</span> <span class="n">safeQueue</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">output</span> <span class="p">+=</span> <span class="s">&quot;P&quot;</span> <span class="p">+</span> <span class="n">procId</span> <span class="p">+</span> <span class="s">&quot;,&quot;</span><span class="p">;</span>
+            <span class="p">}</span>
 
-            Console.WriteLine(output.TrimEnd(','));
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">TrimEnd</span><span class="p">(</span><span class="sc">&#39;,&#39;</span><span class="p">));</span>
 
 
-            if (finish.Any(flag =&gt; !flag)) {
-                Console.WriteLine(&quot;未通过安全性测试！&quot;);
-                return false;
-            }
+            <span class="k">if</span> <span class="p">(</span><span class="n">finish</span><span class="p">.</span><span class="n">Any</span><span class="p">(</span><span class="n">flag</span> <span class="p">=&gt;</span> <span class="p">!</span><span class="n">flag</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;未通过安全性测试！&quot;</span><span class="p">);</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+            <span class="p">}</span>
 
-            Console.WriteLine(&quot;已经通过安全性测试！&quot;);
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;已经通过安全性测试！&quot;</span><span class="p">);</span>
 
-            return true;
-        }
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
 
-        private bool QueryExit()
-        {
-            Console.Write(&quot;是否退出(y/n)？&quot;);
-            var option = Console.ReadLine()?.ToLower();
-            return option == &quot;y&quot;;
-        }
+        <span class="k">private</span> <span class="kt">bool</span> <span class="nf">QueryExit</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;是否退出(y/n)？&quot;</span><span class="p">);</span>
+            <span class="kt">var</span> <span class="n">option</span> <span class="p">=</span> <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()?.</span><span class="n">ToLower</span><span class="p">();</span>
+            <span class="k">return</span> <span class="n">option</span> <span class="p">==</span> <span class="s">&quot;y&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
 
-        /// &lt;summary&gt;
-        /// 评估进程所需资源
-        /// &lt;/summary&gt;
-        private void EvaluateNeedResource()
-        {
-            foreach (var p in _processes) {
-                p.EvaluateNeedResource();
-                // 计算系统还剩下多少资源
-                for (var i = 0; i &lt; _resourceClassesCount; i++) {
-                    _available[i] -= p.Allocation[i];
-                }
-            }
-        }
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// 评估进程所需资源</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">EvaluateNeedResource</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">_processes</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">p</span><span class="p">.</span><span class="n">EvaluateNeedResource</span><span class="p">();</span>
+                <span class="c1">// 计算系统还剩下多少资源</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">_resourceClassesCount</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+                    <span class="n">_available</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">-=</span> <span class="n">p</span><span class="p">.</span><span class="n">Allocation</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-        /// &lt;summary&gt;
-        /// 打印出当前状态
-        /// &lt;/summary&gt;
-        private void PrintStatus()
-        {
-            Console.WriteLine(&quot;-------------------------银行家算法-------------------------&quot;);
-            Console.WriteLine(&quot;系统进程数量：{0}；资源种类数量：{1}&quot;, _processCount, _resourceClassesCount);
-            Console.WriteLine(&quot;可用资源向量 Available：&quot;);
-            foreach (var i in _resource) {
-                Console.Write(&quot;{0} &quot;, i);
-            }
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// 打印出当前状态</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">PrintStatus</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;-------------------------银行家算法-------------------------&quot;</span><span class="p">);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;系统进程数量：{0}；资源种类数量：{1}&quot;</span><span class="p">,</span> <span class="n">_processCount</span><span class="p">,</span> <span class="n">_resourceClassesCount</span><span class="p">);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;可用资源向量 Available：&quot;</span><span class="p">);</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="k">in</span> <span class="n">_resource</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0} &quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+            <span class="p">}</span>
 
-            Console.WriteLine(&quot;\n最大需求矩阵 Max：&quot;);
-            foreach (var p in _processes) {
-                foreach (var t in p.Max) {
-                    Console.Write(&quot;{0} &quot;, t);
-                }
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\n最大需求矩阵 Max：&quot;</span><span class="p">);</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">_processes</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">t</span> <span class="k">in</span> <span class="n">p</span><span class="p">.</span><span class="n">Max</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0} &quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+                <span class="p">}</span>
 
-                Console.WriteLine(&quot;&quot;);
-            }
+                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
 
-            Console.WriteLine(&quot;已分配矩阵 Allocation：&quot;);
-            foreach (var p in _processes) {
-                foreach (var t in p.Allocation) {
-                    Console.Write(&quot;{0} &quot;, t);
-                }
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;已分配矩阵 Allocation：&quot;</span><span class="p">);</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">_processes</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">t</span> <span class="k">in</span> <span class="n">p</span><span class="p">.</span><span class="n">Allocation</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0} &quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+                <span class="p">}</span>
 
-                Console.WriteLine(&quot;&quot;);
-            }
+                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
 
-            Console.WriteLine(&quot;需求矩阵 Need：&quot;);
-            foreach (var p in _processes) {
-                foreach (var t in p.Need) {
-                    Console.Write(&quot;{0} &quot;, t);
-                }
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;需求矩阵 Need：&quot;</span><span class="p">);</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">p</span> <span class="k">in</span> <span class="n">_processes</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">t</span> <span class="k">in</span> <span class="n">p</span><span class="p">.</span><span class="n">Need</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;{0} &quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+                <span class="p">}</span>
 
-                Console.WriteLine(&quot;&quot;);
-            }
-        }
+                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-        /// &lt;summary&gt;
-        /// 加载系统所有可用的资源数量
-        /// &lt;/summary&gt;
-        private void LoadAllAvailableResource()
-        {
-            var reader =
-                new StreamReader(Path.Combine(Environment.CurrentDirectory, &quot;Exp3&quot;, &quot;input&quot;, &quot;Available_list.txt&quot;));
-            var line = reader.ReadLine();
-            // 获取各类型资源数量
-            _resourceClassesCount = int.Parse(line?.Trim());
-            line = reader.ReadLine();
-            _resource.AddRange(Array.ConvertAll(line?.Split(' '), int.Parse));
-            _available.AddRange(Array.ConvertAll(line?.Split(' '), int.Parse));
-            reader.Close();
-        }
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// 加载系统所有可用的资源数量</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">LoadAllAvailableResource</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">reader</span> <span class="p">=</span>
+                <span class="k">new</span> <span class="nf">StreamReader</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">Environment</span><span class="p">.</span><span class="n">CurrentDirectory</span><span class="p">,</span> <span class="s">&quot;Exp3&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;Available_list.txt&quot;</span><span class="p">));</span>
+            <span class="kt">var</span> <span class="n">line</span> <span class="p">=</span> <span class="n">reader</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+            <span class="c1">// 获取各类型资源数量</span>
+            <span class="n">_resourceClassesCount</span> <span class="p">=</span> <span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">line</span><span class="p">?.</span><span class="n">Trim</span><span class="p">());</span>
+            <span class="n">line</span> <span class="p">=</span> <span class="n">reader</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+            <span class="n">_resource</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="n">Array</span><span class="p">.</span><span class="n">ConvertAll</span><span class="p">(</span><span class="n">line</span><span class="p">?.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">),</span> <span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">));</span>
+            <span class="n">_available</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="n">Array</span><span class="p">.</span><span class="n">ConvertAll</span><span class="p">(</span><span class="n">line</span><span class="p">?.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">),</span> <span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">));</span>
+            <span class="n">reader</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+        <span class="p">}</span>
 
-        /// &lt;summary&gt;
-        /// 加载所有进程以及他们需要的最大资源
-        /// &lt;/summary&gt;
-        private void LoadProcessMaxResource()
-        {
-            var reader =
-                new StreamReader(Path.Combine(Environment.CurrentDirectory, &quot;Exp3&quot;, &quot;input&quot;, &quot;Max_list.txt&quot;));
-            var line = reader.ReadLine();
-            var index = 0;
-            _processCount = int.Parse(line?.Trim());
-            while (!reader.EndOfStream) {
-                line = reader.ReadLine();
-                var tempProc = new ProcessExp3(index++) {
-                    Max = Array.ConvertAll(line?.Split(' '), int.Parse)
-                };
-                _processes.Add(tempProc);
-            }
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// 加载所有进程以及他们需要的最大资源</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">LoadProcessMaxResource</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">reader</span> <span class="p">=</span>
+                <span class="k">new</span> <span class="nf">StreamReader</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">Environment</span><span class="p">.</span><span class="n">CurrentDirectory</span><span class="p">,</span> <span class="s">&quot;Exp3&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;Max_list.txt&quot;</span><span class="p">));</span>
+            <span class="kt">var</span> <span class="n">line</span> <span class="p">=</span> <span class="n">reader</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+            <span class="kt">var</span> <span class="n">index</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+            <span class="n">_processCount</span> <span class="p">=</span> <span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">line</span><span class="p">?.</span><span class="n">Trim</span><span class="p">());</span>
+            <span class="k">while</span> <span class="p">(!</span><span class="n">reader</span><span class="p">.</span><span class="n">EndOfStream</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">line</span> <span class="p">=</span> <span class="n">reader</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+                <span class="kt">var</span> <span class="n">tempProc</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ProcessExp3</span><span class="p">(</span><span class="n">index</span><span class="p">++)</span> <span class="p">{</span>
+                    <span class="n">Max</span> <span class="p">=</span> <span class="n">Array</span><span class="p">.</span><span class="n">ConvertAll</span><span class="p">(</span><span class="n">line</span><span class="p">?.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">),</span> <span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">)</span>
+                <span class="p">};</span>
+                <span class="n">_processes</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">tempProc</span><span class="p">);</span>
+            <span class="p">}</span>
 
-            reader.Close();
-        }
+            <span class="n">reader</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+        <span class="p">}</span>
 
-        /// &lt;summary&gt;
-        /// 获取所有进程已经分配的资源
-        /// &lt;/summary&gt;
-        private void LoadAllocationResource()
-        {
-            var reader = new StreamReader(Path.Combine(
-                Environment.CurrentDirectory, &quot;Exp3&quot;, &quot;input&quot;, &quot;Allocation_list.txt&quot;));
-            var index = 0;
-            do {
-                var line = reader.ReadLine()?.Trim();
-                _processes[index++].Allocation = Array.ConvertAll(line?.Split(' '), int.Parse);
-            } while (!reader.EndOfStream);
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// 获取所有进程已经分配的资源</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">LoadAllocationResource</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">reader</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamReader</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span>
+                <span class="n">Environment</span><span class="p">.</span><span class="n">CurrentDirectory</span><span class="p">,</span> <span class="s">&quot;Exp3&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;Allocation_list.txt&quot;</span><span class="p">));</span>
+            <span class="kt">var</span> <span class="n">index</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+            <span class="k">do</span> <span class="p">{</span>
+                <span class="kt">var</span> <span class="n">line</span> <span class="p">=</span> <span class="n">reader</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()?.</span><span class="n">Trim</span><span class="p">();</span>
+                <span class="n">_processes</span><span class="p">[</span><span class="n">index</span><span class="p">++].</span><span class="n">Allocation</span> <span class="p">=</span> <span class="n">Array</span><span class="p">.</span><span class="n">ConvertAll</span><span class="p">(</span><span class="n">line</span><span class="p">?.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">),</span> <span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">while</span> <span class="p">(!</span><span class="n">reader</span><span class="p">.</span><span class="n">EndOfStream</span><span class="p">);</span>
 
-            reader.Close();
-        }
+            <span class="n">reader</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+        <span class="p">}</span>
 
-        private void EvaluateProcessNeedResource() { }
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">EvaluateProcessNeedResource</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
 
-        public static void Run()
-        {
-            new Main();
-        }
-    }
-}
-</code></pre>
+        <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">new</span> <span class="nf">Main</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p><strong>PS：这个代码里面没有包括<code>Program</code>类，要运行代码的话，需要加上<code>Program</code>类，在<code>Main</code>方法里调用<code>Exp3.Main.Run();</code></strong></p>
 <h2 id="_12">运行结果</h2>
-<pre><code>## 
+<div class="highlight"><pre><span></span><code>## 
 
 系统进程数量：5；资源种类数量：3
 可用资源向量 Available：
@@ -4098,10 +4098,10 @@ P0,P1,P2,P3,P4
 已经通过安全性测试！
 正在为进程 0 分配资源
 已经保存新的分配状态！
-</code></pre>
+</code></pre></div>
 
 <p>重新分配之后的状态：</p>
-<pre><code>-------------------------银行家算法-------------------------
+<div class="highlight"><pre><span></span><code>-------------------------银行家算法-------------------------
 系统进程数量：5；资源种类数量：3
 可用资源向量 Available：
 10 5 7 
@@ -4123,7 +4123,7 @@ P0,P1,P2,P3,P4
 6 0 0 
 0 1 1 
 4 3 1 
-</code></pre>
+</code></pre></div>
 
 <h2 id="_13">欢迎交流</h2>
 <p>交流问题请在微信公众号后台留言，每一条信息我都会回复哈~
@@ -4205,6 +4205,8 @@ P0,P1,P2,P3,P4
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

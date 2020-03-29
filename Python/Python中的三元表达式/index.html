@@ -3434,20 +3434,18 @@
                 
                   <h1>Python中的三元表达式</h1>
                 
-                <p>一般语言的三元表达式都是这种形式：</p>
-<pre><code class="c">result = statement ? true : false
+                <p>一般语言的三元表达式都是这种形式：
+<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="n">statement</span> <span class="o">?</span> <span class="nb">true</span> <span class="o">:</span> <span class="nb">false</span>
 
-// For examle
-result = a &gt; b ? a : b
-</code></pre>
+<span class="c1">// For examle</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span>
+</code></pre></div></p>
+<p>Python中的三元表达式比较特殊，用下面这种形式
+<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="n">true</span> <span class="k">if</span> <span class="n">statement</span> <span class="k">else</span> <span class="n">false</span>
 
-<p>Python中的三元表达式比较特殊，用下面这种形式</p>
-<pre><code class="python">result = true if statement else false
-
-# For example
-result = a if a &gt; b else b
-</code></pre>
-
+<span class="c1"># For example</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="k">else</span> <span class="n">b</span>
+</code></pre></div></p>
 <h2 id="about">About</h2>
 <h2 id="_1"><img alt="" src="../Python%E4%B8%AD%E7%9A%84%E4%B8%89%E5%85%83%E8%A1%A8%E8%BE%BE%E5%BC%8F.assets/8869373-901590e019f6f85b.png" /></h2>
 <p>了解更多有趣的操作请关注我的微信公众号：DealiAxy
@@ -3525,6 +3523,8 @@ result = a if a &gt; b else b
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

@@ -3934,125 +3934,122 @@
 <p><img alt="" src="../Android-ORM-%E6%A1%86%E6%9E%B6%EF%BC%9AGreenDao%E5%85%A5%E9%97%A8.assets/8869373-6edfb61b11459af1.png" /></p>
 <h2 id="greendao_2">集成 GreenDAO</h2>
 <h3 id="project-buildgradle">设置仓库与插件（Project： build.gradle）</h3>
-<pre><code class="gradle">buildscript {
+<div class="highlight"><pre><span></span><code>buildscript {
     repositories {
         jcenter()
         mavenCentral() // add repository
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
+        classpath &#39;com.android.tools.build:gradle:2.3.2&#39;
+        classpath &#39;org.greenrobot:greendao-gradle-plugin:3.2.2&#39; // add plugin
     }
 }
-</code></pre>
+</code></pre></div>
 
 <h3 id="moduleapp-buildgradle">配置依赖 ( Module:app build.gradle )</h3>
-<pre><code class="gradle">apply plugin: 'com.android.application'
-apply plugin: 'org.greenrobot.greendao' // apply plugin
+<div class="highlight"><pre><span></span><code>apply plugin: &#39;com.android.application&#39;
+apply plugin: &#39;org.greenrobot.greendao&#39; // apply plugin
 
 dependencies {
-    compile 'org.greenrobot:greendao:3.2.2' // add library
+    compile &#39;org.greenrobot:greendao:3.2.2&#39; // add library
 
     // This is only needed if you want to use encrypted databases
-    compile 'net.zetetic:android-database-sqlcipher:3.5.6'//加密库依赖（可选项）
+    compile &#39;net.zetetic:android-database-sqlcipher:3.5.6&#39;//加密库依赖（可选项）
 }
-</code></pre>
+</code></pre></div>
 
 <h3 id="moduleapp-buildgradle_1">配置数据库相关信息 ( Module:app build.gradle )</h3>
-<pre><code class="gradle">greendao {
+<div class="highlight"><pre><span></span><code>greendao {
     schemaVersion 1 //数据库版本号
-    daoPackage 'com.speedystone.greendaodemo.db'// 设置DaoMaster、DaoSession、Dao 包名
-    targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
+    daoPackage &#39;com.speedystone.greendaodemo.db&#39;// 设置DaoMaster、DaoSession、Dao 包名
+    targetGenDir &#39;src/main/java&#39;//设置DaoMaster、DaoSession、Dao目录
 }
-</code></pre>
+</code></pre></div>
 
 <h2 id="_3">快速入门</h2>
-<p>我们写一个简单的实体类（User），测试一下</p>
-<pre><code class="java">package com.speedystone.greendaodemo.model;
+<p>我们写一个简单的实体类（User），测试一下
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.speedystone.greendaodemo.model</span><span class="o">;</span>
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
+<span class="kn">import</span> <span class="nn">org.greenrobot.greendao.annotation.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.greenrobot.greendao.annotation.Id</span><span class="o">;</span>
 
-/**
- * Created by Speedy on 2017/6/30.
- */
-@Entity
-public class User {
+<span class="cm">/**</span>
+<span class="cm"> * Created by Speedy on 2017/6/30.</span>
+<span class="cm"> */</span>
+<span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
 
-    @Id
-    private long id;
+    <span class="nd">@Id</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">id</span><span class="o">;</span>
 
-    private String name;
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
 
-    private int age;
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
 
-    //此处省略了getter,setter 方法
-}
-</code></pre>
-
+    <span class="c1">//此处省略了getter,setter 方法</span>
+<span class="o">}</span>
+</code></pre></div></p>
 <p>点击 Make Project（或者 Make Moudle ‘App’） 编译一下工程 。如果配置正确，会在配置的包目录下自动会生成 DaoMaster，DaoSession 和 UserDao 类 。</p>
 <p><img alt="" src="../Android-ORM-%E6%A1%86%E6%9E%B6%EF%BC%9AGreenDao%E5%85%A5%E9%97%A8.assets/8869373-f38a07f5ee540cfd.png" /></p>
 <p>初始化 GreenDao ( 通常初始化代码写在我们的 Application 类中)</p>
 <p><img alt="" src="../Android-ORM-%E6%A1%86%E6%9E%B6%EF%BC%9AGreenDao%E5%85%A5%E9%97%A8.assets/8869373-943192c7c64f2ef1.png" /></p>
 <h3 id="userdao">获取 UserDao</h3>
-<pre><code class="java"> MyApp myApp = (MyApp) getApplication();
- DaoSession daoSession =  myApp.getDaoSession();
- UserDao userDao = daoSession.getUserDao();
-</code></pre>
+<div class="highlight"><pre><span></span><code> <span class="n">MyApp</span> <span class="n">myApp</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyApp</span><span class="o">)</span> <span class="n">getApplication</span><span class="o">();</span>
+ <span class="n">DaoSession</span> <span class="n">daoSession</span> <span class="o">=</span>  <span class="n">myApp</span><span class="o">.</span><span class="na">getDaoSession</span><span class="o">();</span>
+ <span class="n">UserDao</span> <span class="n">userDao</span> <span class="o">=</span> <span class="n">daoSession</span><span class="o">.</span><span class="na">getUserDao</span><span class="o">();</span>
+</code></pre></div>
 
 <h2 id="_4">保存记录</h2>
-<pre><code class="java">User user = new User();
-user.setUserId(1);
-user.setName(&quot;小明&quot;);
-user.setAge(16);
+<p><div class="highlight"><pre><span></span><code><span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+<span class="n">user</span><span class="o">.</span><span class="na">setUserId</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&quot;小明&quot;</span><span class="o">);</span>
+<span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="mi">16</span><span class="o">);</span>
 
-userDao.insert(user);
-</code></pre>
+<span class="n">userDao</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code> <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+ <span class="n">user</span><span class="o">.</span><span class="na">setUserId</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+ <span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&quot;小明&quot;</span><span class="o">);</span>
+ <span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="mi">16</span><span class="o">);</span>
 
-<pre><code class="java"> User user = new User();
- user.setUserId(1);
- user.setName(&quot;小明&quot;);
- user.setAge(16);
-
- //插入或者替换
- userDao.insertOrReplace(user);
-</code></pre>
-
+ <span class="c1">//插入或者替换</span>
+ <span class="n">userDao</span><span class="o">.</span><span class="na">insertOrReplace</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+</code></pre></div></p>
 <h3 id="_5">删除记录</h3>
-<pre><code class="java">public void delete(User user){
-    userDao.delete(user);
-}
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">delete</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">){</span>
+    <span class="n">userDao</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+<span class="o">}</span>
 
-public void deleteByUserId(long userid){
-     userDao.deleteByKey(1L);
-}
-</code></pre>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">deleteByUserId</span><span class="o">(</span><span class="kt">long</span> <span class="n">userid</span><span class="o">){</span>
+     <span class="n">userDao</span><span class="o">.</span><span class="na">deleteByKey</span><span class="o">(</span><span class="mi">1L</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <h3 id="_6">更新记录</h3>
-<pre><code class="java">public void update(User user){
-    userDao.update(user);
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">){</span>
+    <span class="n">userDao</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <h3 id="_7">查询记录</h3>
-<pre><code class="java">public List&lt;User&gt; query(){
-    return userDao.loadAll();// 查询所有记录
-}
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">query</span><span class="o">(){</span>
+    <span class="k">return</span> <span class="n">userDao</span><span class="o">.</span><span class="na">loadAll</span><span class="o">();</span><span class="c1">// 查询所有记录</span>
+<span class="o">}</span>
 
-public User query2(){
-        return userDao.loadByRowId(1);//根据ID查询
-}
+<span class="kd">public</span> <span class="n">User</span> <span class="nf">query2</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">userDao</span><span class="o">.</span><span class="na">loadByRowId</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span><span class="c1">//根据ID查询</span>
+<span class="o">}</span>
 
-public List&lt;User&gt; query2(){
-        return userDao.queryRaw(&quot;where AGE&gt;?&quot;,&quot;10&quot;);//查询年龄大于10的用户
-}
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">query2</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">userDao</span><span class="o">.</span><span class="na">queryRaw</span><span class="o">(</span><span class="s">&quot;where AGE&gt;?&quot;</span><span class="o">,</span><span class="s">&quot;10&quot;</span><span class="o">);</span><span class="c1">//查询年龄大于10的用户</span>
+<span class="o">}</span>
 
-//查询年龄大于10的用户
-public List&lt;User&gt; query4(){
-    QueryBuilder&lt;User&gt; builder = userDao.queryBuilder();
-    return  builder.where(UserDao.Properties.Age.gt(10)).build().list();
-}
-</code></pre>
+<span class="c1">//查询年龄大于10的用户</span>
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">query4</span><span class="o">(){</span>
+    <span class="n">QueryBuilder</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">userDao</span><span class="o">.</span><span class="na">queryBuilder</span><span class="o">();</span>
+    <span class="k">return</span>  <span class="n">builder</span><span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="n">UserDao</span><span class="o">.</span><span class="na">Properties</span><span class="o">.</span><span class="na">Age</span><span class="o">.</span><span class="na">gt</span><span class="o">(</span><span class="mi">10</span><span class="o">)).</span><span class="na">build</span><span class="o">().</span><span class="na">list</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <h2 id="_8">注解详解</h2>
 <h3 id="entity">@Entity</h3>
@@ -4065,35 +4062,35 @@ public List&lt;User&gt; query4(){
 - createInDb：标记创建数据库表（默认：true）
 - generateConstructors 自动创建全参构造方法（同时会生成一个无参构造方法）（默认：true）
 - generateGettersSetters 自动生成 getters and setters 方法（默认：true）</p>
-<pre><code class="java">@Entity(
-        schema = &quot;myschema&quot;,
-        active = true,
-        nameInDb = &quot;AWESOME_USERS&quot;，
-        indexes = {
-                @Index(value = &quot;name DESC&quot;, unique = true)
-        },
-        createInDb = true,
-        generateConstructors = false,
-        generateGettersSetters = true
-)
-public class User {
-  ...
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nd">@Entity</span><span class="o">(</span>
+        <span class="n">schema</span> <span class="o">=</span> <span class="s">&quot;myschema&quot;</span><span class="o">,</span>
+        <span class="n">active</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span>
+        <span class="n">nameInDb</span> <span class="o">=</span> <span class="s">&quot;AWESOME_USERS&quot;</span><span class="err">，</span>
+        <span class="n">indexes</span> <span class="o">=</span> <span class="o">{</span>
+                <span class="nd">@Index</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;name DESC&quot;</span><span class="o">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+        <span class="o">},</span>
+        <span class="n">createInDb</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span>
+        <span class="n">generateConstructors</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span>
+        <span class="n">generateGettersSetters</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+  <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <h3 id="id">@Id</h3>
 <p>对应数据表中的 Id 字段</p>
 <h3 id="index">@Index</h3>
 <p>使用@Index作为一个属性来创建一个索引，默认是使用字段名</p>
-<pre><code class="java">@Entity
-public class User {
-    @Id 
-    private Long id;
+<div class="highlight"><pre><span></span><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="nd">@Id</span> 
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
 
-    @Index(unique = true)
-    private String name;
-}
-</code></pre>
+    <span class="nd">@Index</span><span class="o">(</span><span class="n">unique</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <h3 id="property">@Property</h3>
 <p>设置一个非默认关系映射所对应的列名，默认是使用字段名,例如：@Property(nameInDb = “userName”)</p>
@@ -4102,65 +4099,64 @@ public class User {
 <h3 id="transient">@Transient</h3>
 <p>添加此标记后不会生成数据库表的列</p>
 <h3 id="unique">@Unique</h3>
-<p>表名该属性在数据库中只能有唯一值</p>
-<pre><code class="java">@Entity
-public class User {
-    @Id 
-    private Long id;
-    @Unique
-    private String name;
-}
-</code></pre>
-
+<p>表名该属性在数据库中只能有唯一值
+<div class="highlight"><pre><span></span><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="nd">@Id</span> 
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="nd">@Unique</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></p>
 <h3 id="orderby">@OrderBy</h3>
 <p>更加某一字段排序 ，例如：@OrderBy(“date ASC”)</p>
 <h3 id="toone">@ToOne</h3>
 <p>表示一对一关系</p>
-<pre><code class="java">@Entity
-public class Order {
+<div class="highlight"><pre><span></span><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Order</span> <span class="o">{</span>
 
-    @Id private Long id;
+    <span class="nd">@Id</span> <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
 
-    private long customerId;
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">customerId</span><span class="o">;</span>
 
-    @ToOne(joinProperty = &quot;customerId&quot;)
-    private Customer customer;
-}
+    <span class="nd">@ToOne</span><span class="o">(</span><span class="n">joinProperty</span> <span class="o">=</span> <span class="s">&quot;customerId&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">Customer</span> <span class="n">customer</span><span class="o">;</span>
+<span class="o">}</span>
 
-@Entity
-public class Customer {
-    @Id 
-    private Long id;
-}
-</code></pre>
+<span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Customer</span> <span class="o">{</span>
+    <span class="nd">@Id</span> 
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <h3 id="tomany">@ToMany</h3>
 <p>定义一对多个实体对象的关系</p>
-<pre><code class="java">@Entity
-public class Customer {
-    @Id private Long id;
+<div class="highlight"><pre><span></span><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Customer</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
 
-    @ToMany(referencedJoinProperty = &quot;customerId&quot;)
-    @OrderBy(&quot;date ASC&quot;)
-    private List&lt;Order&gt; orders;
-}
+    <span class="nd">@ToMany</span><span class="o">(</span><span class="n">referencedJoinProperty</span> <span class="o">=</span> <span class="s">&quot;customerId&quot;</span><span class="o">)</span>
+    <span class="nd">@OrderBy</span><span class="o">(</span><span class="s">&quot;date ASC&quot;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Order</span><span class="o">&gt;</span> <span class="n">orders</span><span class="o">;</span>
+<span class="o">}</span>
 
-@Entity
-public class Order {
-    @Id private Long id;
-    private Date date;
-    private long customerId;
-}
-</code></pre>
+<span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Order</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Date</span> <span class="n">date</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">customerId</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <h2 id="_9">参考资料</h2>
 <ul>
-<li>http://greenrobot.org/greendao/</li>
-<li>https://juejin.im/post/5959b5bcf265da6c4d1bb245</li>
-<li>https://www.jianshu.com/p/1ceea4b3f94f</li>
-<li>https://www.cnblogs.com/whoislcj/p/5651396.html</li>
-<li>https://blog.csdn.net/speedystone/article/details/72769793</li>
-<li>https://github.com/greenrobot/greenDAO</li>
+<li><a href="http://greenrobot.org/greendao/">http://greenrobot.org/greendao/</a></li>
+<li><a href="https://juejin.im/post/5959b5bcf265da6c4d1bb245">https://juejin.im/post/5959b5bcf265da6c4d1bb245</a></li>
+<li><a href="https://www.jianshu.com/p/1ceea4b3f94f">https://www.jianshu.com/p/1ceea4b3f94f</a></li>
+<li><a href="https://www.cnblogs.com/whoislcj/p/5651396.html">https://www.cnblogs.com/whoislcj/p/5651396.html</a></li>
+<li><a href="https://blog.csdn.net/speedystone/article/details/72769793">https://blog.csdn.net/speedystone/article/details/72769793</a></li>
+<li><a href="https://github.com/greenrobot/greenDAO">https://github.com/greenrobot/greenDAO</a></li>
 </ul>
 <h2 id="about">About</h2>
 <p><img alt="" src="../Android-ORM-%E6%A1%86%E6%9E%B6%EF%BC%9AGreenDao%E5%85%A5%E9%97%A8.assets/8869373-901590e019f6f85b.png" /></p>
@@ -4240,6 +4236,8 @@ public class Order {
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

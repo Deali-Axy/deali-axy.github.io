@@ -3561,7 +3561,7 @@
 这里要注意一下，在Windows平台和Linux平台下做开发是不同的，Windows平台开发Java需要自己手动配置JDK的环境变量，而大多数Linux都是不需要的，安装了OpenJDK就可以了（可能很多发行版都自带了OpenJDK），这点是比较方便的。</p>
 <h2 id="java-jdk">下载Java JDK</h2>
 <h3 id="windows">Windows平台</h3>
-<p>打开甲骨文的JDK网站：http://www.oracle.com/technetwork/java/javase/downloads/index.html
+<p>打开甲骨文的JDK网站：<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a>
 网站是这样的。
 注意下载的时候看清楚版本。
 <img alt="" src="../Java%E5%BC%80%E5%8F%91%EF%BC%9AJDK%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.assets/8869373-b159092a908eda7e.png" /></p>
@@ -3576,10 +3576,10 @@
 这里再贴一下OpenJDK和JDK的不同。(以下内容引用自知乎<code>Aloys寒风</code>)</p>
 <blockquote>
 <p>历史上的原因是，OpenJDK是JDK的开放原始码版本，以GPL(General Public License)协议的形式放出(题&gt;主提到的open就是指的开源)。在JDK7的时候，OpenJDK已经作为JDK7的主干开发，SUN JDK7是在OpenJDK7的基础上发布的，其大部分原始码都相同，只有少部分原始码被替换掉。使用JRL(JavaResearch License，Java研究授权协议)发布。至于OpenJDK6则更是有其复杂的一面，首先是OpenJDK6是JDK7的一个分支，并且尽量去除Java SE7的新特性，使其尽量的符合Java6的标准。关于JDK和OpenJDK的区别，可以归纳为以下几点：</p>
-<p><strong>授权协议的不同：</strong>OpenJDK采用GPL V2协议放出，而SUN JDK则采用JRL放出。两者协议虽然都是开放源代码的，但是在使用上的不同在于GPL V2允许在商业上使用，而JRL只允许个人研究使用。OpenJDK不包含Deployment（部署）功能：部署的功能包括：Browser Plugin、Java Web Start、以及Java控制面板，这些功能在OpenJDK中是找不到的。</p>
-<p><strong>OpenJDK源代码不完整：</strong>这个很容易想到，在采用GPL协议的OpenJDK中，SUN JDK的一部分源代码因为产权的问题无法开放给OpenJDK使用，其中最主要的部份就是JMX中的可选元件SNMP部份的代码。因此这些不能开放的源代码 将它作成plug，以供OpenJDK编译时使用，你也可以选择不要使用plug。而Icedtea则为这些不完整的部分开发了相同功能的源代码 (OpenJDK6)，促使OpenJDK更加完整。</p>
-<p><strong>部分源代码用开源代码替换：</strong>由于产权的问题，很多产权不是SUN的源代码被替换成一些功能相同的开源代码，比如说字体栅格化引擎，使用Free Type代替。</p>
-<p><strong>OpenIDK只包含最精简的JDK：</strong>OpenJDK不包含其他的软件包，比如Rhino Java DB JAXP……，并且可以分离的软件包也都是尽量的分离，但是这大多数都是自由软件，你可以自己下载加入。不能使用Java商标：这个很容易理解，在安装OpenJDK的机器上，输入<code>java
+<p>**授权协议的不同：**OpenJDK采用GPL V2协议放出，而SUN JDK则采用JRL放出。两者协议虽然都是开放源代码的，但是在使用上的不同在于GPL V2允许在商业上使用，而JRL只允许个人研究使用。OpenJDK不包含Deployment（部署）功能：部署的功能包括：Browser Plugin、Java Web Start、以及Java控制面板，这些功能在OpenJDK中是找不到的。</p>
+<p>**OpenJDK源代码不完整：**这个很容易想到，在采用GPL协议的OpenJDK中，SUN JDK的一部分源代码因为产权的问题无法开放给OpenJDK使用，其中最主要的部份就是JMX中的可选元件SNMP部份的代码。因此这些不能开放的源代码 将它作成plug，以供OpenJDK编译时使用，你也可以选择不要使用plug。而Icedtea则为这些不完整的部分开发了相同功能的源代码 (OpenJDK6)，促使OpenJDK更加完整。</p>
+<p>**部分源代码用开源代码替换：**由于产权的问题，很多产权不是SUN的源代码被替换成一些功能相同的开源代码，比如说字体栅格化引擎，使用Free Type代替。</p>
+<p>**OpenIDK只包含最精简的JDK：**OpenJDK不包含其他的软件包，比如Rhino Java DB JAXP……，并且可以分离的软件包也都是尽量的分离，但是这大多数都是自由软件，你可以自己下载加入。不能使用Java商标：这个很容易理解，在安装OpenJDK的机器上，输入<code>java
 -version</code>显示的是OpenJDK，但是如果是使用Icedtea补丁的OpenJDK，显示的是java。</p>
 <p>总之，在Java体系中，还是有很多不自由的成分，源代码的开发不够彻底。</p>
 </blockquote>
@@ -3706,6 +3706,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

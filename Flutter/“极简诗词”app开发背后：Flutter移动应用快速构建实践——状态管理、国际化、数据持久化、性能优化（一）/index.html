@@ -3515,291 +3515,255 @@
 | <img alt="" src="../%E2%80%9C%E6%9E%81%E7%AE%80%E8%AF%97%E8%AF%8D%E2%80%9Dapp%E5%BC%80%E5%8F%91%E8%83%8C%E5%90%8E%EF%BC%9AFlutter%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BF%AB%E9%80%9F%E6%9E%84%E5%BB%BA%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E3%80%81%E5%9B%BD%E9%99%85%E5%8C%96%E3%80%81%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E3%80%81%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%88%E4%B8%80%EF%BC%89.assets/8869373-0ef03ed2e295595e.png" /></p>
 <p>和Django快速开发实践的文章一样，本文不讲废话，直接上步骤。</p>
 <h2 id="_2">项目文件结构</h2>
-<p>先设计好项目文件结构，不同的项目有不同的需求，按照自己的实际需要来设计结构就好了，以下是我的项目结构，仅供参考：</p>
-<pre><code>lib
+<p>先设计好项目文件结构，不同的项目有不同的需求，按照自己的实际需要来设计结构就好了，以下是我的项目结构，仅供参考：
+<div class="highlight"><pre><span></span><code>lib
 ├── common
 ├── i10n
 ├── models
 ├── routes
 ├── states
 └── widgets
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th>文件夹</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>common</td>
-<td>一些工具类，如通用方法类、网络接口类、保存全局变量的静态类等</td>
-</tr>
-<tr>
-<td>i10n</td>
-<td>存放国际化相关代码</td>
-</tr>
-<tr>
-<td>models</td>
-<td>通过json to models生成的model类文件都存在这里</td>
-</tr>
-<tr>
-<td>routes</td>
-<td>存放项目的所有页面代码</td>
-</tr>
-<tr>
-<td>states</td>
-<td>保存app中需要跨组件共享的状态类</td>
-</tr>
-<tr>
-<td>widgets</td>
-<td>存放自定义widget</td>
-</tr>
-</tbody>
-</table>
+</code></pre></div>
+| 文件夹 | 作用 |
+| ------ | ------- |
+| common | 一些工具类，如通用方法类、网络接口类、保存全局变量的静态类等 |
+| i10n | 存放国际化相关代码 |
+| models | 通过json to models生成的model类文件都存在这里 |
+| routes | 存放项目的所有页面代码 |
+| states | 保存app中需要跨组件共享的状态类 |
+| widgets | 存放自定义widget |</p>
 <h2 id="models">定义好models</h2>
 <p>在本项目中，我使用<code>json to models</code>来自动生成models类，为什么使用这个呢？原因很简单，减少工作量，用json定义好app中使用到的模型，生成model类之后可以很方便序列化成json数据进行持久化和或者从配置文件中读取json数据反序列化成model对象，还可以直接根据后台接口返回的json数据生成model类，非常方便。</p>
 <p>使用json定义model，例子如下：</p>
 <p>在项目根目录下创建json文件夹，添加要进行转换的json文件，内容大概像这样。
-poem.json</p>
-<pre><code class="json">{
-    &quot;strains&quot;: [
-        &quot;平平平仄仄，平仄仄平平。&quot;,
-        &quot;仄仄平平仄，平平仄仄平。&quot;,
-        &quot;平平平仄仄，平仄仄平平。&quot;,
-        &quot;平仄仄平仄，平平仄仄平。&quot;
-    ],
-    &quot;author&quot;: &quot;作者名称&quot;,
-    &quot;authorObj&quot;: &quot;$author&quot;,
-    &quot;paragraphs&quot;: [
-        &quot;秦川雄帝宅，函谷壯皇居。&quot;,
-        &quot;綺殿千尋起，離宮百雉餘。&quot;,
-        &quot;連甍遙接漢，飛觀迥凌虛。&quot;,
-        &quot;雲日隱層闕，風煙出綺疎。&quot;
-    ],
-    &quot;tags&quot;: [
-        &quot;战争&quot;,
-        &quot;生活&quot;,
-        &quot;冬天&quot;,
-        &quot;爱国&quot;,
-        &quot;边塞&quot;
-    ],
-    &quot;chapter&quot;: &quot;国风&quot;,
-    &quot;section&quot;: &quot;周南&quot;,
-    &quot;rhythmic&quot;: &quot;玉楼春&quot;,
-    &quot;title&quot;: &quot;帝京篇十首 一&quot;,
-    &quot;content&quot;: &quot;经传宜独坐读，史鉴宜与友共读。&quot;,
-    &quot;comment&quot;: [
-        &quot;孙恺似曰：深得此中真趣，固难为不知者道。&quot;,
-        &quot;王景州曰：如无好友，即红友亦可。&quot;
-    ],
-    &quot;notes&quot;: [
-        &quot;1.小山--写女子的隔夜残妆。小山：女子画眉的式样之一。小山重叠：眉晕褪色。金：额黄，在额上涂黄色。金明灭：褪色的额黄明暗不匀。&quot;,
-        &quot;2.鬓云欲度--鬓发撩乱如云，低垂下来。香腮雪：洁白如雪的香腮。&quot;,
-        &quot;3.照花--对镜簪花。用前镜、后镜对照以瞻顾后影。&quot;,
-        &quot;4.双双--罗襦上用金线绣的成双的鹧鸪鸟。反衬自身孤独。&quot;
-    ],
-    &quot;anthology&quot;: &quot;所属诗集名称&quot;,
-    &quot;id&quot;: &quot;08e41396-2809-423d-9bbc-1e6fb24c0ca1&quot;
-}
-</code></pre>
-
-<p>添加依赖：</p>
-<pre><code class="yaml">dev_dependencies:
-  json_model: ^0.0.2
-  build_runner: ^1.0.0
-  json_serializable: ^2.0.0
-</code></pre>
-
-<p>好了之后运行：</p>
-<pre><code class="bash">flutter packages pub run json_model
-</code></pre>
-
+poem.json
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;strains&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;平平平仄仄，平仄仄平平。&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;仄仄平平仄，平平仄仄平。&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;平平平仄仄，平仄仄平平。&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;平仄仄平仄，平平仄仄平。&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;作者名称&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;authorObj&quot;</span><span class="p">:</span> <span class="s2">&quot;$author&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;paragraphs&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;秦川雄帝宅，函谷壯皇居。&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;綺殿千尋起，離宮百雉餘。&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;連甍遙接漢，飛觀迥凌虛。&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;雲日隱層闕，風煙出綺疎。&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;战争&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;生活&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;冬天&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;爱国&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;边塞&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;chapter&quot;</span><span class="p">:</span> <span class="s2">&quot;国风&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;section&quot;</span><span class="p">:</span> <span class="s2">&quot;周南&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;rhythmic&quot;</span><span class="p">:</span> <span class="s2">&quot;玉楼春&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;帝京篇十首 一&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;经传宜独坐读，史鉴宜与友共读。&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;comment&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;孙恺似曰：深得此中真趣，固难为不知者道。&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;王景州曰：如无好友，即红友亦可。&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;notes&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;1.小山--写女子的隔夜残妆。小山：女子画眉的式样之一。小山重叠：眉晕褪色。金：额黄，在额上涂黄色。金明灭：褪色的额黄明暗不匀。&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;2.鬓云欲度--鬓发撩乱如云，低垂下来。香腮雪：洁白如雪的香腮。&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;3.照花--对镜簪花。用前镜、后镜对照以瞻顾后影。&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;4.双双--罗襦上用金线绣的成双的鹧鸪鸟。反衬自身孤独。&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;anthology&quot;</span><span class="p">:</span> <span class="s2">&quot;所属诗集名称&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;08e41396-2809-423d-9bbc-1e6fb24c0ca1&quot;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>添加依赖：
+<div class="highlight"><pre><span></span><code><span class="nt">dev_dependencies</span><span class="p">:</span>
+  <span class="nt">json_model</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">^0.0.2</span>
+  <span class="nt">build_runner</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">^1.0.0</span>
+  <span class="nt">json_serializable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">^2.0.0</span>
+</code></pre></div></p>
+<p>好了之后运行：
+<div class="highlight"><pre><span></span><code>flutter packages pub run json_model
+</code></pre></div></p>
 <p>这样就会自动在<code>lib/models</code>文件夹下面生成models类啦。</p>
 <p>有个坑爹的地方是这个<code>json_model</code>库只能支持很老版本的<code>build_runner</code>和<code>json_serializable</code>，这和我后面要用到的<code>intl</code>就冲突了啊，每次用这两个库的时候我都要不断注释切换依赖的版本，真的麻烦  = =....</p>
 <h2 id="_3">状态管理</h2>
 <p>状态管理是app中最重要的一部分，也是后面主题切换和国际化的基础。
 本文是快速开发实践，不过多深入Flutter的状态管理，想了解的同学可以看看大佬写的Flutter教程：<a href="https://book.flutterchina.club/chapter7/provider.html">https://book.flutterchina.club/chapter7/provider.html</a></p>
 <p>我是使用<code>Provider</code>这个组件来管理app的状态的，它基于<code>InheritedWidget</code>实现，用起来挺方便。</p>
-<p>先添加依赖：</p>
-<pre><code class="yaml">dependencies:
-  provider: ^3.2.0
-</code></pre>
+<p>先添加依赖：
+<div class="highlight"><pre><span></span><code><span class="nt">dependencies</span><span class="p">:</span>
+  <span class="nt">provider</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">^3.2.0</span>
+</code></pre></div></p>
+<p>在<code>lib/states</code>文件夹下添加共享状态的models，例如：
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="s1">&#39;package:flutter/material.dart&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">&#39;package:minimal_poem/common/global.dart&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">&#39;package:minimal_poem/models/index.dart&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">&#39;notifier.dart&#39;</span><span class="p">;</span>
 
-<p>在<code>lib/states</code>文件夹下添加共享状态的models，例如：</p>
-<pre><code class="dart">import 'package:flutter/material.dart';
-import 'package:minimal_poem/common/global.dart';
-import 'package:minimal_poem/models/index.dart';
-import 'notifier.dart';
+<span class="kd">class</span> <span class="nc">ProfileChangeNotifier</span> <span class="kd">extends</span> <span class="n">ChangeNotifier</span> <span class="p">{</span>
+  <span class="n">Profile</span> <span class="kd">get</span> <span class="n">profile</span> <span class="o">=&gt;</span> <span class="n">Global</span><span class="p">.</span><span class="n">profile</span><span class="p">;</span>
 
-class ProfileChangeNotifier extends ChangeNotifier {
-  Profile get profile =&gt; Global.profile;
+  <span class="err">@</span><span class="n">override</span>
+  <span class="kt">void</span> <span class="n">notifyListeners</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 保存Profile变更</span>
+    <span class="n">Global</span><span class="p">.</span><span class="n">saveProfile</span><span class="p">();</span>
+    <span class="n">Global</span><span class="p">.</span><span class="n">saveAllUsers</span><span class="p">();</span>
+    <span class="k">super</span><span class="p">.</span><span class="n">notifyListeners</span><span class="p">();</span> <span class="c1">// 通知依赖的Widget更新</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-  @override
-  void notifyListeners() {
-    // 保存Profile变更
-    Global.saveProfile();
-    Global.saveAllUsers();
-    super.notifyListeners(); // 通知依赖的Widget更新
-  }
-}
+<span class="kd">class</span> <span class="nc">ThemeModel</span> <span class="kd">extends</span> <span class="n">ProfileChangeNotifier</span> <span class="p">{</span>
+  <span class="c1">// 获取当前主题，如果未设置主题，则默认使用蓝色主题</span>
+  <span class="n">ColorSwatch</span> <span class="kd">get</span> <span class="n">theme</span> <span class="o">=&gt;</span> <span class="n">Global</span><span class="p">.</span><span class="n">themes</span><span class="p">.</span><span class="n">firstWhere</span><span class="p">((</span><span class="n">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">profile</span><span class="p">.</span><span class="n">theme</span><span class="p">,</span> <span class="nl">orElse:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="n">Colors</span><span class="p">.</span><span class="n">blue</span><span class="p">);</span>
 
-class ThemeModel extends ProfileChangeNotifier {
-  // 获取当前主题，如果未设置主题，则默认使用蓝色主题
-  ColorSwatch get theme =&gt; Global.themes.firstWhere((e) =&gt; e.value == profile.theme, orElse: () =&gt; Colors.blue);
+  <span class="c1">// 主题改变后，通知其依赖项，新主题会立即生效</span>
+  <span class="kd">set</span> <span class="n">theme</span><span class="p">(</span><span class="n">ColorSwatch</span> <span class="n">color</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">color</span> <span class="o">!=</span> <span class="n">theme</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">profile</span><span class="p">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">color</span><span class="p">[</span><span class="m">500</span><span class="p">].</span><span class="n">value</span><span class="p">;</span>
+      <span class="n">notifyListeners</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  // 主题改变后，通知其依赖项，新主题会立即生效
-  set theme(ColorSwatch color) {
-    if (color != theme) {
-      profile.theme = color[500].value;
-      notifyListeners();
-    }
-  }
+  <span class="kt">bool</span> <span class="kd">get</span> <span class="n">darkMode</span> <span class="o">=&gt;</span> <span class="n">Global</span><span class="p">.</span><span class="n">profile</span><span class="p">.</span><span class="n">darkMode</span><span class="p">;</span>
 
-  bool get darkMode =&gt; Global.profile.darkMode;
-
-  set darkMode(bool value) {
-    Global.profile.darkMode = value;
-    notifyListeners();
-  }
-}
-</code></pre>
-
+  <span class="kd">set</span> <span class="n">darkMode</span><span class="p">(</span><span class="kt">bool</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Global</span><span class="p">.</span><span class="n">profile</span><span class="p">.</span><span class="n">darkMode</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="n">notifyListeners</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <p>这些model继承自<code>ProfileChangeNotifier</code>，可以提供数据或者管理数据的修改和保存。</p>
 <p>在普通的组件里可以直接使用获取或保存数据，配合<code>provider</code>组件使用可以在model数据改变的时候出发组件的更新动作～</p>
 <p>例如我的<code>MyApp</code>类定义，用到了<code>MultiProvider</code>和<code>Consumer2</code>：</p>
-<pre><code class="dart">class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: &lt;SingleChildCloneableWidget&gt;[
-        ChangeNotifierProvider.value(value: ThemeModel()),
-        ChangeNotifierProvider.value(value: UserModel()),
-        ChangeNotifierProvider.value(value: LocaleModel()),
-      ],
-      child: Consumer2&lt;ThemeModel, LocaleModel&gt;(
-        builder: (BuildContext context, themeModel, localeModel, Widget child) {
-          return MaterialApp(
-            theme: ThemeData(
-              brightness: Global.profile.darkMode ? Brightness.dark : Brightness.light,
-              primarySwatch: themeModel.theme,
-            ),
-            onGenerateTitle: (context) {
-              return DaLocalizations.of(context).title;
-            },
-            home: HomeRoute(),
-            //应用主页
-            locale: localeModel.getLocale(),
-            //我们只支持美国英语和中文简体
-            supportedLocales: [
-              const Locale('zh', 'CN'), // 中文简体
-              const Locale('en', 'US'), // 美国英语
-              //其它Locales
-            ],
-            localizationsDelegates: [
-              // 本地化的代理类
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              // EasyRefresh的多语言支持
-              GlobalEasyRefreshLocalizations.delegate,
-              // 注册我们的Delegate
-              DaLocalizationsDelegate()
-            ],
-            localeResolutionCallback: (Locale _locale, Iterable&lt;Locale&gt; supportedLocales) {
-              if (localeModel.getLocale() != null) {
-                //如果已经选定语言，则不跟随系统
-                return localeModel.getLocale();
-              } else {
-                Locale locale;
-                // APP语言跟随系统语言，如果系统语言不是中文简体或美国英语，
-                // 则默认使用美国英语
-                if (supportedLocales.contains(_locale)) {
-                  locale = _locale;
-                } else {
-                  locale = Locale('en', 'US');
-                }
-                return locale;
-              }
-            },
-          );
-        },
-      ),
-    );
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MyApp</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="p">{</span>
+  <span class="c1">// This widget is the root of your application.</span>
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">MultiProvider</span><span class="p">(</span>
+      <span class="nl">providers:</span> <span class="o">&lt;</span><span class="n">SingleChildCloneableWidget</span><span class="o">&gt;</span><span class="p">[</span>
+        <span class="n">ChangeNotifierProvider</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="nl">value:</span> <span class="n">ThemeModel</span><span class="p">()),</span>
+        <span class="n">ChangeNotifierProvider</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="nl">value:</span> <span class="n">UserModel</span><span class="p">()),</span>
+        <span class="n">ChangeNotifierProvider</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="nl">value:</span> <span class="n">LocaleModel</span><span class="p">()),</span>
+      <span class="p">],</span>
+      <span class="nl">child:</span> <span class="n">Consumer2</span><span class="o">&lt;</span><span class="n">ThemeModel</span><span class="p">,</span> <span class="n">LocaleModel</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="nl">builder:</span> <span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">,</span> <span class="n">themeModel</span><span class="p">,</span> <span class="n">localeModel</span><span class="p">,</span> <span class="n">Widget</span> <span class="n">child</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="n">MaterialApp</span><span class="p">(</span>
+            <span class="nl">theme:</span> <span class="n">ThemeData</span><span class="p">(</span>
+              <span class="nl">brightness:</span> <span class="n">Global</span><span class="p">.</span><span class="n">profile</span><span class="p">.</span><span class="n">darkMode</span> <span class="o">?</span> <span class="n">Brightness</span><span class="p">.</span><span class="n">dark</span> <span class="o">:</span> <span class="n">Brightness</span><span class="p">.</span><span class="n">light</span><span class="p">,</span>
+              <span class="nl">primarySwatch:</span> <span class="n">themeModel</span><span class="p">.</span><span class="n">theme</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="nl">onGenerateTitle:</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+              <span class="k">return</span> <span class="n">DaLocalizations</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">context</span><span class="p">).</span><span class="n">title</span><span class="p">;</span>
+            <span class="p">},</span>
+            <span class="nl">home:</span> <span class="n">HomeRoute</span><span class="p">(),</span>
+            <span class="c1">//应用主页</span>
+            <span class="nl">locale:</span> <span class="n">localeModel</span><span class="p">.</span><span class="n">getLocale</span><span class="p">(),</span>
+            <span class="c1">//我们只支持美国英语和中文简体</span>
+            <span class="nl">supportedLocales:</span> <span class="p">[</span>
+              <span class="kd">const</span> <span class="n">Locale</span><span class="p">(</span><span class="s1">&#39;zh&#39;</span><span class="p">,</span> <span class="s1">&#39;CN&#39;</span><span class="p">),</span> <span class="c1">// 中文简体</span>
+              <span class="kd">const</span> <span class="n">Locale</span><span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;US&#39;</span><span class="p">),</span> <span class="c1">// 美国英语</span>
+              <span class="c1">//其它Locales</span>
+            <span class="p">],</span>
+            <span class="nl">localizationsDelegates:</span> <span class="p">[</span>
+              <span class="c1">// 本地化的代理类</span>
+              <span class="n">GlobalMaterialLocalizations</span><span class="p">.</span><span class="n">delegate</span><span class="p">,</span>
+              <span class="n">GlobalWidgetsLocalizations</span><span class="p">.</span><span class="n">delegate</span><span class="p">,</span>
+              <span class="c1">// EasyRefresh的多语言支持</span>
+              <span class="n">GlobalEasyRefreshLocalizations</span><span class="p">.</span><span class="n">delegate</span><span class="p">,</span>
+              <span class="c1">// 注册我们的Delegate</span>
+              <span class="n">DaLocalizationsDelegate</span><span class="p">()</span>
+            <span class="p">],</span>
+            <span class="nl">localeResolutionCallback:</span> <span class="p">(</span><span class="n">Locale</span> <span class="n">_locale</span><span class="p">,</span> <span class="n">Iterable</span><span class="o">&lt;</span><span class="n">Locale</span><span class="o">&gt;</span> <span class="n">supportedLocales</span><span class="p">)</span> <span class="p">{</span>
+              <span class="k">if</span> <span class="p">(</span><span class="n">localeModel</span><span class="p">.</span><span class="n">getLocale</span><span class="p">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">//如果已经选定语言，则不跟随系统</span>
+                <span class="k">return</span> <span class="n">localeModel</span><span class="p">.</span><span class="n">getLocale</span><span class="p">();</span>
+              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">Locale</span> <span class="n">locale</span><span class="p">;</span>
+                <span class="c1">// APP语言跟随系统语言，如果系统语言不是中文简体或美国英语，</span>
+                <span class="c1">// 则默认使用美国英语</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">supportedLocales</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">_locale</span><span class="p">))</span> <span class="p">{</span>
+                  <span class="n">locale</span> <span class="o">=</span> <span class="n">_locale</span><span class="p">;</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                  <span class="n">locale</span> <span class="o">=</span> <span class="n">Locale</span><span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;US&#39;</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">return</span> <span class="n">locale</span><span class="p">;</span>
+              <span class="p">}</span>
+            <span class="p">},</span>
+          <span class="p">);</span>
+        <span class="p">},</span>
+      <span class="p">),</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="_4">国际化支持</h2>
 <p>国际化就是多语言啦，用到了<code>intl</code>包。</p>
-<p>在项目根目录下创建文件夹<code>i10n-arb</code>，在<code>lib/i10n</code>里创建<code>localization_intl.dart</code>：</p>
-<pre><code class="dart">import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'messages_all.dart';
+<p>在项目根目录下创建文件夹<code>i10n-arb</code>，在<code>lib/i10n</code>里创建<code>localization_intl.dart</code>：
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="s1">&#39;package:flutter/material.dart&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">&#39;package:intl/intl.dart&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">&#39;messages_all.dart&#39;</span><span class="p">;</span>
 
-class DaLocalizations {
-  String get userNameOrPasswordWrong =&gt; null;
+<span class="kd">class</span> <span class="nc">DaLocalizations</span> <span class="p">{</span>
+  <span class="kt">String</span> <span class="kd">get</span> <span class="n">userNameOrPasswordWrong</span> <span class="o">=&gt;</span> <span class="kc">null</span><span class="p">;</span>
 
-  static Future&lt;DaLocalizations&gt; load(Locale locale) {
-    final String name = locale.countryCode.isEmpty ? locale.languageCode : locale.toString();
-    final String localeName = Intl.canonicalizedLocale(name);
-    //2
-    return initializeMessages(localeName).then((b) {
-      Intl.defaultLocale = localeName;
-      return new DaLocalizations();
-    });
-  }
+  <span class="kd">static</span> <span class="n">Future</span><span class="o">&lt;</span><span class="n">DaLocalizations</span><span class="o">&gt;</span> <span class="n">load</span><span class="p">(</span><span class="n">Locale</span> <span class="n">locale</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="kt">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">locale</span><span class="p">.</span><span class="n">countryCode</span><span class="p">.</span><span class="n">isEmpty</span> <span class="o">?</span> <span class="n">locale</span><span class="p">.</span><span class="n">languageCode</span> <span class="o">:</span> <span class="n">locale</span><span class="p">.</span><span class="n">toString</span><span class="p">();</span>
+    <span class="kd">final</span> <span class="kt">String</span> <span class="n">localeName</span> <span class="o">=</span> <span class="n">Intl</span><span class="p">.</span><span class="n">canonicalizedLocale</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+    <span class="c1">//2</span>
+    <span class="k">return</span> <span class="n">initializeMessages</span><span class="p">(</span><span class="n">localeName</span><span class="p">).</span><span class="n">then</span><span class="p">((</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">Intl</span><span class="p">.</span><span class="n">defaultLocale</span> <span class="o">=</span> <span class="n">localeName</span><span class="p">;</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="n">DaLocalizations</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
 
-  static DaLocalizations of(BuildContext context) {
-    return Localizations.of&lt;DaLocalizations&gt;(context, DaLocalizations);
-  }
-  String get auto =&gt; Intl.message('auto', name: 'auto', desc: 'set theme mode auto');
-}
+  <span class="kd">static</span> <span class="n">DaLocalizations</span> <span class="n">of</span><span class="p">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Localizations</span><span class="p">.</span><span class="n">of</span><span class="o">&lt;</span><span class="n">DaLocalizations</span><span class="o">&gt;</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">DaLocalizations</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="kt">String</span> <span class="kd">get</span> <span class="n">auto</span> <span class="o">=&gt;</span> <span class="n">Intl</span><span class="p">.</span><span class="n">message</span><span class="p">(</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="nl">name:</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="nl">desc:</span> <span class="s1">&#39;set theme mode auto&#39;</span><span class="p">);</span>
+<span class="p">}</span>
 
-//Locale代理类
-class DaLocalizationsDelegate extends LocalizationsDelegate&lt;DaLocalizations&gt; {
-  const DaLocalizationsDelegate();
+<span class="c1">//Locale代理类</span>
+<span class="kd">class</span> <span class="nc">DaLocalizationsDelegate</span> <span class="kd">extends</span> <span class="n">LocalizationsDelegate</span><span class="o">&lt;</span><span class="n">DaLocalizations</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="n">DaLocalizationsDelegate</span><span class="p">();</span>
 
-  //是否支持某个Local
-  @override
-  bool isSupported(Locale locale) =&gt; ['en', 'zh'].contains(locale.languageCode);
+  <span class="c1">//是否支持某个Local</span>
+  <span class="err">@</span><span class="n">override</span>
+  <span class="kt">bool</span> <span class="n">isSupported</span><span class="p">(</span><span class="n">Locale</span> <span class="n">locale</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;zh&#39;</span><span class="p">].</span><span class="n">contains</span><span class="p">(</span><span class="n">locale</span><span class="p">.</span><span class="n">languageCode</span><span class="p">);</span>
 
-  // Flutter会调用此类加载相应的Locale资源类
-  @override
-  Future&lt;DaLocalizations&gt; load(Locale locale) {
-    //3
-    return DaLocalizations.load(locale);
-  }
+  <span class="c1">// Flutter会调用此类加载相应的Locale资源类</span>
+  <span class="err">@</span><span class="n">override</span>
+  <span class="n">Future</span><span class="o">&lt;</span><span class="n">DaLocalizations</span><span class="o">&gt;</span> <span class="n">load</span><span class="p">(</span><span class="n">Locale</span> <span class="n">locale</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//3</span>
+    <span class="k">return</span> <span class="n">DaLocalizations</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">locale</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // 当Localizations Widget重新build时，是否调用load重新加载Locale资源.
-  @override
-  bool shouldReload(DaLocalizationsDelegate old) =&gt; false;
-}
-</code></pre>
-
-<p>运行命令生成arb文件：</p>
-<pre><code>flutter pub pub run intl_translation:extract_to_arb --output-dir=i10n-arb lib/i10n/localization_intl.dart
-</code></pre>
-
+  <span class="c1">// 当Localizations Widget重新build时，是否调用load重新加载Locale资源.</span>
+  <span class="err">@</span><span class="n">override</span>
+  <span class="kt">bool</span> <span class="n">shouldReload</span><span class="p">(</span><span class="n">DaLocalizationsDelegate</span> <span class="n">old</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>运行命令生成arb文件：
+<div class="highlight"><pre><span></span><code>flutter pub pub run intl_translation:extract_to_arb --output-dir=i10n-arb lib/i10n/localization_intl.dart
+</code></pre></div></p>
 <p>之后会在<code>i10n-arb</code>文件夹下生成<code>intl_messages.arb</code>文件，这个本质上是一个json文件，我们还要为不同的语言版本创建对应的翻译，比如本app支持中文和英文，那么需要创建两个文件：<code>intl_zh.arb</code>和<code>intl_en.arb</code>。</p>
-<p>把<code>intl_messages.arb</code>文件的内容分别复制到对应语言的翻译文件中，修改成对应语言的版本即可。</p>
-<pre><code class="json">{
-  &quot;@@last_modified&quot;: &quot;2019-12-17T17:04:43.001945&quot;,
-  &quot;title&quot;: &quot;title&quot;,
-  &quot;@title&quot;: {
-    &quot;type&quot;: &quot;text&quot;,
-    &quot;placeholders&quot;: {}
-  },
-}
-</code></pre>
-
-<p>上面这些做完之后运行命令生成对应的类：</p>
-<pre><code># 从arb文件生成dart代码
+<p>把<code>intl_messages.arb</code>文件的内容分别复制到对应语言的翻译文件中，修改成对应语言的版本即可。
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;@@last_modified&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-17T17:04:43.001945&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;@title&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;placeholders&quot;</span><span class="p">:</span> <span class="p">{}</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>上面这些做完之后运行命令生成对应的类：
+<div class="highlight"><pre><span></span><code># 从arb文件生成dart代码
 flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/i10n --no-use-deferred-loading lib/i10n/localization_intl.dart i10n-arb/intl_*.arb
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="_5">未完待续</h2>
 <p>原来有这么多内容，限制于篇幅，我将在接下来的文章中继续记录～</p>
 <h2 id="_6">欢迎交流</h2>
@@ -3881,6 +3845,8 @@ flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/i10n --n
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

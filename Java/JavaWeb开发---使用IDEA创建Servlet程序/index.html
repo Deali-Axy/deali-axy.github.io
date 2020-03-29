@@ -3841,15 +3841,15 @@
 <img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-4cb52fbee7db0450.png" /></p>
 <h2 id="web">Web工程设置</h2>
 <h3 id="classeslib">创建<code>classes</code>、<code>lib</code>目录</h3>
-<p>在WEB-INF 目录下点击右键，New --&gt; Directory，创建 classes 和 lib 两个目录</p>
+<p>在WEB-INF 目录下点击右键，New &rarr; Directory，创建 classes 和 lib 两个目录</p>
 <p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-4573e088e8cb702a.png" /></p>
 <p>classes目录用于存放编译后的class文件，lib用于存放依赖的jar包</p>
 <h3 id="classes"><code>classes</code>目录配置</h3>
-<p>File --&gt; Project Structure...，进入 Project Structure窗口，点击 Modules --&gt; 选中项目“JavaWeb” --&gt; 切换到 Paths 选项卡 --&gt; 勾选 “Use module compile output path”，将 “Output path” 和 “Test output path” 都改为之前创建的classes目录</p>
+<p>File &rarr; Project Structure...，进入 Project Structure窗口，点击 Modules &rarr; 选中项目“JavaWeb” &rarr; 切换到 Paths 选项卡 &rarr; 勾选 “Use module compile output path”，将 “Output path” 和 “Test output path” 都改为之前创建的classes目录</p>
 <p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-19e9bded8626a320.png" /></p>
 <p>即将后面编译的class文件默认生成到classes目录下</p>
 <h3 id="lib"><code>lib</code>目录配置</h3>
-<p>还是在这个<code>Project Structure</code>这个窗口。点击 Modules --&gt; 选中项目“JavaWeb” --&gt; 切换到 Dependencies 选项卡 --&gt; 点击右边的“+”，选择 “JARs or directories...”，选择创建的lib目录。
+<p>还是在这个<code>Project Structure</code>这个窗口。点击 Modules &rarr; 选中项目“JavaWeb” &rarr; 切换到 Dependencies 选项卡 &rarr; 点击右边的“+”，选择 “JARs or directories...”，选择创建的lib目录。
 <img alt="
 " src="http://upload-images.jianshu.io/upload_images/8869373-e79cc56965c39fdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
 <p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-0f1e771baa970ce2.png" /></p>
@@ -3891,55 +3891,53 @@
 <p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-d7bbd56167919701.png" /></p>
 <h3 id="servlet_2">编写<code>Servlet</code>源文件</h3>
 <p>在src目录下新建HelloWorld.java，并编写一下代码并进行编译：
-代码如下：</p>
-<pre><code class="java">import javax.servlet.ServletException;  
-import javax.servlet.http.HttpServlet;  
-import javax.servlet.http.HttpServletRequest;  
-import javax.servlet.http.HttpServletResponse;  
-import java.io.IOException;  
-import java.io.PrintWriter;  
+代码如下：
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">javax.servlet.ServletException</span><span class="o">;</span>  
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServlet</span><span class="o">;</span>  
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>  
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>  
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>  
+<span class="kn">import</span> <span class="nn">java.io.PrintWriter</span><span class="o">;</span>  
 
-public class HelloWorld extends HttpServlet {  
-private String message;  
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>  
+<span class="kd">private</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>  
 
-    @Override  
-    public void init() throws ServletException {  
-    message = &quot;Hello world, this message is from servlet!&quot;;  
-    }  
+    <span class="nd">@Override</span>  
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">ServletException</span> <span class="o">{</span>  
+    <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Hello world, this message is from servlet!&quot;</span><span class="o">;</span>  
+    <span class="o">}</span>  
 
-    @Override  
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {  
-        //设置响应内容类型  
-    resp.setContentType(&quot;text/html&quot;);  
+    <span class="nd">@Override</span>  
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>  
+        <span class="c1">//设置响应内容类型  </span>
+    <span class="n">resp</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&quot;text/html&quot;</span><span class="o">);</span>  
 
-        //设置逻辑实现  
-    PrintWriter out = resp.getWriter();  
-    out.println(&quot;&lt;h1&gt;&quot; + message + &quot;&lt;/h1&gt;&quot;);  
-    }  
+        <span class="c1">//设置逻辑实现  </span>
+    <span class="n">PrintWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>  
+    <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;&lt;h1&gt;&quot;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&quot;&lt;/h1&gt;&quot;</span><span class="o">);</span>  
+    <span class="o">}</span>  
 
-    @Override  
-    public void destroy() {  
-    super.destroy();  
-    }  
-} 
-</code></pre>
-
+    <span class="nd">@Override</span>  
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="o">()</span> <span class="o">{</span>  
+    <span class="kd">super</span><span class="o">.</span><span class="na">destroy</span><span class="o">();</span>  
+    <span class="o">}</span>  
+<span class="o">}</span> 
+</code></pre></div></p>
 <p>编译后会发现在classes目录下生成了HelloWorld.class文件</p>
 <p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-553a1f7765e86b03.png" /></p>
 <h3 id="servlet_3">部署<code>servlet</code></h3>
 <h4 id="1">方法1</h4>
-<p>在WEB-INF目录下web.xml文件的<web-app>标签中添加如下内容：</p>
-<pre><code class="xml">&lt;servlet&gt;  
-    &lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;  
-    &lt;servlet-class&gt;HelloWorld&lt;/servlet-class&gt;  
-&lt;/servlet&gt;  
+<p>在WEB-INF目录下web.xml文件的<web-app>标签中添加如下内容：
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;servlet&gt;</span>  
+    <span class="nt">&lt;servlet-name&gt;</span>HelloWorld<span class="nt">&lt;/servlet-name&gt;</span>  
+    <span class="nt">&lt;servlet-class&gt;</span>HelloWorld<span class="nt">&lt;/servlet-class&gt;</span>  
+<span class="nt">&lt;/servlet&gt;</span>  
 
-&lt;servlet-mapping&gt;  
-    &lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;  
-    &lt;url-pattern&gt;/HelloWorld&lt;/url-pattern&gt;  
-&lt;/servlet-mapping&gt;  
-</code></pre>
-
+<span class="nt">&lt;servlet-mapping&gt;</span>  
+    <span class="nt">&lt;servlet-name&gt;</span>HelloWorld<span class="nt">&lt;/servlet-name&gt;</span>  
+    <span class="nt">&lt;url-pattern&gt;</span>/HelloWorld<span class="nt">&lt;/url-pattern&gt;</span>  
+<span class="nt">&lt;/servlet-mapping&gt;</span>  
+</code></pre></div></p>
 <h4 id="2">方法2</h4>
 <p>（反正我自己测试是没有成功的）
 在HelloWorld文件的类前面加上：@WebServlet("/HelloWorld")</p>
@@ -4027,6 +4025,8 @@ private String message;
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

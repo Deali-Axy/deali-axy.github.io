@@ -3504,12 +3504,11 @@
                 
                 <h2 id="_1">操作步骤</h2>
 <h3 id="_2">开启远程访问权限</h3>
-<p>连接MariaDB数据库，执行以下命令开启远程访问。</p>
-<pre><code class="sql">grant all privileges on *.* to 'root'@'192.168.248.248' identified by 'password';
-flush privileges;
-</code></pre>
-
-<p>如果需要任意IP地址访问，就把IP地址换成<code>%</code>。</p>
+<p>连接MariaDB数据库，执行以下命令开启远程访问。
+<div class="highlight"><pre><span></span><code><span class="k">grant</span> <span class="k">all</span> <span class="k">privileges</span> <span class="k">on</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">to</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.248.248&#39;</span> <span class="n">identified</span> <span class="k">by</span> <span class="s1">&#39;password&#39;</span><span class="p">;</span>
+<span class="n">flush</span> <span class="k">privileges</span><span class="p">;</span>
+</code></pre></div>
+如果需要任意IP地址访问，就把IP地址换成<code>%</code>。</p>
 <h3 id="_3">修改配置文件</h3>
 <p>在网络上能搜索到的资料都只说了第一点，然而亲测之后并没有用。因为MariaDB默认绑定了本地IP。
 具体的文件存放位置和数据库的版本有关。我当时就找了一些时间才找到。
@@ -3593,6 +3592,8 @@ flush privileges;
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

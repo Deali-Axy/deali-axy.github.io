@@ -3599,127 +3599,125 @@
 <h2 id="_5">开始使用</h2>
 <p>我要做的是一个聊天室，所以只需要写一个简单的服务就可以了。</p>
 <p>首先要创建AspNetCore项目，注册SignalR服务：</p>
-<pre><code class="c#">public void ConfigureServices(IServiceCollection services)
-{
-    services.AddControllers();
-    services.AddSignalR();
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddControllers</span><span class="p">();</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddSignalR</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>创建<code>ChatService</code>类：</p>
-<pre><code class="c#">public class ChatService
-{
-    private readonly List&lt;ChatMessage&gt; _messages;
-    private readonly IHubContext&lt;ChatHub&gt; _context;
-    public List&lt;ChatMessage&gt; Messages { get =&gt; _messages; }
-    public ChatService(IHubContext&lt;ChatHub&gt; context)
-    {
-        _context = context;
-        _messages = new List&lt;ChatMessage&gt;();
-    }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ChatService</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChatMessage</span><span class="p">&gt;</span> <span class="n">_messages</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IHubContext</span><span class="p">&lt;</span><span class="n">ChatHub</span><span class="p">&gt;</span> <span class="n">_context</span><span class="p">;</span>
+    <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChatMessage</span><span class="p">&gt;</span> <span class="n">Messages</span> <span class="p">{</span> <span class="k">get</span> <span class="p">=&gt;</span> <span class="n">_messages</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="nf">ChatService</span><span class="p">(</span><span class="n">IHubContext</span><span class="p">&lt;</span><span class="n">ChatHub</span><span class="p">&gt;</span> <span class="n">context</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_context</span> <span class="p">=</span> <span class="n">context</span><span class="p">;</span>
+        <span class="n">_messages</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ChatMessage</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>消息实体类：</p>
-<pre><code class="c#">public class ChatMessage
-{
-    public string UserName { get; set; }
-    public string Content { get; set; }
-    public DateTime SendedTime { get; set; }
-    public string ClientName { get; set; }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ChatMessage</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">UserName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Content</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="n">DateTime</span> <span class="n">SendedTime</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">ClientName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>关键的来了，编写Hub：</p>
 <p>使用<code>SendAsync</code>可以进行远程调用</p>
-<pre><code class="c#">public class ChatHub : Hub {
-    private readonly ChatService _chatService;
-    public ChatHub(ChatService chatService) {
-        _chatService = chatService;
-    }
-    public async Task GetMessages(string connectionId) {
-        var data = _chatService.Messages;
-        await Clients.Client(connectionId).
-            SendAsync(&quot;GetMessages&quot;, data);
-    }
-    public async Task SendMessage(string userName, string content, string clientName) {
-        var msg = new Models.ChatMessage {
-            UserName = userName,
-            Content = content,
-            SendedTime = DateTime.Now,
-            ClientName = clientName
-        };
-        _chatService.Messages.Add(msg);
-        await Clients.All.SendAsync(&quot;SendMessage&quot;, msg);
-    }
-    public override Task OnConnectedAsync() {
-        GetMessages(Context.ConnectionId);
-        return base.OnConnectedAsync();
-    }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ChatHub</span> <span class="p">:</span> <span class="n">Hub</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ChatService</span> <span class="n">_chatService</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nf">ChatHub</span><span class="p">(</span><span class="n">ChatService</span> <span class="n">chatService</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_chatService</span> <span class="p">=</span> <span class="n">chatService</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">GetMessages</span><span class="p">(</span><span class="kt">string</span> <span class="n">connectionId</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">data</span> <span class="p">=</span> <span class="n">_chatService</span><span class="p">.</span><span class="n">Messages</span><span class="p">;</span>
+        <span class="k">await</span> <span class="n">Clients</span><span class="p">.</span><span class="n">Client</span><span class="p">(</span><span class="n">connectionId</span><span class="p">).</span>
+            <span class="n">SendAsync</span><span class="p">(</span><span class="s">&quot;GetMessages&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">SendMessage</span><span class="p">(</span><span class="kt">string</span> <span class="n">userName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">content</span><span class="p">,</span> <span class="kt">string</span> <span class="n">clientName</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">msg</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Models</span><span class="p">.</span><span class="n">ChatMessage</span> <span class="p">{</span>
+            <span class="n">UserName</span> <span class="p">=</span> <span class="n">userName</span><span class="p">,</span>
+            <span class="n">Content</span> <span class="p">=</span> <span class="n">content</span><span class="p">,</span>
+            <span class="n">SendedTime</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">,</span>
+            <span class="n">ClientName</span> <span class="p">=</span> <span class="n">clientName</span>
+        <span class="p">};</span>
+        <span class="n">_chatService</span><span class="p">.</span><span class="n">Messages</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+        <span class="k">await</span> <span class="n">Clients</span><span class="p">.</span><span class="n">All</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="s">&quot;SendMessage&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="n">Task</span> <span class="nf">OnConnectedAsync</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">GetMessages</span><span class="p">(</span><span class="n">Context</span><span class="p">.</span><span class="n">ConnectionId</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">base</span><span class="p">.</span><span class="n">OnConnectedAsync</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="_6">注册依赖注入和中间件</h2>
 <p>依赖注入</p>
-<pre><code class="c#">public void ConfigureServices(IServiceCollection services)
-{
-    services.AddControllers();
-    services.AddSignalR();
-    services.AddSingleton&lt;CountService&gt;();
-    services.AddSingleton&lt;ChatService&gt;();
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddControllers</span><span class="p">();</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddSignalR</span><span class="p">();</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">CountService</span><span class="p">&gt;();</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">ChatService</span><span class="p">&gt;();</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>中间件</p>
-<pre><code class="c#">public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-    app.UseStaticFiles();
-    app.UseRouting();
-    app.UseEndpoints(endpoints =&gt;{
-        endpoints.MapControllers();
-        endpoints.MapHub&lt;ChatHub&gt;(&quot;/chat&quot;);
-    });
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IWebHostEnvironment</span> <span class="n">env</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseStaticFiles</span><span class="p">();</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseRouting</span><span class="p">();</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseEndpoints</span><span class="p">(</span><span class="n">endpoints</span> <span class="p">=&gt;{</span>
+        <span class="n">endpoints</span><span class="p">.</span><span class="n">MapControllers</span><span class="p">();</span>
+        <span class="n">endpoints</span><span class="p">.</span><span class="n">MapHub</span><span class="p">&lt;</span><span class="n">ChatHub</span><span class="p">&gt;(</span><span class="s">&quot;/chat&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="_7">客户端</h2>
 <p>为了方便我就用网页来做。</p>
 <p>首先写个简单的聊天界面布局，这里就不贴代码了没啥技术含量，效果大概这样：</p>
 <p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E4%B8%89%EF%BC%89%E4%BD%BF%E7%94%A8SignalR%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1%E6%A1%86%E6%9E%B6%E5%BC%80%E5%8F%91%E8%81%8A%E5%A4%A9%E5%AE%A4.assets/8869373-3608a6ab3bf671f6.png" /></p>
 <p>首先要安装signalr.js，通过npm安装即可。</p>
-<p>然后需要编写js：</p>
-<pre><code class="js">function setupConnection() {
-    connection = new signalR.HubConnectionBuilder()
-        .withUrl(&quot;/chat&quot;)
-        .build();
+<p>然后需要编写js：
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">setupConnection</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">connection</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">signalR</span><span class="p">.</span><span class="nx">HubConnectionBuilder</span><span class="p">()</span>
+        <span class="p">.</span><span class="nx">withUrl</span><span class="p">(</span><span class="s2">&quot;/chat&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">build</span><span class="p">();</span>
 
-    connection.on(&quot;SendMessage&quot;, message =&gt; {
-        console.log(message);
-        addMsg(message.userName, message.sendedTimeStr, message.content, message.clientName);
-    });
+    <span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;SendMessage&quot;</span><span class="p">,</span> <span class="nx">message</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+        <span class="nx">addMsg</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">userName</span><span class="p">,</span> <span class="nx">message</span><span class="p">.</span><span class="nx">sendedTimeStr</span><span class="p">,</span> <span class="nx">message</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span> <span class="nx">message</span><span class="p">.</span><span class="nx">clientName</span><span class="p">);</span>
+    <span class="p">});</span>
 
-    connection.on(&quot;GetMessages&quot;, data =&gt; {
-        console.log(data);
-        for (var i = 0; i &lt; data.length; i++) {
-            let message = data[i];
-            addMsg(message.userName, message.sendedTimeStr, message.content, message.clientName);
-        }
-    });
+    <span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;GetMessages&quot;</span><span class="p">,</span> <span class="nx">data</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">message</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+            <span class="nx">addMsg</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">userName</span><span class="p">,</span> <span class="nx">message</span><span class="p">.</span><span class="nx">sendedTimeStr</span><span class="p">,</span> <span class="nx">message</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span> <span class="nx">message</span><span class="p">.</span><span class="nx">clientName</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
 
-    connection.on(&quot;Finished&quot;, () =&gt; {
-        connection.stop();
-        console.log(&quot;finished.&quot;)
-    });
+    <span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;Finished&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">connection</span><span class="p">.</span><span class="nx">stop</span><span class="p">();</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;finished.&quot;</span><span class="p">)</span>
+    <span class="p">});</span>
 
-    connection.start()
-        .catch(err =&gt; console.error(err.toString()));
-}
-</code></pre>
-
-<p>通过以下代码可以远程调用服务器的方法：</p>
-<pre><code class="js">connection.invoke(&quot;SendMessage&quot;, username, content, '网页客户端');
-</code></pre>
-
+    <span class="nx">connection</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
+        <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">toString</span><span class="p">()));</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>通过以下代码可以远程调用服务器的方法：
+<div class="highlight"><pre><span></span><code><span class="nx">connection</span><span class="p">.</span><span class="nx">invoke</span><span class="p">(</span><span class="s2">&quot;SendMessage&quot;</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">content</span><span class="p">,</span> <span class="s1">&#39;网页客户端&#39;</span><span class="p">);</span>
+</code></pre></div></p>
 <p>然后就可以打开多个浏览器测试了。
 这是我在手机上的截图</p>
 <p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E4%B8%89%EF%BC%89%E4%BD%BF%E7%94%A8SignalR%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1%E6%A1%86%E6%9E%B6%E5%BC%80%E5%8F%91%E8%81%8A%E5%A4%A9%E5%AE%A4.assets/8869373-6f97ed1719a0c3b1.png" /></p>
@@ -3812,6 +3810,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

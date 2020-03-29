@@ -3505,7 +3505,7 @@
                   <h1>Linux  使用Snap安装第三方微信客户端Electronic Wechat</h1>
                 
                 <h2 id="_1">前言</h2>
-<p>腾讯估计是不会给Linux系统开发任何软件了，不过问题不大。我们有很多好用的第三方软件替代~~（无奈之举，摊手）~~</p>
+<p>腾讯估计是不会给Linux系统开发任何软件了，不过问题不大。我们有很多好用的第三方软件替代<sub>~（无奈之举，摊手）</sub>~</p>
 <h2 id="snap">关于Snap</h2>
 <p><strong>Ubuntu官网上的介绍</strong></p>
 <blockquote>
@@ -3514,33 +3514,32 @@ Snapcraft, the open source tool to publish snaps, picks up from your existing bu
 </blockquote>
 <p>了解更多：<a href="https://snapcraft.io">https://snapcraft.io</a></p>
 <h2 id="snap_1">安装Snap基本环境</h2>
-<pre><code class="bash">sudo apt install snapd snappy
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo apt install snapd snappy
+</code></pre></div>
 
 <h2 id="electronic-wechat">安装electronic-wechat</h2>
-<pre><code class="bash">sudo snap install electronic-wechat
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo snap install electronic-wechat
+</code></pre></div>
 
 <p>由于 Snap 版自带了所有依赖，所以软件体积比较大，安装需要点耐心。如果安装失败，建议每次安装一个软件，逐个重试。
 安装后，需要重启或者注销系统，才能在主菜单中看到微信的启动器（快捷方式）。</p>
 <h2 id="application-config">Application Config</h2>
 <p><strong>把微信添加到应用程序菜单里</strong></p>
 <p>Create file : <code>/usr/share/applications/electronic-wechat.desktop</code></p>
-<p>File content:</p>
-<pre><code class="ini">[Desktop Entry]
-Name=Electronic Wechat
-Name[zh_CN]=微信电脑版
-Name[zh_TW]=微信电脑版
-Exec=/opt/electronic-wechat/electronic-wechat
-Icon=/opt/electronic-wechat/resources/electronic-wechat.png
-Terminal=false
-X-MultipleArgs=false
-Type=Application
-Encoding=UTF-8
-Categories=Application;Utility;Network;InstantMessaging;
-StartupNotify=false
-</code></pre>
-
+<p>File content:
+<div class="highlight"><pre><span></span><code><span class="k">[Desktop Entry]</span>
+<span class="na">Name</span><span class="o">=</span><span class="s">Electronic Wechat</span>
+<span class="na">Name[zh_CN]</span><span class="o">=</span><span class="s">微信电脑版</span>
+<span class="na">Name[zh_TW]</span><span class="o">=</span><span class="s">微信电脑版</span>
+<span class="na">Exec</span><span class="o">=</span><span class="s">/opt/electronic-wechat/electronic-wechat</span>
+<span class="na">Icon</span><span class="o">=</span><span class="s">/opt/electronic-wechat/resources/electronic-wechat.png</span>
+<span class="na">Terminal</span><span class="o">=</span><span class="s">false</span>
+<span class="na">X-MultipleArgs</span><span class="o">=</span><span class="s">false</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
+<span class="na">Encoding</span><span class="o">=</span><span class="s">UTF-8</span>
+<span class="na">Categories</span><span class="o">=</span><span class="s">Application;Utility;Network;InstantMessaging;</span>
+<span class="na">StartupNotify</span><span class="o">=</span><span class="s">false</span>
+</code></pre></div></p>
 <p>这样设置是全局有效的，如果需要只对当前用户有效，则在以下目录新建desktop文件即可。
 <code>~/.local/share/applications</code></p>
 <h2 id="end">End</h2>
@@ -3623,6 +3622,8 @@ StartupNotify=false
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

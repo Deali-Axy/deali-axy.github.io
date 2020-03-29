@@ -3495,14 +3495,14 @@
 <h2 id="_1">技术学习方面</h2>
 <p>培训班也不能说没用吧，至少是前端扫盲了，在此基础上我自己又看了一下书，学了布局、动画和一点点js啊，js其实真的挺好用的，收回我之前的成见~（少见多怪）</p>
 <p>还用js做了几个好玩的东西，比如说斗鱼、B站刷弹幕啦，网易云下载破解什么的，我贴一下斗鱼刷弹幕的js代码，仅供学习（我已经被封号了~）</p>
-<pre><code class="js">setInterval(() =&gt; {
-    document.querySelector('.ChatSend-txt').value = document.querySelector('#js-barrage-list').lastChild.getElementsByClassName('Barrage-content')[0].innerText;
-    document.querySelector('.ChatSend-button').click();
-}, 500);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nx">setInterval</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.ChatSend-txt&#39;</span><span class="p">).</span><span class="nx">value</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#js-barrage-list&#39;</span><span class="p">).</span><span class="nx">lastChild</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s1">&#39;Barrage-content&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">innerText</span><span class="p">;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.ChatSend-button&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">();</span>
+<span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+</code></pre></div>
 
 <p>然后js的话，我还学了一下下node.js和electron，nodejs不错，electron可以跨平台写软件，本来正中我怀，但是感觉调试挺麻烦的，而且我js技术太菜，后面有别的事做就没有继续深入了。</p>
-<p>然后Linux运维课我请假了没学到，后面Java课就是SpringBoot入门了，用来快速开发网站后台还是很方便的，不过Spring本身的硬伤还是在，ORM不好用、语言比较死板、开发耗时这类问题还是在，在国内这种大环境下说Java的不好真的很容易被喷，不过我还是想说<strong>C#牛逼、Python万岁、Go默秒全</strong>（逃</p>
+<p>然后Linux运维课我请假了没学到，后面Java课就是SpringBoot入门了，用来快速开发网站后台还是很方便的，不过Spring本身的硬伤还是在，ORM不好用、语言比较死板、开发耗时这类问题还是在，在国内这种大环境下说Java的不好真的很容易被喷，不过我还是想说**C#牛逼、Python万岁、Go默秒全**（逃</p>
 <p>除开语言和框架本身的限制，最后两周的Java老师还是讲得不错的，从JavaEE开发、基本的设计模式、前端用vue.js实现数据双向绑定，都有涉及，还讲了一点使用Docker部署的。就上课教的内容而言，已经比学校JSP课一个学期都有用了= =，不是我有意贬低学校的教学，其实是学校在应用技术方面真的落后于实际需求太多了，这是不可抗力的因素，也不能怪老师，不过学校在基础知识方面还是杠杠的。</p>
 <p>下图为后两周的学习内容。
 <img alt="" src="../%E6%8A%93%E4%BD%8F%E4%B9%9D%E6%9C%88%E5%B0%8F%E5%B0%BE%E5%B7%B4%E7%9A%84%E5%B0%8F%E6%80%BB%E7%BB%93%EF%BC%8C%E7%A5%96%E5%9B%BD%E7%94%9F%E6%97%A5%E5%BF%AB%E4%B9%90~.assets/8869373-ec9a382c1a23bed0.png" /></p>
@@ -3519,7 +3519,7 @@
 <p><strong>技术方面的，最后贴一下我重新设计的博客主页~</strong></p>
 <p>用了Metro设计，没有加载出磁贴来的时候是这样子的，每个磁贴都是会翻转的，翻转的时间各不相同，翻转后的内容也会实时更新：</p>
 <p><img alt="" src="../%E6%8A%93%E4%BD%8F%E4%B9%9D%E6%9C%88%E5%B0%8F%E5%B0%BE%E5%B7%B4%E7%9A%84%E5%B0%8F%E6%80%BB%E7%BB%93%EF%BC%8C%E7%A5%96%E5%9B%BD%E7%94%9F%E6%97%A5%E5%BF%AB%E4%B9%90~.assets/8869373-eb4a1b0b2d495c00.png" /></p>
-<p>加载了磁贴图片的截图我没法放出来，因为现在网络很差，我真加载不出来，等博客上线的时候再~~水~~一篇好了~</p>
+<p>加载了磁贴图片的截图我没法放出来，因为现在网络很差，我真加载不出来，等博客上线的时候再<sub>~水</sub><sub>一篇好了</sub></p>
 <h2 id="_2">学习感想</h2>
 <p>临近毕业，每天看着周围同学抓紧时间在看面试题，讨论各种面试经验和心得的时候，发觉我现在可以把编程纯粹地当成一种兴趣是多么幸福~</p>
 <p>再好玩的东西当其成为工作的任务，变成生存的压力的时候，都会索然无味……但是面对现实，我们别无选择。</p>
@@ -3560,7 +3560,7 @@
 贴一篇知乎上的简单评测吧：</p>
 <blockquote>
 <p>家国梦游戏体验——老少咸宜的策略碎碎念 - 喵喵一世的文章 - 知乎
-https://zhuanlan.zhihu.com/p/84595410</p>
+<a href="https://zhuanlan.zhihu.com/p/84595410">https://zhuanlan.zhihu.com/p/84595410</a></p>
 </blockquote>
 <h2 id="_5">不吐不快</h2>
 <p>到这里必须diss一下一些人一些事，不吐不快……</p>
@@ -3653,6 +3653,8 @@ https://zhuanlan.zhihu.com/p/84595410</p>
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

@@ -4084,16 +4084,16 @@
 <p>基于.Net Core 2.2版本的学习笔记。</p>
 <h2 id="_1">常识</h2>
 <p>像Django那样自动检查代码更新，自动重载服务器（太方便了）</p>
-<pre><code>dotnet watch run
-</code></pre>
+<div class="highlight"><pre><span></span><code>dotnet watch run
+</code></pre></div>
 
 <h2 id="_2">托管设置</h2>
 <p>设置项目文件的<code>AspNetCoreHostingModel</code>属性。</p>
-<pre><code class="xml">&lt;PropertyGroup&gt;
-    &lt;TargetFramework&gt;netcoreapp2.2&lt;/TargetFramework&gt;
-    &lt;AspNetCoreHostingModel&gt;InProcess&lt;/AspNetCoreHostingModel&gt;
-&lt;/PropertyGroup&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;PropertyGroup&gt;</span>
+    <span class="nt">&lt;TargetFramework&gt;</span>netcoreapp2.2<span class="nt">&lt;/TargetFramework&gt;</span>
+    <span class="nt">&lt;AspNetCoreHostingModel&gt;</span>InProcess<span class="nt">&lt;/AspNetCoreHostingModel&gt;</span>
+<span class="nt">&lt;/PropertyGroup&gt;</span>
+</code></pre></div>
 
 <ul>
 <li>InProcess：使用IIS服务器托管</li>
@@ -4108,47 +4108,47 @@
 <li>中间件是按照添加顺序执行的</li>
 </ul>
 <p>通过在<code>Configure</code>中添加参数<code>ILogger&lt;Startup&gt; logger</code>引入Asp.Net Core自带的日志组件。</p>
-<pre><code class="c#">public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger&lt;Startup&gt; logger)
-{
-    if (env.IsDevelopment())
-    {
-        app.UseDeveloperExceptionPage();
-    }
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IHostingEnvironment</span> <span class="n">env</span><span class="p">,</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">Startup</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">IsDevelopment</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseDeveloperExceptionPage</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    app.UseStaticFiles();
+    <span class="n">app</span><span class="p">.</span><span class="n">UseStaticFiles</span><span class="p">();</span>
 
-    app.Use(async (context, next) =&gt;
-    {
-        context.Response.ContentType = &quot;text/plain;charset=utf-8&quot;;
+    <span class="n">app</span><span class="p">.</span><span class="n">Use</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">next</span><span class="p">)</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;text/plain;charset=utf-8&quot;</span><span class="p">;</span>
 
-        //await context.Response.WriteAsync(&quot;Hello!&quot;);
+        <span class="c1">//await context.Response.WriteAsync(&quot;Hello!&quot;);</span>
 
-        logger.LogDebug(&quot;M1: 传入请求&quot;);
-        await next();
-        logger.LogDebug(&quot;M1: 传出响应&quot;);
-    });
+        <span class="n">logger</span><span class="p">.</span><span class="n">LogDebug</span><span class="p">(</span><span class="s">&quot;M1: 传入请求&quot;</span><span class="p">);</span>
+        <span class="k">await</span> <span class="nf">next</span><span class="p">();</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">LogDebug</span><span class="p">(</span><span class="s">&quot;M1: 传出响应&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
 
 
-    app.Use(async (context, next) =&gt;
-    {
-        context.Response.ContentType = &quot;text/plain;charset=utf-8&quot;;
+    <span class="n">app</span><span class="p">.</span><span class="n">Use</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">next</span><span class="p">)</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;text/plain;charset=utf-8&quot;</span><span class="p">;</span>
 
-        logger.LogDebug(&quot;M2: 传入请求&quot;);
-        await next();
-        logger.LogDebug(&quot;M2: 传出响应&quot;);
-    });
+        <span class="n">logger</span><span class="p">.</span><span class="n">LogDebug</span><span class="p">(</span><span class="s">&quot;M2: 传入请求&quot;</span><span class="p">);</span>
+        <span class="k">await</span> <span class="nf">next</span><span class="p">();</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">LogDebug</span><span class="p">(</span><span class="s">&quot;M2: 传出响应&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
 
-    app.Run(async (context) =&gt;
-    {
-        //await context.Response.WriteAsync(&quot;你好！&quot;);
-        await context.Response.WriteAsync(&quot;M3: 处理请求，生成响应&quot;);
-        logger.LogDebug(&quot;M3: 处理请求，生成响应&quot;);
-    });
-}
-</code></pre>
+    <span class="n">app</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="c1">//await context.Response.WriteAsync(&quot;你好！&quot;);</span>
+        <span class="k">await</span> <span class="n">context</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">WriteAsync</span><span class="p">(</span><span class="s">&quot;M3: 处理请求，生成响应&quot;</span><span class="p">);</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">LogDebug</span><span class="p">(</span><span class="s">&quot;M3: 处理请求，生成响应&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>输出日志：(可以看到三个中间件的执行过程)</p>
-<pre><code>Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request starting HTTP/2.0 GET https://localhost:44383/  
+<div class="highlight"><pre><span></span><code>Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request starting HTTP/2.0 GET https://localhost:44383/  
 StudyManagement.Startup:Debug: M1: 传入请求
 StudyManagement.Startup:Debug: M2: 传入请求
 StudyManagement.Startup:Debug: M3: 处理请求，生成响应
@@ -4161,52 +4161,52 @@ StudyManagement.Startup:Debug: M3: 处理请求，生成响应
 StudyManagement.Startup:Debug: M2: 传出响应
 StudyManagement.Startup:Debug: M1: 传出响应
 Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 34.3387ms 200 text/plain;charset=utf-8
-</code></pre>
+</code></pre></div>
 
 <h2 id="_4">静态文件支持</h2>
 <p>所有静态文件都在目录<code>wwwroot</code>下</p>
 <h3 id="_5">首先</h3>
-<pre><code class="c#">// 设置默认文件
-// 不设置的话，默认就是index.html/default.html这几个
-var defaultFileOpinions = new DefaultFilesOptions();
-defaultFileOpinions.DefaultFileNames.Clear();
-defaultFileOpinions.DefaultFileNames.Add(&quot;test.html&quot;);
+<div class="highlight"><pre><span></span><code><span class="c1">// 设置默认文件</span>
+<span class="c1">// 不设置的话，默认就是index.html/default.html这几个</span>
+<span class="kt">var</span> <span class="n">defaultFileOpinions</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DefaultFilesOptions</span><span class="p">();</span>
+<span class="n">defaultFileOpinions</span><span class="p">.</span><span class="n">DefaultFileNames</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>
+<span class="n">defaultFileOpinions</span><span class="p">.</span><span class="n">DefaultFileNames</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;test.html&quot;</span><span class="p">);</span>
 
-// 添加默认文件中间件，必须在UseStaticFiles之前注册
-app.UseDefaultFiles(defaultFileOpinions);
+<span class="c1">// 添加默认文件中间件，必须在UseStaticFiles之前注册</span>
+<span class="n">app</span><span class="p">.</span><span class="n">UseDefaultFiles</span><span class="p">(</span><span class="n">defaultFileOpinions</span><span class="p">);</span>
 
-// 添加静态文件中间件
-app.UseStaticFiles();
-</code></pre>
+<span class="c1">// 添加静态文件中间件</span>
+<span class="n">app</span><span class="p">.</span><span class="n">UseStaticFiles</span><span class="p">();</span>
+</code></pre></div>
 
 <h3 id="directorybrowser">DirectoryBrowser 中间件</h3>
 <p>可以在浏览器浏览 <code>wwwroot</code> 下的内容。不推荐在生产环境中使用。</p>
-<pre><code class="c#">app.UseDirectoryBrowser();
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">app</span><span class="p">.</span><span class="n">UseDirectoryBrowser</span><span class="p">();</span>
+</code></pre></div>
 
 <h3 id="fileserver">FileServer 中间件</h3>
 <p>集成了<code>UseDefaultFiles</code>, <code>UseStaticFiles</code>, <code>UseDirectoryBrowser</code>三个中间件的功能。同样不推荐在生产环境中使用。</p>
-<pre><code class="c#">var fileServerOpinions = new FileServerOptions();
-fileServerOpinions.DefaultFilesOptions.DefaultFileNames.Clear();
-fileServerOpinions.DefaultFilesOptions.DefaultFileNames.Add(&quot;test.html&quot;);
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">fileServerOpinions</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FileServerOptions</span><span class="p">();</span>
+<span class="n">fileServerOpinions</span><span class="p">.</span><span class="n">DefaultFilesOptions</span><span class="p">.</span><span class="n">DefaultFileNames</span><span class="p">.</span><span class="n">Clear</span><span class="p">();</span>
+<span class="n">fileServerOpinions</span><span class="p">.</span><span class="n">DefaultFilesOptions</span><span class="p">.</span><span class="n">DefaultFileNames</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;test.html&quot;</span><span class="p">);</span>
 
-app.UseFileServer(fileServerOpinions);
-</code></pre>
+<span class="n">app</span><span class="p">.</span><span class="n">UseFileServer</span><span class="p">(</span><span class="n">fileServerOpinions</span><span class="p">);</span>
+</code></pre></div>
 
 <h2 id="_6">开发者异常页面</h2>
-<pre><code class="c#">if (env.IsDevelopment())
-{
-    var developerExceptionPageOptions = new DeveloperExceptionPageOptions();
-    // 显示代码行数
-    developerExceptionPageOptions.SourceCodeLineCount = 10;
-    app.UseDeveloperExceptionPage();
-}
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">IsDevelopment</span><span class="p">())</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">developerExceptionPageOptions</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DeveloperExceptionPageOptions</span><span class="p">();</span>
+    <span class="c1">// 显示代码行数</span>
+    <span class="n">developerExceptionPageOptions</span><span class="p">.</span><span class="n">SourceCodeLineCount</span> <span class="p">=</span> <span class="m">10</span><span class="p">;</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseDeveloperExceptionPage</span><span class="p">();</span>
+<span class="p">}</span>
 
-app.Run(async (context) =&gt;
-{
-    throw new Exception(&quot;自己抛出的异常&quot;);
-});
-</code></pre>
+<span class="n">app</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="p">(</span><span class="s">&quot;自己抛出的异常&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
 
 <h2 id="_7">开发环境变量</h2>
 <ul>
@@ -4224,86 +4224,86 @@ app.Run(async (context) =&gt;
 </ul>
 <h2 id="mvc">引入MVC框架</h2>
 <h3 id="mvc_1">首先添加MVC服务。</h3>
-<pre><code class="c#">public void ConfigureServices(IServiceCollection services)
-{
-    // 单纯引入核心MVC服务，只有核心功能
-    services.AddMvcCore();
-    // 一般用这个，功能多
-    services.AddMvc();
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 单纯引入核心MVC服务，只有核心功能</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddMvcCore</span><span class="p">();</span>
+    <span class="c1">// 一般用这个，功能多</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="_8">添加中间件</h3>
-<pre><code class="c#">public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger&lt;Startup&gt; logger)
-{
-    if (env.IsDevelopment())
-    {
-        var developerExceptionPageOptions = new DeveloperExceptionPageOptions();
-        // 显示代码行数
-        developerExceptionPageOptions.SourceCodeLineCount = 10;
-        app.UseDeveloperExceptionPage();
-    }
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IHostingEnvironment</span> <span class="n">env</span><span class="p">,</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">Startup</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">IsDevelopment</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">developerExceptionPageOptions</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DeveloperExceptionPageOptions</span><span class="p">();</span>
+        <span class="c1">// 显示代码行数</span>
+        <span class="n">developerExceptionPageOptions</span><span class="p">.</span><span class="n">SourceCodeLineCount</span> <span class="p">=</span> <span class="m">10</span><span class="p">;</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseDeveloperExceptionPage</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    app.UseStaticFiles();
-    app.UseMvcWithDefaultRoute();
-}
-</code></pre>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseStaticFiles</span><span class="p">();</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseMvcWithDefaultRoute</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>MVC路由规则：<code>/控制器名称/方法名称</code>，（不区分大小写）</p>
 <p>例如下面例子的路由是：<code>/home/index</code></p>
 <h3 id="homecontroller">HomeController代码：</h3>
-<pre><code class="c#">public class HomeController : Controller
-{
-    public string Index()
-    {
-        return &quot;home controller&quot;;
-    }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">HomeController</span> <span class="p">:</span> <span class="n">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="nf">Index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;home controller&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="_9">初步了解模型和依赖注入</h2>
 <h3 id="_10">定义模型</h3>
-<pre><code class="c#">public class Student
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string ClassName { get; set; }
-    public string Email { get; set; }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Student</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">ClassName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Email</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="_11">定义接口</h3>
-<pre><code class="c#">public interface IStudentRepository
-{
-    Student GetById(int id);
-    void Save(Student student);
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">interface</span> <span class="n">IStudentRepository</span>
+<span class="p">{</span>
+    <span class="n">Student</span> <span class="nf">GetById</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">);</span>
+    <span class="k">void</span> <span class="nf">Save</span><span class="p">(</span><span class="n">Student</span> <span class="n">student</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="_12">实现接口</h3>
 <p>目前还没接入数据库，定义一个假数据的类</p>
-<pre><code class="c#">public class MockStudentRepository : IStudentRepository
-{
-    private List&lt;Student&gt; _students;
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">MockStudentRepository</span> <span class="p">:</span> <span class="n">IStudentRepository</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Student</span><span class="p">&gt;</span> <span class="n">_students</span><span class="p">;</span>
 
-    public MockStudentRepository()
-    {
-        _students = new List&lt;Student&gt;
-        {
-            new Student { Id=1, Name=&quot;小米&quot;, ClassName=&quot;红米&quot;, Email=&quot;hello1@deali.cn&quot; },
-            new Student { Id=2, Name=&quot;华为&quot;, ClassName=&quot;荣耀&quot;, Email=&quot;hello2@deali.cn&quot; },
-            new Student { Id=3, Name=&quot;oppo&quot;, ClassName=&quot;vivo&quot;, Email=&quot;hello3@deali.cn&quot; },
-        };
-    }
+    <span class="k">public</span> <span class="nf">MockStudentRepository</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">_students</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Student</span><span class="p">&gt;</span>
+        <span class="p">{</span>
+            <span class="k">new</span> <span class="n">Student</span> <span class="p">{</span> <span class="n">Id</span><span class="p">=</span><span class="m">1</span><span class="p">,</span> <span class="n">Name</span><span class="p">=</span><span class="s">&quot;小米&quot;</span><span class="p">,</span> <span class="n">ClassName</span><span class="p">=</span><span class="s">&quot;红米&quot;</span><span class="p">,</span> <span class="n">Email</span><span class="p">=</span><span class="s">&quot;hello1@deali.cn&quot;</span> <span class="p">},</span>
+            <span class="k">new</span> <span class="n">Student</span> <span class="p">{</span> <span class="n">Id</span><span class="p">=</span><span class="m">2</span><span class="p">,</span> <span class="n">Name</span><span class="p">=</span><span class="s">&quot;华为&quot;</span><span class="p">,</span> <span class="n">ClassName</span><span class="p">=</span><span class="s">&quot;荣耀&quot;</span><span class="p">,</span> <span class="n">Email</span><span class="p">=</span><span class="s">&quot;hello2@deali.cn&quot;</span> <span class="p">},</span>
+            <span class="k">new</span> <span class="n">Student</span> <span class="p">{</span> <span class="n">Id</span><span class="p">=</span><span class="m">3</span><span class="p">,</span> <span class="n">Name</span><span class="p">=</span><span class="s">&quot;oppo&quot;</span><span class="p">,</span> <span class="n">ClassName</span><span class="p">=</span><span class="s">&quot;vivo&quot;</span><span class="p">,</span> <span class="n">Email</span><span class="p">=</span><span class="s">&quot;hello3@deali.cn&quot;</span> <span class="p">},</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
 
-    public Student GetById(int id)
-    {
-        return _students.FirstOrDefault(a =&gt; a.Id == id);
-    }
+    <span class="k">public</span> <span class="n">Student</span> <span class="nf">GetById</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_students</span><span class="p">.</span><span class="n">FirstOrDefault</span><span class="p">(</span><span class="n">a</span> <span class="p">=&gt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Id</span> <span class="p">==</span> <span class="n">id</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    public void Save(Student student) =&gt; throw new NotImplementedException();
-}
-</code></pre>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Save</span><span class="p">(</span><span class="n">Student</span> <span class="n">student</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">NotImplementedException</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="_13">注册依赖注入</h3>
 <p>Asp.Net Core依赖注入容器注册服务有三种</p>
@@ -4317,55 +4317,55 @@ app.Run(async (context) =&gt;
 <li>低耦合</li>
 <li>高测试性，更加方便进行单元测试</li>
 </ul>
-<pre><code class="c#">public void ConfigureServices(IServiceCollection services)
-{
-    services.AddMvc();
-    // 注册依赖注入，将实现类与接口绑定
-    services.AddSingleton&lt;IStudentRepository, MockStudentRepository&gt;();
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">();</span>
+    <span class="c1">// 注册依赖注入，将实现类与接口绑定</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">IStudentRepository</span><span class="p">,</span> <span class="n">MockStudentRepository</span><span class="p">&gt;();</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="_14">在模型中使用依赖注入</h3>
-<pre><code class="c#">public class StudentController : Controller
-{
-    private readonly IStudentRepository _studentRepository;
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">StudentController</span> <span class="p">:</span> <span class="n">Controller</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IStudentRepository</span> <span class="n">_studentRepository</span><span class="p">;</span>
 
-    // 通过构造函数注入的方式注入 IStudentRepository
-    public StudentController(IStudentRepository studentRepository)
-    {
-        _studentRepository = studentRepository;
+    <span class="c1">// 通过构造函数注入的方式注入 IStudentRepository</span>
+    <span class="k">public</span> <span class="nf">StudentController</span><span class="p">(</span><span class="n">IStudentRepository</span> <span class="n">studentRepository</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_studentRepository</span> <span class="p">=</span> <span class="n">studentRepository</span><span class="p">;</span>
 
-    }
+    <span class="p">}</span>
 
-    public JsonResult Index(int id)
-    {
-        return Json(_studentRepository.GetById(id));
-    }
-}
-</code></pre>
+    <span class="k">public</span> <span class="n">JsonResult</span> <span class="nf">Index</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">Json</span><span class="p">(</span><span class="n">_studentRepository</span><span class="p">.</span><span class="n">GetById</span><span class="p">(</span><span class="n">id</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="_15">控制器入门</h2>
 <h3 id="_16">内容格式协商</h3>
 <p>在控制器方法中使用 <code>ObjectResult</code> 返回类型，支持内容协商，根据请求头参数返回数据，</p>
-<pre><code class="c#">// 支持内容格式协商
-public ObjectResult Details(int id)
-{
-    return new ObjectResult(_studentRepository.GetById(id));
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// 支持内容格式协商</span>
+<span class="k">public</span> <span class="n">ObjectResult</span> <span class="nf">Details</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ObjectResult</span><span class="p">(</span><span class="n">_studentRepository</span><span class="p">.</span><span class="n">GetById</span><span class="p">(</span><span class="n">id</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>如：</p>
-<pre><code>Accept: application/xml
-</code></pre>
+<div class="highlight"><pre><span></span><code>Accept: application/xml
+</code></pre></div>
 
 <p>将返回xml格式。注：还要添加xml序列化器。</p>
-<pre><code class="c#">public void ConfigureServices(IServiceCollection services)
-{
-    services.AddMvc()
-        // 注册XML序列化器
-        .AddXmlSerializerFormatters();
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddMvc</span><span class="p">()</span>
+        <span class="c1">// 注册XML序列化器</span>
+        <span class="p">.</span><span class="n">AddXmlSerializerFormatters</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="_17">视图入门</h2>
 <h3 id="_18">将数据从控制器传递到视图的方法</h3>
@@ -4383,184 +4383,184 @@ public ObjectResult Details(int id)
 <li>没有智能感知，编译时也没有类型检查</li>
 </ul>
 <p>使用方法：</p>
-<pre><code class="c#">ViewData[&quot;Title&quot;] = &quot;学生视图&quot;;
-ViewData[&quot;Model&quot;] = model;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">ViewData</span><span class="p">[</span><span class="s">&quot;Title&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&quot;学生视图&quot;</span><span class="p">;</span>
+<span class="n">ViewData</span><span class="p">[</span><span class="s">&quot;Model&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">model</span><span class="p">;</span>
+</code></pre></div>
 
 <p>cshtml代码：</p>
-<pre><code class="scss">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-&lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;@ViewData[&quot;Title&quot;]&lt;/h1&gt;
-    @{
-        var student = ViewData[&quot;model&quot;] as StudyManagement.Models.Student;
-    }
-    &lt;div&gt;姓名：@student.Name&lt;/div&gt;
-    &lt;div&gt;班级：@student.ClassName&lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nt">html</span> <span class="nt">xmlns</span><span class="o">=</span><span class="s2">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">title</span><span class="o">&gt;&lt;/</span><span class="nt">title</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">body</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">h1</span><span class="o">&gt;@</span><span class="nt">ViewData</span><span class="o">[</span><span class="s2">&quot;Title&quot;</span><span class="o">]&lt;/</span><span class="nt">h1</span><span class="o">&gt;</span>
+    <span class="o">@</span><span class="p">{</span>
+        <span class="nt">var</span> <span class="nt">student</span> <span class="o">=</span> <span class="nt">ViewData</span><span class="o">[</span><span class="s2">&quot;model&quot;</span><span class="o">]</span> <span class="nt">as</span> <span class="nt">StudyManagement</span><span class="nc">.Models.Student</span><span class="o">;</span>
+    <span class="p">}</span>
+    <span class="o">&lt;</span><span class="nt">div</span><span class="o">&gt;</span><span class="nt">姓名</span><span class="err">：</span><span class="o">@</span><span class="nt">student</span><span class="nc">.Name</span><span class="o">&lt;/</span><span class="nt">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">div</span><span class="o">&gt;</span><span class="nt">班级</span><span class="err">：</span><span class="o">@</span><span class="nt">student</span><span class="nc">.ClassName</span><span class="o">&lt;/</span><span class="nt">div</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">html</span><span class="o">&gt;</span>
+</code></pre></div>
 
 <h3 id="viewbag">ViewBag</h3>
-<pre><code class="c#">// 直接给动态属性赋值
-ViewBag.PageTitle = &quot;ViewBag标题&quot;;
-ViewBag.Student = model;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// 直接给动态属性赋值</span>
+<span class="n">ViewBag</span><span class="p">.</span><span class="n">PageTitle</span> <span class="p">=</span> <span class="s">&quot;ViewBag标题&quot;</span><span class="p">;</span>
+<span class="n">ViewBag</span><span class="p">.</span><span class="n">Student</span> <span class="p">=</span> <span class="n">model</span><span class="p">;</span>
+</code></pre></div>
 
 <p>cshtml使用：</p>
-<pre><code class="html">&lt;h1&gt;@ViewBag.PageTitle&lt;/h1&gt;
-&lt;div&gt;姓名：@ViewBag.Student.Name&lt;/div&gt;
-&lt;div&gt;班级：@ViewBag.Student.ClassName&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>@ViewBag.PageTitle<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>姓名：@ViewBag.Student.Name<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>班级：@ViewBag.Student.ClassName<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
 
 <h3 id="_19">强类型视图</h3>
 <p>在控制器中传给View()模型</p>
-<pre><code class="c#">public IActionResult GetView()
-{
-    var model = _studentRepository.GetById(1);
-    return View(model);
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="n">IActionResult</span> <span class="nf">GetView</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">model</span> <span class="p">=</span> <span class="n">_studentRepository</span><span class="p">.</span><span class="n">GetById</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">model</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>在cshtml中指定模型类型</p>
-<pre><code class="scss">@model StudyManagement.Models.Student
-&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-&lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;强类型模型&lt;/h1&gt;
-    &lt;ul&gt;
-        &lt;li&gt;@Model.Id&lt;/li&gt;
-        &lt;li&gt;@Model.Name&lt;/li&gt;
-        &lt;li&gt;@Model.ClassName&lt;/li&gt;
-        &lt;li&gt;@Model.Email&lt;/li&gt;
-    &lt;/ul&gt;
+<div class="highlight"><pre><span></span><code><span class="k">@model</span> <span class="nt">StudyManagement</span><span class="nc">.Models.Student</span>
+<span class="o">&lt;</span><span class="nt">html</span> <span class="nt">xmlns</span><span class="o">=</span><span class="s2">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">title</span><span class="o">&gt;&lt;/</span><span class="nt">title</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">body</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">h1</span><span class="o">&gt;</span><span class="nt">强类型模型</span><span class="o">&lt;/</span><span class="nt">h1</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">ul</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;@</span><span class="nt">Model</span><span class="nc">.Id</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;@</span><span class="nt">Model</span><span class="nc">.Name</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;@</span><span class="nt">Model</span><span class="nc">.ClassName</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;@</span><span class="nt">Model</span><span class="nc">.Email</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="nt">ul</span><span class="o">&gt;</span>
 
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<span class="o">&lt;/</span><span class="nt">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">html</span><span class="o">&gt;</span>
+</code></pre></div>
 
 <h2 id="viewmodel">ViewModel 视图模型</h2>
 <p>类似于DTO（数据传输对象）</p>
 <h3 id="viewmodel_1">定义ViewModel</h3>
-<pre><code class="c#">public class StudentDetailsViewModel
-{
-    public Student Student { get; set; }
-    public string PageTitle { get; set; }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">StudentDetailsViewModel</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Student</span> <span class="n">Student</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">PageTitle</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="_20">修改控制器</h3>
-<pre><code class="c#">public IActionResult Details()
-{
-    var model = _studentRepository.GetById(1);
-    var viewModel = new StudentDetailsViewModel
-    {
-        Student = model,
-        PageTitle = &quot;viewmodel里的页面标题&quot;
-    };
-    return View(viewModel);
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="n">IActionResult</span> <span class="nf">Details</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">model</span> <span class="p">=</span> <span class="n">_studentRepository</span><span class="p">.</span><span class="n">GetById</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">viewModel</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StudentDetailsViewModel</span>
+    <span class="p">{</span>
+        <span class="n">Student</span> <span class="p">=</span> <span class="n">model</span><span class="p">,</span>
+        <span class="n">PageTitle</span> <span class="p">=</span> <span class="s">&quot;viewmodel里的页面标题&quot;</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">viewModel</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="view">在View中使用</h3>
-<pre><code class="scss">&lt;!-- 这里注册的模型改成了ViewModel了 --&gt;
-@model StudyManagement.ViewModels.StudentDetailsViewModel
-&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-&lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;强类型模型&lt;/h1&gt;
-    &lt;h2&gt;@Model.PageTitle&lt;/h2&gt;
-    &lt;ul&gt;
-        &lt;li&gt;@Model.Student.Id&lt;/li&gt;
-        &lt;li&gt;@Model.Student.Name&lt;/li&gt;
-        &lt;li&gt;@Model.Student.ClassName&lt;/li&gt;
-        &lt;li&gt;@Model.Student.Email&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;!</span><span class="nt">--</span> <span class="nt">这里注册的模型改成了ViewModel了</span> <span class="nt">--</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="nt">model</span> <span class="nt">StudyManagement</span><span class="nc">.ViewModels.StudentDetailsViewModel</span>
+<span class="o">&lt;</span><span class="nt">html</span> <span class="nt">xmlns</span><span class="o">=</span><span class="s2">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">title</span><span class="o">&gt;&lt;/</span><span class="nt">title</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">body</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">h1</span><span class="o">&gt;</span><span class="nt">强类型模型</span><span class="o">&lt;/</span><span class="nt">h1</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">h2</span><span class="o">&gt;@</span><span class="nt">Model</span><span class="nc">.PageTitle</span><span class="o">&lt;/</span><span class="nt">h2</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">ul</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;@</span><span class="nt">Model</span><span class="nc">.Student.Id</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;@</span><span class="nt">Model</span><span class="nc">.Student.Name</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;@</span><span class="nt">Model</span><span class="nc">.Student.ClassName</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;@</span><span class="nt">Model</span><span class="nc">.Student.Email</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="nt">ul</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">html</span><span class="o">&gt;</span>
+</code></pre></div>
 
 <h3 id="view_1">View中使用循环</h3>
-<pre><code class="scss">@model IEnumerable&lt;StudyManagement.Models.Student&gt;
-&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-&lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;table border=&quot;1&quot;&gt;
-        &lt;tr&gt;
-            &lt;td&gt;Id&lt;/td&gt;
-            &lt;td&gt;姓名&lt;/td&gt;
-            &lt;td&gt;班级&lt;/td&gt;
-            &lt;td&gt;邮箱&lt;/td&gt;
-        &lt;/tr&gt;
-        @foreach (var student in Model)
-        {
-            &lt;tr&gt;
-                &lt;td&gt;@student.Id&lt;/td&gt;
-                &lt;td&gt;@student.Name&lt;/td&gt;
-                &lt;td&gt;@student.ClassName&lt;/td&gt;
-                &lt;td&gt;@student.Email&lt;/td&gt;
-            &lt;/tr&gt;
-        }
-    &lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">@model</span> <span class="nt">IEnumerable</span><span class="o">&lt;</span><span class="nt">StudyManagement</span><span class="nc">.Models.Student</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">html</span> <span class="nt">xmlns</span><span class="o">=</span><span class="s2">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">title</span><span class="o">&gt;&lt;/</span><span class="nt">title</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">body</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">table</span> <span class="nt">border</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">tr</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nt">td</span><span class="o">&gt;</span><span class="nt">Id</span><span class="o">&lt;/</span><span class="nt">td</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nt">td</span><span class="o">&gt;</span><span class="nt">姓名</span><span class="o">&lt;/</span><span class="nt">td</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nt">td</span><span class="o">&gt;</span><span class="nt">班级</span><span class="o">&lt;/</span><span class="nt">td</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nt">td</span><span class="o">&gt;</span><span class="nt">邮箱</span><span class="o">&lt;/</span><span class="nt">td</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="nt">tr</span><span class="o">&gt;</span>
+        <span class="o">@</span><span class="nt">foreach</span> <span class="o">(</span><span class="nt">var</span> <span class="nt">student</span> <span class="nt">in</span> <span class="nt">Model</span><span class="o">)</span>
+        <span class="p">{</span>
+            <span class="o">&lt;</span><span class="nt">tr</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nt">td</span><span class="o">&gt;@</span><span class="nt">student</span><span class="nc">.Id</span><span class="o">&lt;/</span><span class="nt">td</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nt">td</span><span class="o">&gt;@</span><span class="nt">student</span><span class="nc">.Name</span><span class="o">&lt;/</span><span class="nt">td</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nt">td</span><span class="o">&gt;@</span><span class="nt">student</span><span class="nc">.ClassName</span><span class="o">&lt;/</span><span class="nt">td</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nt">td</span><span class="o">&gt;@</span><span class="nt">student</span><span class="nc">.Email</span><span class="o">&lt;/</span><span class="nt">td</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="nt">tr</span><span class="o">&gt;</span>
+        <span class="p">}</span>
+    <span class="o">&lt;/</span><span class="nt">table</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">html</span><span class="o">&gt;</span>
+</code></pre></div>
 
 <h2 id="layoutview">布局视图 LayoutView</h2>
 <h3 id="_21">创建布局视图</h3>
-<pre><code class="scss">&lt;!DOCTYPE html&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;!</span><span class="nt">DOCTYPE</span> <span class="nt">html</span><span class="o">&gt;</span>
 
-&lt;html&gt;
-&lt;head&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot; /&gt;
-    &lt;title&gt;@ViewBag.Title&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div&gt;
-        @RenderBody()
-    &lt;/div&gt;
+<span class="o">&lt;</span><span class="nt">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">meta</span> <span class="nt">name</span><span class="o">=</span><span class="s2">&quot;viewport&quot;</span> <span class="nt">content</span><span class="o">=</span><span class="s2">&quot;width=device-width&quot;</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nt">title</span><span class="o">&gt;@</span><span class="nt">ViewBag</span><span class="nc">.Title</span><span class="o">&lt;/</span><span class="nt">title</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">body</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">div</span><span class="o">&gt;</span>
+        <span class="o">@</span><span class="nt">RenderBody</span><span class="o">()</span>
+    <span class="o">&lt;/</span><span class="nt">div</span><span class="o">&gt;</span>
 
-    @RenderSection(&quot;Scripts&quot;, required: false)
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+    <span class="o">@</span><span class="nt">RenderSection</span><span class="o">(</span><span class="s2">&quot;Scripts&quot;</span><span class="o">,</span> <span class="nt">required</span><span class="nd">:</span> <span class="nt">false</span><span class="o">)</span>
+<span class="o">&lt;/</span><span class="nt">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">html</span><span class="o">&gt;</span>
+</code></pre></div>
 
 <h3 id="_22">渲染视图</h3>
-<pre><code class="scss">@model IEnumerable&lt;StudyManagement.Models.Student&gt;
-@{
-    Layout = &quot;~/Views/Shared/_Layout.cshtml&quot;;
-    ViewBag.Title = &quot;首页 学生列表&quot;;
-}
-&lt;div&gt;&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">@model</span> <span class="nt">IEnumerable</span><span class="o">&lt;</span><span class="nt">StudyManagement</span><span class="nc">.Models.Student</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="p">{</span>
+    <span class="nt">Layout</span> <span class="o">=</span> <span class="s2">&quot;~/Views/Shared/_Layout.cshtml&quot;</span><span class="o">;</span>
+    <span class="nt">ViewBag</span><span class="nc">.Title</span> <span class="o">=</span> <span class="s2">&quot;首页 学生列表&quot;</span><span class="o">;</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="nt">div</span><span class="o">&gt;&lt;/</span><span class="nt">div</span><span class="o">&gt;</span>
+</code></pre></div>
 
 <h3 id="section">视图节点 Section</h3>
 <p>在布局视图里渲染节点</p>
-<pre><code class="scss">@RenderSection(&quot;Scripts&quot;, required: false)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">@RenderSection</span><span class="o">(</span><span class="s2">&quot;Scripts&quot;</span><span class="o">,</span> <span class="nt">required</span><span class="nd">:</span> <span class="nt">false</span><span class="o">)</span>
+</code></pre></div>
 
 <p>在普通视图里定义节点</p>
-<pre><code class="scss">@section Scripts{ 
-    &lt;script&gt;
-        document.write(&quot;hello&quot;);
-    &lt;/script&gt;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">@section</span> <span class="nt">Scripts</span><span class="p">{</span> 
+    <span class="o">&lt;</span><span class="nt">script</span><span class="o">&gt;</span>
+        <span class="nt">document</span><span class="nc">.write</span><span class="o">(</span><span class="s2">&quot;hello&quot;</span><span class="o">);</span>
+    <span class="o">&lt;/</span><span class="nt">script</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="viewstart">视图开始 ViewStart</h3>
 <p>我的理解就是<code>_ViewStart.cshtml</code>文件所在目录下的每个视图文件开始渲染先执行这个文件的内容。一般直接放在<code>Views</code>目录下，全局生效，可以放在各个子文件夹下，这样可以覆盖全局的<code>_ViewStart.cshtml</code>。</p>
-<pre><code class="scss">@{
-    Layout = &quot;_Layout&quot;;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="o">@</span><span class="p">{</span>
+    <span class="nt">Layout</span> <span class="o">=</span> <span class="s2">&quot;_Layout&quot;</span><span class="o">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="viewimports">视图导入 ViewImports</h3>
 <p>用来导入命名空间、注册模型等等n多种操作。</p>
@@ -4572,34 +4572,34 @@ ViewBag.Student = model;
 </ul>
 <h3 id="_24">常规路由</h3>
 <p>在<code>MapRoute</code>方法中传入就好了。</p>
-<pre><code class="c#">// 自定义路由
-app.UseMvc(route =&gt;route.MapRoute(&quot;default&quot;,
-    &quot;{controller=Home}/{action=Index}/{id?}&quot;));
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// 自定义路由</span>
+<span class="n">app</span><span class="p">.</span><span class="n">UseMvc</span><span class="p">(</span><span class="n">route</span> <span class="p">=&gt;</span><span class="n">route</span><span class="p">.</span><span class="n">MapRoute</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">,</span>
+    <span class="s">&quot;{controller=Home}/{action=Index}/{id?}&quot;</span><span class="p">));</span>
+</code></pre></div>
 
 <h3 id="_25">属性路由</h3>
 <p>比传统路由更加灵活，可以搭配传统路由使用。</p>
 <p>即在控制器方法上添加路由注解，一个方法可以同时映射多个路由。</p>
-<pre><code class="c#">[Route(&quot;Home/Index&quot;)]
-public IActionResult Index()
-{
-    return View(_studentRepository.GetAll());
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="na">[Route(&quot;Home/Index&quot;)]</span>
+<span class="k">public</span> <span class="n">IActionResult</span> <span class="nf">Index</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">_studentRepository</span><span class="p">.</span><span class="n">GetAll</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>路由中也可以指定参数</p>
-<pre><code class="c#">[Route(&quot;test/{id?}&quot;)]
-public IActionResult Details(int id = 1)
-{
-    var model = _studentRepository.GetById(id);
-    var viewModel = new StudentDetailsViewModel
-    {
-        Student = model,
-        PageTitle = &quot;viewmodel里的页面标题&quot;
-    };
-    return View(viewModel);
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="na">[Route(&quot;test/{id?}&quot;)]</span>
+<span class="k">public</span> <span class="n">IActionResult</span> <span class="nf">Details</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span> <span class="p">=</span> <span class="m">1</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">model</span> <span class="p">=</span> <span class="n">_studentRepository</span><span class="p">.</span><span class="n">GetById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">viewModel</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StudentDetailsViewModel</span>
+    <span class="p">{</span>
+        <span class="n">Student</span> <span class="p">=</span> <span class="n">model</span><span class="p">,</span>
+        <span class="n">PageTitle</span> <span class="p">=</span> <span class="s">&quot;viewmodel里的页面标题&quot;</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">viewModel</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>可以直接在控制器类上加注解，<code>[controller]/[action]</code>。</p>
 <h2 id="_26">欢迎交流</h2>
@@ -4682,6 +4682,8 @@ public IActionResult Details(int id = 1)
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

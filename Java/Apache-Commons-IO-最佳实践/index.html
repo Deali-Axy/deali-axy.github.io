@@ -3472,52 +3472,49 @@
 <p>上述是字符串（<code>String</code>）文件名不运行的准确原因。使用java.io.File类代为处理上述情况将更合适。因此我们的最佳实践（<code>best practice</code>）推荐使用java.io.File类代替字符串（<code>String</code>）处理文件名以避免依赖具体的平台（<code>platform</code>）。</p>
 <p><code>Commons-io 1.1</code> 包括一个专用于处理文件名的类-文件名工具类（<code>FilenameUtils</code>）。它处理了许多上述文件名的问题，但是我们仍然推荐，你尽可能地使用java.io.File对象来处理。</p>
 <p>让我们看一个例子。</p>
-<pre><code class="java">public static String getExtension(String filename) {
-   int index = filename.lastIndexOf('.');
-   if (index == -1) {
-     return &quot;&quot;;
-   } else {
-     return filename.substring(index + 1);
-   }
- }
-</code></pre>
-
-<p>简单吗？对，但如果开发人员传入（<code>pass</code>）一个全路径（<code>full path</code>）字符串而不仅仅是一个文件名会发生什么？考虑以下情况，传入完全符合要求的路径：<code>"C:\Temp\documentation.new\README"</code>。上面定义的方法（<code>method</code>）可能返回（<code>return</code>） <code>"new\README"</code>-完全不是你想要的结果。</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getExtension</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="o">{</span>
+   <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="sc">&#39;.&#39;</span><span class="o">);</span>
+   <span class="k">if</span> <span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+   <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+     <span class="k">return</span> <span class="n">filename</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+   <span class="o">}</span>
+ <span class="o">}</span>
+</code></pre></div>
+简单吗？对，但如果开发人员传入（<code>pass</code>）一个全路径（<code>full path</code>）字符串而不仅仅是一个文件名会发生什么？考虑以下情况，传入完全符合要求的路径：<code>"C:\Temp\documentation.new\README"</code>。上面定义的方法（<code>method</code>）可能返回（<code>return</code>） <code>"new\README"</code>-完全不是你想要的结果。</p>
 <p>请使用 <code>java.io.File</code> 代替字符串（<code>String</code>）处理文件名。该类所提供的功能是经过良好测试的（<code>well tested</code>）。在文件工具类（<code>FileUtils</code>）中你将找到关于 <code>java.io.File</code> 的其他有用的工具方法（<code>function</code>）。</p>
 <p>例如： </p>
-<pre><code class="java">String tmpdir = &quot;/var/tmp&quot;;
- String tmpfile = tmpdir System.getProperty(&quot;file.separator&quot;) &quot;test.tmp&quot;;
- InputStream in = new java.io.FileInputStream(tmpfile);
-</code></pre>
-
-<p>改为： </p>
-<pre><code class="java">File tmpdir = new File(&quot;/var/tmp&quot;);
- File tmpfile = new File(tmpdir, &quot;test.tmp&quot;);
- InputStream in = new java.io.FileInputStream(tmpfile);
-</code></pre>
-
+<p><div class="highlight"><pre><span></span><code><span class="n">String</span> <span class="n">tmpdir</span> <span class="o">=</span> <span class="s">&quot;/var/tmp&quot;</span><span class="o">;</span>
+ <span class="n">String</span> <span class="n">tmpfile</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&quot;file.separator&quot;</span><span class="o">)</span> <span class="s">&quot;test.tmp&quot;</span><span class="o">;</span>
+ <span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">FileInputStream</span><span class="o">(</span><span class="n">tmpfile</span><span class="o">);</span>
+</code></pre></div>
+改为： 
+<div class="highlight"><pre><span></span><code><span class="n">File</span> <span class="n">tmpdir</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;/var/tmp&quot;</span><span class="o">);</span>
+ <span class="n">File</span> <span class="n">tmpfile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">tmpdir</span><span class="o">,</span> <span class="s">&quot;test.tmp&quot;</span><span class="o">);</span>
+ <span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">FileInputStream</span><span class="o">(</span><span class="n">tmpfile</span><span class="o">);</span>
+</code></pre></div></p>
 <h2 id="buffering-streams">输入输出流缓冲（<code>Buffering streams</code>）</h2>
 <p>输入输出性能非常依赖缓冲策略（<code>buffering strategy</code>）。一般而言，缓冲512或1024大小字节来读取数据块（<code>packets</code>）是非常迅速的，因为这个大小与数据块（<code>packets</code>）在硬盘（<code>harddisk</code>）文件系统（<code>file system</code>）或文件缓存（<code>file system cache</code>）中的大小非常匹配。而且当你仅仅读取一点字节时，时间性能就会显著下降（<code>drop</code>）。</p>
 <p>当读取或写入输入输出流时，特别是当访问文件的时候，确保你正确地缓冲输入输出流。只需要使用缓冲字节输入流（<code>BufferedInputStream</code>）修饰（<code>decorate</code>）你的文件字节输入流（<code>FileInputStream</code>）即可</p>
 <blockquote>
 <p>译注：Java中的输入输出流采用了<code>修饰模式</code>，或叫<code>装饰模式</code>：</p>
 </blockquote>
-<pre><code class="java">InputStream in = new java.io.FileInputStream(myfile);
- try {
-   in = new java.io.BufferedInputStream(in);
+<div class="highlight"><pre><span></span><code><span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">FileInputStream</span><span class="o">(</span><span class="n">myfile</span><span class="o">);</span>
+ <span class="k">try</span> <span class="o">{</span>
+   <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">BufferedInputStream</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
 
-   in.read(.....
- } finally {
-   IOUtils.closeQuietly(in);
- }
-</code></pre>
+   <span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">(.....</span>
+ <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+   <span class="n">IOUtils</span><span class="o">.</span><span class="na">closeQuietly</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
+ <span class="o">}</span>
+</code></pre></div>
 
 <p><strong>注意，你不能缓存一个已经缓冲了的输入输出流。</strong>
 一些组件，例如XML解析器（<code>XML parser</code>）会使用他们自己的字节输入流（<code>InputStream</code>）缓存修饰（<code>decorate</code>），你传递一个缓存输入输出流到XML解析器（<code>XML parser</code>）也没多大影响但会拖慢（<code>slow down</code>）你的代码性能。如果你用我们的复制工具类（<code>CopyUtils</code>）或输入输出工具类（<code>IOUtils</code>），你就不需要额外缓冲输入输出流，将这些代码当作已经在复制过程中缓存了即可。检查<code>Javadoc</code>可以获取更多信息。其他如在你写入一个字节数组输出流（<code>ByteArrayOutputStream</code>）到内存（<code>memory</code>）的情况，是不需要缓冲的。</p>
 <blockquote>
 <p><em>本文由侯骏雄授权发表。</em>
 翻译：侯骏雄（QQ：2442278700）
-博客：http://blog.csdn.net/houjx114</p>
+博客：<a href="http://blog.csdn.net/houjx114">http://blog.csdn.net/houjx114</a></p>
 </blockquote>
 <h2 id="about">About</h2>
 <h2 id="_1"><img alt="" src="../Apache-Commons-IO-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.assets/8869373-901590e019f6f85b.png" /></h2>
@@ -3596,6 +3593,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

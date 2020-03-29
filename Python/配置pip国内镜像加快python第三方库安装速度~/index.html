@@ -3540,11 +3540,11 @@
 <h3 id="linux">Linux</h3>
 <p>Linux下，修改<code>~/.pip/pip.conf</code> （路径不存在的话，要自己创建文件夹和文件）
 内容如下：</p>
-<pre><code class="ini">[global]
-index-url = http://mirrors.aliyun.com/pypi/simple/
-[install]
-trusted-host=mirrors.aliyun.com
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">[global]</span>
+<span class="na">index-url</span> <span class="o">=</span> <span class="s">http://mirrors.aliyun.com/pypi/simple/</span>
+<span class="k">[install]</span>
+<span class="na">trusted-host</span><span class="o">=</span><span class="s">mirrors.aliyun.com</span>
+</code></pre></div>
 
 <h3 id="windows">Windows</h3>
 <p>Windows的配置和Linux有一点差别，直接在user目录中创建一个<code>pip</code>目录，再新建文件<code>pip.ini</code>。（例如：<code>C:\Users\Administrator\pip\pip.ini</code>）内容同上。</p>
@@ -3558,17 +3558,15 @@ trusted-host=mirrors.aliyun.com
 <li>豆瓣：<a href="http://pypi.douban.com/simple/">http://pypi.douban.com/simple/</a></li>
 </ul>
 <h2 id="anaconda">Anaconda配置</h2>
-<p>配置清华大学源</p>
-<pre><code class="bash">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+<p>配置清华大学源
+<div class="highlight"><pre><span></span><code>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
 conda config --set show_channel_urls yes
-</code></pre>
-
-<p>配置中科大源</p>
-<pre><code class="bash">conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/  
+</code></pre></div></p>
+<p>配置中科大源
+<div class="highlight"><pre><span></span><code>conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/  
 conda config --set show_channel_urls yes
-</code></pre>
-
+</code></pre></div></p>
 <p>如果某个镜像源网站挂了，换源的话记得去用户目录下把<code>.condarc</code>文件夹下原有的清华镜像删除掉 。</p>
 <h2 id="about">About</h2>
 <h2 id="_4"><img alt="" src="../%E9%85%8D%E7%BD%AEpip%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E5%8A%A0%E5%BF%ABpython%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E5%AE%89%E8%A3%85%E9%80%9F%E5%BA%A6~.assets/8869373-901590e019f6f85b.png" /></h2>
@@ -3652,6 +3650,8 @@ conda config --set show_channel_urls yes
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

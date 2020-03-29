@@ -3482,224 +3482,223 @@
 <img alt="" src="../%E5%A6%82%E4%BD%95%E9%98%BB%E6%AD%A2Win10%E9%87%8D%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%BA%94%E7%94%A8%EF%BC%9F.assets/8869373-ac71b210d704ed4b.png" /></p>
 <h2 id="_2">解决方法</h2>
 <p>改注册表。
-新建一个 <code>去除重置默认应用.reg</code> 的注册表文件，粘贴一下代码。</p>
-<pre><code class="python">Windows Registry Editor Version 5.00
+新建一个 <code>去除重置默认应用.reg</code> 的注册表文件，粘贴一下代码。
+<div class="highlight"><pre><span></span><code><span class="n">Windows</span> <span class="n">Registry</span> <span class="n">Editor</span> <span class="n">Version</span> <span class="mf">5.00</span>
 
-;Description: Prevents Windows 10 from resetting the file associations
+<span class="p">;</span><span class="n">Description</span><span class="p">:</span> <span class="n">Prevents</span> <span class="n">Windows</span> <span class="mi">10</span> <span class="kn">from</span> <span class="nn">resetting</span> <span class="nn">the</span> <span class="nn">file</span> <span class="nn">associations</span>
 
-;... by setting NoOpenWith registry value for all the modern apps.
+<span class="p">;</span><span class="o">...</span> <span class="n">by</span> <span class="n">setting</span> <span class="n">NoOpenWith</span> <span class="n">registry</span> <span class="n">value</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">modern</span> <span class="n">apps</span><span class="o">.</span>
 
-;Tested in Windows 10 Build 10586
+<span class="p">;</span><span class="n">Tested</span> <span class="ow">in</span> <span class="n">Windows</span> <span class="mi">10</span> <span class="n">Build</span> <span class="mi">10586</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;Microsoft.3DBuilder
+<span class="p">;</span><span class="n">Microsoft</span><span class="o">.</span><span class="mi">3</span><span class="n">DBuilder</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;File Types: .stl, .3mf, .obj, .wrl, .ply, .fbx, .3ds, .dae, .dxf, .bmp
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">stl</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="n">mf</span><span class="p">,</span> <span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="o">.</span><span class="n">wrl</span><span class="p">,</span> <span class="o">.</span><span class="n">ply</span><span class="p">,</span> <span class="o">.</span><span class="n">fbx</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="n">ds</span><span class="p">,</span> <span class="o">.</span><span class="n">dae</span><span class="p">,</span> <span class="o">.</span><span class="n">dxf</span><span class="p">,</span> <span class="o">.</span><span class="n">bmp</span>
 
-;... .jpg, .png, .tga
+<span class="p">;</span><span class="o">...</span> <span class="o">.</span><span class="n">jpg</span><span class="p">,</span> <span class="o">.</span><span class="n">png</span><span class="p">,</span> <span class="o">.</span><span class="n">tga</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXvhc4p7vz4b485xfp46hhk3fq3grkdgjg]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXvhc4p7vz4b485xfp46hhk3fq3grkdgjg</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=&quot;&quot;
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;Microsoft Edge
+<span class="p">;</span><span class="n">Microsoft</span> <span class="n">Edge</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;File Types: .htm, .html
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">htm</span><span class="p">,</span> <span class="o">.</span><span class="n">html</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppX4hxtad77fbk3jkkeerkrm0ze94wjf3s9]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppX4hxtad77fbk3jkkeerkrm0ze94wjf3s9</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=&quot;&quot;
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
 
-;File Types: .pdf
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">pdf</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=&quot;&quot;
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
 
-;File Types: .svg
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">svg</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXde74bfzw9j31bzhcvsrxsyjnhhbq66cs]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXde74bfzw9j31bzhcvsrxsyjnhhbq66cs</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=&quot;&quot;
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
 
-;File Types: .xml
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">xml</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXcc58vyzkbjbs4ky0mxrmxf8278rk9b3t]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXcc58vyzkbjbs4ky0mxrmxf8278rk9b3t</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=&quot;&quot;
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;Microsoft Photos
+<span class="p">;</span><span class="n">Microsoft</span> <span class="n">Photos</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;File Types: .3g2,.3gp, .3gp2, .3gpp, .asf, .avi, .m2t, .m2ts, .m4v, .mkv
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="mi">3</span><span class="n">g2</span><span class="p">,</span><span class="o">.</span><span class="mi">3</span><span class="n">gp</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="n">gp2</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="n">gpp</span><span class="p">,</span> <span class="o">.</span><span class="n">asf</span><span class="p">,</span> <span class="o">.</span><span class="n">avi</span><span class="p">,</span> <span class="o">.</span><span class="n">m2t</span><span class="p">,</span> <span class="o">.</span><span class="n">m2ts</span><span class="p">,</span> <span class="o">.</span><span class="n">m4v</span><span class="p">,</span> <span class="o">.</span><span class="n">mkv</span>
 
-;... .mov, .mp4, mp4v, .mts, .tif, .tiff, .wmv
+<span class="p">;</span><span class="o">...</span> <span class="o">.</span><span class="n">mov</span><span class="p">,</span> <span class="o">.</span><span class="n">mp4</span><span class="p">,</span> <span class="n">mp4v</span><span class="p">,</span> <span class="o">.</span><span class="n">mts</span><span class="p">,</span> <span class="o">.</span><span class="n">tif</span><span class="p">,</span> <span class="o">.</span><span class="n">tiff</span><span class="p">,</span> <span class="o">.</span><span class="n">wmv</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=&quot;&quot;
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
 
-;File Types: Most Image File Types
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="n">Most</span> <span class="n">Image</span> <span class="n">File</span> <span class="n">Types</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppX43hnxtbyyps62jhe9sqpdzxn1790zetc</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=&quot;&quot;
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
 
-;File Types: .raw, .rwl, .rw2 and others
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="o">.</span><span class="n">rwl</span><span class="p">,</span> <span class="o">.</span><span class="n">rw2</span> <span class="ow">and</span> <span class="n">others</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=&quot;&quot;
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-; Zune Music
+<span class="p">;</span> <span class="n">Zune</span> <span class="n">Music</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;File Types: .aac, .adt, .adts ,.amr, .flac, .m3u, .m4a, .m4r, .mp3, .mpa
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">aac</span><span class="p">,</span> <span class="o">.</span><span class="n">adt</span><span class="p">,</span> <span class="o">.</span><span class="n">adts</span> <span class="p">,</span><span class="o">.</span><span class="n">amr</span><span class="p">,</span> <span class="o">.</span><span class="n">flac</span><span class="p">,</span> <span class="o">.</span><span class="n">m3u</span><span class="p">,</span> <span class="o">.</span><span class="n">m4a</span><span class="p">,</span> <span class="o">.</span><span class="n">m4r</span><span class="p">,</span> <span class="o">.</span><span class="n">mp3</span><span class="p">,</span> <span class="o">.</span><span class="n">mpa</span>
 
-;.. .wav, .wma, .wpl, .zpl
+<span class="p">;</span><span class="o">..</span> <span class="o">.</span><span class="n">wav</span><span class="p">,</span> <span class="o">.</span><span class="n">wma</span><span class="p">,</span> <span class="o">.</span><span class="n">wpl</span><span class="p">,</span> <span class="o">.</span><span class="n">zpl</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=&quot;&quot;
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-; Zune Video
+<span class="p">;</span> <span class="n">Zune</span> <span class="n">Video</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;File Types: .3g2,.3gp, .3gpp, .avi, .divx, .m2t, .m2ts, .m4v, .mkv, .mod
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="mi">3</span><span class="n">g2</span><span class="p">,</span><span class="o">.</span><span class="mi">3</span><span class="n">gp</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="n">gpp</span><span class="p">,</span> <span class="o">.</span><span class="n">avi</span><span class="p">,</span> <span class="o">.</span><span class="n">divx</span><span class="p">,</span> <span class="o">.</span><span class="n">m2t</span><span class="p">,</span> <span class="o">.</span><span class="n">m2ts</span><span class="p">,</span> <span class="o">.</span><span class="n">m4v</span><span class="p">,</span> <span class="o">.</span><span class="n">mkv</span><span class="p">,</span> <span class="o">.</span><span class="n">mod</span>
 
-;... .mov, .mp4, mp4v, .mpe, .mpeg, .mpg, .mpv2, .mts, .tod, .ts
+<span class="p">;</span><span class="o">...</span> <span class="o">.</span><span class="n">mov</span><span class="p">,</span> <span class="o">.</span><span class="n">mp4</span><span class="p">,</span> <span class="n">mp4v</span><span class="p">,</span> <span class="o">.</span><span class="n">mpe</span><span class="p">,</span> <span class="o">.</span><span class="n">mpeg</span><span class="p">,</span> <span class="o">.</span><span class="n">mpg</span><span class="p">,</span> <span class="o">.</span><span class="n">mpv2</span><span class="p">,</span> <span class="o">.</span><span class="n">mts</span><span class="p">,</span> <span class="o">.</span><span class="n">tod</span><span class="p">,</span> <span class="o">.</span><span class="n">ts</span>
 
-;... .tts, .wm, .wmv, .xvid
+<span class="p">;</span><span class="o">...</span> <span class="o">.</span><span class="n">tts</span><span class="p">,</span> <span class="o">.</span><span class="n">wm</span><span class="p">,</span> <span class="o">.</span><span class="n">wmv</span><span class="p">,</span> <span class="o">.</span><span class="n">xvid</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppX6eg8h5sxqq90pv53845wmnbewywdqq5h]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppX6eg8h5sxqq90pv53845wmnbewywdqq5h</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=&quot;&quot;
-</code></pre>
-
-<p>双击运行即可。</p>
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</code></pre></div>
+双击运行即可。</p>
 <p>要恢复原状的话，可以再新建一个 <code>恢复.reg</code> 注册表文件。代码如下：</p>
-<pre><code class="python">Windows Registry Editor Version 5.00
+<div class="highlight"><pre><span></span><code><span class="n">Windows</span> <span class="n">Registry</span> <span class="n">Editor</span> <span class="n">Version</span> <span class="mf">5.00</span>
 
-;Description: UNDO file for the earlier NoOpenWith registry edit
+<span class="p">;</span><span class="n">Description</span><span class="p">:</span> <span class="n">UNDO</span> <span class="nb">file</span> <span class="k">for</span> <span class="n">the</span> <span class="n">earlier</span> <span class="n">NoOpenWith</span> <span class="n">registry</span> <span class="n">edit</span>
 
-;Tested in Windows 10 Build 10586
+<span class="p">;</span><span class="n">Tested</span> <span class="ow">in</span> <span class="n">Windows</span> <span class="mi">10</span> <span class="n">Build</span> <span class="mi">10586</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;Microsoft.3DBuilder
+<span class="p">;</span><span class="n">Microsoft</span><span class="o">.</span><span class="mi">3</span><span class="n">DBuilder</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;File Types: .stl, .3mf, .obj, .wrl, .ply, .fbx, .3ds, .dae, .dxf, .bmp
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">stl</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="n">mf</span><span class="p">,</span> <span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="o">.</span><span class="n">wrl</span><span class="p">,</span> <span class="o">.</span><span class="n">ply</span><span class="p">,</span> <span class="o">.</span><span class="n">fbx</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="n">ds</span><span class="p">,</span> <span class="o">.</span><span class="n">dae</span><span class="p">,</span> <span class="o">.</span><span class="n">dxf</span><span class="p">,</span> <span class="o">.</span><span class="n">bmp</span>
 
-;... .jpg, .png, .tga
+<span class="p">;</span><span class="o">...</span> <span class="o">.</span><span class="n">jpg</span><span class="p">,</span> <span class="o">.</span><span class="n">png</span><span class="p">,</span> <span class="o">.</span><span class="n">tga</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXvhc4p7vz4b485xfp46hhk3fq3grkdgjg]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXvhc4p7vz4b485xfp46hhk3fq3grkdgjg</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=-
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=-</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;Microsoft Edge
+<span class="p">;</span><span class="n">Microsoft</span> <span class="n">Edge</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;File Types: .htm, .html
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">htm</span><span class="p">,</span> <span class="o">.</span><span class="n">html</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppX4hxtad77fbk3jkkeerkrm0ze94wjf3s9]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppX4hxtad77fbk3jkkeerkrm0ze94wjf3s9</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=-
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=-</span>
 
-;File Types: .pdf
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">pdf</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=-
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=-</span>
 
-;File Types: .svg
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">svg</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXde74bfzw9j31bzhcvsrxsyjnhhbq66cs]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXde74bfzw9j31bzhcvsrxsyjnhhbq66cs</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=-
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=-</span>
 
-;File Types: .xml
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">xml</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXcc58vyzkbjbs4ky0mxrmxf8278rk9b3t]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXcc58vyzkbjbs4ky0mxrmxf8278rk9b3t</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=-
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=-</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;Microsoft Photos
+<span class="p">;</span><span class="n">Microsoft</span> <span class="n">Photos</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;File Types: .3g2,.3gp, .3gp2, .3gpp, .asf, .avi, .m2t, .m2ts, .m4v, .mkv
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="mi">3</span><span class="n">g2</span><span class="p">,</span><span class="o">.</span><span class="mi">3</span><span class="n">gp</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="n">gp2</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="n">gpp</span><span class="p">,</span> <span class="o">.</span><span class="n">asf</span><span class="p">,</span> <span class="o">.</span><span class="n">avi</span><span class="p">,</span> <span class="o">.</span><span class="n">m2t</span><span class="p">,</span> <span class="o">.</span><span class="n">m2ts</span><span class="p">,</span> <span class="o">.</span><span class="n">m4v</span><span class="p">,</span> <span class="o">.</span><span class="n">mkv</span>
 
-;... .mov, .mp4, mp4v, .mts, .tif, .tiff, .wmv
+<span class="p">;</span><span class="o">...</span> <span class="o">.</span><span class="n">mov</span><span class="p">,</span> <span class="o">.</span><span class="n">mp4</span><span class="p">,</span> <span class="n">mp4v</span><span class="p">,</span> <span class="o">.</span><span class="n">mts</span><span class="p">,</span> <span class="o">.</span><span class="n">tif</span><span class="p">,</span> <span class="o">.</span><span class="n">tiff</span><span class="p">,</span> <span class="o">.</span><span class="n">wmv</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=-
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=-</span>
 
-;File Types: Most Image File Types
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="n">Most</span> <span class="n">Image</span> <span class="n">File</span> <span class="n">Types</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppX43hnxtbyyps62jhe9sqpdzxn1790zetc</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=-
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=-</span>
 
-;File Types: .raw, .rwl, .rw2 and others
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="o">.</span><span class="n">rwl</span><span class="p">,</span> <span class="o">.</span><span class="n">rw2</span> <span class="ow">and</span> <span class="n">others</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=-
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=-</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-; Zune Music
+<span class="p">;</span> <span class="n">Zune</span> <span class="n">Music</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;File Types: .aac, .adt, .adts ,.amr, .flac, .m3u, .m4a, .m4r, .mp3, .mpa
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="n">aac</span><span class="p">,</span> <span class="o">.</span><span class="n">adt</span><span class="p">,</span> <span class="o">.</span><span class="n">adts</span> <span class="p">,</span><span class="o">.</span><span class="n">amr</span><span class="p">,</span> <span class="o">.</span><span class="n">flac</span><span class="p">,</span> <span class="o">.</span><span class="n">m3u</span><span class="p">,</span> <span class="o">.</span><span class="n">m4a</span><span class="p">,</span> <span class="o">.</span><span class="n">m4r</span><span class="p">,</span> <span class="o">.</span><span class="n">mp3</span><span class="p">,</span> <span class="o">.</span><span class="n">mpa</span>
 
-;.. .wav, .wma, .wpl, .zpl
+<span class="p">;</span><span class="o">..</span> <span class="o">.</span><span class="n">wav</span><span class="p">,</span> <span class="o">.</span><span class="n">wma</span><span class="p">,</span> <span class="o">.</span><span class="n">wpl</span><span class="p">,</span> <span class="o">.</span><span class="n">zpl</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=-
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=-</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-; Zune Video
+<span class="p">;</span> <span class="n">Zune</span> <span class="n">Video</span>
 
-;-------------------
+<span class="p">;</span><span class="o">-------------------</span>
 
-;File Types: .3g2,.3gp, .3gpp, .avi, .divx, .m2t, .m2ts, .m4v, .mkv, .mod
+<span class="p">;</span><span class="n">File</span> <span class="n">Types</span><span class="p">:</span> <span class="o">.</span><span class="mi">3</span><span class="n">g2</span><span class="p">,</span><span class="o">.</span><span class="mi">3</span><span class="n">gp</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="n">gpp</span><span class="p">,</span> <span class="o">.</span><span class="n">avi</span><span class="p">,</span> <span class="o">.</span><span class="n">divx</span><span class="p">,</span> <span class="o">.</span><span class="n">m2t</span><span class="p">,</span> <span class="o">.</span><span class="n">m2ts</span><span class="p">,</span> <span class="o">.</span><span class="n">m4v</span><span class="p">,</span> <span class="o">.</span><span class="n">mkv</span><span class="p">,</span> <span class="o">.</span><span class="n">mod</span>
 
-;... .mov, .mp4, mp4v, .mpe, .mpeg, .mpg, .mpv2, .mts, .tod, .ts
+<span class="p">;</span><span class="o">...</span> <span class="o">.</span><span class="n">mov</span><span class="p">,</span> <span class="o">.</span><span class="n">mp4</span><span class="p">,</span> <span class="n">mp4v</span><span class="p">,</span> <span class="o">.</span><span class="n">mpe</span><span class="p">,</span> <span class="o">.</span><span class="n">mpeg</span><span class="p">,</span> <span class="o">.</span><span class="n">mpg</span><span class="p">,</span> <span class="o">.</span><span class="n">mpv2</span><span class="p">,</span> <span class="o">.</span><span class="n">mts</span><span class="p">,</span> <span class="o">.</span><span class="n">tod</span><span class="p">,</span> <span class="o">.</span><span class="n">ts</span>
 
-;... .tts, .wm, .wmv, .xvid
+<span class="p">;</span><span class="o">...</span> <span class="o">.</span><span class="n">tts</span><span class="p">,</span> <span class="o">.</span><span class="n">wm</span><span class="p">,</span> <span class="o">.</span><span class="n">wmv</span><span class="p">,</span> <span class="o">.</span><span class="n">xvid</span>
 
-[HKEY_CURRENT_USER\SOFTWARE\Classes\AppX6eg8h5sxqq90pv53845wmnbewywdqq5h]
+<span class="p">[</span><span class="n">HKEY_CURRENT_USER</span>\<span class="n">SOFTWARE</span>\<span class="n">Classes</span>\<span class="n">AppX6eg8h5sxqq90pv53845wmnbewywdqq5h</span><span class="p">]</span>
 
-&quot;NoOpenWith&quot;=-
-</code></pre>
+<span class="s2">&quot;NoOpenWith&quot;</span><span class="o">=-</span>
+</code></pre></div>
 
 <h2 id="_3">参考资料</h2>
 <p>微软官网
@@ -3781,6 +3780,8 @@ win10之家</p>
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

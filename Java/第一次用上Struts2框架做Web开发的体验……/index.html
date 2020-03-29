@@ -3528,8 +3528,8 @@
 <p>想不到我还是得和这struts框架打交道啊，从一开始学web的时候就十分抵制这类古老，使用反人类的框架，不过为了帮女朋友做个学校的作业，还是得搞一下，然而，半小时就写好的业务代码，因为我不熟悉这个框架和Java的这套体系，调试了半天才成功run起来……（心好累）</p>
 <h2 id="_2">开始</h2>
 <p>首先使用idea创建struts2项目，但是坑来了，idea创建的少了一个包，请自行去maven仓库下载，具体是少了这个包</p>
-<pre><code>javassist-3.26.0-GA.jar
-</code></pre>
+<div class="highlight"><pre><span></span><code>javassist-3.26.0-GA.jar
+</code></pre></div>
 
 <p>接着就可以开始写代码了……</p>
 <p>关于Struts2框架的学习参考：</p>
@@ -3539,72 +3539,72 @@
 <p>这篇写得很好，很详细，里面还有例子，跟着做就可以自己实现一个简单的struts框架了……</p>
 <h2 id="_3">配置</h2>
 <p>先写一个最简单的IndexAction，这里主要是做数据库的初始化工作，代码如下：</p>
-<pre><code class="java">package cn.deali.action;
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">cn.deali.action</span><span class="o">;</span>
 
-import cn.deali.utils.Database;
-import com.opensymphony.xwork2.ActionSupport;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+<span class="kn">import</span> <span class="nn">cn.deali.utils.Database</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.opensymphony.xwork2.ActionSupport</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.LoggerFactory</span><span class="o">;</span>
 
-public class IndexAction extends ActionSupport {
-    private final static Logger logger = LoggerFactory.getLogger(IndexAction.class);
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">IndexAction</span> <span class="kd">extends</span> <span class="n">ActionSupport</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">IndexAction</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
-    @Override
-    public String execute() throws Exception {
-        System.out.println(&quot;Index Action&quot;);
-        logger.info(&quot;Index Action&quot;);
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">execute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Index Action&quot;</span><span class="o">);</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Index Action&quot;</span><span class="o">);</span>
 
-        // 初始化数据库
-        if (Database.init()) {
-            Database.eraseData = false;
-            return SUCCESS;
-        } else
-            return ERROR;
-    }
-}
-</code></pre>
+        <span class="c1">// 初始化数据库</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">Database</span><span class="o">.</span><span class="na">init</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">Database</span><span class="o">.</span><span class="na">eraseData</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">SUCCESS</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span>
+            <span class="k">return</span> <span class="n">ERROR</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <p>写完了Action之后还要给一个配套的jsp页面，这叫做MVC设计模式，前后端分离（伪）……</p>
-<pre><code class="jsp">&lt;%--
-  Created by IntelliJ IDEA.
-  User: DealiAxy
-  Date: 2019/11/17
-  Time: 10:23
---%&gt;
-&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;用户管理系统&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;h1&gt;用户管理系统&lt;/h1&gt;
+<div class="highlight"><pre><span></span><code><span class="k">&lt;%-</span><span class="o">-</span>
+  <span class="n">Created</span> <span class="n">by</span> <span class="n">IntelliJ</span> <span class="n">IDEA</span><span class="o">.</span>
+  <span class="n">User</span><span class="o">:</span> <span class="n">DealiAxy</span>
+  <span class="n">Date</span><span class="o">:</span> <span class="mi">2019</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">17</span>
+  <span class="n">Time</span><span class="o">:</span> <span class="mi">10</span><span class="o">:</span><span class="mi">23</span>
+<span class="o">--</span><span class="k">%&gt;</span>
+<span class="k">&lt;%@</span> <span class="n">page</span> <span class="n">contentType</span><span class="o">=</span><span class="s">&quot;text/html;charset=UTF-8&quot;</span> <span class="n">language</span><span class="o">=</span><span class="s">&quot;java&quot;</span> <span class="k">%&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>用户管理系统<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;h1&gt;</span>用户管理系统<span class="nt">&lt;/h1&gt;</span>
 
-&lt;a href=&quot;Login.action&quot;&gt;登录&lt;/a&gt;
-&lt;a href=&quot;SignIn.action&quot;&gt;注册&lt;/a&gt;
-&lt;a href=&quot;User.action&quot;&gt;修改密码&lt;/a&gt;
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;Login.action&quot;</span><span class="nt">&gt;</span>登录<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;SignIn.action&quot;</span><span class="nt">&gt;</span>注册<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;User.action&quot;</span><span class="nt">&gt;</span>修改密码<span class="nt">&lt;/a&gt;</span>
 
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
 
 <p>其他的代码由于篇幅关系我就没放上来，本文最后有GitHub地址，有需要可以参考</p>
 <p>之后就可以配置struts2了，就像这样……</p>
-<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 
-&lt;!DOCTYPE struts PUBLIC
-        &quot;-//Apache Software Foundation//DTD Struts Configuration 2.5//EN&quot;
-        &quot;http://struts.apache.org/dtds/struts-2.5.dtd&quot;&gt;
+<span class="cp">&lt;!DOCTYPE struts PUBLIC</span>
+<span class="cp">        &quot;-//Apache Software Foundation//DTD Struts Configuration 2.5//EN&quot;</span>
+<span class="cp">        &quot;http://struts.apache.org/dtds/struts-2.5.dtd&quot;&gt;</span>
 
-&lt;struts&gt;
-    &lt;package name=&quot;cn.deali.action&quot; namespace=&quot;/&quot; extends=&quot;struts-default&quot;&gt;
-        &lt;default-action-ref name=&quot;Index&quot;/&gt;
-        &lt;action name=&quot;Index&quot; class=&quot;cn.deali.action.IndexAction&quot; method=&quot;execute&quot;&gt;
-            &lt;result name=&quot;success&quot;&gt;main.jsp&lt;/result&gt;
-            &lt;result name=&quot;error&quot;&gt;error.jsp&lt;/result&gt;
-        &lt;/action&gt;
-    &lt;/package&gt;
-&lt;/struts&gt;
-</code></pre>
+<span class="nt">&lt;struts&gt;</span>
+    <span class="nt">&lt;package</span> <span class="na">name=</span><span class="s">&quot;cn.deali.action&quot;</span> <span class="na">namespace=</span><span class="s">&quot;/&quot;</span> <span class="na">extends=</span><span class="s">&quot;struts-default&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;default-action-ref</span> <span class="na">name=</span><span class="s">&quot;Index&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;action</span> <span class="na">name=</span><span class="s">&quot;Index&quot;</span> <span class="na">class=</span><span class="s">&quot;cn.deali.action.IndexAction&quot;</span> <span class="na">method=</span><span class="s">&quot;execute&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">name=</span><span class="s">&quot;success&quot;</span><span class="nt">&gt;</span>main.jsp<span class="nt">&lt;/result&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">name=</span><span class="s">&quot;error&quot;</span><span class="nt">&gt;</span>error.jsp<span class="nt">&lt;/result&gt;</span>
+        <span class="nt">&lt;/action&gt;</span>
+    <span class="nt">&lt;/package&gt;</span>
+<span class="nt">&lt;/struts&gt;</span>
+</code></pre></div>
 
 <p>其中的<code>&lt;default-action-ref name="Index"/&gt;</code>是我后来学到的，默认action，一开始我以为和其他框架一样，定义一个“/”路由就可以了，结果自己坑了自己，调试了半天都不行。</p>
 <p>参考资料：</p>
@@ -3633,24 +3633,24 @@ public class IndexAction extends ActionSupport {
 </li>
 </ul>
 <p>关于我自己的Log4J的配置我这也放上来吧，虽然最后没用上。</p>
-<pre><code class="yaml"># 配置根Logger：设定日志记录的最低级别，
-log4j.rootLogger=DEBUG, stdout, logfile,ERROR
-log4j.category.org.springframework=ERROR
-log4j.category.org.apache=INFO
-log4j.logger.org.hibernate=ERROR
-# 输出到控制台
-log4j.appender.stdout=org.apache.log4j.ConsoleAppender
-# 指定日志信息的最低输出级别，默认为DEBUG
-log4j.appender.stdout.Threshold=ERROR
-# 表示所有消息都会被立即输出，设为false则不输出，默认值是true
-log4j.appender.stdout.ImmediateFlush=true
-# 可以灵活自定义布局模式
-log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
-# 默认值是System.out。
-log4j.appender.stdout.Target=System.out
-# 设定以怎样的格式显示消息
-log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># 配置根Logger：设定日志记录的最低级别，</span>
+<span class="l l-Scalar l-Scalar-Plain">log4j.rootLogger=DEBUG, stdout, logfile,ERROR</span>
+<span class="l l-Scalar l-Scalar-Plain">log4j.category.org.springframework=ERROR</span>
+<span class="l l-Scalar l-Scalar-Plain">log4j.category.org.apache=INFO</span>
+<span class="l l-Scalar l-Scalar-Plain">log4j.logger.org.hibernate=ERROR</span>
+<span class="l l-Scalar l-Scalar-Plain"># 输出到控制台</span>
+<span class="l l-Scalar l-Scalar-Plain">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span>
+<span class="l l-Scalar l-Scalar-Plain"># 指定日志信息的最低输出级别，默认为DEBUG</span>
+<span class="l l-Scalar l-Scalar-Plain">log4j.appender.stdout.Threshold=ERROR</span>
+<span class="l l-Scalar l-Scalar-Plain"># 表示所有消息都会被立即输出，设为false则不输出，默认值是true</span>
+<span class="l l-Scalar l-Scalar-Plain">log4j.appender.stdout.ImmediateFlush=true</span>
+<span class="l l-Scalar l-Scalar-Plain"># 可以灵活自定义布局模式</span>
+<span class="l l-Scalar l-Scalar-Plain">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span>
+<span class="l l-Scalar l-Scalar-Plain"># 默认值是System.out。</span>
+<span class="l l-Scalar l-Scalar-Plain">log4j.appender.stdout.Target=System.out</span>
+<span class="l l-Scalar l-Scalar-Plain"># 设定以怎样的格式显示消息</span>
+<span class="l l-Scalar l-Scalar-Plain">log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n</span>
+</code></pre></div>
 
 <h2 id="_5">数据库</h2>
 <p>数据库又是喜闻乐见的SQLite了，反正每次我都是用这个，hhh……</p>
@@ -3659,240 +3659,240 @@ log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
 <li><a href="https://www.cnblogs.com/haoqipeng/p/sqlite-use-in-java.html">在Java中使用Sqlite数据库</a></li>
 </ul>
 <p>附上我的<code>SQLiteHelper</code>实用类代码：</p>
-<pre><code class="java">package cn.deali.utils.sqlite;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">cn.deali.utils.sqlite</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.LoggerFactory</span><span class="o">;</span>
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+<span class="kn">import</span> <span class="nn">java.sql.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.DriverManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.ResultSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.SQLException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.Statement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
 
-/**
- * sqlite帮助类，直接创建该类示例，并调用相应的接口即可对sqlite数据库进行操作
- * &lt;p&gt;
- * 本类基于 sqlite jdbc v56
- *
- * @author haoqipeng
- */
-public class SQLiteHelper {
-    private final static Logger logger = LoggerFactory.getLogger(SQLiteHelper.class);
+<span class="cm">/**</span>
+<span class="cm"> * sqlite帮助类，直接创建该类示例，并调用相应的接口即可对sqlite数据库进行操作</span>
+<span class="cm"> * &lt;p&gt;</span>
+<span class="cm"> * 本类基于 sqlite jdbc v56</span>
+<span class="cm"> *</span>
+<span class="cm"> * @author haoqipeng</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SQLiteHelper</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">SQLiteHelper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
-    private Connection connection;
-    private Statement statement;
-    private ResultSet resultSet;
-    private String dbFilePath;
+    <span class="kd">private</span> <span class="n">Connection</span> <span class="n">connection</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Statement</span> <span class="n">statement</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">ResultSet</span> <span class="n">resultSet</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">dbFilePath</span><span class="o">;</span>
 
-    /**
-     * 构造函数
-     *
-     * @param dbFilePath sqlite db 文件路径
-     * @throws ClassNotFoundException
-     * @throws SQLException
-     */
-    public SQLiteHelper(String dbFilePath) throws ClassNotFoundException, SQLException {
-        this.dbFilePath = dbFilePath;
-        connection = getConnection(dbFilePath);
-    }
+    <span class="cm">/**</span>
+<span class="cm">     * 构造函数</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param dbFilePath sqlite db 文件路径</span>
+<span class="cm">     * @throws ClassNotFoundException</span>
+<span class="cm">     * @throws SQLException</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="nf">SQLiteHelper</span><span class="o">(</span><span class="n">String</span> <span class="n">dbFilePath</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ClassNotFoundException</span><span class="o">,</span> <span class="n">SQLException</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">dbFilePath</span> <span class="o">=</span> <span class="n">dbFilePath</span><span class="o">;</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">getConnection</span><span class="o">(</span><span class="n">dbFilePath</span><span class="o">);</span>
+    <span class="o">}</span>
 
-    /**
-     * 获取数据库连接
-     *
-     * @param dbFilePath db文件路径
-     * @return 数据库连接
-     * @throws ClassNotFoundException
-     * @throws SQLException
-     */
-    public Connection getConnection(String dbFilePath) throws ClassNotFoundException, SQLException {
-        Connection conn = null;
-        Class.forName(&quot;org.sqlite.JDBC&quot;);
-        conn = DriverManager.getConnection(&quot;jdbc:sqlite:&quot; + dbFilePath);
-        return conn;
-    }
+    <span class="cm">/**</span>
+<span class="cm">     * 获取数据库连接</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param dbFilePath db文件路径</span>
+<span class="cm">     * @return 数据库连接</span>
+<span class="cm">     * @throws ClassNotFoundException</span>
+<span class="cm">     * @throws SQLException</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">Connection</span> <span class="nf">getConnection</span><span class="o">(</span><span class="n">String</span> <span class="n">dbFilePath</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ClassNotFoundException</span><span class="o">,</span> <span class="n">SQLException</span> <span class="o">{</span>
+        <span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&quot;org.sqlite.JDBC&quot;</span><span class="o">);</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="s">&quot;jdbc:sqlite:&quot;</span> <span class="o">+</span> <span class="n">dbFilePath</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">conn</span><span class="o">;</span>
+    <span class="o">}</span>
 
-    /**
-     * 执行sql查询
-     *
-     * @param sql sql select 语句
-     * @param rse 结果集处理类对象
-     * @return 查询结果
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    public &lt;T&gt; T executeQuery(String sql, ResultSetExtractor&lt;T&gt; rse) throws SQLException, ClassNotFoundException {
-        try {
-            resultSet = getStatement().executeQuery(sql);
-            T rs = rse.extractData(resultSet);
-            return rs;
-        } finally {
-            destroyed();
-        }
-    }
+    <span class="cm">/**</span>
+<span class="cm">     * 执行sql查询</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param sql sql select 语句</span>
+<span class="cm">     * @param rse 结果集处理类对象</span>
+<span class="cm">     * @return 查询结果</span>
+<span class="cm">     * @throws SQLException</span>
+<span class="cm">     * @throws ClassNotFoundException</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">T</span> <span class="nf">executeQuery</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">,</span> <span class="n">ResultSetExtractor</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">rse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">resultSet</span> <span class="o">=</span> <span class="n">getStatement</span><span class="o">().</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+            <span class="n">T</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">rse</span><span class="o">.</span><span class="na">extractData</span><span class="o">(</span><span class="n">resultSet</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">rs</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">destroyed</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
 
-    /**
-     * 执行select查询，返回结果列表
-     *
-     * @param sql sql select 语句
-     * @param rm  结果集的行数据处理类对象
-     * @return
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    public &lt;T&gt; List&lt;T&gt; executeQuery(String sql, RowMapper&lt;T&gt; rm) throws SQLException, ClassNotFoundException {
-        List&lt;T&gt; rsList = new ArrayList&lt;T&gt;();
-        try {
-            resultSet = getStatement().executeQuery(sql);
-            while (resultSet.next()) {
-                rsList.add(rm.mapRow(resultSet, resultSet.getRow()));
-            }
-        } finally {
-            destroyed();
-        }
-        return rsList;
-    }
+    <span class="cm">/**</span>
+<span class="cm">     * 执行select查询，返回结果列表</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param sql sql select 语句</span>
+<span class="cm">     * @param rm  结果集的行数据处理类对象</span>
+<span class="cm">     * @return</span>
+<span class="cm">     * @throws SQLException</span>
+<span class="cm">     * @throws ClassNotFoundException</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">executeQuery</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">,</span> <span class="n">RowMapper</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">rm</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">rsList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">resultSet</span> <span class="o">=</span> <span class="n">getStatement</span><span class="o">().</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">resultSet</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">rsList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">rm</span><span class="o">.</span><span class="na">mapRow</span><span class="o">(</span><span class="n">resultSet</span><span class="o">,</span> <span class="n">resultSet</span><span class="o">.</span><span class="na">getRow</span><span class="o">()));</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">destroyed</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">rsList</span><span class="o">;</span>
+    <span class="o">}</span>
 
-    /**
-     * 执行数据库更新sql语句
-     *
-     * @param sql
-     * @return 更新行数
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    public int executeUpdate(String sql) throws SQLException, ClassNotFoundException {
-        try {
-            int c = getStatement().executeUpdate(sql);
-            return c;
-        } finally {
-            destroyed();
-        }
+    <span class="cm">/**</span>
+<span class="cm">     * 执行数据库更新sql语句</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param sql</span>
+<span class="cm">     * @return 更新行数</span>
+<span class="cm">     * @throws SQLException</span>
+<span class="cm">     * @throws ClassNotFoundException</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">executeUpdate</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">getStatement</span><span class="o">().</span><span class="na">executeUpdate</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">c</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">destroyed</span><span class="o">();</span>
+        <span class="o">}</span>
 
-    }
+    <span class="o">}</span>
 
-    /**
-     * 执行多个sql更新语句
-     *
-     * @param sqls
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    public void executeUpdate(String... sqls) throws SQLException, ClassNotFoundException {
-        try {
-            for (String sql : sqls) {
-                getStatement().executeUpdate(sql);
-            }
-        } finally {
-            destroyed();
-        }
-    }
+    <span class="cm">/**</span>
+<span class="cm">     * 执行多个sql更新语句</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param sqls</span>
+<span class="cm">     * @throws SQLException</span>
+<span class="cm">     * @throws ClassNotFoundException</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">executeUpdate</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">sqls</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">sql</span> <span class="o">:</span> <span class="n">sqls</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">getStatement</span><span class="o">().</span><span class="na">executeUpdate</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">destroyed</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
 
-    /**
-     * 执行数据库更新 sql List
-     *
-     * @param sqls sql列表
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    public void executeUpdate(List&lt;String&gt; sqls) throws SQLException, ClassNotFoundException {
-        try {
-            for (String sql : sqls) {
-                getStatement().executeUpdate(sql);
-            }
-        } finally {
-            destroyed();
-        }
-    }
+    <span class="cm">/**</span>
+<span class="cm">     * 执行数据库更新 sql List</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param sqls sql列表</span>
+<span class="cm">     * @throws SQLException</span>
+<span class="cm">     * @throws ClassNotFoundException</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">executeUpdate</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">sqls</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">sql</span> <span class="o">:</span> <span class="n">sqls</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">getStatement</span><span class="o">().</span><span class="na">executeUpdate</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">destroyed</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
 
-    private Connection getConnection() throws ClassNotFoundException, SQLException {
-        if (null == connection) connection = getConnection(dbFilePath);
-        return connection;
-    }
+    <span class="kd">private</span> <span class="n">Connection</span> <span class="nf">getConnection</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">ClassNotFoundException</span><span class="o">,</span> <span class="n">SQLException</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">connection</span><span class="o">)</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">getConnection</span><span class="o">(</span><span class="n">dbFilePath</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">connection</span><span class="o">;</span>
+    <span class="o">}</span>
 
-    private Statement getStatement() throws SQLException, ClassNotFoundException {
-        if (null == statement) statement = getConnection().createStatement();
-        return statement;
-    }
+    <span class="kd">private</span> <span class="n">Statement</span> <span class="nf">getStatement</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">statement</span><span class="o">)</span> <span class="n">statement</span> <span class="o">=</span> <span class="n">getConnection</span><span class="o">().</span><span class="na">createStatement</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">statement</span><span class="o">;</span>
+    <span class="o">}</span>
 
-    /**
-     * 数据库资源关闭和释放
-     */
-    public void destroyed() {
-        try {
-            if (null != connection) {
-                connection.close();
-                connection = null;
-            }
+    <span class="cm">/**</span>
+<span class="cm">     * 数据库资源关闭和释放</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroyed</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">connection</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="n">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
 
-            if (null != statement) {
-                statement.close();
-                statement = null;
-            }
+            <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">statement</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">statement</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="n">statement</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
 
-            if (null != resultSet) {
-                resultSet.close();
-                resultSet = null;
-            }
-        } catch (SQLException e) {
-            logger.error(&quot;Sqlite数据库关闭时异常&quot;, e);
-        }
-    }
-}
+            <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">resultSet</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">resultSet</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="n">resultSet</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&quot;Sqlite数据库关闭时异常&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 
-public interface ResultSetExtractor&lt;T&gt; {
-    public abstract T extractData(ResultSet rs);
-}
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ResultSetExtractor</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">T</span> <span class="nf">extractData</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">);</span>
+<span class="o">}</span>
 
-public interface RowMapper&lt;T&gt; {
-    public abstract T mapRow(ResultSet rs, int index) throws SQLException;
-}
-</code></pre>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">RowMapper</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">T</span> <span class="nf">mapRow</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <p>还有我的数据库工厂类，哈哈：</p>
-<pre><code class="java">package cn.deali.utils;
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">cn.deali.utils</span><span class="o">;</span>
 
-import cn.deali.utils.sqlite.SQLiteHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+<span class="kn">import</span> <span class="nn">cn.deali.utils.sqlite.SQLiteHelper</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.LoggerFactory</span><span class="o">;</span>
 
-public class Database {
-    private final static Logger logger = LoggerFactory.getLogger(Database.class);
-    private static SQLiteHelper db;
-    public static boolean eraseData = false;
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Database</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">Database</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">SQLiteHelper</span> <span class="n">db</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">eraseData</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
-    public static SQLiteHelper getInstance() {
-        if (db != null)
-            return db;
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">SQLiteHelper</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">db</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="k">return</span> <span class="n">db</span><span class="o">;</span>
 
-        try {
-            db = new SQLiteHelper(&quot;test.db&quot;);
-            return db;
-        } catch (Exception ex) {
-            logger.error(ex.getMessage());
-            return null;
-        }
-    }
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">db</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SQLiteHelper</span><span class="o">(</span><span class="s">&quot;test.db&quot;</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">db</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
 
-    public static boolean init() {
-        logger.info(&quot;初始化数据库！&quot;);
-        db = getInstance();
-        try {
-            if (eraseData) {
-                db.executeUpdate(&quot;drop table if exists user;&quot;);
-                db.executeUpdate(&quot;create table user(username varchar(20), password varchar(20));&quot;);
-                logger.info(&quot;创建数据表&quot;);
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
-            return false;
-        }
-    }
-}
-</code></pre>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;初始化数据库！&quot;</span><span class="o">);</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">getInstance</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">eraseData</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">db</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">(</span><span class="s">&quot;drop table if exists user;&quot;</span><span class="o">);</span>
+                <span class="n">db</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">(</span><span class="s">&quot;create table user(username varchar(20), password varchar(20));&quot;</span><span class="o">);</span>
+                <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;创建数据表&quot;</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <h2 id="_6">坑</h2>
 <p>首先是tomcat服务器在Windows上有控制台输出乱码的问题，很烦，解决的话可以参考：</p>
@@ -3902,7 +3902,7 @@ public class Database {
 </ul>
 <h2 id="_7">完整代码</h2>
 <p>最后附上GitHub地址，有需要自取，没啥技术含量，就是做个小记录。</p>
-<p>地址： https://github.com/Deali-Axy/SillyStruts2 </p>
+<p>地址： <a href="https://github.com/Deali-Axy/SillyStruts2">https://github.com/Deali-Axy/SillyStruts2</a> </p>
 <h2 id="_8">欢迎交流</h2>
 <p>交流问题请在微信公众号后台留言，每一条信息我都会回复哈~
 - 微信公众号：画星星高手
@@ -3982,6 +3982,8 @@ public class Database {
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

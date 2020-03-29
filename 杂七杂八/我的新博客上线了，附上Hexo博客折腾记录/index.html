@@ -3521,7 +3521,7 @@
 <p>博客地址：<a href="http://blog.deali.cn/">http://blog.deali.cn/</a></p>
 <p>各种配置，我还花了一天时间来写脚本把我的旧的博客导入，图片下载，做了替换等等工作，期间也出了很多问题，感觉很烦，很浪费时间，但是一旦开始搞了不坚持到最后又感觉之前的工作都白费了，所以到今天总算是搞好上线了～</p>
 <p>关于提取markdown中图片我之前写过一篇文章了，这次又做了升级，可以把markdown中的网络图片全都下载下来并且替换成本地相对路径。有时间写一篇单独说。</p>
-<p>参考：https://zhuanlan.zhihu.com/p/87811246</p>
+<p>参考：<a href="https://zhuanlan.zhihu.com/p/87811246">https://zhuanlan.zhihu.com/p/87811246</a></p>
 <h2 id="_1">先上截图</h2>
 <p>最终效果这样，还不错吧</p>
 <h3 id="_2">主页</h3>
@@ -3538,44 +3538,43 @@
 <h2 id="travis-ci">Travis CI持续集成</h2>
 <p>想要自动部署博客，最好需要两个github仓库，一个随便取名，一个的名字是<code>github用户名.github.io</code>，这样才可以直接访问。</p>
 <p>这里贴一下配置：</p>
-<p>首先是<code>.travis.yml</code>文件</p>
-<pre><code class="yaml"># 语言
-language: node_js
-# node版本
-node_js:
-  - 8
-# 指定缓存模块
-cache:
-  directories:
-    - node_modules
-# 监听分支
-branches:
-  only:
-    - master
-install:
-  - npm install
-script:
-  - hexo clean
-  - hexo generate
-after_script:
-  - git config user.name &quot;用户名&quot;
-  - git config user.email &quot;邮箱&quot;
-  - sed -i &quot;s/{GH_TOKEN}/${GH_TOKEN}/g&quot; ./_config.yml
-  - hexo deploy
-</code></pre>
-
+<p>首先是<code>.travis.yml</code>文件
+<div class="highlight"><pre><span></span><code><span class="c1"># 语言</span>
+<span class="nt">language</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">node_js</span>
+<span class="c1"># node版本</span>
+<span class="nt">node_js</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="c1"># 指定缓存模块</span>
+<span class="nt">cache</span><span class="p">:</span>
+  <span class="nt">directories</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">node_modules</span>
+<span class="c1"># 监听分支</span>
+<span class="nt">branches</span><span class="p">:</span>
+  <span class="nt">only</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="nt">install</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">npm install</span>
+<span class="nt">script</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">hexo clean</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">hexo generate</span>
+<span class="nt">after_script</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config user.name &quot;用户名&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config user.email &quot;邮箱&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sed -i &quot;s/{GH_TOKEN}/${GH_TOKEN}/g&quot; ./_config.yml</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">hexo deploy</span>
+</code></pre></div></p>
 <p>然后是 <code>_config.yaml</code> 文件的最后，部署部分：</p>
-<pre><code class="yaml"># Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  - type: git
-    repository: https://{GH_TOKEN}@这里放上第二个github仓库的链接
-    branch: master
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># Deployment</span>
+<span class="c1">## Docs: https://hexo.io/docs/deployment.html</span>
+<span class="nt">deploy</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">git</span>
+    <span class="nt">repository</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://{GH_TOKEN}@这里放上第二个github仓库的链接</span>
+    <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+</code></pre></div>
 
 <p>其他的步骤就很简单了，参考两篇文档：
 （话说官方文档的写法好像是不对，以我这个为准）
-- 官方文档：https://hexo.io/zh-cn/docs/github-pages
+- 官方文档：<a href="https://hexo.io/zh-cn/docs/github-pages">https://hexo.io/zh-cn/docs/github-pages</a>
 - <a href="https://blog.utone.xyz/2019091039107/">https://blog.utone.xyz/2019091039107/</a></p>
 <h2 id="_6">欢迎交流</h2>
 <p>我整理了一系列的技术文章和资料，在公众号「程序设计实验室」后台回复 linux、flutter、c#、netcore、android、java、python 等可获取相关技术文章和资料</p>
@@ -3652,6 +3651,8 @@ deploy:
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

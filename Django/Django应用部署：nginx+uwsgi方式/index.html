@@ -3533,112 +3533,110 @@
 <p>nginx不用说，是必备的，关于nginx的安装本文不再赘述，详情可以自行搜索或者参考我以前的文章：
 <a href="http://blog.deali.cn/33.html">Debian8搭建LEMP环境</a></p>
 <h3 id="uwsgi">安装uwsgi</h3>
-<pre><code class="bash">pip install uwsgi
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip install uwsgi
+</code></pre></div>
 
 <h3 id="_2">上传项目代码 &amp; 测试</h3>
-<pre><code class="bash"># 进入项目目录，具体目录请自行选择
-cd /path/to/project
+<div class="highlight"><pre><span></span><code><span class="c1"># 进入项目目录，具体目录请自行选择</span>
+<span class="nb">cd</span> /path/to/project
 
-# 建立虚拟环境
+<span class="c1"># 建立虚拟环境</span>
 virtualenv venv
 
-# 激活虚拟环境
-source venv/bin/activate
+<span class="c1"># 激活虚拟环境</span>
+<span class="nb">source</span> venv/bin/activate
 
-# 安装依赖
+<span class="c1"># 安装依赖</span>
 pip install -r requirement.txt
 
-# 开启测试服务器
-python manage.py runserver 0.0.0.0:8001
-</code></pre>
+<span class="c1"># 开启测试服务器</span>
+python manage.py runserver <span class="m">0</span>.0.0.0:8001
+</code></pre></div>
 
 <h2 id="uwsgi_1">配置uwsgi</h2>
 <p>uwsgi支持多种格式的配置文件，本文选择ini格式。</p>
 <p>在项目目录中创建<code>uwsgi.ini</code>文件，内容如下：</p>
-<pre><code class="ini">[uwsgi]
-# Django-related settings
+<div class="highlight"><pre><span></span><code><span class="k">[uwsgi]</span>
+<span class="c1"># Django-related settings</span>
 
-socket = :8001
+<span class="na">socket</span> <span class="o">=</span> <span class="s">:8001</span>
 
-# Virtualenv
-home            = /var/www/html/_project/ClassHelperWxApp/venv
+<span class="c1"># Virtualenv</span>
+<span class="na">home</span>            <span class="o">=</span> <span class="s">/var/www/html/_project/ClassHelperWxApp/venv</span>
 
-# the base directory (full path)
-chdir           = /var/www/html/_project/ClassHelperWxApp
+<span class="c1"># the base directory (full path)</span>
+<span class="na">chdir</span>           <span class="o">=</span> <span class="s">/var/www/html/_project/ClassHelperWxApp</span>
 
-# Django s wsgi file
-module          = Config.wsgi
+<span class="c1"># Django s wsgi file</span>
+<span class="na">module</span>          <span class="o">=</span> <span class="s">Config.wsgi</span>
 
-# process-related settings
-# master
-master          = true
+<span class="c1"># process-related settings</span>
+<span class="c1"># master</span>
+<span class="na">master</span>          <span class="o">=</span> <span class="s">true</span>
 
-# maximum number of worker processes
-processes       = 4
+<span class="c1"># maximum number of worker processes</span>
+<span class="na">processes</span>       <span class="o">=</span> <span class="s">4</span>
 
-# ... with appropriate permissions - may be needed
-# chmod-socket    = 664
-# clear environment on exit
-vacuum          = true
-</code></pre>
+<span class="c1"># ... with appropriate permissions - may be needed</span>
+<span class="c1"># chmod-socket    = 664</span>
+<span class="c1"># clear environment on exit</span>
+<span class="na">vacuum</span>          <span class="o">=</span> <span class="s">true</span>
+</code></pre></div>
 
 <h3 id="uwsgi_2">开启uwsgi测试</h3>
-<pre><code class="bash"># 进入项目目录
-cd /path/to/project
+<div class="highlight"><pre><span></span><code><span class="c1"># 进入项目目录</span>
+<span class="nb">cd</span> /path/to/project
 
-# 开启uwsgi服务器
+<span class="c1"># 开启uwsgi服务器</span>
 uwsgi -s --ini uwsgi.ini
-</code></pre>
+</code></pre></div>
 
 <p>这个时候还不能访问，因为服务器设置成socket模式，如果想先访问一下试试看，可以把ini配置文件里面的socket改成http，即可访问项目网站，不过静态文件暂时访问不了。</p>
 <h2 id="nginx">nginx配置反向代理</h2>
 <p>在<code>/etc/nginx/sites-available</code>目录中新建一个配置文件。
 例如：<code>domain.com.conf</code>，配置代码如下</p>
-<p>附赠了https的配置，如果不需要的话把ssl相关的配置行删除即可。</p>
-<pre><code class="nginx">server {
-    # the port your site will be served on
-    listen 80;
-    listen 443 ssl;
+<p>附赠了https的配置，如果不需要的话把ssl相关的配置行删除即可。
+<div class="highlight"><pre><span></span><code><span class="k">server</span> <span class="p">{</span>
+    <span class="c1"># the port your site will be served on</span>
+    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">listen</span> <span class="mi">443</span> <span class="s">ssl</span><span class="p">;</span>
 
-    # the domain name it will serve for
-    server_name domain.com; # substitute your machine's IP address or FQDN
-    charset     utf-8;
+    <span class="c1"># the domain name it will serve for</span>
+    <span class="kn">server_name</span> <span class="s">domain.com</span><span class="p">;</span> <span class="c1"># substitute your machine&#39;s IP address or FQDN</span>
+    <span class="kn">charset</span>     <span class="s">utf-8</span><span class="p">;</span>
 
-    ssl on;
-    #证书文件
-    ssl_certificate /path/to/keys/1_domain.com_bundle.crt;
-    #私钥文件
-    ssl_certificate_key /path/to/keys/2_domain.com.key;
-    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
-    ssl_prefer_server_ciphers on;
+    <span class="kn">ssl</span> <span class="no">on</span><span class="p">;</span>
+    <span class="c1">#证书文件</span>
+    <span class="kn">ssl_certificate</span> <span class="s">/path/to/keys/1_domain.com_bundle.crt</span><span class="p">;</span>
+    <span class="c1">#私钥文件</span>
+    <span class="kn">ssl_certificate_key</span> <span class="s">/path/to/keys/2_domain.com.key</span><span class="p">;</span>
+    <span class="kn">ssl_protocols</span>       <span class="s">TLSv1</span> <span class="s">TLSv1.1</span> <span class="s">TLSv1.2</span><span class="p">;</span>
+    <span class="kn">ssl_ciphers</span> <span class="s">ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4</span><span class="p">;</span>
+    <span class="kn">ssl_prefer_server_ciphers</span> <span class="no">on</span><span class="p">;</span>
 
 
-    # max upload size
-    client_max_body_size 75M;   # adjust to taste
+    <span class="c1"># max upload size</span>
+    <span class="kn">client_max_body_size</span> <span class="s">75M</span><span class="p">;</span>   <span class="c1"># adjust to taste</span>
 
-    # Django media
-    location /media  {
-        alias /path/to/project/media;  # your Django project's media files - amend as required
-    }
+    <span class="c1"># Django media</span>
+    <span class="kn">location</span> <span class="s">/media</span>  <span class="p">{</span>
+        <span class="kn">alias</span> <span class="s">/path/to/project/media</span><span class="p">;</span>  <span class="c1"># your Django project&#39;s media files - amend as required</span>
+    <span class="p">}</span>
 
-    location /static {
-        alias /path/to/project/static; # your Django project's static files - amend as required
-    }
+    <span class="kn">location</span> <span class="s">/static</span> <span class="p">{</span>
+        <span class="kn">alias</span> <span class="s">/path/to/project/static</span><span class="p">;</span> <span class="c1"># your Django project&#39;s static files - amend as required</span>
+    <span class="p">}</span>
 
-    # Finally, send all non-media requests to the Django server.
-    location / {
-        include     uwsgi_params; # the uwsgi_params file you installed
-        uwsgi_pass 127.0.0.1:8001;
-    }
-}
-</code></pre>
-
-<p>然后使用<code>ln -s</code>创建一个到<code>sites-enabled</code>的软链接，重新加载nginx即可。</p>
-<pre><code class="bash">service nginx reload
-</code></pre>
-
+    <span class="c1"># Finally, send all non-media requests to the Django server.</span>
+    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+        <span class="kn">include</span>     <span class="s">uwsgi_params</span><span class="p">;</span> <span class="c1"># the uwsgi_params file you installed</span>
+        <span class="kn">uwsgi_pass</span> <span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">8001</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>然后使用<code>ln -s</code>创建一个到<code>sites-enabled</code>的软链接，重新加载nginx即可。
+<div class="highlight"><pre><span></span><code>service nginx reload
+</code></pre></div></p>
 <p><img alt="" src="../Django%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2%EF%BC%9Anginx%2Buwsgi%E6%96%B9%E5%BC%8F.assets/8869373-0322e6a5ce607bbb.png" /></p>
 <h2 id="about">About</h2>
 <p><img alt="" src="../Django%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2%EF%BC%9Anginx%2Buwsgi%E6%96%B9%E5%BC%8F.assets/8869373-901590e019f6f85b.png" /></p>
@@ -3718,6 +3716,8 @@ uwsgi -s --ini uwsgi.ini
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

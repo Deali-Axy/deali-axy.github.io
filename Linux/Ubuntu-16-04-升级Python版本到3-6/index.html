@@ -3480,38 +3480,34 @@
 <p>没办法，unity桌面实在是太好用了，Ubuntu18.04上安装了unity桌面毕竟不够完美，所以我昨天就降级到Ubuntu16.04，相守一波原生Unity桌面的快感。
 一切都OK，不过Python版本有点低，所以要用万能PPA源升级一下。</p>
 <h2 id="_2">操作</h2>
-<p>安装Python3.6</p>
-<pre><code class="bash">sudo add-apt-repository ppa:jonathonf/python-3.6
+<p>安装Python3.6
+<div class="highlight"><pre><span></span><code>sudo add-apt-repository ppa:jonathonf/python-3.6
 sudo apt-get update
 sudo apt-get install python3.6
-</code></pre>
-
+</code></pre></div></p>
 <p>Python版本切换：
-<strong>注意！经过一段时间的测试，在这里最好不好去切换Python3的版本，继续保留3.5就可以了，因为Ubuntu很多系统软件都是依赖Python的，亲测升级到3.6后很多软件都会出现问题！</strong></p>
-<pre><code>sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 2
+<strong>注意！经过一段时间的测试，在这里最好不好去切换Python3的版本，继续保留3.5就可以了，因为Ubuntu很多系统软件都是依赖Python的，亲测升级到3.6后很多软件都会出现问题！</strong>
+<div class="highlight"><pre><span></span><code>sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 2
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2
 sudo update-alternatives --config python3
-</code></pre>
-
-<p>验证</p>
-<pre><code>python3 -V
-</code></pre>
-
+</code></pre></div></p>
+<p>验证
+<div class="highlight"><pre><span></span><code>python3 -V
+</code></pre></div></p>
 <p>结果：
 <img alt="" src="../Ubuntu-16-04-%E5%8D%87%E7%BA%A7Python%E7%89%88%E6%9C%AC%E5%88%B03-6.assets/8869373-02ce0a366d52aa33.png" /></p>
 <p>ok！</p>
 <h2 id="pip3">安装pip3</h2>
-<pre><code class="bash">curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6
-</code></pre>
+<div class="highlight"><pre><span></span><code>curl https://bootstrap.pypa.io/get-pip.py <span class="p">|</span> sudo python3.6
+</code></pre></div>
 
 <h2 id="_3">终端打不开问题</h2>
-<p>升级到Python3.6之后自带终端打不开了，这时候可以按<code>Ctrl+Altt+F1</code>切换到命令行，执行以下命令：</p>
-<pre><code class="bash">cd /usr/lib/python3/dist-packages/gi/
+<p>升级到Python3.6之后自带终端打不开了，这时候可以按<code>Ctrl+Altt+F1</code>切换到命令行，执行以下命令：
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /usr/lib/python3/dist-packages/gi/
 sudo cp _gi.cpython-35m-x86_64-linux-gnu.so _gi.cpython-36m-x86_64-linux-gnu.so
 sudo cp _gi_cairo.cpython-35m-x86_64-linux-gnu.so _gi_cairo.cpython-36m-x86_64-linux-gnu.so
-</code></pre>
-
-<p>然后再按<code>Ctrl+Atl+F7</code>切换回图形界面就可以了～</p>
+</code></pre></div>
+然后再按<code>Ctrl+Atl+F7</code>切换回图形界面就可以了～</p>
 <p><img alt="" src="../Ubuntu-16-04-%E5%8D%87%E7%BA%A7Python%E7%89%88%E6%9C%AC%E5%88%B03-6.assets/8869373-4aab691f90fb1da1.png" /></p>
 <h2 id="about">About</h2>
 <p><img alt="" src="../Ubuntu-16-04-%E5%8D%87%E7%BA%A7Python%E7%89%88%E6%9C%AC%E5%88%B03-6.assets/8869373-901590e019f6f85b.png" /></p>
@@ -3591,6 +3587,8 @@ sudo cp _gi_cairo.cpython-35m-x86_64-linux-gnu.so _gi_cairo.cpython-36m-x86_64-l
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

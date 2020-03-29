@@ -3537,95 +3537,95 @@
 <h2 id="logging">Logging模块</h2>
 <p>Logging模块为应用程序提供了灵活的手段记录事件、错误、警告和调试信息。对这些信息可以进行收集、筛选、写入文件、发送给系统日志等操作，甚至还可以通过网络发送给远程计算机。</p>
 <h2 id="logging_1">首先附上我的Logging配置</h2>
-<pre><code class="python">LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'standard': {
-            'format': '%(asctime)s [%(name)s:%(lineno)d] [%(module)s:%(funcName)s] [%(levelname)s] %(message)s'}
-        # 日志格式
-    },
-    'filters': {
-    },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': True,
-        },
-        'default': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '{}/Log/QWebFX_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),  # 日志输出文件
-            'maxBytes': 1024 * 1024 * 5,  # 文件大小
-            'backupCount': 5,  # 备份份数
-            'formatter': 'standard',  # 使用哪种formatters日志格式
-        },
-        'error': {
-            'level': 'ERROR',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '{}/Log/Error/QWebFX_Error_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),
-            'maxBytes': 1024 * 1024 * 5,
-            'backupCount': 5,
-            'formatter': 'standard',
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'standard'
-        },
-        'request_handler': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '{}/Log/Request/QWebFX_Request_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),
-            'maxBytes': 1024 * 1024 * 5,
-            'backupCount': 5,
-            'formatter': 'standard',
-        },
-        'scripts_handler': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '{}/Log/Script/QWebFX_Script_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),
-            'maxBytes': 1024 * 1024 * 5,
-            'backupCount': 5,
-            'formatter': 'standard',
-        }
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['default'],
-            'level': 'DEBUG',
-            'propagate': False
-        },
-        'django.request': {
-            'handlers': ['request_handler'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'scripts': {
-            'handlers': ['scripts_handler'],
-            'level': 'INFO',
-            'propagate': False
-        },
-        'console': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True
-        },
-        # API/Views 模块的日志处理
-        'views': {
-            'handlers': ['default', 'error'],
-            'level': 'DEBUG',
-            'propagate': True
-        },
-        'util': {
-            'handlers': ['error'],
-            'level': 'ERROR',
-            'propagate': True
-        },
-    }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">LOGGING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;disable_existing_loggers&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="s1">&#39;formatters&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;standard&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> [</span><span class="si">%(name)s</span><span class="s1">:</span><span class="si">%(lineno)d</span><span class="s1">] [</span><span class="si">%(module)s</span><span class="s1">:</span><span class="si">%(funcName)s</span><span class="s1">] [</span><span class="si">%(levelname)s</span><span class="s1">] </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">}</span>
+        <span class="c1"># 日志格式</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;filters&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;mail_admins&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;django.utils.log.AdminEmailHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;include_html&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.RotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;{}/Log/QWebFX_{}.log&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()),</span>  <span class="c1"># 日志输出文件</span>
+            <span class="s1">&#39;maxBytes&#39;</span><span class="p">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># 文件大小</span>
+            <span class="s1">&#39;backupCount&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># 备份份数</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>  <span class="c1"># 使用哪种formatters日志格式</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.RotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;{}/Log/Error/QWebFX_Error_{}.log&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()),</span>
+            <span class="s1">&#39;maxBytes&#39;</span><span class="p">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">&#39;backupCount&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;console&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.StreamHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;request_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.RotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;{}/Log/Request/QWebFX_Request_{}.log&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()),</span>
+            <span class="s1">&#39;maxBytes&#39;</span><span class="p">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">&#39;backupCount&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;scripts_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.handlers.RotatingFileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;{}/Log/Script/QWebFX_Script_{}.log&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()),</span>
+            <span class="s1">&#39;maxBytes&#39;</span><span class="p">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">&#39;backupCount&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;standard&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;loggers&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;django&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">False</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;django.request&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;request_handler&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;scripts&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;scripts_handler&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">False</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;console&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span>
+        <span class="p">},</span>
+        <span class="c1"># API/Views 模块的日志处理</span>
+        <span class="s1">&#39;views&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;util&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p><strong>说明：</strong>
 1. formatters：配置打印日志格式
@@ -3635,15 +3635,14 @@
 1. loggers类型为"django"这将处理所有类型日志。
 2. sourceDns.webdns.views 应用的py文件</p>
 <h2 id="_2">日和记录日志</h2>
-<p>看代码例子：</p>
-<pre><code class="python">import logging
+<p>看代码例子：
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
 
-logger = logging.getLogger(&quot;console&quot;)
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;console&quot;</span><span class="p">)</span>
 
-def index(request):
-    logger.debug(&quot;hello&quot;)
-</code></pre>
-
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+</code></pre></div></p>
 <p>注意：<code>getLogger</code>使用的这个名字就是我们上面定义好的<code>loggers</code>里面的日志记录器。</p>
 <p>接下来对一些参数进行介绍和说明</p>
 <h2 id="level">日志记录级别 <code>Level</code></h2>
@@ -3802,6 +3801,8 @@ def index(request):
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

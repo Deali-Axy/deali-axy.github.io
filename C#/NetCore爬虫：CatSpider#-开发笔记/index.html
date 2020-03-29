@@ -3537,247 +3537,247 @@
 <h2 id="_1">网络请求</h2>
 <p>如果是python的话，那么我觉得<code>requests</code>库是唯一最佳选择，在NetCore里面，现在有个很好用的库<code>HttpClient</code>，和<code>requests</code>不同，这个是官方的，做得非常好用，调用是全部异步的。</p>
 <p>官方推荐使用单例模式，所以我做了个<code>HttpHelper</code>静态类来使用~</p>
-<pre><code class="c#">public static class HttpHelper
-{
-    private static readonly HttpClientHandler handler;
-    private static readonly HttpClient client;
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">HttpHelper</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">HttpClientHandler</span> <span class="n">handler</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">HttpClient</span> <span class="n">client</span><span class="p">;</span>
 
-    public static HttpClientHandler Handler { get =&gt; handler; }
-    public static HttpClient Client { get =&gt; client; }
+    <span class="k">public</span> <span class="k">static</span> <span class="n">HttpClientHandler</span> <span class="n">Handler</span> <span class="p">{</span> <span class="k">get</span> <span class="p">=&gt;</span> <span class="n">handler</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">HttpClient</span> <span class="n">Client</span> <span class="p">{</span> <span class="k">get</span> <span class="p">=&gt;</span> <span class="n">client</span><span class="p">;</span> <span class="p">}</span>
 
-    static HttpHelper()
-    {
-        handler = new HttpClientHandler();
-        client = new HttpClient(handler);
-        client.DefaultRequestHeaders.Add(&quot;User-Agent&quot;, &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36&quot;);
-    }
-}
-</code></pre>
+    <span class="k">static</span> <span class="nf">HttpHelper</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">handler</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpClientHandler</span><span class="p">();</span>
+        <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpClient</span><span class="p">(</span><span class="n">handler</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">DefaultRequestHeaders</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;User-Agent&quot;</span><span class="p">,</span> <span class="s">&quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>使用起来很简单：</p>
-<pre><code class="c#">var data = await HttpHelper.Client.GetStringAsync(&quot;http://example.com&quot;);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">data</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HttpHelper</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">GetStringAsync</span><span class="p">(</span><span class="s">&quot;http://example.com&quot;</span><span class="p">);</span>
+</code></pre></div>
 
 <h2 id="html">解析html文档</h2>
 <p>解析同样很方便，通过<code>AngleSharp</code>库，可以像CSS选择器那样快速定位网页元素，比python常用的<code>BeautifulSoup</code>好用很多。</p>
 <p>为了使用方便，我封装了一个方法快速解析文档：</p>
-<pre><code class="c#">public static async Task&lt;IHtmlDocument&gt; GetHtmlDocument(string url)
-{
-    var html = await client.GetStringAsync(url);
-    return new HtmlParser().ParseDocument(html);
-}
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">static</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IHtmlDocument</span><span class="p">&gt;</span> <span class="n">GetHtmlDocument</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">html</span> <span class="p">=</span> <span class="k">await</span> <span class="n">client</span><span class="p">.</span><span class="n">GetStringAsync</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">HtmlParser</span><span class="p">().</span><span class="n">ParseDocument</span><span class="p">(</span><span class="n">html</span><span class="p">);</span>
+<span class="p">}</span>
 
-public static async Task&lt;IHtmlDocument&gt; GetHtmlDocument(string url, string charset)
-{
-    var res = await client.GetAsync(url);
-    var resBytes = await res.Content.ReadAsByteArrayAsync();
-    var resStr = Encoding.GetEncoding(charset).GetString(resBytes);
-    return new HtmlParser().ParseDocument(resStr);
-}
-</code></pre>
+<span class="k">public</span> <span class="k">static</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">IHtmlDocument</span><span class="p">&gt;</span> <span class="n">GetHtmlDocument</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">,</span> <span class="kt">string</span> <span class="n">charset</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">res</span> <span class="p">=</span> <span class="k">await</span> <span class="n">client</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">resBytes</span> <span class="p">=</span> <span class="k">await</span> <span class="n">res</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">ReadAsByteArrayAsync</span><span class="p">();</span>
+    <span class="kt">var</span> <span class="n">resStr</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">GetEncoding</span><span class="p">(</span><span class="n">charset</span><span class="p">).</span><span class="n">GetString</span><span class="p">(</span><span class="n">resBytes</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">HtmlParser</span><span class="p">().</span><span class="n">ParseDocument</span><span class="p">(</span><span class="n">resStr</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>第二个方法带有一个<code>charset</code>参数，可以指定文档的编码，有些国内老的网站不是用utf-8，也不标明什么编码，这样下载下来中文都是乱码的，得处理一下。</p>
 <h2 id="_2">开始采集数据</h2>
 <p>这里放一些简单的例子，爬取列表：</p>
 <p><em>用了linq感觉世界真美好，哈哈哈</em></p>
-<pre><code class="c#">public static async Task&lt;List&lt;ListArticle&gt;&gt; CrawlHotList()
-{
-    var dom = await HttpHelper.GetHtmlDocument(&quot;https://www.com/&quot;);
-    var links = dom.QuerySelectorAll(&quot;.hot-list ul li a&quot;);
-    var hotList = links.Select((elem, result) =&gt; 
-    new ListArticle{
-        Title = elem.TextContent,
-        Link = elem.GetAttribute(&quot;href&quot;),
-        Source = &quot;来源&quot;});
-    return new List&lt;ListArticle&gt;(hotList);
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">static</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">List</span><span class="p">&lt;</span><span class="n">ListArticle</span><span class="p">&gt;&gt;</span> <span class="n">CrawlHotList</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">dom</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HttpHelper</span><span class="p">.</span><span class="n">GetHtmlDocument</span><span class="p">(</span><span class="s">&quot;https://www.com/&quot;</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">links</span> <span class="p">=</span> <span class="n">dom</span><span class="p">.</span><span class="n">QuerySelectorAll</span><span class="p">(</span><span class="s">&quot;.hot-list ul li a&quot;</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">hotList</span> <span class="p">=</span> <span class="n">links</span><span class="p">.</span><span class="n">Select</span><span class="p">((</span><span class="n">elem</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="p">=&gt;</span> 
+    <span class="k">new</span> <span class="n">ListArticle</span><span class="p">{</span>
+        <span class="n">Title</span> <span class="p">=</span> <span class="n">elem</span><span class="p">.</span><span class="n">TextContent</span><span class="p">,</span>
+        <span class="n">Link</span> <span class="p">=</span> <span class="n">elem</span><span class="p">.</span><span class="n">GetAttribute</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">),</span>
+        <span class="n">Source</span> <span class="p">=</span> <span class="s">&quot;来源&quot;</span><span class="p">});</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ListArticle</span><span class="p">&gt;(</span><span class="n">hotList</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>采集文章内容，代码特别简单：</p>
-<pre><code class="c#">public static async Task&lt;Article&gt; CrawlArticle(string url)
-{
-    var dom = await HttpHelper.GetHtmlDocument(url);
-    var data = new Article
-    {
-        Title = dom.QuerySelector(&quot;#cb_post_title_url&quot;).TextContent,
-        Source = &quot;来源&quot;,
-        Content = dom.QuerySelector(&quot;.postBody&quot;).TextContent,
-        Link = url,
-        PublishTime = DateTime.Parse(dom.QuerySelector(&quot;#post-date&quot;).TextContent),
-        AddTime = DateTime.Now,
-        Author = dom.QuerySelector(&quot;.postDesc a&quot;).TextContent
-    };
-    return data;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">static</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">Article</span><span class="p">&gt;</span> <span class="n">CrawlArticle</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">dom</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HttpHelper</span><span class="p">.</span><span class="n">GetHtmlDocument</span><span class="p">(</span><span class="n">url</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">data</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Article</span>
+    <span class="p">{</span>
+        <span class="n">Title</span> <span class="p">=</span> <span class="n">dom</span><span class="p">.</span><span class="n">QuerySelector</span><span class="p">(</span><span class="s">&quot;#cb_post_title_url&quot;</span><span class="p">).</span><span class="n">TextContent</span><span class="p">,</span>
+        <span class="n">Source</span> <span class="p">=</span> <span class="s">&quot;来源&quot;</span><span class="p">,</span>
+        <span class="n">Content</span> <span class="p">=</span> <span class="n">dom</span><span class="p">.</span><span class="n">QuerySelector</span><span class="p">(</span><span class="s">&quot;.postBody&quot;</span><span class="p">).</span><span class="n">TextContent</span><span class="p">,</span>
+        <span class="n">Link</span> <span class="p">=</span> <span class="n">url</span><span class="p">,</span>
+        <span class="n">PublishTime</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">dom</span><span class="p">.</span><span class="n">QuerySelector</span><span class="p">(</span><span class="s">&quot;#post-date&quot;</span><span class="p">).</span><span class="n">TextContent</span><span class="p">),</span>
+        <span class="n">AddTime</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">,</span>
+        <span class="n">Author</span> <span class="p">=</span> <span class="n">dom</span><span class="p">.</span><span class="n">QuerySelector</span><span class="p">(</span><span class="s">&quot;.postDesc a&quot;</span><span class="p">).</span><span class="n">TextContent</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>还有遇到大量数据的时候怎么办呀，这时候就要上并行任务了，C#对比python高性能的优势就体现出来了，上代码：</p>
-<pre><code class="c#">public static async Task&lt;List&lt;CnBlogListArticle&gt;&gt; CrawlList2(int page = 10)
-{
-    var http = HttpHelper.Client;
-    var parser = new HtmlParser();
-    var data = await Task.WhenAny(
-        Enumerable.Range(1, page)
-        .Select(async page =&gt;
-        {
-            string pageData = await http.GetStringAsync($&quot;https://www.cnblogs.com/sitehome/p/{page}&quot;);
-            IHtmlDocument doc = await parser.ParseDocumentAsync(pageData);
-            return doc.QuerySelectorAll(&quot;.post_item&quot;).Select(tag =&gt; new CnBlogListArticle
-            {
-                Title = tag.QuerySelector(&quot;.titlelnk&quot;).TextContent,                     Page = page,
-                UserName = tag.QuerySelector(&quot;.post_item_foot .lightblue&quot;).TextContent,
-                PublishTime = DateTime.Parse(Regex.Match(tag.QuerySelector(&quot;.post_item_foot&quot;).ChildNodes[2].TextContent, @&quot;(\d{4}\-\d{2}\-\d{2}\s\d{2}:\d{2})&quot;, RegexOptions.None).Value),
-                CommentCount = int.Parse(tag.QuerySelector(&quot;.post_item_foot .article_comment&quot;).TextContent.Trim()[3..^1]),
-                ViewCount = int.Parse(tag.QuerySelector(&quot;.post_item_foot .article_view&quot;).TextContent[3..^1]),
-                BriefContent = tag.QuerySelector(&quot;.post_item_summary&quot;).TextContent.Trim(),
-            });
-})).ConfigureAwait(true);
-    return new List&lt;CnBlogListArticle&gt;(await data);
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">static</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">List</span><span class="p">&lt;</span><span class="n">CnBlogListArticle</span><span class="p">&gt;&gt;</span> <span class="n">CrawlList2</span><span class="p">(</span><span class="kt">int</span> <span class="n">page</span> <span class="p">=</span> <span class="m">10</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">http</span> <span class="p">=</span> <span class="n">HttpHelper</span><span class="p">.</span><span class="n">Client</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">parser</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HtmlParser</span><span class="p">();</span>
+    <span class="kt">var</span> <span class="n">data</span> <span class="p">=</span> <span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="n">WhenAny</span><span class="p">(</span>
+        <span class="n">Enumerable</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">page</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="k">async</span> <span class="n">page</span> <span class="p">=&gt;</span>
+        <span class="p">{</span>
+            <span class="kt">string</span> <span class="n">pageData</span> <span class="p">=</span> <span class="k">await</span> <span class="n">http</span><span class="p">.</span><span class="n">GetStringAsync</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;https://www.cnblogs.com/sitehome/p/{page}&quot;</span><span class="p">);</span>
+            <span class="n">IHtmlDocument</span> <span class="n">doc</span> <span class="p">=</span> <span class="k">await</span> <span class="n">parser</span><span class="p">.</span><span class="n">ParseDocumentAsync</span><span class="p">(</span><span class="n">pageData</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">doc</span><span class="p">.</span><span class="n">QuerySelectorAll</span><span class="p">(</span><span class="s">&quot;.post_item&quot;</span><span class="p">).</span><span class="n">Select</span><span class="p">(</span><span class="n">tag</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">CnBlogListArticle</span>
+            <span class="p">{</span>
+                <span class="n">Title</span> <span class="p">=</span> <span class="n">tag</span><span class="p">.</span><span class="n">QuerySelector</span><span class="p">(</span><span class="s">&quot;.titlelnk&quot;</span><span class="p">).</span><span class="n">TextContent</span><span class="p">,</span>                     <span class="n">Page</span> <span class="p">=</span> <span class="n">page</span><span class="p">,</span>
+                <span class="n">UserName</span> <span class="p">=</span> <span class="n">tag</span><span class="p">.</span><span class="n">QuerySelector</span><span class="p">(</span><span class="s">&quot;.post_item_foot .lightblue&quot;</span><span class="p">).</span><span class="n">TextContent</span><span class="p">,</span>
+                <span class="n">PublishTime</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">Regex</span><span class="p">.</span><span class="n">Match</span><span class="p">(</span><span class="n">tag</span><span class="p">.</span><span class="n">QuerySelector</span><span class="p">(</span><span class="s">&quot;.post_item_foot&quot;</span><span class="p">).</span><span class="n">ChildNodes</span><span class="p">[</span><span class="m">2</span><span class="p">].</span><span class="n">TextContent</span><span class="p">,</span> <span class="s">@&quot;(\d{4}\-\d{2}\-\d{2}\s\d{2}:\d{2})&quot;</span><span class="p">,</span> <span class="n">RegexOptions</span><span class="p">.</span><span class="n">None</span><span class="p">).</span><span class="n">Value</span><span class="p">),</span>
+                <span class="n">CommentCount</span> <span class="p">=</span> <span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">tag</span><span class="p">.</span><span class="n">QuerySelector</span><span class="p">(</span><span class="s">&quot;.post_item_foot .article_comment&quot;</span><span class="p">).</span><span class="n">TextContent</span><span class="p">.</span><span class="n">Trim</span><span class="p">()[</span><span class="m">3.</span><span class="p">.^</span><span class="m">1</span><span class="p">]),</span>
+                <span class="n">ViewCount</span> <span class="p">=</span> <span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">tag</span><span class="p">.</span><span class="n">QuerySelector</span><span class="p">(</span><span class="s">&quot;.post_item_foot .article_view&quot;</span><span class="p">).</span><span class="n">TextContent</span><span class="p">[</span><span class="m">3.</span><span class="p">.^</span><span class="m">1</span><span class="p">]),</span>
+                <span class="n">BriefContent</span> <span class="p">=</span> <span class="n">tag</span><span class="p">.</span><span class="n">QuerySelector</span><span class="p">(</span><span class="s">&quot;.post_item_summary&quot;</span><span class="p">).</span><span class="n">TextContent</span><span class="p">.</span><span class="n">Trim</span><span class="p">(),</span>
+            <span class="p">});</span>
+<span class="p">})).</span><span class="n">ConfigureAwait</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">CnBlogListArticle</span><span class="p">&gt;(</span><span class="k">await</span> <span class="n">data</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>还可以利用<code>IEnumerable</code>的<code>AsParallel()</code>方法将LINQ并行化。不展开了。</p>
 <h2 id="_3">数据持久化</h2>
 <p>数据持久化这能搞，<code>.net core</code>平台有很多好用的ORM，比如微软官方的<code>EF Core</code>，比如<code>SqlSugar</code>，比如<code>Dapper</code>这些，不过EF Core感觉比较重，而且我做这个的时候，还没学怎么单独使用。</p>
 <p>然后我找了个国人做的轻量级ORM，<code>Chloe</code>，看文档使用很简单，于是就试试，模型代码：</p>
-<pre><code class="c#">[Table(&quot;ListArticles&quot;)]
-public class ListArticle
-{
-    [Column(&quot;Id&quot;, IsPrimaryKey = true)]
-    [AutoIncrement]
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public string Source { get; set; }
-    public string Link { get; set; }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="na">[Table(&quot;ListArticles&quot;)]</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ListArticle</span>
+<span class="p">{</span>
+<span class="na">    [Column(&quot;Id&quot;, IsPrimaryKey = true)]</span>
+<span class="na">    [AutoIncrement]</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Title</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Source</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Link</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>这个orm需要在模型类上加上属性，定义主键和表名什么的。EF Core这种就不用，完全按照约定来的，这点不如EF Core方便。</p>
 <p>而且它不能自动生成表，我只好手动创建表，差评。</p>
 <p>接下来常规操作，创建<code>DBContext</code>，大部分ORM都差不多：</p>
-<pre><code class="c#">public class SQLiteConnectionFactory : IDbConnectionFactory
-{
-    /// &lt;summary&gt;
-    /// 数据库连接字符串，如下
-    /// Data Source=dapperTest.db
-    /// &lt;/summary&gt;
-    string _connString = null;
-    public SQLiteConnectionFactory(string connString)
-    {
-        this._connString = connString;
-    }
-    public IDbConnection CreateConnection()
-    {
-        // 得先安装Sqlite的驱动
-        // Microsoft.Data.Sqlite
-        // System.Data.Sqlite
-        SQLiteConnection conn = new SQLiteConnection(_connString);
-        return conn;
-    }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">SQLiteConnectionFactory</span> <span class="p">:</span> <span class="n">IDbConnectionFactory</span>
+<span class="p">{</span>
+    <span class="c1">/// &lt;summary&gt;</span>
+    <span class="c1">/// 数据库连接字符串，如下</span>
+    <span class="c1">/// Data Source=dapperTest.db</span>
+    <span class="c1">/// &lt;/summary&gt;</span>
+    <span class="kt">string</span> <span class="n">_connString</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nf">SQLiteConnectionFactory</span><span class="p">(</span><span class="kt">string</span> <span class="n">connString</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">_connString</span> <span class="p">=</span> <span class="n">connString</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="n">IDbConnection</span> <span class="nf">CreateConnection</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// 得先安装Sqlite的驱动</span>
+        <span class="c1">// Microsoft.Data.Sqlite</span>
+        <span class="c1">// System.Data.Sqlite</span>
+        <span class="n">SQLiteConnection</span> <span class="n">conn</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SQLiteConnection</span><span class="p">(</span><span class="n">_connString</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">conn</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>对了，要先配置连接：</p>
-<pre><code class="c#">public static class SQLiteContextFactory
-{
-    public static SQLiteContext GetContext()
-    {
-        string connString = &quot;Data Source=CatSpider.db&quot;;
-        return new SQLiteContext(new SQLiteConnectionFactory(connString));
-    }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">SQLiteContextFactory</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">SQLiteContext</span> <span class="nf">GetContext</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">connString</span> <span class="p">=</span> <span class="s">&quot;Data Source=CatSpider.db&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">SQLiteContext</span><span class="p">(</span><span class="k">new</span> <span class="n">SQLiteConnectionFactory</span><span class="p">(</span><span class="n">connString</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>使用很简单：</p>
-<pre><code class="c#">var context = SQLiteContextFactory.GetContext();
-obj = context.Insert(obj);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">context</span> <span class="p">=</span> <span class="n">SQLiteContextFactory</span><span class="p">.</span><span class="n">GetContext</span><span class="p">();</span>
+<span class="n">obj</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+</code></pre></div>
 
 <p>更多操作看文档去，本文就不展开了</p>
 <h2 id="http">提供HTTP接口</h2>
-<p>基本功能实现了，之前考虑到和其他语言或者模块的互操作，觉得可以用HTTP接口来交互，（~~虽然现在觉得不是最佳方案~~）</p>
+<p>基本功能实现了，之前考虑到和其他语言或者模块的互操作，觉得可以用HTTP接口来交互，（<del>虽然现在觉得不是最佳方案</del>）</p>
 <p>这个很简单，只要找一个轻量级的服务器框架就行了，我找到一个叫<code>Nancy</code>的，听起来像人名，结果居然是Web框架。</p>
 <p>使用很简单，直接启动：</p>
-<pre><code class="c#">private string host = &quot;http://localhost&quot;;
-private int port = 50010;
-private NancyHost nancy;
+<div class="highlight"><pre><span></span><code><span class="k">private</span> <span class="kt">string</span> <span class="n">host</span> <span class="p">=</span> <span class="s">&quot;http://localhost&quot;</span><span class="p">;</span>
+<span class="k">private</span> <span class="kt">int</span> <span class="n">port</span> <span class="p">=</span> <span class="m">50010</span><span class="p">;</span>
+<span class="k">private</span> <span class="n">NancyHost</span> <span class="n">nancy</span><span class="p">;</span>
 
-public Program()
-{
-    var uri = new Uri($&quot;{host}:{port}/&quot;);
-    nancy = new NancyHost(uri);
-}
-public void Start()
-{
-    nancy.Start();
-    logger.Debug($&quot;nancy server started at {host}:{port}&quot;);
-    Console.ReadKey();
-    nancy.Stop();
-}
-static void Main(string[] args)
-{
-    new Program().Start();
-}
-</code></pre>
+<span class="k">public</span> <span class="nf">Program</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">uri</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;{host}:{port}/&quot;</span><span class="p">);</span>
+    <span class="n">nancy</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NancyHost</span><span class="p">(</span><span class="n">uri</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">nancy</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">Debug</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;nancy server started at {host}:{port}&quot;</span><span class="p">);</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">ReadKey</span><span class="p">();</span>
+    <span class="n">nancy</span><span class="p">.</span><span class="n">Stop</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">new</span> <span class="nf">Program</span><span class="p">().</span><span class="n">Start</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="_4">定义接口</h3>
 <p>这个框架有个<code>Module</code>的概念，就和Controller差不多吧，定义很简单，我放测试代码上来，业务代码暂时不放出来：</p>
-<pre><code class="c#">public class MainModule : NancyModule
-{
-    public MainModule()
-    {
-        Get(&quot;/&quot;, _ =&gt; &quot;hello&quot;);
-        Get(&quot;404&quot;, _ =&gt; HttpStatusCode.NotFound);
-        Get(&quot;test&quot;, _ =&gt;
-            {
-                var response = (Response)JsonConvert.SerializeObject(new int[] { 1, 2, 3 });
-                response.ContentType = &quot;application/json&quot;;
-                return response;
-            });
-        Get(&quot;test2&quot;, _ =&gt; JsonConvert.SerializeObject(new int[] { 1, 2, 3 }));
-    }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">class</span> <span class="nc">MainModule</span> <span class="p">:</span> <span class="n">NancyModule</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nf">MainModule</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="n">_</span> <span class="p">=&gt;</span> <span class="s">&quot;hello&quot;</span><span class="p">);</span>
+        <span class="n">Get</span><span class="p">(</span><span class="s">&quot;404&quot;</span><span class="p">,</span> <span class="n">_</span> <span class="p">=&gt;</span> <span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">NotFound</span><span class="p">);</span>
+        <span class="n">Get</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">,</span> <span class="n">_</span> <span class="p">=&gt;</span>
+            <span class="p">{</span>
+                <span class="kt">var</span> <span class="n">response</span> <span class="p">=</span> <span class="p">(</span><span class="n">Response</span><span class="p">)</span><span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">});</span>
+                <span class="n">response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="s">&quot;application/json&quot;</span><span class="p">;</span>
+                <span class="k">return</span> <span class="n">response</span><span class="p">;</span>
+            <span class="p">});</span>
+        <span class="n">Get</span><span class="p">(</span><span class="s">&quot;test2&quot;</span><span class="p">,</span> <span class="n">_</span> <span class="p">=&gt;</span> <span class="n">JsonConvert</span><span class="p">.</span><span class="n">SerializeObject</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span> <span class="p">}));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="_5">日志记录</h2>
 <p>最后说一下日志，我这里用了nlog这个轻量级日志引擎。</p>
 <p>首先要配置，<code>NLog.config</code>，设置生成时自动复制到目标文件夹：</p>
-<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;
-      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-      autoReload=&quot;true&quot;
-      throwConfigExceptions=&quot;true&quot;&gt;
-  &lt;targets&gt;
-    &lt;!-- 配置说明：https://github.com/NLog/NLog/wiki/ColoredConsole-target --&gt;
-    &lt;target name=&quot;f1&quot; xsi:type=&quot;File&quot; fileName=&quot;CatSpiderLog.txt&quot;/&gt;
-    &lt;target name=&quot;n1&quot; xsi:type=&quot;Network&quot; address=&quot;tcp://localhost:4001&quot;/&gt;
-    &lt;target name=&quot;c1&quot; xsi:type=&quot;Console&quot; encoding=&quot;utf-8&quot;
-            error=&quot;true&quot;
-            detectConsoleAvailable=&quot;true&quot; /&gt;
-    &lt;target name=&quot;c2&quot; xsi:type=&quot;ColoredConsole&quot; encoding=&quot;utf-8&quot;
-          useDefaultRowHighlightingRules=&quot;true&quot;
-          errorStream=&quot;true&quot;
-          enableAnsiOutput=&quot;true&quot;
-          detectConsoleAvailable=&quot;true&quot;
-          DetectOutputRedirected=&quot;true&quot;&gt;
-    &lt;/target&gt;
-  &lt;/targets&gt;
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span>
+<span class="nt">&lt;nlog</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;</span>
+      <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+      <span class="na">autoReload=</span><span class="s">&quot;true&quot;</span>
+      <span class="na">throwConfigExceptions=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;targets&gt;</span>
+    <span class="c">&lt;!-- 配置说明：https://github.com/NLog/NLog/wiki/ColoredConsole-target --&gt;</span>
+    <span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&quot;f1&quot;</span> <span class="na">xsi:type=</span><span class="s">&quot;File&quot;</span> <span class="na">fileName=</span><span class="s">&quot;CatSpiderLog.txt&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&quot;n1&quot;</span> <span class="na">xsi:type=</span><span class="s">&quot;Network&quot;</span> <span class="na">address=</span><span class="s">&quot;tcp://localhost:4001&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&quot;c1&quot;</span> <span class="na">xsi:type=</span><span class="s">&quot;Console&quot;</span> <span class="na">encoding=</span><span class="s">&quot;utf-8&quot;</span>
+            <span class="na">error=</span><span class="s">&quot;true&quot;</span>
+            <span class="na">detectConsoleAvailable=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&quot;c2&quot;</span> <span class="na">xsi:type=</span><span class="s">&quot;ColoredConsole&quot;</span> <span class="na">encoding=</span><span class="s">&quot;utf-8&quot;</span>
+          <span class="na">useDefaultRowHighlightingRules=</span><span class="s">&quot;true&quot;</span>
+          <span class="na">errorStream=</span><span class="s">&quot;true&quot;</span>
+          <span class="na">enableAnsiOutput=</span><span class="s">&quot;true&quot;</span>
+          <span class="na">detectConsoleAvailable=</span><span class="s">&quot;true&quot;</span>
+          <span class="na">DetectOutputRedirected=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/target&gt;</span>
+  <span class="nt">&lt;/targets&gt;</span>
 
-  &lt;rules&gt;
-    &lt;logger name=&quot;*&quot; maxLevel=&quot;Debug&quot; writeTo=&quot;c2&quot; /&gt;
-    &lt;logger name=&quot;*&quot; maxLevel=&quot;Debug&quot; writeTo=&quot;f1&quot; /&gt;
-    &lt;!--&lt;logger name=&quot;*&quot; minLevel=&quot;Info&quot; writeTo=&quot;f1&quot; /&gt;--&gt;
-  &lt;/rules&gt;
-&lt;/nlog&gt;
-</code></pre>
+  <span class="nt">&lt;rules&gt;</span>
+    <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;*&quot;</span> <span class="na">maxLevel=</span><span class="s">&quot;Debug&quot;</span> <span class="na">writeTo=</span><span class="s">&quot;c2&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&quot;*&quot;</span> <span class="na">maxLevel=</span><span class="s">&quot;Debug&quot;</span> <span class="na">writeTo=</span><span class="s">&quot;f1&quot;</span> <span class="nt">/&gt;</span>
+    <span class="c">&lt;!--&lt;logger name=&quot;*&quot; minLevel=&quot;Info&quot; writeTo=&quot;f1&quot; /&gt;--&gt;</span>
+  <span class="nt">&lt;/rules&gt;</span>
+<span class="nt">&lt;/nlog&gt;</span>
+</code></pre></div>
 
 <p>官方推荐每个类用一个logger实例：</p>
-<pre><code class="c#">private static Logger logger = LogManager.GetCurrentClassLogger();
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">private</span> <span class="k">static</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="p">=</span> <span class="n">LogManager</span><span class="p">.</span><span class="n">GetCurrentClassLogger</span><span class="p">();</span>
+</code></pre></div>
 
 <p>使用：</p>
-<pre><code class="c#">logger.Debug($&quot;列表：{obj}&quot;);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">logger</span><span class="p">.</span><span class="n">Debug</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;列表：{obj}&quot;</span><span class="p">);</span>
+</code></pre></div>
 
 <p>很方便。</p>
 <p>大概就这，有空继续写其他的~</p>
@@ -3861,6 +3861,8 @@ static void Main(string[] args)
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

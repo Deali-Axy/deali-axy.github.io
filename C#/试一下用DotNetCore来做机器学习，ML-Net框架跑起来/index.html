@@ -3512,16 +3512,16 @@
 </blockquote>
 <p>首先安装.NetCore，这个是必备的～</p>
 <h2 id="mlnet_1">安装ML.Net</h2>
-<pre><code>dotnet tool install -g mlnet
-</code></pre>
+<div class="highlight"><pre><span></span><code>dotnet tool install -g mlnet
+</code></pre></div>
 
 <h2 id="_1">下载训练集</h2>
 <p>下面这个而是wiki百科上面的用户评论数据，请自行下载</p>
-<p>https://raw.githubusercontent.com/dotnet/machinelearning/master/test/data/wikipedia-detox-250-line-data.tsv</p>
+<p><a href="https://raw.githubusercontent.com/dotnet/machinelearning/master/test/data/wikipedia-detox-250-line-data.tsv">https://raw.githubusercontent.com/dotnet/machinelearning/master/test/data/wikipedia-detox-250-line-data.tsv</a></p>
 <p>下载之后命名为<code>wikipedia-data.tsv</code>～</p>
 <h2 id="_2">训练模型</h2>
-<pre><code>mlnet auto-train --task binary-classification --dataset &quot;wikipedia-data.tsv&quot; --label-column-index 0 --has-header true --max-exploration-time 10
-</code></pre>
+<div class="highlight"><pre><span></span><code>mlnet auto-train --task binary-classification --dataset &quot;wikipedia-data.tsv&quot; --label-column-index 0 --has-header true --max-exploration-time 10
+</code></pre></div>
 
 <p>训练成功会显示结果，如下：
 <img alt="" src="../%E8%AF%95%E4%B8%80%E4%B8%8B%E7%94%A8DotNetCore%E6%9D%A5%E5%81%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%8CML-Net%E6%A1%86%E6%9E%B6%E8%B7%91%E8%B5%B7%E6%9D%A5.assets/8869373-fb2de6a0e07d1562.png" /></p>
@@ -3529,40 +3529,38 @@
 <img alt="" src="../%E8%AF%95%E4%B8%80%E4%B8%8B%E7%94%A8DotNetCore%E6%9D%A5%E5%81%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%8CML-Net%E6%A1%86%E6%9E%B6%E8%B7%91%E8%B5%B7%E6%9D%A5.assets/8869373-4fde21996ee509bc.png" /></p>
 <h2 id="_3">模型代码</h2>
 <p>我们来看看ML.Net自动生成的模型代码：</p>
-<p><strong>ModelInput.cs</strong></p>
-<pre><code class="csharp">using Microsoft.ML.Data;
+<p><strong>ModelInput.cs</strong>
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">Microsoft.ML.Data</span><span class="p">;</span>
 
-namespace SampleBinaryClassification.Model.DataModels
-{
-    public class ModelInput
-    {
-        [ColumnName(&quot;Sentiment&quot;), LoadColumn(0)]
-        public bool Sentiment { get; set; }
+<span class="k">namespace</span> <span class="nn">SampleBinaryClassification.Model.DataModels</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">ModelInput</span>
+    <span class="p">{</span>
+<span class="na">        [ColumnName(&quot;Sentiment&quot;), LoadColumn(0)]</span>
+        <span class="k">public</span> <span class="kt">bool</span> <span class="n">Sentiment</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 
-        [ColumnName(&quot;SentimentText&quot;), LoadColumn(1)]
-        public string SentimentText { get; set; }
-    }
-}
-</code></pre>
+<span class="na">        [ColumnName(&quot;SentimentText&quot;), LoadColumn(1)]</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">SentimentText</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>ModelOutput.cs</strong>
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.ML.Data</span><span class="p">;</span>
 
-<p><strong>ModelOutput.cs</strong></p>
-<pre><code class="csharp">using System;
-using Microsoft.ML.Data;
+<span class="k">namespace</span> <span class="nn">SampleBinaryClassification.Model.DataModels</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">ModelOutput</span>
+    <span class="p">{</span>
+        <span class="c1">// ColumnName attribute is used to change the column name from</span>
+        <span class="c1">// its default value, which is the name of the field.</span>
+<span class="na">        [ColumnName(&quot;PredictedLabel&quot;)]</span>
+        <span class="k">public</span> <span class="kt">bool</span> <span class="n">Prediction</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 
-namespace SampleBinaryClassification.Model.DataModels
-{
-    public class ModelOutput
-    {
-        // ColumnName attribute is used to change the column name from
-        // its default value, which is the name of the field.
-        [ColumnName(&quot;PredictedLabel&quot;)]
-        public bool Prediction { get; set; }
-
-        public float Score { get; set; }
-    }
-}
-</code></pre>
-
+        <span class="k">public</span> <span class="kt">float</span> <span class="n">Score</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h2 id="_4">挖个坑</h2>
 <p>先挖个坑，明天继续研究。</p>
 <h2 id="_5">参考资料</h2>
@@ -3642,6 +3640,8 @@ namespace SampleBinaryClassification.Model.DataModels
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

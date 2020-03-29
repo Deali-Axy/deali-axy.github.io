@@ -3507,52 +3507,47 @@
 <p>互联网上搜索到的方法都是下载Python3.6的代码之后手动编译，然而在服务器上编译安装出了点问题，于是想到了Ubuntu的ppa方式，debian和Ubuntu本属同源，理论上Ubuntu的ppa，debian也是可以用的。</p>
 <p>操作步骤如下：</p>
 <h2 id="_2">添加软件源</h2>
-<pre><code class="bash">add-apt-repository ppa:deadsnakes/ppa
-</code></pre>
-
-<p>然而debian上并没有这个<code>add-apt-repository</code>，所以需要先安装一波。</p>
-<pre><code class="bash">apt-get install software-properties-common
-</code></pre>
-
-<p>安装完这个就可以使用上面的命令添加ppa源了。</p>
+<p><div class="highlight"><pre><span></span><code>add-apt-repository ppa:deadsnakes/ppa
+</code></pre></div>
+然而debian上并没有这个<code>add-apt-repository</code>，所以需要先安装一波。</p>
+<p><div class="highlight"><pre><span></span><code>apt-get install software-properties-common
+</code></pre></div>
+安装完这个就可以使用上面的命令添加ppa源了。</p>
 <p>到这里别着急，因为ppa源本来是Ubuntu用的，debian用起来总是需要做一点小修改的。</p>
-<p>打开ppa网站：https://launchpad.net/~jonathonf/+archive/ubuntu/python-3.6</p>
+<p>打开ppa网站：<a href="https://launchpad.net/~jonathonf/+archive/ubuntu/python-3.6">https://launchpad.net/~jonathonf/+archive/ubuntu/python-3.6</a></p>
 <p>选择Ubuntu版本 14.04
 <img alt="" src="../Debian8-stable-%E5%8D%87%E7%BA%A7Python%E7%89%88%E6%9C%AC%E5%88%B03-6.assets/8869373-1775d68b0c1bdcac.png" /></p>
 <p>把这两行代码复制下来。</p>
-<p>然后打开软件源的目录</p>
-<pre><code class="bash">cd /etc/apt/sources.list.d
-</code></pre>
-
-<p>可以看到里面有这个文件</p>
-<pre><code class="bash">-rw-r--r-- 1 root root 290 Jun 19 00:26 jonathonf-python-3_6-jessie.list
-</code></pre>
-
-<p>编辑之：</p>
-<pre><code class="bash">deb http://ppa.launchpad.net/jonathonf/python-3.6/ubuntu jessie main
-# deb-src http://ppa.launchpad.net/jonathonf/python-3.6/ubuntu jessie main
-</code></pre>
-
-<p>将原来的内容替换成刚才复制下来的内容，保存。</p>
+<p>然后打开软件源的目录
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /etc/apt/sources.list.d
+</code></pre></div>
+可以看到里面有这个文件
+<div class="highlight"><pre><span></span><code>-rw-r--r-- <span class="m">1</span> root root <span class="m">290</span> Jun <span class="m">19</span> <span class="m">00</span>:26 jonathonf-python-3_6-jessie.list
+</code></pre></div>
+编辑之：
+<div class="highlight"><pre><span></span><code>deb http://ppa.launchpad.net/jonathonf/python-3.6/ubuntu jessie main
+<span class="c1"># deb-src http://ppa.launchpad.net/jonathonf/python-3.6/ubuntu jessie main</span>
+</code></pre></div>
+将原来的内容替换成刚才复制下来的内容，保存。</p>
 <h2 id="_3">更新软件源 &amp; 安装</h2>
-<pre><code class="bash">apt update
+<div class="highlight"><pre><span></span><code>apt update
 apt install python3.6
-</code></pre>
+</code></pre></div>
 
 <h3 id="pip">安装对应版本的pip</h3>
-<pre><code class="bash">su
-curl https://bootstrap.pypa.io/get-pip.py | python3.6
-(pip -V &amp;&amp; pip3 -V &amp;&amp; pip3.6 -V) | uniq
+<div class="highlight"><pre><span></span><code>su
+curl https://bootstrap.pypa.io/get-pip.py <span class="p">|</span> python3.6
+<span class="o">(</span>pip -V <span class="o">&amp;&amp;</span> pip3 -V <span class="o">&amp;&amp;</span> pip3.6 -V<span class="o">)</span> <span class="p">|</span> uniq
 
-# 查看版本
+<span class="c1"># 查看版本</span>
 python3.6 -m pip -V
-</code></pre>
+</code></pre></div>
 
 <h2 id="_4">创建软链接</h2>
-<pre><code class="bash">cd /usr/bin
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /usr/bin
 rm python3
 ln -s python3.6 python3
-</code></pre>
+</code></pre></div>
 
 <p>这样就完成了！</p>
 <h2 id="about">About</h2>
@@ -3633,6 +3628,8 @@ ln -s python3.6 python3
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

@@ -3674,17 +3674,15 @@ Python 中（至少）有两种错误：语法错误和异常（ syntax errors �
 <h2 id="_2">语法错误和异常</h2>
 <p><strong>语法错误</strong>
 语法错误是最明显的错误，遇到这种错误程序根本无法运行。
-例如</p>
-<pre><code class="python">print(&quot;hello&quot;
-</code></pre>
-
-<p>上面这个代码就会引发错误，因为少了一个右括号。</p>
-<p>还有下面这个：</p>
-<pre><code class="python">if a &gt; b
-    print(a)
-</code></pre>
-
-<p>这个也不行，因为if后面没有加冒号。
+例如
+<div class="highlight"><pre><span></span><code><span class="k">print</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span>
+</code></pre></div>
+上面这个代码就会引发错误，因为少了一个右括号。</p>
+<p>还有下面这个：
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div>
+这个也不行，因为if后面没有加冒号。
 一般来说，熟悉了语法之后很少会出现这类错误。</p>
 <p><strong>异常</strong>
 即使一条语句或表达式在语法上是正确的，当试图执行它时也可能会引发错误。运行期检测到的错误称为异常，大多数异常都不会被程序处理，需要我们自己去捕捉和处理。
@@ -3885,49 +3883,48 @@ Python 中（至少）有两种错误：语法错误和异常（ syntax errors �
 </tbody>
 </table>
 <h2 id="tryexcpetfinally">异常处理语句 try...excpet...finally</h2>
-<p>示例代码</p>
-<pre><code class="python">def div(a, b):
-    try:
-        print(a / b)
-    except ZeroDivisionError:
-        print(&quot;Error: b should not be 0 !!&quot;)
-    except Exception as e:
-        print(&quot;Unexpected Error: {}&quot;.format(e))
-    else:
-        print('Run into else only when everything goes well')
-    finally:
-        print('Always run into finally block.')
+<p>示例代码
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">div</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Error: b should not be 0 !!&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Unexpected Error: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Run into else only when everything goes well&#39;</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Always run into finally block.&#39;</span><span class="p">)</span>
 
-# tests
-div(2, 0)
-div(2, 'bad type')
-div(1, 2)
+<span class="c1"># tests</span>
+<span class="n">div</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">div</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;bad type&#39;</span><span class="p">)</span>
+<span class="n">div</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-# Mutiple exception in one line
-try:
-    print(a / b)
-except (ZeroDivisionError, TypeError) as e:
-    print(e)
+<span class="c1"># Mutiple exception in one line</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span>
+<span class="k">except</span> <span class="p">(</span><span class="ne">ZeroDivisionError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
-# Except block is optional when there is finally
-try:
-    open(database)
-finally:
-    close(database)
+<span class="c1"># Except block is optional when there is finally</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="nb">open</span><span class="p">(</span><span class="n">database</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">database</span><span class="p">)</span>
 
-# catch all errors and log it
-try:
-    do_work()
-except:    
-    # get detail from logging module
-    logging.exception('Exception caught!')
+<span class="c1"># catch all errors and log it</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">do_work</span><span class="p">()</span>
+<span class="k">except</span><span class="p">:</span>    
+    <span class="c1"># get detail from logging module</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s1">&#39;Exception caught!&#39;</span><span class="p">)</span>
 
-    # get detail from sys.exc_info() method
-    error_type, error_value, trace_back = sys.exc_info()
-    print(error_value)
-    raise
-</code></pre>
-
+    <span class="c1"># get detail from sys.exc_info() method</span>
+    <span class="n">error_type</span><span class="p">,</span> <span class="n">error_value</span><span class="p">,</span> <span class="n">trace_back</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">error_value</span><span class="p">)</span>
+    <span class="k">raise</span>
+</code></pre></div></p>
 <h3 id="_3">总结如下</h3>
 <ol>
 <li>except语句不是必须的，finally语句也不是必须的，但是二者必须要有一个，否则就没有try的意义了。</li>
@@ -3940,121 +3937,111 @@ except:
 <li>尽量使用内置的异常处理语句来替换try/except语句，比如with语句，getattr()方法。</li>
 </ol>
 <h2 id="raise">抛出异常 raise</h2>
-<p>如果你需要自主抛出异常一个异常，可以使用raise关键字，等同于C#和Java中的throw，其语法规则如下。</p>
-<pre><code class="python">raise NameError(&quot;bad name!&quot;)
-</code></pre>
+<p>如果你需要自主抛出异常一个异常，可以使用raise关键字，等同于C#和Java中的throw，其语法规则如下。
+<div class="highlight"><pre><span></span><code><span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;bad name!&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p>raise关键字后面可以指定你要抛出的异常实例，一般来说抛出的异常越详细越好，Python在exceptions模块内建了很多的异常类型，通过使用dir()函数来查看exceptions中的异常类型，如下：
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">exceptions</span>
 
-<p>raise关键字后面可以指定你要抛出的异常实例，一般来说抛出的异常越详细越好，Python在exceptions模块内建了很多的异常类型，通过使用dir()函数来查看exceptions中的异常类型，如下：</p>
-<pre><code class="python">import exceptions
-
-print dir(exceptions)
-# ['ArithmeticError', 'AssertionError'...]
-</code></pre>
-
+<span class="k">print</span> <span class="nb">dir</span><span class="p">(</span><span class="n">exceptions</span><span class="p">)</span>
+<span class="c1"># [&#39;ArithmeticError&#39;, &#39;AssertionError&#39;...]</span>
+</code></pre></div></p>
 <h2 id="_4">自定义异常类型</h2>
-<p>Python中自定义自己的异常类型非常简单，只需要要从Exception类继承即可(直接或间接)：</p>
-<pre><code class="python">class SomeCustomException(Exception):
-    pass
+<p>Python中自定义自己的异常类型非常简单，只需要要从Exception类继承即可(直接或间接)：
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">SomeCustomException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
 
-class AnotherException(SomeCustomException):
-    pass
-</code></pre>
-
-<p>一般你在自定义异常类型时，需要考虑的问题应该是这个异常所应用的场景。如果内置异常已经包括了你需要的异常，建议考虑使用内置的异常类型。比如你希望在函数参数错误时抛出一个异常，你可能并不需要定义一个InvalidArgumentError，使用内置的ValueError即可。</p>
+<span class="k">class</span> <span class="nc">AnotherException</span><span class="p">(</span><span class="n">SomeCustomException</span><span class="p">):</span>
+    <span class="k">pass</span>
+</code></pre></div>
+一般你在自定义异常类型时，需要考虑的问题应该是这个异常所应用的场景。如果内置异常已经包括了你需要的异常，建议考虑使用内置的异常类型。比如你希望在函数参数错误时抛出一个异常，你可能并不需要定义一个InvalidArgumentError，使用内置的ValueError即可。</p>
 <h2 id="_5">经验案例</h2>
 <h3 id="re-raise-exception">传递异常 re-raise Exception</h3>
-<p>捕捉到了异常，但是又想重新抛出它（传递异常），使用不带参数的raise语句即可：</p>
-<pre><code class="python">def f1():
-    print(1/0)
+<p>捕捉到了异常，但是又想重新抛出它（传递异常），使用不带参数的raise语句即可：
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f1</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">0</span><span class="p">)</span>
 
-def f2():
-    try:
-        f1()
-    except Exception as e:
-        raise  # don't raise e !!!
+<span class="k">def</span> <span class="nf">f2</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">f1</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span>  <span class="c1"># don&#39;t raise e !!!</span>
 
-f2()
-</code></pre>
-
-<p>在Python2中，为了保持异常的完整信息，那么你捕获后再次抛出时千万不能在raise后面加上异常对象，否则你的trace信息就会从此处截断。以上是最简单的重新抛出异常的做法，也是推荐的做法。</p>
+<span class="n">f2</span><span class="p">()</span>
+</code></pre></div>
+在Python2中，为了保持异常的完整信息，那么你捕获后再次抛出时千万不能在raise后面加上异常对象，否则你的trace信息就会从此处截断。以上是最简单的重新抛出异常的做法，也是推荐的做法。</p>
 <p>还有一些技巧可以考虑，比如抛出异常前你希望对异常的信息进行更新。</p>
-<pre><code class="python">def f2():
-    try:
-        f1()
-    except Exception as e:
-        e.args += ('more info',)
-        raise
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f2</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">f1</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">e</span><span class="o">.</span><span class="n">args</span> <span class="o">+=</span> <span class="p">(</span><span class="s1">&#39;more info&#39;</span><span class="p">,)</span>
+        <span class="k">raise</span>
+</code></pre></div>
 
 <p>Python3对重复传递异常有所改进，你可以自己尝试一下，不过建议还是遵循以上规则。</p>
 <h3 id="exception-baseexception">Exception 和 BaseException</h3>
-<p>当我们要捕获一个通用异常时，应该用<code>Exception</code>还是<code>BaseException</code>？我建议你还是看一下<a href="https://docs.python.org/2.7/library/exceptions.html#bltin-exceptions"> 官方文档说明</a>，这两个异常到底有啥区别呢？ 请看它们之间的继承关系。</p>
-<pre><code class="python">BaseException
- +-- SystemExit
- +-- KeyboardInterrupt
- +-- GeneratorExit
- +-- Exception
-      +-- StopIteration...
-      +-- StandardError...
-      +-- Warning...
-</code></pre>
-
-<p>从Exception的层级结构来看，BaseException是最基础的异常类，Exception继承了它。BaseException除了包含所有的Exception外还包含了SystemExit，KeyboardInterrupt和GeneratorExit三个异常。</p>
+<p>当我们要捕获一个通用异常时，应该用<code>Exception</code>还是<code>BaseException</code>？我建议你还是看一下<a href="https://docs.python.org/2.7/library/exceptions.html#bltin-exceptions"> 官方文档说明</a>，这两个异常到底有啥区别呢？ 请看它们之间的继承关系。
+<div class="highlight"><pre><span></span><code><span class="ne">BaseException</span>
+ <span class="o">+--</span> <span class="ne">SystemExit</span>
+ <span class="o">+--</span> <span class="ne">KeyboardInterrupt</span>
+ <span class="o">+--</span> <span class="ne">GeneratorExit</span>
+ <span class="o">+--</span> <span class="ne">Exception</span>
+      <span class="o">+--</span> <span class="ne">StopIteration</span><span class="o">...</span>
+      <span class="o">+--</span> <span class="ne">StandardError</span><span class="o">...</span>
+      <span class="o">+--</span> <span class="ne">Warning</span><span class="o">...</span>
+</code></pre></div>
+从Exception的层级结构来看，BaseException是最基础的异常类，Exception继承了它。BaseException除了包含所有的Exception外还包含了SystemExit，KeyboardInterrupt和GeneratorExit三个异常。</p>
 <p>由此看来你的程序在捕获所有异常时更应该使用Exception而不是BaseException，因为被排除的三个异常属于更高级别的异常，合理的做法应该是交给Python的解释器处理。</p>
 <h3 id="except-exception-as-e-except-exception-e">except Exception as e和 except Exception, e</h3>
 <p>代码示例如下：</p>
-<pre><code class="python">try:
-    do_something()
-except NameError as e:  # should
-    pass
-except KeyError, e:  # should not
-    pass
-</code></pre>
-
-<p>在Python2的时代，你可以使用以上两种写法中的任意一种。在Python3中你只能使用第一种写法，第二种写法已经不再支持。第一个种写法可读性更好，而且为了程序的兼容性和后期移植的成本，请你果断抛弃第二种写法。</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">do_something</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">NameError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># should</span>
+    <span class="k">pass</span>
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># should not</span>
+    <span class="k">pass</span>
+</code></pre></div>
+在Python2的时代，你可以使用以上两种写法中的任意一种。在Python3中你只能使用第一种写法，第二种写法已经不再支持。第一个种写法可读性更好，而且为了程序的兼容性和后期移植的成本，请你果断抛弃第二种写法。</p>
 <h3 id="raise-exception-string">raise "Exception string"</h3>
 <p>把字符串当成异常抛出看上去是一个非常简洁的办法，但其实是一个非常不好的习惯。</p>
-<pre><code class="python">if is_work_done():
-    pass
-else:
-    raise &quot;Work is not done!&quot; # not cool
-</code></pre>
-
-<p>上面的语句如果抛出异常，那么会是这样的：</p>
-<pre><code class="python">Traceback (most recent call last):
-  File &quot;/demo/exception_hanlding.py&quot;, line 48, in &lt;module&gt;
-    raise &quot;Work is not done!&quot;
-TypeError: exceptions must be old-style classes or derived from BaseException, not str
-</code></pre>
+<p><div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">is_work_done</span><span class="p">():</span>
+    <span class="k">pass</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="s2">&quot;Work is not done!&quot;</span> <span class="c1"># not cool</span>
+</code></pre></div>
+上面的语句如果抛出异常，那么会是这样的：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;/demo/exception_hanlding.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">48</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+    <span class="k">raise</span> <span class="s2">&quot;Work is not done!&quot;</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="n">exceptions</span> <span class="n">must</span> <span class="n">be</span> <span class="n">old</span><span class="o">-</span><span class="n">style</span> <span class="n">classes</span> <span class="ow">or</span> <span class="n">derived</span> <span class="kn">from</span> <span class="nn">BaseException</span><span class="p">,</span> <span class="ow">not</span> <span class="nb">str</span>
+</code></pre></div>
 
 <p>这在 Python2.4 以前是可以接受的做法，但是没有指定异常类型有可能会让下游没办法正确捕获并处理这个异常，从而导致你的程序难以维护。简单说，这种写法是是封建时代的陋习，应该扔了。</p>
 <h2 id="tryexcept">使用内置的语法范式代替try/except</h2>
 <p>Python 本身提供了很多的语法范式简化了异常的处理，比如for语句就处理了的StopIteration异常，让你很流畅地写出一个循环。</p>
 <p>with语句在打开文件后会自动调用finally并关闭文件。我们在写 Python 代码时应该尽量避免在遇到这种情况时还使用try/except/finally的思维来处理。</p>
-<pre><code class="python"># should not
-try:
-    f = open(a_file)
-    do_something(f)
-finally:
-    f.close()
+<p><div class="highlight"><pre><span></span><code><span class="c1"># should not</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">a_file</span><span class="p">)</span>
+    <span class="n">do_something</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-# should 
-with open(a_file) as f:
-    do_something(f)
-</code></pre>
-
-<p>再比如，当我们需要访问一个不确定的属性时，有可能你会写出这样的代码：</p>
-<pre><code class="python">try:
-    test = Test()
-    name = test.name  # not sure if we can get its name
-except AttributeError:
-    name = 'default'
-</code></pre>
-
-<p>其实你可以使用更简单的getattr()来达到你的目的。</p>
-<pre><code class="python">name = getattr(test, 'name', 'default')
-</code></pre>
-
+<span class="c1"># should </span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">a_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">do_something</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</code></pre></div>
+再比如，当我们需要访问一个不确定的属性时，有可能你会写出这样的代码：</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">Test</span><span class="p">()</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">name</span>  <span class="c1"># not sure if we can get its name</span>
+<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
+</code></pre></div>
+其实你可以使用更简单的getattr()来达到你的目的。
+<div class="highlight"><pre><span></span><code><span class="n">name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">)</span>
+</code></pre></div></p>
 <h2 id="_6">最佳实践</h2>
 <p>最佳实践不限于编程语言，只是一些规则和填坑后的收获。</p>
 <ul>
@@ -4067,11 +4054,11 @@ except AttributeError:
 </ul>
 <h2 id="_7">本文参考资料</h2>
 <ul>
-<li>官方文档：https://docs.python.org/2.7/library/exceptions.html#bltin-exceptions</li>
-<li>https://segmentfault.com/a/1190000007736783</li>
-<li>http://www.pythondoc.com/pythontutorial3/errors.html</li>
-<li>http://www.runoob.com/python/python-exceptions.html</li>
-<li>https://betacat.online/</li>
+<li>官方文档：<a href="https://docs.python.org/2.7/library/exceptions.html#bltin-exceptions">https://docs.python.org/2.7/library/exceptions.html#bltin-exceptions</a></li>
+<li><a href="https://segmentfault.com/a/1190000007736783">https://segmentfault.com/a/1190000007736783</a></li>
+<li><a href="http://www.pythondoc.com/pythontutorial3/errors.html">http://www.pythondoc.com/pythontutorial3/errors.html</a></li>
+<li><a href="http://www.runoob.com/python/python-exceptions.html">http://www.runoob.com/python/python-exceptions.html</a></li>
+<li><a href="https://betacat.online/">https://betacat.online/</a></li>
 </ul>
 <h2 id="about">About</h2>
 <h2 id="_8"><img alt="" src="../%E5%85%B3%E4%BA%8EPython%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.assets/8869373-901590e019f6f85b.png" /></h2>
@@ -4150,6 +4137,8 @@ except AttributeError:
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

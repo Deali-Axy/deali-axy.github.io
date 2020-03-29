@@ -3593,19 +3593,19 @@
 <h2 id="jsp">编写测试用jsp</h2>
 <p>首先，我们写一个很简单的JSP程序，我们通过JSP页面来调用Servlet方法。我们在Tomcat安装目录下的webapps文件夹下新建一个ServletLife文件夹，进入该文件夹，写一个index.jsp文件，代码如下：</p>
 <p>index.jsp</p>
-<pre><code class="html">&lt;%@ page contentType=&quot;text/html;charset=GBK&quot; language=&quot;java&quot; %&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;title&gt;Show servlet life cycle&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;center&gt;
-      &lt;form action=&quot;ShowLifeCycle&quot; name=form&quot;&gt;
-        &lt;input type=&quot;submit&quot; value=&quot;SUBMIT&quot;&gt;&lt;/form&gt;
-    &lt;/center&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="err">&lt;</span>%@ page contentType=&quot;text/html;charset=GBK&quot; language=&quot;java&quot; %&gt;
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Show servlet life cycle<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">center</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;ShowLifeCycle&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">form&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;SUBMIT&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">center</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
 
 <p>这是一段很简单的JSP程序，只为说明问题，整个程序只有一个提交表单的<code>submit</code>。</p>
 <ul>
@@ -3615,51 +3615,51 @@
 <p>然后我们在我们创建的/ServletLife目录下新建一个WEB-INF文件夹，进入WEB-INF文件夹，再创建一个classes文件夹。</p>
 <h2 id="servlet">编写Servlet程序</h2>
 <p>Servlet.java 代码</p>
-<pre><code class="java">import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.*;
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">javax.servlet.ServletConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServlet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
 
-public class Servlet extends HttpServlet {
-    private ServletConfig config;
-    private static int counter = 0;
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Servlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">ServletConfig</span> <span class="n">config</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
 
-    public Servlet() {
-        super();
-        System.out.println(&quot;=== &quot; + ++counter + &quot; instances ===&quot;);
-    }
+    <span class="kd">public</span> <span class="nf">Servlet</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;=== &quot;</span> <span class="o">+</span> <span class="o">++</span><span class="n">counter</span> <span class="o">+</span> <span class="s">&quot; instances ===&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
 
-    //初始化servlet
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        this.config = config;
-        System.out.println(&quot;=== invoke init() ===&quot; + new Date().toString());
-    }
+    <span class="c1">//初始化servlet</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">ServletConfig</span> <span class="n">config</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">config</span> <span class="o">=</span> <span class="n">config</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;=== invoke init() ===&quot;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">Date</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(&quot;=== invoke doPost ===&quot; + new Date().toString());
-    }
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doPost</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;=== invoke doPost ===&quot;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">Date</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(&quot;=== invoke doGet() ===&quot; + new Date().toString());
-    }
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;=== invoke doGet() ===&quot;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">Date</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
 
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.service(req, resp);
-        System.out.println(&quot;=== invoke service ===&quot;);
-    }
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">service</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;=== invoke service ===&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
 
-    @Override
-    public void destroy() {
-        System.out.println(&quot;=== invoke destroy() ===&quot; + new Date().toString());
-    }
-}
-</code></pre>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;=== invoke destroy() ===&quot;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">Date</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <h3 id="_2">代码说明</h3>
 <ul>
@@ -3674,43 +3674,40 @@ public class Servlet extends HttpServlet {
 <p>将该java文件编译后的Servlet.class放到/WEB-INF/classes文件夹下。</p>
 <h2 id="webxml">编写web.xml配置</h2>
 <p>然后在/WEB-INF文件夹下创建一个配置文件web.xml：</p>
-<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
-         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
-         version=&quot;3.1&quot;&gt;
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span>
+         <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+         <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;</span>
+         <span class="na">version=</span><span class="s">&quot;3.1&quot;</span><span class="nt">&gt;</span>
 
-    &lt;servlet&gt;
-            &lt;servlet-name&gt;LifeCycle&lt;/servlet-name&gt;
-            &lt;servlet-class&gt;Servlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;LifeCycle&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/ShowLifeCycle&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-&lt;/web-app&gt;
-</code></pre>
+    <span class="nt">&lt;servlet&gt;</span>
+            <span class="nt">&lt;servlet-name&gt;</span>LifeCycle<span class="nt">&lt;/servlet-name&gt;</span>
+            <span class="nt">&lt;servlet-class&gt;</span>Servlet<span class="nt">&lt;/servlet-class&gt;</span>
+    <span class="nt">&lt;/servlet&gt;</span>
+    <span class="nt">&lt;servlet-mapping&gt;</span>
+        <span class="nt">&lt;servlet-name&gt;</span>LifeCycle<span class="nt">&lt;/servlet-name&gt;</span>
+        <span class="nt">&lt;url-pattern&gt;</span>/ShowLifeCycle<span class="nt">&lt;/url-pattern&gt;</span>
+    <span class="nt">&lt;/servlet-mapping&gt;</span>
+<span class="nt">&lt;/web-app&gt;</span>
+</code></pre></div>
 
 <p>这个文件主要来配置Servlet的。</p>
 <h2 id="tomcat">运行Tomcat</h2>
 <p>接下来运行Tomcat，查看控制台日志，里面会有一行刚刚打印的文字：</p>
-<pre><code>13-Jan-2018 10:26:21.214 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 108 ms
-</code></pre>
-
-<p>说明Tomcat服务器正常启动。</p>
-<p>然后我们在浏览器地址栏输入以下网址：</p>
-<pre><code>http://localhost:8080/ServletOne/
-</code></pre>
-
-<p>页面上只有一个submit按钮</p>
+<p><div class="highlight"><pre><span></span><code>13-Jan-2018 10:26:21.214 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 108 ms
+</code></pre></div>
+说明Tomcat服务器正常启动。</p>
+<p>然后我们在浏览器地址栏输入以下网址：
+<div class="highlight"><pre><span></span><code>http://localhost:8080/ServletOne/
+</code></pre></div>
+页面上只有一个submit按钮</p>
 <h2 id="_3">分析日志测试</h2>
-<p>点击该按钮，此时Servlet被请求，查看控制台输出，此时内容如下:</p>
-<pre><code class="log">=== 1 instances ===
+<p>点击该按钮，此时Servlet被请求，查看控制台输出，此时内容如下:
+<div class="highlight"><pre><span></span><code>=== 1 instances ===
 === invoke init() ===Sat Jan 13 10:26:30 CST 2018
 === invoke doGet() ===Sat Jan 13 10:26:30 CST 2018
 === invoke service ===
-</code></pre>
-
+</code></pre></div></p>
 <ul>
 <li>第2行，当第一次收到该Servlet请求时，会调用该Servlet的实例方法，并创建1个实例。”=== 1 instances ===”;</li>
 <li>-第3行，创建该实例后，调用Servlet的init()方法进行初始化操作；</li>
@@ -3718,7 +3715,7 @@ public class Servlet extends HttpServlet {
 <li>第5行，在service()方法最后一行打印出”=== invoke service ===”,实际上，doGet()方法是由service()方法调用的。</li>
 </ul>
 <p>接下来我们重新创建一个Servlet请求，打开浏览器，重复以上过程，找到localhost/8080/ServletLife/index.jsp页面，点击submit，然后重新打开刚才的文本文档，内容如下：</p>
-<pre><code class="log">=== 1 instances ===
+<p><div class="highlight"><pre><span></span><code>=== 1 instances ===
 === invoke init() ===Sat Jan 13 10:26:30 CST 2018
 === invoke doGet() ===Sat Jan 13 10:26:30 CST 2018
 === invoke service ===
@@ -3726,11 +3723,10 @@ public class Servlet extends HttpServlet {
 13-Jan-2018 10:26:31.272 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Program Files\Apache Software Foundation\Tomcat 8.5\webapps\manager] has finished in [70] ms
 === invoke doGet() ===Sat Jan 13 10:33:10 CST 2018
 === invoke service ===
-</code></pre>
-
-<p>新增加了6、7两行。再次请求Servlet，并没有新建一个Servlet实例，也没有init过程，直接使用上次创建的实例来处理请求响应，doGet()方法被调用。</p>
+</code></pre></div>
+新增加了6、7两行。再次请求Servlet，并没有新建一个Servlet实例，也没有init过程，直接使用上次创建的实例来处理请求响应，doGet()方法被调用。</p>
 <p>然后我们关闭Tomcat服务器。查看控制台日志，内容如下：</p>
-<pre><code class="log">=== 1 instances ===
+<div class="highlight"><pre><span></span><code>=== 1 instances ===
 === invoke init() ===Sat Jan 13 10:26:30 CST 2018
 === invoke doGet() ===Sat Jan 13 10:26:30 CST 2018
 === invoke service ===
@@ -3739,7 +3735,7 @@ public class Servlet extends HttpServlet {
 === invoke doGet() ===Sat Jan 13 10:33:10 CST 2018
 === invoke service ===
 === invoke destroy() ===Sat Jan 13 10:33:20 CST 2018
-</code></pre>
+</code></pre></div>
 
 <p>可以看到destroy()方法被调用，清除Servlet实例。</p>
 <h2 id="_4">总结</h2>
@@ -3826,6 +3822,8 @@ public class Servlet extends HttpServlet {
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

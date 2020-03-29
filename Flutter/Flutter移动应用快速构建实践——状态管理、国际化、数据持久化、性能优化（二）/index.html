@@ -3481,59 +3481,57 @@
 <h2 id="_1">数据持久化</h2>
 <p>目前的话，flutter用的比较多比较成熟的数据持久化就是<code>shared_preferences</code>和<code>SQFLite</code>，一个是ini配置文件，一个是SQLite数据库，小应用我比较倾向只用前者，比较方便，Sqflite能用，但是flutter至今没有很好用的ORM框架，用起来需要写很多SQL语句就很难受了。</p>
 <p>所以下面介绍的是<code>shared_preferences</code>的简单用法，详细见官网：<a href="https://pub.flutter-io.cn/packages/shared_preferences">https://pub.flutter-io.cn/packages/shared_preferences</a></p>
-<p>添加依赖：</p>
-<pre><code class="yaml">dependencies:
-  shared_preferences: ^0.5.6
-</code></pre>
-
-<p>这里的官网的简单例子：</p>
-<pre><code class="dart">SharedPreferences prefs = await SharedPreferences.getInstance();
-int counter = (prefs.getInt('counter') ?? 0) + 1;
-print('Pressed $counter times.');
-await prefs.setInt('counter', counter);
-</code></pre>
-
+<p>添加依赖：
+<div class="highlight"><pre><span></span><code><span class="nt">dependencies</span><span class="p">:</span>
+  <span class="nt">shared_preferences</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">^0.5.6</span>
+</code></pre></div></p>
+<p>这里的官网的简单例子：
+<div class="highlight"><pre><span></span><code><span class="n">SharedPreferences</span> <span class="n">prefs</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">SharedPreferences</span><span class="p">.</span><span class="n">getInstance</span><span class="p">();</span>
+<span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="p">(</span><span class="n">prefs</span><span class="p">.</span><span class="n">getInt</span><span class="p">(</span><span class="s1">&#39;counter&#39;</span><span class="p">)</span> <span class="o">??</span> <span class="m">0</span><span class="p">)</span> <span class="o">+</span> <span class="m">1</span><span class="p">;</span>
+<span class="n">print</span><span class="p">(</span><span class="s1">&#39;Pressed </span><span class="si">$</span><span class="n">counter</span><span class="s1"> times.&#39;</span><span class="p">);</span>
+<span class="kd">await</span> <span class="n">prefs</span><span class="p">.</span><span class="n">setInt</span><span class="p">(</span><span class="s1">&#39;counter&#39;</span><span class="p">,</span> <span class="n">counter</span><span class="p">);</span>
+</code></pre></div></p>
 <p>单纯抄一下官网的例子当然是不够的，我想说的数据持久化是这个，本项目用到的方法。</p>
 <p>还记得上一篇写到的<code>json model</code>模块吗，它提供的对象序列化和反序列化在持久化中很好用，在保存数据的时候，将model类转换给json数据存在<code>SharedPreferences</code>配置中，例如：</p>
-<pre><code class="dart">/// 持久化Profile信息
-static saveProfile() =&gt; _prefs.setString(&quot;profile&quot;, jsonEncode(profile.toJson()));
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">/// 持久化Profile信息</span>
+<span class="kd">static</span> <span class="n">saveProfile</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="n">_prefs</span><span class="p">.</span><span class="n">setString</span><span class="p">(</span><span class="s2">&quot;profile&quot;</span><span class="p">,</span> <span class="n">jsonEncode</span><span class="p">(</span><span class="n">profile</span><span class="p">.</span><span class="n">toJson</span><span class="p">()));</span>
+</code></pre></div>
 
 <p>当App启动时，从<code>SharedPreferences</code>中读出json数据，使用model类的json构造函数，创建（反序列化）为model对象，例子如下：</p>
-<pre><code class="dart">_prefs = await SharedPreferences.getInstance();
-var _profile = _prefs.getString(&quot;profile&quot;);
-if (_profile != null) {
-      try {
-        profile = Profile.fromJson(jsonDecode(_profile));
-        // 防止读取出来是null，用于从版本已有profile数据的升级，如果是全新安装的没有这个问题
-        profile.darkMode = profile.darkMode ?? false;
-      } catch (e) {
-        print(e);
-      }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">_prefs</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">SharedPreferences</span><span class="p">.</span><span class="n">getInstance</span><span class="p">();</span>
+<span class="kd">var</span> <span class="n">_profile</span> <span class="o">=</span> <span class="n">_prefs</span><span class="p">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;profile&quot;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">_profile</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">Profile</span><span class="p">.</span><span class="n">fromJson</span><span class="p">(</span><span class="n">jsonDecode</span><span class="p">(</span><span class="n">_profile</span><span class="p">));</span>
+        <span class="c1">// 防止读取出来是null，用于从版本已有profile数据的升级，如果是全新安装的没有这个问题</span>
+        <span class="n">profile</span><span class="p">.</span><span class="n">darkMode</span> <span class="o">=</span> <span class="n">profile</span><span class="p">.</span><span class="n">darkMode</span> <span class="o">??</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">print</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>这样就完成了数据持久化的工作，非常简便。</p>
 <h2 id="_2">相关配置</h2>
 <p>接下来先讲一点有关项目配置的，无论是flutter开发还是Android开发，那都是谷歌的技术，谷歌嘛你懂的，服务器都是被屏蔽的，而且用到的Gradle那些maven源也大多是访问不了的，所以每次编译成Android Apk的时候都很慢，我们需要设置一下国内源。</p>
 <p>修改 <code>android/build.gradle</code>，把里面默认的<code>google()</code>和<code>jcenter()</code>改成下面的地址就好了。</p>
-<pre><code>repositories {
+<div class="highlight"><pre><span></span><code>repositories {
      // google()
      // jcenter()
-     maven { url 'https://maven.aliyun.com/repository/google' }
-     maven { url 'https://maven.aliyun.com/repository/jcenter' }
-     maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+     maven { url &#39;https://maven.aliyun.com/repository/google&#39; }
+     maven { url &#39;https://maven.aliyun.com/repository/jcenter&#39; }
+     maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public&#39; }
 }
-</code></pre>
+</code></pre></div>
 
 <p>还要修改 <code>android/gradle/wrapper/gradle-wrapper.properties</code>文件。</p>
-<pre><code>#Wed Dec 11 15:10:31 HKT 2019
+<div class="highlight"><pre><span></span><code>#Wed Dec 11 15:10:31 HKT 2019
 distributionBase=GRADLE_USER_HOME
 distributionPath=wrapper/dists
 zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists
 distributionUrl=https\://services.gradle.org/distributions/gradle-5.4.1-all.zip
-</code></pre>
+</code></pre></div>
 
 <p>把最后一行改成国内的服务器，如：<code>distributionUrl=https\://downloads.gradle-dn.com/distributions/gradle-5.1.1-all.zip</code>，改域名就可以了。</p>
 <p>还有一个<code>pub.dev</code>，dart语言的包发布网站，国内访问不了，但我们有国内镜像：<a href="https://pub.flutter-io.cn/">https://pub.flutter-io.cn/</a></p>
@@ -3544,17 +3542,16 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-5.4.1-all.zip
 <p>那到底怎么解决啊？dart提出了一个叫Isolate的东西，类似线程，但是和主线程之间又不能共享内存，如果要共享数据，必须通过复制内存的方式传参和获取返回值，使用起来和多线程相比还是有很多限制的。</p>
 <p>关于Isolate的详情我就不介绍那么多了，了解详情请查看官方文档和大佬的博客。这里记录一下我的实践。</p>
 <p>前面说到主线程和isolate之间的切换开销很大，所以为了使用多线程又需要提升性能的话，就要减少isolate的创建，所以我们可以用“线程池”做负载均衡，在代码定义一个LoadBalancer，用来存我们的isolate。</p>
-<pre><code class="dart">Future&lt;LoadBalancer&gt; loadBalancer = LoadBalancer.create(4, IsolateRunner.spawn);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">Future</span><span class="o">&lt;</span><span class="n">LoadBalancer</span><span class="o">&gt;</span> <span class="n">loadBalancer</span> <span class="o">=</span> <span class="n">LoadBalancer</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="m">4</span><span class="p">,</span> <span class="n">IsolateRunner</span><span class="p">.</span><span class="n">spawn</span><span class="p">);</span>
+</code></pre></div>
 
-<p>使用的时候通过loadbalancer创建可复用的isolate：</p>
-<pre><code class="dart">final lb = await loadBalancer;
-lb.run(Isolate方法, 参数);
-</code></pre>
-
+<p>使用的时候通过loadbalancer创建可复用的isolate：
+<div class="highlight"><pre><span></span><code><span class="kd">final</span> <span class="n">lb</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">loadBalancer</span><span class="p">;</span>
+<span class="n">lb</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">Isolate方法</span><span class="p">,</span> <span class="err">参数</span><span class="p">);</span>
+</code></pre></div></p>
 <p>isolate方法是一个静态方法，接收一个参数，因为只能一个参数，所以要传多个参数的时候就需要自己定协议了，可以自己写一个类，也可以传dict或者list，我比较习惯传dict，不要单独再定义一个类。执行完的结果通过返回值返回，我一般也是返回一个dict(map)。</p>
 <p><strong>注意：isolate不能访问主线程的内存，在isolate内访问其他地方的变量都是无效的，请使用传参+获取返回值的方式交换数据。</strong></p>
-<p>并且现在不能使用print函数打印日志，也不能通过channel访问Android的logcat输出日志，据说是flutter的bug，唯一的方法是使用官方devtools里的日志工具，参考：https://flutter.dev/docs/testing/code-debugging</p>
+<p>并且现在不能使用print函数打印日志，也不能通过channel访问Android的logcat输出日志，据说是flutter的bug，唯一的方法是使用官方devtools里的日志工具，参考：<a href="https://flutter.dev/docs/testing/code-debugging">https://flutter.dev/docs/testing/code-debugging</a></p>
 <h2 id="_3">未完待续</h2>
 <p>不知不觉又写了很多了，还有剩下一些零碎的内容，以及更多性能优化和App体积优化的内容正在研究和总结中，下篇文章再继续更新～</p>
 <h2 id="_4">欢迎交流</h2>
@@ -3636,6 +3633,8 @@ lb.run(Isolate方法, 参数);
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

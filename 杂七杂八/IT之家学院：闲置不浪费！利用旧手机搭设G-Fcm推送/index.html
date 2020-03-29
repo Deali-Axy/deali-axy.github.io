@@ -3388,9 +3388,9 @@
 <p>4、GCM客户端设置</p>
 <p>5、修改配置文件并运行服务端</p>
 <p>6.、GcmForMojo内回复功能</p>
-<p><strong>前提：</strong>服务端手机需要ROOT</p>
+<p>**前提：**服务端手机需要ROOT</p>
 <p><strong>软件:</strong>《GcmForMojo》《Linux Deploy》《JuiceSSH》《ES文件浏览器》</p>
-<p><strong>需要常驻：</strong>服务端手机Linux Deploy，客户端手机GcmForMojo启动运行，保持网络连接(黑域？绿色守护？神隐模式？电池优化？你需要让这些放过这两个APP)。</p>
+<p>**需要常驻：**服务端手机Linux Deploy，客户端手机GcmForMojo启动运行，保持网络连接(黑域？绿色守护？神隐模式？电池优化？你需要让这些放过这两个APP)。</p>
 <p>好了，教程开始。需要注意的是，P.S.G/Fcm均不推荐在国内使用。</p>
 <p><strong>一：服务端安装Linux Deploy github</strong></p>
 <p>安装地址：<a href="https://github.com/meefik/linuxdeploy/releases">点此前往</a></p>
@@ -3401,14 +3401,14 @@
 <p><strong>Linux Deploy</strong></p>
 <p>左上角设置建议勾选锁定WIFI，其它保持默认。</p>
 <p>右下角配置按钮。</p>
-<p><strong>发行版：</strong>CentOS。</p>
-<p><strong>框架：</strong>默认armhfp，手机CPU支持64位可以选aarch64，平板Atom处理器选x86_64。</p>
+<p>**发行版：**CentOS。</p>
+<p>**框架：**默认armhfp，手机CPU支持64位可以选aarch64，平板Atom处理器选x86_64。</p>
 <p><strong>源地址：</strong><a href="http://mirrors.ustc.edu.cn/centos-altarch/">科大</a></p>
 <p><strong>安装类型:</strong>“文件”或者“目录的”，安装路径默认即可。</p>
 <p>镜像大小1500MB以上，尽量大些，以免出问题。</p>
 <p>用户名默认<a href="http://android.ithome.com/">Android</a>，密码默认随机（均可自行设置，后面”新建认证”要用到）。</p>
-<p><strong>root用户：</strong>密码需ssh登陆后改</p>
-<p><strong>本地化：</strong>选择zh_CN.UTF-8</p>
+<p>**root用户：**密码需ssh登陆后改</p>
+<p>**本地化：**选择zh_CN.UTF-8</p>
 <p>勾选Enable允许SSH服务器启动端口默认22。</p>
 <p>返回主界面，点右上角——选择安装。</p>
 <p>终端输出“&lt;&lt;&lt;deploy”时，代表安装已完成。</p>
@@ -3473,11 +3473,11 @@
 </blockquote>
 <p>如果你的手机不能直通国际互联网，一般情况下下载速度会非常慢或者完全无法安装，这时候你可以这样做</p>
 <blockquote>
-<h1 id="cpanm-mirror-httpmirrors163comcpan-mojowebqq">cpanm --mirror http://mirrors.163.com/cpan/ Mojo::Webqq</h1>
+<h1 id="cpanm-mirror-httpmirrors163comcpan-mojowebqq">cpanm --mirror <a href="http://mirrors.163.com/cpan/">http://mirrors.163.com/cpan/</a> Mojo::Webqq</h1>
 </blockquote>
 <p>如果出现了安装错误，一般情况下是 Mojolicious 未成功安装造成的，这时候你需要手动安装</p>
 <blockquote>
-<h1 id="curl-l-httpscpanminus-perl-m-httpscpanmetacpanorg-n-mojolicious">curl -L https://cpanmin.us | perl - -M https://cpan.metacpan.org -n Mojolicious</h1>
+<h1 id="curl-l-httpscpanminus-perl-m-httpscpanmetacpanorg-n-mojolicious">curl -L <a href="https://cpanmin.us">https://cpanmin.us</a> | perl - -M <a href="https://cpan.metacpan.org">https://cpan.metacpan.org</a> -n Mojolicious</h1>
 </blockquote>
 <p>成功安装 Mojolicious 之后再次执行</p>
 <blockquote>
@@ -3485,7 +3485,7 @@
 </blockquote>
 <p>或</p>
 <blockquote>
-<h1 id="cpanm-mirror-httpmirrors163comcpan-mojowebqq_1">cpanm --mirror http://mirrors.163.com/cpan/ Mojo::Webqq</h1>
+<h1 id="cpanm-mirror-httpmirrors163comcpan-mojowebqq_1">cpanm --mirror <a href="http://mirrors.163.com/cpan/">http://mirrors.163.com/cpan/</a> Mojo::Webqq</h1>
 </blockquote>
 <p>应该就可以成功安装了</p>
 <p>Mojo::Weixin的安装方法大致相同</p>
@@ -3518,7 +3518,7 @@
 <h1 id="gcm_1">以下为GCM推送</h1>
 <blockquote>
 <p>$client-&gt;load("GCM",data=&gt;{</p>
-<p>api_url =&gt; 'https://gcm-http.googleapis.com/gcm/send',</p>
+<p>api_url =&gt; '<a href="https://gcm-http.googleapis.com/gcm/send">https://gcm-http.googleapis.com/gcm/send</a>',</p>
 <p>api_key=&gt;'AIzaSyB18io0hduB_3uHxKD3XaebPCecug27ht8',</p>
 <p>registration_ids=&gt;["输入你自己从GCMForMojo APP中获取到的令牌"],</p>
 <p>allow_group=&gt;["接受群消息的号码，如需要推送全部群消息可删除这一行，每个群号码之间使用"",分隔"],</p>
@@ -3585,12 +3585,12 @@
 </blockquote>
 <p>或</p>
 <blockquote>
-<h1 id="cpanm-mirror-httpmirrors163comcpan-mojowebqq_2">cpanm --mirror http://mirrors.163.com/cpan/ Mojo::Webqq</h1>
+<h1 id="cpanm-mirror-httpmirrors163comcpan-mojowebqq_2">cpanm --mirror <a href="http://mirrors.163.com/cpan/">http://mirrors.163.com/cpan/</a> Mojo::Webqq</h1>
 </blockquote>
 <p>Git仓库源编译安装升级</p>
 <blockquote>
 <h1 id="yum-install-perl-extutils-makemaker-git">yum install perl-ExtUtils-MakeMaker git</h1>
-<h1 id="git-clone-httpsgithubcomsjdy521mojo-webqqgit">git clone https://github.com/sjdy521/Mojo-Webqq.git</h1>
+<h1 id="git-clone-httpsgithubcomsjdy521mojo-webqqgit">git clone <a href="https://github.com/sjdy521/Mojo-Webqq.git">https://github.com/sjdy521/Mojo-Webqq.git</a></h1>
 <h1 id="cd-mojo-webqq">cd Mojo-Webqq</h1>
 <h1 id="perl-makefilepl">perl Makefile.PL</h1>
 <h1 id="make">make</h1>
@@ -3622,17 +3622,17 @@
 <p>$client-&gt;load("Openqq",data=&gt;{</p>
 <p>listen =&gt; [{host=&gt;"0.0.0.0",port=&gt;5000}, ] ,</p>
 <p>auth =&gt; sub {</p>
-<p>my($param,$controller) = @_;</p>
+<p>my(<span><span class="MathJax_Preview">param,</span><script type="math/tex">param,</script></span>controller) = @_;</p>
 <p>my $secret = 'salt';</p>
 <h1 id="saltandroid">请将该行salt改为你自定义的盐值，并在Android端内设定好你所自定义的盐值</h1>
 <p>my $text='';</p>
-<p>foreach $key (sort keys %$param){</p>
+<p>foreach <span><span class="MathJax_Preview">key (sort keys %</span><script type="math/tex">key (sort keys %</script></span>param){</p>
 <p>if($key ne 'sign'){</p>
-<p>$value =$param-&gt;{$key};</p>
-<p>$text.=$value;</p>
+<p><span><span class="MathJax_Preview">value =</span><script type="math/tex">value =</script></span>param-&gt;{$key};</p>
+<p><span><span class="MathJax_Preview">text.=</span><script type="math/tex">text.=</script></span>value;</p>
 <p>}</p>
 <p>}</p>
-<p>if($param-&gt;{sign} eq md5_hex($text.$secret) ){</p>
+<p>if(<span><span class="MathJax_Preview">param-&gt;{sign} eq md5_hex(</span><script type="math/tex">param->{sign} eq md5_hex(</script></span>text.$secret) ){</p>
 <p>return 1;</p>
 <p>}</p>
 <p>else{</p>
@@ -3666,11 +3666,11 @@
 <p>});</p>
 </blockquote>
 <p>HTTPS 证书可以使用 Let's Encrypt 这个免费的证书签发机构的证书，可信赖度不像之前 StartSSL 那么差，除了三个月需要续签一次以外没有什么大问题，签发和续期证书的步骤网上有很多，自行 Google 一下就好</p>
-<p>服务端设定好后把 Android 端的服务器上将 http://xxxxxxxx:xxxx 改为 https://xxxxxxxx:xxxx 即可</p>
+<p>服务端设定好后把 Android 端的服务器上将 <a href="http://xxxxxxxx:xxxx">http://xxxxxxxx:xxxx</a> 改为 <a href="https://xxxxxxxx:xxxx">https://xxxxxxxx:xxxx</a> 即可</p>
 <p>注意，如果需要 HTTPS 加密，你需要申请一个域名并绑定在你的 推送服务器 上，否则你是无法签发可被信任的证书的，除非你选择了 自签发证书 ,但这样做会更麻烦</p>
 <p>P.S.如果cpanm安装不成功，可以试试</p>
 <p>发现yum安装perl无效，编译安装perl后安装cpanm包管理才行。</p>
-<h1 id="wget-httpwwwcpanorgsrc50perl-5241targz">wget http://www.cpan.org/src/5.0/perl-5.24.1.tar.gz</h1>
+<h1 id="wget-httpwwwcpanorgsrc50perl-5241targz">wget <a href="http://www.cpan.org/src/5.0/perl-5.24.1.tar.gz">http://www.cpan.org/src/5.0/perl-5.24.1.tar.gz</a></h1>
 <h1 id="tar-xzf-perl-5241targz">tar -xzf perl-5.24.1.tar.gz</h1>
 <h1 id="cd-perl-5241">cd perl-5.24.1</h1>
 <h1 id="configure-des-dprefixhomelocalperl">./Configure -des -Dprefix=$HOME/localperl</h1>
@@ -3681,9 +3681,9 @@
 <p>通过HTTP代理连接Google FCM推送服务器</p>
 <p>由于众所周知的原因，中国大陆无法直连FCM推送服务器。这种情况下为了能够向FFM客户端推送消息，可以在 config.js中的 push_proxy 选项中指定FFM服务端连接Google FCM推送服务器时所使用的HTTP代理。具体思路请参考 <a href="https://github.com/RikkaApps/FCM-for-Mojo/issues/103">这个issue</a> 。</p>
 <p>客户端内回复功能:</p>
-<p>https://www.ngrok.cc/#down-client一般手机(高通、联发科)选择Linux ARM版本,x86架构选Linux 32Bit版本</p>
+<p><a href="https://www.ngrok.cc/#down-client一般手机(高通">https://www.ngrok.cc/#down-client一般手机(高通</a>、联发科)选择Linux ARM版本,x86架构选Linux 32Bit版本</p>
 <p>下载解压然后(sunny文件)上传到linux目录，这里我是扔到了root目录</p>
-<p>注册并登陆: https://www.ngrok.cc</p>
+<p>注册并登陆: <a href="https://www.ngrok.cc">https://www.ngrok.cc</a></p>
 <p>购买开通隧道,端口为配置文件设置的(例如我的5000)</p>
 <p><a href="http://img.ithome.com/newsuploadfiles/2018/2/20180214_225439_403.png"><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E9%97%B2%E7%BD%AE%E4%B8%8D%E6%B5%AA%E8%B4%B9%EF%BC%81%E5%88%A9%E7%94%A8%E6%97%A7%E6%89%8B%E6%9C%BA%E6%90%AD%E8%AE%BEG-Fcm%E6%8E%A8%E9%80%81.assets/8869373-d76b04d1c6f6bb6b.png%40s_2%2Cw_600%2Ch_337" /></a> </p>
 <p><a href="http://img.ithome.com/newsuploadfiles/2018/2/20180214_225438_857.png"><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E9%97%B2%E7%BD%AE%E4%B8%8D%E6%B5%AA%E8%B4%B9%EF%BC%81%E5%88%A9%E7%94%A8%E6%97%A7%E6%89%8B%E6%9C%BA%E6%90%AD%E8%AE%BEG-Fcm%E6%8E%A8%E9%80%81.assets/8869373-fc64b15bfd1fa1d6.png%40s_2%2Cw_600%2Ch_104" /></a> </p>
@@ -3700,8 +3700,8 @@
 <p>P.S.本文中涉及到的引用均遵循知识共享署名-非商业性使用-相同方式共享4.0国际许可协议</p>
 <p>其中涉及到的原作品地址以及作者如下</p>
 <p>作者kotomei</p>
-<p>链接：https://gist.github.com/kotomei/5367a003cd16d05e075c21a7f360b09a</p>
-<p>作者Rikka，原作品链接：https://github.com/RikkaApps/FCM-for-Mojo/blob/master/README.md</p>
+<p>链接：<a href="https://gist.github.com/kotomei/5367a003cd16d05e075c21a7f360b09a">https://gist.github.com/kotomei/5367a003cd16d05e075c21a7f360b09a</a></p>
+<p>作者Rikka，原作品链接：<a href="https://github.com/RikkaApps/FCM-for-Mojo/blob/master/README.md">https://github.com/RikkaApps/FCM-for-Mojo/blob/master/README.md</a></p>
 <p>其中第一篇作者在文章中注明按照该协议进行许可，第二篇作者回复按照该协议进行许可</p>
                 
                   
@@ -3776,6 +3776,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

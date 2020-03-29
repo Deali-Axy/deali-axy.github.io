@@ -3560,7 +3560,7 @@
 <h2 id="_2">例子代码</h2>
 <p>这是官方的例子，点击按钮之后可以计算点击次数。</p>
 <p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E5%9B%9B%EF%BC%89Blazor-WebAssembly%E5%85%A5%E9%97%A8.assets/8869373-e74eebb309c83588.png" /></p>
-<pre><code class="cs">@page &quot;/counter&quot;
+<div class="highlight"><pre><span></span><code>@page &quot;/counter&quot;
 &lt;h1&gt;Counter&lt;/h1&gt;
 &lt;p&gt;Current count: @_currentCount&lt;/p&gt;
 &lt;button class=&quot;btn btn-primary&quot; @onclick=&quot;IncrementCount&quot;&gt;Click me&lt;/button&gt;
@@ -3571,7 +3571,7 @@
         _currentCount++;
     }
 }
-</code></pre>
+</code></pre></div>
 
 <p>我感觉项目的具体代码应该放在最后面，还是继续介绍一下原理什么的吧~</p>
 <h2 id="_3">托管模型</h2>
@@ -3599,95 +3599,93 @@
 - 对于包含多个用户的应用而言，可伸缩性非常困难。 服务器必须管理多个客户端连接并处理客户端状态。
 - 为应用提供服务需要 ASP.NET Core 服务器。 不可能的无服务器部署方案（例如，通过 CDN 为应用提供服务）。</p>
 <h2 id="_6">项目配置</h2>
-<p>首先是从一个普通的AspNetCore项目开始，进行以下配置：</p>
-<pre><code class="c#">// 注册服务
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddRazorPages();
-    services.AddServerSideBlazor();
-    services.AddSingleton&lt;WeatherForecastService&gt;();
-}
+<p>首先是从一个普通的AspNetCore项目开始，进行以下配置：
+<div class="highlight"><pre><span></span><code><span class="c1">// 注册服务</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddRazorPages</span><span class="p">();</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddServerSideBlazor</span><span class="p">();</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">WeatherForecastService</span><span class="p">&gt;();</span>
+<span class="p">}</span>
 
-// 配置中间件
-public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-    if (env.IsDevelopment())
-    {
-        app.UseDeveloperExceptionPage();
-    }
-    else
-    {
-        // 配置生产环境的错误页面
-        app.UseExceptionHandler(&quot;/Error&quot;);
-        app.UseHsts();
-    }
+<span class="c1">// 配置中间件</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">Configure</span><span class="p">(</span><span class="n">IApplicationBuilder</span> <span class="n">app</span><span class="p">,</span> <span class="n">IWebHostEnvironment</span> <span class="n">env</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">IsDevelopment</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseDeveloperExceptionPage</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="c1">// 配置生产环境的错误页面</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseExceptionHandler</span><span class="p">(</span><span class="s">&quot;/Error&quot;</span><span class="p">);</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">UseHsts</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    app.UseStaticFiles();
-    app.UseRouting();
+    <span class="n">app</span><span class="p">.</span><span class="n">UseStaticFiles</span><span class="p">();</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">UseRouting</span><span class="p">();</span>
 
-    app.UseEndpoints(endpoints =&gt;
-    {
-        // 相当于一个Blazor版的SignalR
-        endpoints.MapBlazorHub();
-        endpoints.MapFallbackToPage(&quot;/_Host&quot;);
-    });
-}
-</code></pre>
-
+    <span class="n">app</span><span class="p">.</span><span class="n">UseEndpoints</span><span class="p">(</span><span class="n">endpoints</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="c1">// 相当于一个Blazor版的SignalR</span>
+        <span class="n">endpoints</span><span class="p">.</span><span class="n">MapBlazorHub</span><span class="p">();</span>
+        <span class="n">endpoints</span><span class="p">.</span><span class="n">MapFallbackToPage</span><span class="p">(</span><span class="s">&quot;/_Host&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h2 id="razor">编写Razor组件</h2>
 <p>Blazor从名字看就和AspNetCore原有的Razor相似，所以他们俩的很多语法是接近的，比如说TagHelper。</p>
-<p>先写<code>App.razor</code>：</p>
-<pre><code class="xml">&lt;Router AppAssembly=&quot;@typeof(Program).Assembly&quot;&gt;
-    &lt;Found Context=&quot;routeData&quot;&gt;
-        &lt;RouteView RouteData=&quot;@routeData&quot; DefaultLayout=&quot;@typeof(MainLayout)&quot; /&gt;
-    &lt;/Found&gt;
-    &lt;NotFound&gt;
-        &lt;LayoutView Layout=&quot;@typeof(MainLayout)&quot;&gt;
-            &lt;p&gt;Sorry, there's nothing at this address.&lt;/p&gt;
-        &lt;/LayoutView&gt;
-    &lt;/NotFound&gt;
-&lt;/Router&gt;
-</code></pre>
-
+<p>先写<code>App.razor</code>：
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Router</span> <span class="na">AppAssembly=</span><span class="s">&quot;@typeof(Program).Assembly&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Found</span> <span class="na">Context=</span><span class="s">&quot;routeData&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;RouteView</span> <span class="na">RouteData=</span><span class="s">&quot;@routeData&quot;</span> <span class="na">DefaultLayout=</span><span class="s">&quot;@typeof(MainLayout)&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Found&gt;</span>
+    <span class="nt">&lt;NotFound&gt;</span>
+        <span class="nt">&lt;LayoutView</span> <span class="na">Layout=</span><span class="s">&quot;@typeof(MainLayout)&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p&gt;</span>Sorry, there&#39;s nothing at this address.<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/LayoutView&gt;</span>
+    <span class="nt">&lt;/NotFound&gt;</span>
+<span class="nt">&lt;/Router&gt;</span>
+</code></pre></div></p>
 <p>之前在中间件那里配置了<code>endpoints.MapFallbackToPage("/_Host");</code>，可以理解为默认页面吧。</p>
 <p>内容如下：</p>
-<pre><code class="c#">@page &quot;/&quot;
-@namespace BlazorOne.Pages
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{
-    Layout = null;
-}
+<div class="highlight"><pre><span></span><code><span class="n">@page</span> <span class="s">&quot;/&quot;</span>
+<span class="n">@namespace</span> <span class="n">BlazorOne</span><span class="p">.</span><span class="n">Pages</span>
+<span class="n">@addTagHelper</span> <span class="p">*,</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">AspNetCore</span><span class="p">.</span><span class="n">Mvc</span><span class="p">.</span><span class="n">TagHelpers</span>
+<span class="err">@</span><span class="p">{</span>
+    <span class="n">Layout</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+<span class="p">}</span>
 
-&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot; /&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
-    &lt;title&gt;BlazorOne&lt;/title&gt;
-    &lt;base href=&quot;~/&quot; /&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap/bootstrap.min.css&quot; /&gt;
-    &lt;link href=&quot;css/site.css&quot; rel=&quot;stylesheet&quot; /&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;app&gt;
-        &lt;component type=&quot;typeof(App)&quot; render-mode=&quot;ServerPrerendered&quot; /&gt;
-    &lt;/app&gt;
+<span class="p">&lt;!</span><span class="n">DOCTYPE</span> <span class="n">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">html</span> <span class="n">lang</span><span class="p">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">meta</span> <span class="n">charset</span><span class="p">=</span><span class="s">&quot;utf-8&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="n">meta</span> <span class="n">name</span><span class="p">=</span><span class="s">&quot;viewport&quot;</span> <span class="n">content</span><span class="p">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="n">title</span><span class="p">&gt;</span><span class="n">BlazorOne</span><span class="p">&lt;/</span><span class="n">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="k">base</span> <span class="n">href</span><span class="p">=</span><span class="s">&quot;~/&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="n">link</span> <span class="n">rel</span><span class="p">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="n">href</span><span class="p">=</span><span class="s">&quot;css/bootstrap/bootstrap.min.css&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="n">link</span> <span class="n">href</span><span class="p">=</span><span class="s">&quot;css/site.css&quot;</span> <span class="n">rel</span><span class="p">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="n">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="n">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="n">app</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="n">component</span> <span class="n">type</span><span class="p">=</span><span class="s">&quot;typeof(App)&quot;</span> <span class="n">render</span><span class="p">-</span><span class="n">mode</span><span class="p">=</span><span class="s">&quot;ServerPrerendered&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="n">app</span><span class="p">&gt;</span>
 
-    &lt;div id=&quot;blazor-error-ui&quot;&gt;
-        &lt;environment include=&quot;Staging,Production&quot;&gt;
-            An error has occurred. This application may no longer respond until reloaded.
-        &lt;/environment&gt;
-        &lt;environment include=&quot;Development&quot;&gt;
-            An unhandled exception has occurred. See browser dev tools for details.
-        &lt;/environment&gt;
-        &lt;a href=&quot;&quot; class=&quot;reload&quot;&gt;Reload&lt;/a&gt;
-        &lt;a class=&quot;dismiss&quot;&gt;🗙&lt;/a&gt;
-    &lt;/div&gt;
+    <span class="p">&lt;</span><span class="n">div</span> <span class="n">id</span><span class="p">=</span><span class="s">&quot;blazor-error-ui&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="n">environment</span> <span class="n">include</span><span class="p">=</span><span class="s">&quot;Staging,Production&quot;</span><span class="p">&gt;</span>
+            <span class="n">An</span> <span class="n">error</span> <span class="n">has</span> <span class="n">occurred</span><span class="p">.</span> <span class="n">This</span> <span class="n">application</span> <span class="n">may</span> <span class="n">no</span> <span class="n">longer</span> <span class="n">respond</span> <span class="n">until</span> <span class="n">reloaded</span><span class="p">.</span>
+        <span class="p">&lt;/</span><span class="n">environment</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="n">environment</span> <span class="n">include</span><span class="p">=</span><span class="s">&quot;Development&quot;</span><span class="p">&gt;</span>
+            <span class="n">An</span> <span class="n">unhandled</span> <span class="n">exception</span> <span class="n">has</span> <span class="n">occurred</span><span class="p">.</span> <span class="n">See</span> <span class="n">browser</span> <span class="n">dev</span> <span class="n">tools</span> <span class="k">for</span> <span class="n">details</span><span class="p">.</span>
+        <span class="p">&lt;/</span><span class="n">environment</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="p">=</span><span class="s">&quot;&quot;</span> <span class="n">class</span><span class="p">=</span><span class="s">&quot;reload&quot;</span><span class="p">&gt;</span><span class="n">Reload</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="p">=</span><span class="s">&quot;dismiss&quot;</span><span class="p">&gt;</span><span class="err">🗙</span><span class="p">&lt;/</span><span class="n">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="n">div</span><span class="p">&gt;</span>
 
-    &lt;script src=&quot;_framework/blazor.server.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+    <span class="p">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="p">=</span><span class="s">&quot;_framework/blazor.server.js&quot;</span><span class="p">&gt;&lt;/</span><span class="n">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="n">html</span><span class="p">&gt;</span>
+</code></pre></div>
 
 <p>可以看到就是一个普通的AspNetCore的MVC页面的写法，不过body里面有app节点，可以渲染其他Razor组件。</p>
 <h2 id="_7">效果</h2>
@@ -3777,6 +3775,8 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

@@ -3572,7 +3572,7 @@
 <p>编辑距离是NLP基本的度量文本相似度的算法，可以作为文本相似任务的重要特征之一，其可应用于诸如拼写检查、论文查重、基因序列分析等多个方面。但是其缺点也很明显，算法基于文本自身的结构去计算，并没有办法获取到语义层面的信息。</p>
 <h3 id="spacysimilarity">SpacySimilarity算法</h3>
 <p>SpacySimilarity属于语义相似度的计算方法。 </p>
-<p>参考资料： https://spacy.io/api/doc/#similarity </p>
+<p>参考资料： <a href="https://spacy.io/api/doc/#similarity">https://spacy.io/api/doc/#similarity</a> </p>
 <p>先将句子的词向量求平均，获取句子的语义表示，然后计算两个句子的语义表示的余弦相似度。</p>
 <h3 id="jaccardsimilarity">JaccardSimilarity算法</h3>
 <p>参考资料：<a href="https://en.wikipedia.org/wiki/Jaccard_index">https://en.wikipedia.org/wiki/Jaccard_index</a></p>
@@ -3583,18 +3583,18 @@
 <p><img alt="" src="../LittleWhiteOne%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1.assets/8869373-dd02f73baef5f3ef.png" /></p>
 <h2 id="todo">todo</h2>
 <h3 id="_3">算法优化</h3>
-<ul>
-<li>[ ] 试用另外的基于词向量的几种计算文本相似度方法 ：</li>
-<li>[ ] 使用词向量求平均计算相似度</li>
-<li>[ ] 词向量tfidf加权求平均计算相似度</li>
-<li>[ ] 词向量加权-PCA计算相似度</li>
-<li>[ ]  基于深度学习的方式，计算句子的语义相似度 </li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 试用另外的基于词向量的几种计算文本相似度方法 ：</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 使用词向量求平均计算相似度</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 词向量tfidf加权求平均计算相似度</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 词向量加权-PCA计算相似度</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 基于深度学习的方式，计算句子的语义相似度 </li>
 </ul>
 <h3 id="_4">训练优化</h3>
-<ul>
-<li>[ ] 使用新的大容量语料训练</li>
-<li>[ ] 接入tai套取聊天语料</li>
-<li>[ ] 结合LittleWhite v3的双引擎从用户对话中学习</li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 使用新的大容量语料训练</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 接入tai套取聊天语料</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> 结合LittleWhite v3的双引擎从用户对话中学习</li>
 </ul>
                 
                   
@@ -3669,6 +3669,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

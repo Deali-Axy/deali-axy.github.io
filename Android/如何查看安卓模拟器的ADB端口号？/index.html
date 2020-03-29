@@ -3450,18 +3450,16 @@
                 
                 <h2 id="_1">找到模拟器的进程</h2>
 <p>用tasklist查看进程pid</p>
-<pre><code class="py">tasklist
-</code></pre>
-
-<p><img alt="" src="../%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%AE%89%E5%8D%93%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%9A%84ADB%E7%AB%AF%E5%8F%A3%E5%8F%B7%EF%BC%9F.assets/8869373-89d5c5ace44baa41.png" /></p>
+<p><div class="highlight"><pre><span></span><code><span class="n">tasklist</span>
+</code></pre></div>
+<img alt="" src="../%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%AE%89%E5%8D%93%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%9A%84ADB%E7%AB%AF%E5%8F%A3%E5%8F%B7%EF%BC%9F.assets/8869373-89d5c5ace44baa41.png" /></p>
 <p>找到模拟器进程的PID，然后再使用<code>netstat</code>命令。</p>
-<pre><code class="py">netstat -ano | findstr 1000
-</code></pre>
-
-<p><em>这里的 1000 就是上面查到的进程PID。</em></p>
+<p><div class="highlight"><pre><span></span><code><span class="n">netstat</span> <span class="o">-</span><span class="n">ano</span> <span class="o">|</span> <span class="n">findstr</span> <span class="mi">1000</span>
+</code></pre></div>
+<em>这里的 1000 就是上面查到的进程PID。</em></p>
 <p>根据获取到的端口号，就可以使用 ADB 连接了。</p>
-<pre><code class="py">adb connect 127.0.0.1:端口号
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">adb</span> <span class="n">connect</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="err">端口号</span>
+</code></pre></div>
 
 <p>当然最好的方法还是去模拟器提供商的网站上查一下，这是最方便的。
 例如我是用的网易模拟器官网上说了端口是7555，我就直接拿来用了。</p>
@@ -3544,6 +3542,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

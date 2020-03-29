@@ -3700,15 +3700,15 @@
 <li>有返回值元组形式：（元素1，元素2）元素1复制给<code>request.user</code>、元素2复制给<code>request.auth</code> </li>
 </ul>
 <p>在<code>settings.py</code>中可以配置默认的认证方式，这里我添加了三个：</p>
-<pre><code class="python">REST_FRAMEWORK = {
-    # 身份验证
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    )
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">REST_FRAMEWORK</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># 身份验证</span>
+    <span class="s1">&#39;DEFAULT_AUTHENTICATION_CLASSES&#39;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s1">&#39;rest_framework.authentication.BasicAuthentication&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rest_framework.authentication.TokenAuthentication&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rest_framework.authentication.SessionAuthentication&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>当然也支持各种第三方的认证框架，比如下面这些：</p>
 <ul>
@@ -3734,22 +3734,22 @@
 <p>介绍完了基本概念，来看看代码中是如何操作的。</p>
 <h3 id="viewset">在viewset中的使用</h3>
 <p>对于操作用户信息的viewset，我只用了<code>permissions.IsAuthenticated</code>这个权限，然后覆盖了<code>ReadOnlyModelViewSet</code>的<code>get_queryset</code>方法，把queryset变成只包括当前用户，这样就保证了一个用户只能操作自己的信息。</p>
-<pre><code class="python">from rest_framework import authentication, permissions, viewsets
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">authentication</span><span class="p">,</span> <span class="n">permissions</span><span class="p">,</span> <span class="n">viewsets</span>
 
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
-    serializer_class = UserSerializer
+<span class="k">class</span> <span class="nc">UserViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ReadOnlyModelViewSet</span><span class="p">):</span>
+    <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">permissions</span><span class="o">.</span><span class="n">IsAuthenticated</span><span class="p">]</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">UserSerializer</span>
 
-    def get_queryset(self):
-        return User.objects.filter(pk=self.request.user.pk)
-</code></pre>
+    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+</code></pre></div>
 
 <p>viewset的action同样可以使用权限，加在装饰器的参数上即可：</p>
-<pre><code class="python">@action(detail=True, methods=['GET'], permission_classes=[permissions.IsAuthenticated])
-def some_actions(self, request, pk=None):
-    dosomething
-    return Response(SomeSerializer(some_data, many=True).data)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nd">@action</span><span class="p">(</span><span class="n">detail</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">],</span> <span class="n">permission_classes</span><span class="o">=</span><span class="p">[</span><span class="n">permissions</span><span class="o">.</span><span class="n">IsAuthenticated</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">some_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">dosomething</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">SomeSerializer</span><span class="p">(</span><span class="n">some_data</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
 
 <p>这里提一下装饰器的detail参数，这个代表了是对列表操作还是对单个对象操作，True就是对单个对象。</p>
 <p>从请求的URL上应该可以很好理解。</p>
@@ -3771,25 +3771,25 @@ def some_actions(self, request, pk=None):
 </blockquote>
 <h2 id="apiviewviewset">ApiView和ViewSet</h2>
 <p>Drf的ApiView相当于Django的View，每个ViewSet是一组Restful的接口，看看viewset的代码，其中定义了6个action，对应get、post、put、delete这些http方法。</p>
-<pre><code class="python">class UserViewSet(viewsets.ViewSet):
-    def list(self, request):
-        pass
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">UserViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ViewSet</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">pass</span>
 
-    def create(self, request):
-        pass
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">pass</span>
 
-    def retrieve(self, request, pk=None):
-        pass
+    <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">pass</span>
 
-    def update(self, request, pk=None):
-        pass
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">pass</span>
 
-    def partial_update(self, request, pk=None):
-        pass
+    <span class="k">def</span> <span class="nf">partial_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">pass</span>
 
-    def destroy(self, request, pk=None):
-        pass
-</code></pre>
+    <span class="k">def</span> <span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">pass</span>
+</code></pre></div>
 
 <p>除了自带的这些，还可以定义额外的action，这个在前文已经提过了。</p>
 <p>ApiView的话，使用起来和Django的差不多，一个apiview只能对应一个url，通过重写<code>get</code>、<code>post</code>这些方法可以实现不同的http方法响应。</p>
@@ -3797,47 +3797,47 @@ def some_actions(self, request, pk=None):
 <h2 id="pagination">分页 PAGINATION</h2>
 <p>Drf和Django一样自带分页功能，很好用（当然也支持使用第三方的分页功能）。</p>
 <p>首先进行配置（不配置的话使用默认配置），这里我设置每页显示十条记录：</p>
-<pre><code class="python">REST_FRAMEWORK = {
-    # 设置分页
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">REST_FRAMEWORK</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># 设置分页</span>
+    <span class="s1">&#39;DEFAULT_PAGINATION_CLASS&#39;</span><span class="p">:</span> <span class="s1">&#39;rest_framework.pagination.PageNumberPagination&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;PAGE_SIZE&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>使用得最多的<code>ModelViewSet</code>已经自带分页了，这个我们不用操心，不过如果自己定义了action来返回列表数据的话，就没有分页，这时候要用<code>paginate_queryset</code>方法来处理。</p>
 <p>代码如下：</p>
-<pre><code class="python">@action(detail=False)
-def tag(self, request):
-    queryset = SomeModel.objects.all().order_by('-add_time')
-    page = self.paginate_queryset(queryset)
-    if page is not None:
-        return self.get_paginated_response(self.get_serializer(page, many=True).data)
-    return Response(self.get_serializer(queryset, many=True).data)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nd">@action</span><span class="p">(</span><span class="n">detail</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">SomeModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-add_time&#39;</span><span class="p">)</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paginate_queryset</span><span class="p">(</span><span class="n">queryset</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">page</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_paginated_response</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_serializer</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_serializer</span><span class="p">(</span><span class="n">queryset</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
 
 <p>可以看出Drf自动处理了不同页面的请求，不用像Django一样自己从GET或者POST数据里读取page，分页相关的方法直接在viewset对象里面，非常方便。</p>
 <h2 id="api_2">API文档设置</h2>
 <p>Drf支持很多文档插件，这里我用一下比较传统的coreapi文档，首先配置：</p>
-<pre><code class="python">REST_FRAMEWORK = {
-    # 文档
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">REST_FRAMEWORK</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># 文档</span>
+    <span class="s1">&#39;DEFAULT_SCHEMA_CLASS&#39;</span><span class="p">:</span> <span class="s1">&#39;rest_framework.schemas.coreapi.AutoSchema&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>在使用之前还需要使用pip安装coreapi：</p>
-<pre><code class="bash">pip install coreapi
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip install coreapi
+</code></pre></div>
 
 <p>所有的ViewSet只要用了Router注册的话都默认添加到文档里，不过ApiView的话是要自己添加的。</p>
-<pre><code class="python">from rest_framework.schemas.coreapi import AutoSchema
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_framework.schemas.coreapi</span> <span class="kn">import</span> <span class="n">AutoSchema</span>
 
-class SomeView(APIView):
-    schema = AutoSchema()
+<span class="k">class</span> <span class="nc">SomeView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+    <span class="n">schema</span> <span class="o">=</span> <span class="n">AutoSchema</span><span class="p">()</span>
 
-    def post(self, request):
-        data = dosomething()
-        return Response(data)
-</code></pre>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">dosomething</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
 
 <p>这样就可以了，别忘了注册路由，路由我在下文统一介绍。</p>
 <p>配置完成之后文档的效果应该是下图这样，这个页面可以测试请求，还可以以各种方式登录认证，比Drf默认的界面丰富一些~</p>
@@ -3845,48 +3845,48 @@ class SomeView(APIView):
 <h2 id="_2">路由</h2>
 <p>使用Drf框架可以有两种路由方式，一种是Drf的路由，一直是Django的路由，两种搭配使用。</p>
 <h3 id="drfrouter">Drf的Router</h3>
-<pre><code class="python">from rest_framework import routers
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">routers</span>
 
-router = routers.DefaultRouter()
-router.register('users', UserViewSet, basename='api-users')
-router.register('user-profiles', UserProfileViewSet, basename='api-user-profiles')
-router.register('tags', TagViewSet, basename='api-tags')
-router.register('categories', CategoryViewSet, basename='api-categories')
-router.register('articles', ArticleViewSet, basename='api-articles')
-</code></pre>
+<span class="n">router</span> <span class="o">=</span> <span class="n">routers</span><span class="o">.</span><span class="n">DefaultRouter</span><span class="p">()</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="n">UserViewSet</span><span class="p">,</span> <span class="n">basename</span><span class="o">=</span><span class="s1">&#39;api-users&#39;</span><span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;user-profiles&#39;</span><span class="p">,</span> <span class="n">UserProfileViewSet</span><span class="p">,</span> <span class="n">basename</span><span class="o">=</span><span class="s1">&#39;api-user-profiles&#39;</span><span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="n">TagViewSet</span><span class="p">,</span> <span class="n">basename</span><span class="o">=</span><span class="s1">&#39;api-tags&#39;</span><span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;categories&#39;</span><span class="p">,</span> <span class="n">CategoryViewSet</span><span class="p">,</span> <span class="n">basename</span><span class="o">=</span><span class="s1">&#39;api-categories&#39;</span><span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;articles&#39;</span><span class="p">,</span> <span class="n">ArticleViewSet</span><span class="p">,</span> <span class="n">basename</span><span class="o">=</span><span class="s1">&#39;api-articles&#39;</span><span class="p">)</span>
+</code></pre></div>
 
 <p>定于完成之后要添加到Django的<code>urlpatterns</code>里面。</p>
-<pre><code class="python">urlpatterns = [
-    path('api/', include(router.urls)),
-]
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;api/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">router</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div>
 
 <p>对于ApiView，路由和Django的ClassBaseView差不多：</p>
-<pre><code class="python">urlpatterns = [
-    path('login/', views.LoginView.as_view()),
-    path('signup/', views.SignUpView.as_view()),
-]
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;login/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">LoginView</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;signup/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">SignUpView</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+<span class="p">]</span>
+</code></pre></div>
 
 <h3 id="url">配置认证和文档相关url</h3>
-<pre><code class="python">from rest_framework.authtoken import views as authtoken_view
-from rest_framework.documentation import include_docs_urls
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_framework.authtoken</span> <span class="kn">import</span> <span class="n">views</span> <span class="k">as</span> <span class="n">authtoken_view</span>
+<span class="kn">from</span> <span class="nn">rest_framework.documentation</span> <span class="kn">import</span> <span class="n">include_docs_urls</span>
 
-urlpatterns = [
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api-token-auth/', authtoken_view.obtain_auth_token),
-    path('api-docs/', include_docs_urls(title='One Cat Docs')),
-]
-</code></pre>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;api-auth/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;rest_framework.urls&#39;</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;rest_framework&#39;</span><span class="p">)),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;api-token-auth/&#39;</span><span class="p">,</span> <span class="n">authtoken_view</span><span class="o">.</span><span class="n">obtain_auth_token</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;api-docs/&#39;</span><span class="p">,</span> <span class="n">include_docs_urls</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;One Cat Docs&#39;</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div>
 
 <h2 id="serializers">Serializers</h2>
 <p>序列化器也是Drf的一个重要概念，和Django的Form很像，作用是将Model对象的数据转换为json、xml之类的结构化数据。</p>
 <p>使用起来很简单，我一般都是这么定义</p>
-<pre><code class="python">class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = '__all__'
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">CategorySerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Category</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+</code></pre></div>
 
 <p>使用<code>__all__</code>直接把所有模型字段都包括进去，针对外键等关系字段，我们需要做一些其他处理。</p>
 <p>这里简单介绍一下我常用的几种关系字段处理方式</p>
@@ -3910,79 +3910,78 @@ urlpatterns = [
 </ul>
 <h3 id="13">实现1分钟内只能访问3次的限流</h3>
 <p><code>SimpleRateThrottle</code>代码如下：</p>
-<pre><code class="python">from rest_framework.throttling import SimpleRateThrottle
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_framework.throttling</span> <span class="kn">import</span> <span class="n">SimpleRateThrottle</span>
 
-class VisitThrottle(SimpleRateThrottle):
-    '''匿名用户60s只能访问三次（根据ip）'''
-    scope = 'throttle'   #这里面的值，自己随便定义，settings里面根据这个值配置throttle
+<span class="k">class</span> <span class="nc">VisitThrottle</span><span class="p">(</span><span class="n">SimpleRateThrottle</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;匿名用户60s只能访问三次（根据ip）&#39;&#39;&#39;</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="s1">&#39;throttle&#39;</span>   <span class="c1">#这里面的值，自己随便定义，settings里面根据这个值配置throttle</span>
 
-    def get_cache_key(self, request, view):
-        #通过ip限制节流
-        return self.get_ident(request)
+    <span class="k">def</span> <span class="nf">get_cache_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="c1">#通过ip限制节流</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ident</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
-class UserThrottle(SimpleRateThrottle):
-    '''登录用户60s可以访问10次'''
-    scope = 'userThrottle'    #这里面的值，自己随便定义，settings里面根据这个值配置userThrottle
+<span class="k">class</span> <span class="nc">UserThrottle</span><span class="p">(</span><span class="n">SimpleRateThrottle</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;登录用户60s可以访问10次&#39;&#39;&#39;</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="s1">&#39;userThrottle&#39;</span>    <span class="c1">#这里面的值，自己随便定义，settings里面根据这个值配置userThrottle</span>
 
-    def get_cache_key(self, request, view):
-        return request.user.user_id
-
-</code></pre>
+    <span class="k">def</span> <span class="nf">get_cache_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">user_id</span>
+</code></pre></div>
 
 <p><code>BaseThrottle</code> 代码如下：</p>
-<pre><code class="python">from rest_framework.throttling import BaseThrottle
-import time
-VISIT_RECORD = {}   #保存访问记录
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">rest_framework.throttling</span> <span class="kn">import</span> <span class="n">BaseThrottle</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">VISIT_RECORD</span> <span class="o">=</span> <span class="p">{}</span>   <span class="c1">#保存访问记录</span>
 
-class VisitThrottle(BaseThrottle):
-    '''60s内只能访问3次'''
+<span class="k">class</span> <span class="nc">VisitThrottle</span><span class="p">(</span><span class="n">BaseThrottle</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;60s内只能访问3次&#39;&#39;&#39;</span>
 
-    def __init__(self):
-        self.history = None   #初始化访问记录
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="bp">None</span>   <span class="c1">#初始化访问记录</span>
 
-    def allow_request(self,request,view):
-        #获取用户ip (get_ident)
-        remote_addr = self.get_ident(request)
-        ctime = time.time()
-        #如果当前IP不在访问记录里面，就添加到记录
-        if remote_addr not in VISIT_RECORD:
-            VISIT_RECORD[remote_addr] = [ctime,]     #键值对的形式保存
-            return True    #True表示可以访问
-        #获取当前ip的历史访问记录
-        history = VISIT_RECORD.get(remote_addr)
-        #初始化访问记录
-        self.history = history
+    <span class="k">def</span> <span class="nf">allow_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">request</span><span class="p">,</span><span class="n">view</span><span class="p">):</span>
+        <span class="c1">#获取用户ip (get_ident)</span>
+        <span class="n">remote_addr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ident</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">ctime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="c1">#如果当前IP不在访问记录里面，就添加到记录</span>
+        <span class="k">if</span> <span class="n">remote_addr</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VISIT_RECORD</span><span class="p">:</span>
+            <span class="n">VISIT_RECORD</span><span class="p">[</span><span class="n">remote_addr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctime</span><span class="p">,]</span>     <span class="c1">#键值对的形式保存</span>
+            <span class="k">return</span> <span class="bp">True</span>    <span class="c1">#True表示可以访问</span>
+        <span class="c1">#获取当前ip的历史访问记录</span>
+        <span class="n">history</span> <span class="o">=</span> <span class="n">VISIT_RECORD</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">remote_addr</span><span class="p">)</span>
+        <span class="c1">#初始化访问记录</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="n">history</span>
 
-        #如果有历史访问记录，并且最早一次的访问记录离当前时间超过60s，就删除最早的那个访问记录，
-        #只要为True，就一直循环删除最早的一次访问记录
-        while history and history[-1] &lt; ctime - 60:
-            history.pop()
-        #如果访问记录不超过三次，就把当前的访问记录插到第一个位置（pop删除最后一个）
-        if len(history) &lt; 3:
-            history.insert(0,ctime)
-            return True
+        <span class="c1">#如果有历史访问记录，并且最早一次的访问记录离当前时间超过60s，就删除最早的那个访问记录，</span>
+        <span class="c1">#只要为True，就一直循环删除最早的一次访问记录</span>
+        <span class="k">while</span> <span class="n">history</span> <span class="ow">and</span> <span class="n">history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">ctime</span> <span class="o">-</span> <span class="mi">60</span><span class="p">:</span>
+            <span class="n">history</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="c1">#如果访问记录不超过三次，就把当前的访问记录插到第一个位置（pop删除最后一个）</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">history</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">history</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ctime</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">True</span>
 
-    def wait(self):
-        '''还需要等多久才能访问'''
-        ctime = time.time()
-        return 60 - (ctime - self.history[-1])
-</code></pre>
+    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;还需要等多久才能访问&#39;&#39;&#39;</span>
+        <span class="n">ctime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">return</span> <span class="mi">60</span> <span class="o">-</span> <span class="p">(</span><span class="n">ctime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div>
 
 <h3 id="_4">配置节流</h3>
-<pre><code class="python">#全局
-REST_FRAMEWORK = {
-    # 设置全局节流
-    &quot;DEFAULT_THROTTLE_CLASSES&quot;:['api.utils.throttle.UserThrottle'],   #全局配置，登录用户节流限制（10/m）
-    # 设置访问频率
-    &quot;DEFAULT_THROTTLE_RATES&quot;:{
-        'throttle':'3/m',         #没登录用户3/m，throttle就是scope定义的值,通过IP地址
-        'userThrottle':'10/m',    #登录用户10/m，userThrottle就是scope定义的值， 通过user_id
-    }
-}
+<div class="highlight"><pre><span></span><code><span class="c1">#全局</span>
+<span class="n">REST_FRAMEWORK</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># 设置全局节流</span>
+    <span class="s2">&quot;DEFAULT_THROTTLE_CLASSES&quot;</span><span class="p">:[</span><span class="s1">&#39;api.utils.throttle.UserThrottle&#39;</span><span class="p">],</span>   <span class="c1">#全局配置，登录用户节流限制（10/m）</span>
+    <span class="c1"># 设置访问频率</span>
+    <span class="s2">&quot;DEFAULT_THROTTLE_RATES&quot;</span><span class="p">:{</span>
+        <span class="s1">&#39;throttle&#39;</span><span class="p">:</span><span class="s1">&#39;3/m&#39;</span><span class="p">,</span>         <span class="c1">#没登录用户3/m，throttle就是scope定义的值,通过IP地址</span>
+        <span class="s1">&#39;userThrottle&#39;</span><span class="p">:</span><span class="s1">&#39;10/m&#39;</span><span class="p">,</span>    <span class="c1">#登录用户10/m，userThrottle就是scope定义的值， 通过user_id</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-# 局部：在类视图中添加
-throttle_classes = [VisitThrottle,]
-</code></pre>
+<span class="c1"># 局部：在类视图中添加</span>
+<span class="n">throttle_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">VisitThrottle</span><span class="p">,]</span>
+</code></pre></div>
 
 <hr />
 <p>大概就这些吧，官方文档真的很详细，看官方文档可以解决95%的疑问，加上Django和python自带的快速开发生产力，写起来太爽啦~</p>
@@ -4061,6 +4060,8 @@ throttle_classes = [VisitThrottle,]
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

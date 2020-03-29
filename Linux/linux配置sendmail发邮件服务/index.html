@@ -3752,28 +3752,26 @@
 <p>因为开发需要，搞了个<code>wiki系统</code>，并且用到了邮件订阅，所以研究了一番发送邮件的方法。</p>
 <h2 id="_2">安装</h2>
 <p>没什么好说的，先安装必要组件。</p>
-<pre><code class="bash">apt install sendmail-bin
+<div class="highlight"><pre><span></span><code>apt install sendmail-bin
 apt install sendmail
-apt install sendmail-cf #配置工具
-</code></pre>
+apt install sendmail-cf <span class="c1">#配置工具</span>
+</code></pre></div>
 
 <h2 id="sendmail">配置<code>sendmail</code></h2>
 <p><code>sendmail</code>默认是本机用户发送给本机，所以需要修改可以发送到整个Internet：
 修改<code>sendmail</code>配置宏文件，路径为<code>/etc/mail/sendmail.mc</code></p>
-<p>找到</p>
-<pre><code class="bash">DAEMON_OPTIONS('Family=inet,  Name=MTA-v4, Port=smtp, Addr=127.0.0.1')dnl
-</code></pre>
-
-<p>将<code>Addr=127.0.0.1</code>修改为<code>Addr=0.0.0.0</code>，意思是可以连接到任何服务器。</p>
+<p>找到
+<div class="highlight"><pre><span></span><code>DAEMON_OPTIONS<span class="o">(</span><span class="s1">&#39;Family=inet,  Name=MTA-v4, Port=smtp, Addr=127.0.0.1&#39;</span><span class="o">)</span>dnl
+</code></pre></div>
+将<code>Addr=127.0.0.1</code>修改为<code>Addr=0.0.0.0</code>，意思是可以连接到任何服务器。</p>
 <p>保存修改的文件，下面备份配置文件：</p>
-<pre><code class="bash">cd /etc/mail
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /etc/mail
 mv sendmail.cf sendmail.cf~
-</code></pre>
+</code></pre></div>
 
-<p>然后生成新的配置文件：</p>
-<pre><code class="bash">m4 sendmail.mc &gt; sendmail.cf
-</code></pre>
-
+<p>然后生成新的配置文件：
+<div class="highlight"><pre><span></span><code>m4 sendmail.mc &gt; sendmail.cf
+</code></pre></div></p>
 <p>重启<code>sendmail</code>生效</p>
 <h2 id="_3">配置域名</h2>
 <p>配置<code>sendmail</code>使用合法的域名分两步，修改<code>sendmail</code>的配置文件和添加域名MX记录。</p>
@@ -3782,16 +3780,14 @@ mv sendmail.cf sendmail.cf~
 <h3 id="_4">第一步：添加域名</h3>
 <h4 id="1-local-host-names">(1) 将域名加入到local-host-names文件</h4>
 <p>打开：<code>/etc/mail/local-host-names</code>
-添加：</p>
-<pre><code class="bash">deali.cn
-</code></pre>
-
+添加：
+<div class="highlight"><pre><span></span><code>deali.cn
+</code></pre></div></p>
 <h4 id="2-submitcf">(2) 修改submit.cf文件</h4>
-<p>打开：<code>vi /etc/mail/submit.cf</code>，找到行 <code>#Dj$w.Foo.COM</code>，修改为</p>
-<pre><code class="bash">Djdeali.cn
-</code></pre>
-
-<p><strong>注意！一定是<code>Dj</code>+<code>Domain</code>形式！</strong></p>
+<p>打开：<code>vi /etc/mail/submit.cf</code>，找到行 <code>#Dj$w.Foo.COM</code>，修改为
+<div class="highlight"><pre><span></span><code>Djdeali.cn
+</code></pre></div>
+<strong>注意！一定是<code>Dj</code>+<code>Domain</code>形式！</strong></p>
 <p>至此，sendmail邮件命名配置完毕，重启sendmail使配置生效。</p>
 <h3 id="mx">第二步：添加域名MX记录</h3>
 <p>找到修改域名信息的页面（不同的域名注册商页面不相同），修改结果因域名商的不同最迟会在24小时内生效。</p>
@@ -3830,41 +3826,38 @@ mv sendmail.cf sendmail.cf~
 </tbody>
 </table>
 <h4 id="3-nslookupmx">(3) 使用nslookup检测MX记录是否能正确解析到邮件服务器</h4>
-<pre><code class="bash">nslookup
-&gt; set q=mx
+<div class="highlight"><pre><span></span><code>nslookup
+&gt; <span class="nb">set</span> <span class="nv">q</span><span class="o">=</span>mx
 &gt; deali.cn
-Server:         8.8.8.8
-Address:        8.8.8.8#53
+Server:         <span class="m">8</span>.8.8.8
+Address:        <span class="m">8</span>.8.8.8#53
 
 Non-authoritative answer:
-deali.cn        mail exchanger = 5 deali.cn.
+deali.cn        mail <span class="nv">exchanger</span> <span class="o">=</span> <span class="m">5</span> deali.cn.
 
 Authoritative answers can be found from:
-</code></pre>
+</code></pre></div>
 
 <h2 id="_5">发邮件测试</h2>
 <p>输入如下命令：
 <code>sendmail -t &lt;&lt;EOF</code></p>
-<p>会出现<code>&gt;</code>符号，输入下面格式的内容（每行后面回车）：</p>
-<pre><code class="bash">From:Mail test &lt;test@yourdomain.com&gt;
+<p>会出现<code>&gt;</code>符号，输入下面格式的内容（每行后面回车）：
+<div class="highlight"><pre><span></span><code>From:Mail <span class="nb">test</span> &lt;test@yourdomain.com&gt;
 To:xxxx@qq.com
 Subject:Test
-test
+<span class="nb">test</span>
 EOF
-</code></pre>
-
+</code></pre></div></p>
 <h2 id="_6">参见问题</h2>
 <h3 id="relaying-denied">Relaying denied（拒绝投递）</h3>
 <p>出现 <code>550 5.7.1 &lt;xxx@163.com&gt;... Relaying denied. IP name lookup failed [192.168.1.133]</code> 异常时，原因是把<code>sendmail</code>当做邮件中转站，需要将客户端的IP地址加入到<code>access</code>配置文件中。</p>
-<p>打开：<code>/etc/mail/access</code>，添加：</p>
-<pre><code class="bash">Connect:客户端IP                   RELAY
-</code></pre>
-
-<p>重新生成访问权限的数据库：</p>
-<pre><code class="bash">cd /etc/mail/
-makemap hash access.db &lt; access 
-</code></pre>
-
+<p>打开：<code>/etc/mail/access</code>，添加：
+<div class="highlight"><pre><span></span><code>Connect:客户端IP                   RELAY
+</code></pre></div></p>
+<p>重新生成访问权限的数据库：
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /etc/mail/
+makemap <span class="nb">hash</span> access.db &lt; access 
+</code></pre></div></p>
 <h3 id="mta">发出的邮件被其他MTA识别为垃圾</h3>
 <p>设置域名指向（上节链接），添加spf记录 <a href="https://www.renfei.org/blog/introduction-to-spf.html">操作教程</a>
 同时注意控制发信频率</p>
@@ -3879,7 +3872,7 @@ makemap hash access.db &lt; access
 <h3 id="sendmail_3">sendmail性能参数</h3>
 <p><a href="http://www.5dmail.net/html/2008-4-27/200842733006.htm">http://www.5dmail.net/html/2008-4-27/200842733006.htm</a></p>
 <h3 id="_7">一些相关的网站，文章</h3>
-<p>http://www.5dmail.net/
+<p><a href="http://www.5dmail.net/">http://www.5dmail.net/</a>
 <a href="https://www.sendmail.com/sm/open_source/">sendmail官网</a>
 <a href="http://park.jobdeer.com/discussion/19/%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81%E9%82%A3%E7%82%B9%E4%BA%8B">邮件发送那点事</a>
 <a href="http://www.qqexmail.net/tips/st_security_look_head.asp">看邮件头</a></p>
@@ -3960,6 +3953,8 @@ makemap hash access.db &lt; access
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

@@ -3453,63 +3453,63 @@
 <h2 id="_2">注意</h2>
 <p><code>django-filer</code>目前只支持到django 1.11</p>
 <h2 id="settingpy">setting.py</h2>
-<pre><code class="python">INSTALLED_APPS = [
-    # image support
-    'easy_thumbnails',
-    'filer',
-    'mptt',
-]
+<div class="highlight"><pre><span></span><code><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># image support</span>
+    <span class="s1">&#39;easy_thumbnails&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;filer&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;mptt&#39;</span><span class="p">,</span>
+<span class="p">]</span>
 
-# Image Upload Support
-THUMBNAIL_HIGH_RESOLUTION = True
-THUNMNAIL_PROCESSORS = {
-    'easy_thumbnails.processors.colorspace',
-    'easy_thumbnails.processors.autocrop',
-    'easy_thumbnails.processors.scale_and_crop_with_subject_location',
-    'easy_thumbnails.processors.filters',
-}
-FILER_STORAGES = {
-    'public': {
-        'main': {
-            'ENGINE': 'filer.storage.PublicFileSystemStorage',
-            'OPTIONS': {
-                'location': os.path.join(BASE_DIR, 'static/media/filer'),
-                'base_url': '/media/filer/'
-            },
-            'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
-            'UPLOAD_TO_PREFIX': 'filer_public'
-        },
-        'thumbnails': {
-            'ENGINE': 'filer.storage.PublicFileSystemStorage',
-            'OPTIONS': {
-                'location': os.path.join(BASE_DIR, 'static/media/filer_thumbnails'),
-                'base_url': '/media/filer_thumbnails/',
-            }
-        }
-    },
-    'private': {
-        'main': {
-            'ENGINE': 'filer.storage.PublicFileSystemStorage',
-            'OPTIONS': {
-                'location': os.path.join(BASE_DIR, 'static/smedia/filer'),
-                'base_url': '/smedia/filer/'
-            },
-            'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
-            'UPLOAD_TO_PREFIX': 'filer_public'
-        },
-        'thumbnails': {
-            'ENGINE': 'filer.storage.PublicFileSystemStorage',
-            'OPTIONS': {
-                'location': os.path.join(BASE_DIR, 'static/smedia/filer_thumbnails'),
-                'base_url': '/smedia/filer_thumbnails/',
-            }
-        }
-    }
-}
+<span class="c1"># Image Upload Support</span>
+<span class="n">THUMBNAIL_HIGH_RESOLUTION</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">THUNMNAIL_PROCESSORS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;easy_thumbnails.processors.colorspace&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;easy_thumbnails.processors.autocrop&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;easy_thumbnails.processors.scale_and_crop_with_subject_location&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;easy_thumbnails.processors.filters&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">FILER_STORAGES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;public&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;main&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;filer.storage.PublicFileSystemStorage&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;static/media/filer&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;base_url&#39;</span><span class="p">:</span> <span class="s1">&#39;/media/filer/&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;UPLOAD_TO&#39;</span><span class="p">:</span> <span class="s1">&#39;filer.utils.generate_filename.randomized&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;UPLOAD_TO_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;filer_public&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;thumbnails&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;filer.storage.PublicFileSystemStorage&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;static/media/filer_thumbnails&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;base_url&#39;</span><span class="p">:</span> <span class="s1">&#39;/media/filer_thumbnails/&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;private&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;main&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;filer.storage.PublicFileSystemStorage&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;static/smedia/filer&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;base_url&#39;</span><span class="p">:</span> <span class="s1">&#39;/smedia/filer/&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;UPLOAD_TO&#39;</span><span class="p">:</span> <span class="s1">&#39;filer.utils.generate_filename.randomized&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;UPLOAD_TO_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;filer_public&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;thumbnails&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;filer.storage.PublicFileSystemStorage&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;static/smedia/filer_thumbnails&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;base_url&#39;</span><span class="p">:</span> <span class="s1">&#39;/smedia/filer_thumbnails/&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/upload/media')
-</code></pre>
+<span class="n">MEDIA_URL</span> <span class="o">=</span> <span class="s1">&#39;/media/&#39;</span>
+<span class="n">MEDIA_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;static/upload/media&#39;</span><span class="p">)</span>
+</code></pre></div>
                 
                   
                 
@@ -3583,6 +3583,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/upload/media')
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

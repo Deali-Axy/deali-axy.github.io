@@ -3483,24 +3483,23 @@
 然后把图片放到<code>/usr/share/backgrounds/</code>目录下面。</p>
 <h2 id="gdmcss">修改GDM的CSS文件</h2>
 <p>感觉如果是做前端的人来用Gnome那就真的美滋滋了，主题、插件、各种美化都可以玩的飞起。</p>
-<p>文件位置</p>
-<pre><code class="bash">/etc/alternatives/gdm3.css
-</code></pre>
+<p>文件位置
+<div class="highlight"><pre><span></span><code>/etc/alternatives/gdm3.css
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="c">/*找到默认的这个部分*/</span>
+<span class="p">#</span><span class="nn">lockDialogGroup</span> <span class="p">{</span>
+  <span class="k">background</span><span class="p">:</span> <span class="mh">#2c001e</span> <span class="nb">url</span><span class="p">(</span><span class="sx">resource:///org/gnome/shell/theme/noise-texture.png</span><span class="p">);</span>
+  <span class="k">background-repeat</span><span class="p">:</span> <span class="kc">repeat</span><span class="p">;</span> 
+<span class="p">}</span>
 
-<pre><code class="css">/*找到默认的这个部分*/
-#lockDialogGroup {
-  background: #2c001e url(resource:///org/gnome/shell/theme/noise-texture.png);
-  background-repeat: repeat; 
-}
-
-/*改为*/
-#lockDialogGroup {
-  background: #2c001e url(file:///usr/share/backgrounds/mypicture.jpg);         
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center; 
-}
-</code></pre>
+<span class="c">/*改为*/</span>
+<span class="p">#</span><span class="nn">lockDialogGroup</span> <span class="p">{</span>
+  <span class="k">background</span><span class="p">:</span> <span class="mh">#2c001e</span> <span class="nb">url</span><span class="p">(</span><span class="sx">file:///usr/share/backgrounds/mypicture.jpg</span><span class="p">);</span>         
+  <span class="k">background-repeat</span><span class="p">:</span> <span class="kc">no-repeat</span><span class="p">;</span>
+  <span class="k">background-size</span><span class="p">:</span> <span class="kc">cover</span><span class="p">;</span>
+  <span class="k">background-position</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span> 
+<span class="p">}</span>
+</code></pre></div>
 
 <p>提示：CSS代码仅供参考，熟悉前端的同学可以根据自己的喜好制作更好的效果，到时候别忘了分享一波哦～</p>
 <h2 id="_3">重启</h2>
@@ -3585,6 +3584,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

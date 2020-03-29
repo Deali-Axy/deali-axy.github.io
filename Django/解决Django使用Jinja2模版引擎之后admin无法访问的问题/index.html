@@ -3453,110 +3453,108 @@
 <p>说明：这两个文件放在哪里都是ok，但是要记住路径，待会配置的时候需要输入。
 建议放在和<code>settings.py</code>同个目录下面。</p>
 </blockquote>
-<p>创建<code>backends.py</code>文件：</p>
-<pre><code class="python">import sys
+<p>创建<code>backends.py</code>文件：
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sys</span>
 
-from django.template.backends import jinja2 as jinja2backend
-from django.template.backends.utils import csrf_input_lazy, csrf_token_lazy
-from django.template import TemplateDoesNotExist, TemplateSyntaxError
-from django.utils.module_loading import import_string
-import jinja2
-import six
-
-
-class Jinja2Backend(jinja2backend.Jinja2):
-    def __init__(self, params):
-        self.context_processors = [
-            import_string(p)
-            for p in params['OPTIONS'].pop('context_processors', [])
-        ]
-        super(Jinja2Backend, self).__init__(params)
-
-    def from_string(self, template_code):
-        return Template(
-            self.env.from_string(template_code), self.context_processors)
-
-    def get_template(self, template_name):
-        try:
-            return Template(
-                self.env.get_template(template_name), self.context_processors)
-        except jinja2.TemplateNotFound as exc:
-            six.reraise(TemplateDoesNotExist, TemplateDoesNotExist(exc.args),
-                        sys.exc_info()[2])
-        except jinja2.TemplateSyntaxError as exc:
-            six.reraise(TemplateSyntaxError, TemplateSyntaxError(exc.args),
-                        sys.exc_info()[2])
+<span class="kn">from</span> <span class="nn">django.template.backends</span> <span class="kn">import</span> <span class="n">jinja2</span> <span class="k">as</span> <span class="n">jinja2backend</span>
+<span class="kn">from</span> <span class="nn">django.template.backends.utils</span> <span class="kn">import</span> <span class="n">csrf_input_lazy</span><span class="p">,</span> <span class="n">csrf_token_lazy</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">TemplateDoesNotExist</span><span class="p">,</span> <span class="n">TemplateSyntaxError</span>
+<span class="kn">from</span> <span class="nn">django.utils.module_loading</span> <span class="kn">import</span> <span class="n">import_string</span>
+<span class="kn">import</span> <span class="nn">jinja2</span>
+<span class="kn">import</span> <span class="nn">six</span>
 
 
-class Template(jinja2backend.Template):
+<span class="k">class</span> <span class="nc">Jinja2Backend</span><span class="p">(</span><span class="n">jinja2backend</span><span class="o">.</span><span class="n">Jinja2</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context_processors</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">import_string</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;OPTIONS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;context_processors&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="p">]</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Jinja2Backend</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 
-    def __init__(self, template, context_processors):
-        self.template = template
-        self.context_processors = context_processors
+    <span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_code</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Template</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">template_code</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_processors</span><span class="p">)</span>
 
-    def render(self, context=None, request=None):
-        if context is None:
-            context = {}
-        if request is not None:
-            context['request'] = request
-            lazy_csrf_input = csrf_input_lazy(request)
-            context['csrf'] = lambda: lazy_csrf_input
-            context['csrf_input'] = lazy_csrf_input
-            context['csrf_token'] = csrf_token_lazy(request)
-            for cp in self.context_processors:
-                context.update(cp(request))
-            # print(context)
-        return self.template.render(context)
-</code></pre>
-
-<p><code>env.py</code>文件</p>
-<pre><code class="python">from __future__ import absolute_import
-
-from django.contrib.staticfiles.storage import staticfiles_storage
-from django.urls import reverse
-
-from jinja2 import Environment
+    <span class="k">def</span> <span class="nf">get_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_name</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Template</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_processors</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">jinja2</span><span class="o">.</span><span class="n">TemplateNotFound</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">six</span><span class="o">.</span><span class="n">reraise</span><span class="p">(</span><span class="n">TemplateDoesNotExist</span><span class="p">,</span> <span class="n">TemplateDoesNotExist</span><span class="p">(</span><span class="n">exc</span><span class="o">.</span><span class="n">args</span><span class="p">),</span>
+                        <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">except</span> <span class="n">jinja2</span><span class="o">.</span><span class="n">TemplateSyntaxError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">six</span><span class="o">.</span><span class="n">reraise</span><span class="p">(</span><span class="n">TemplateSyntaxError</span><span class="p">,</span> <span class="n">TemplateSyntaxError</span><span class="p">(</span><span class="n">exc</span><span class="o">.</span><span class="n">args</span><span class="p">),</span>
+                        <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
 
 
-def environment(**options):
-    env = Environment(**options)
-    env.globals.update({
-        'static': staticfiles_storage.url,
-        'url': reverse,
-    })
-    return env
-</code></pre>
+<span class="k">class</span> <span class="nc">Template</span><span class="p">(</span><span class="n">jinja2backend</span><span class="o">.</span><span class="n">Template</span><span class="p">):</span>
 
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">context_processors</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="n">template</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context_processors</span> <span class="o">=</span> <span class="n">context_processors</span>
+
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">context</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">request</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">&#39;request&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span>
+            <span class="n">lazy_csrf_input</span> <span class="o">=</span> <span class="n">csrf_input_lazy</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">&#39;csrf&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">lazy_csrf_input</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">&#39;csrf_input&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lazy_csrf_input</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">&#39;csrf_token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">csrf_token_lazy</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">cp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_processors</span><span class="p">:</span>
+                <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cp</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+            <span class="c1"># print(context)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+</code></pre></div></p>
+<p><code>env.py</code>文件
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.staticfiles.storage</span> <span class="kn">import</span> <span class="n">staticfiles_storage</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
+
+<span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Environment</span>
+
+
+<span class="k">def</span> <span class="nf">environment</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">):</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;static&#39;</span><span class="p">:</span> <span class="n">staticfiles_storage</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">reverse</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="n">env</span>
+</code></pre></div></p>
 <h2 id="_2">项目配置</h2>
 <p>编辑<code>settings.py</code></p>
-<pre><code class="python">CONTEXT_PROCESSORS = [
-    'django.template.context_processors.debug',
-    'django.template.context_processors.request',
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-]
+<div class="highlight"><pre><span></span><code><span class="n">CONTEXT_PROCESSORS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;django.template.context_processors.debug&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.template.context_processors.request&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.auth.context_processors.auth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.messages.context_processors.messages&#39;</span><span class="p">,</span>
+<span class="p">]</span>
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {'context_processors': CONTEXT_PROCESSORS, },
-    },
-    {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2'
-        ,
-        'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
-        ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': CONTEXT_PROCESSORS,
-            'environment': '存放路径.env.environment'
-        },
-    },
-]
-</code></pre>
+<span class="n">TEMPLATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django.template.backends.django.DjangoTemplates&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;DIRS&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;APP_DIRS&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;context_processors&#39;</span><span class="p">:</span> <span class="n">CONTEXT_PROCESSORS</span><span class="p">,</span> <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django.template.backends.jinja2.Jinja2&#39;</span>
+        <span class="p">,</span>
+        <span class="s1">&#39;DIRS&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;templates&#39;</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;APP_DIRS&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;context_processors&#39;</span><span class="p">:</span> <span class="n">CONTEXT_PROCESSORS</span><span class="p">,</span>
+            <span class="s1">&#39;environment&#39;</span><span class="p">:</span> <span class="s1">&#39;存放路径.env.environment&#39;</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+</code></pre></div>
 
 <p><img alt="" src="../%E8%A7%A3%E5%86%B3Django%E4%BD%BF%E7%94%A8Jinja2%E6%A8%A1%E7%89%88%E5%BC%95%E6%93%8E%E4%B9%8B%E5%90%8Eadmin%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98.assets/8869373-692154a6116f08a9.png" /></p>
 <h2 id="about">About</h2>
@@ -3637,6 +3635,8 @@ TEMPLATES = [
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

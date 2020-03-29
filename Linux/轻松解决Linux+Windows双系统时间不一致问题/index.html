@@ -3467,15 +3467,13 @@
 但是一直以来有个困扰，Linux下时间显示是正常的，但是回到Windows下时间就会慢了8个小时 = =
 这是因为Windows默认使用硬件时钟，而Linux使用网络时间，现在只需要一条命令就能搞定这个问题。</p>
 <h2 id="_2">解决</h2>
-<p>在Linux下打开终端，输入命令：</p>
-<pre><code class="python">timedatectl set-local-rtc 1
-</code></pre>
-
-<p>然后再输入</p>
-<pre><code class="python">timedatectl
-</code></pre>
-
-<p>进行验证。（非必要）</p>
+<p>在Linux下打开终端，输入命令：
+<div class="highlight"><pre><span></span><code><span class="n">timedatectl</span> <span class="nb">set</span><span class="o">-</span><span class="n">local</span><span class="o">-</span><span class="n">rtc</span> <span class="mi">1</span>
+</code></pre></div>
+然后再输入
+<div class="highlight"><pre><span></span><code><span class="n">timedatectl</span>
+</code></pre></div>
+进行验证。（非必要）</p>
 <p><img alt="" src="../%E8%BD%BB%E6%9D%BE%E8%A7%A3%E5%86%B3Linux%2BWindows%E5%8F%8C%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E4%B8%8D%E4%B8%80%E8%87%B4%E9%97%AE%E9%A2%98.assets/8869373-dcf0f1f5ddfe9ab9.png" /></p>
 <p>这样问题就解决了，超简单有木有！</p>
 <h2 id="about">About</h2>
@@ -3555,6 +3553,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

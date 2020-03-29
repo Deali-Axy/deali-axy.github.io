@@ -3526,10 +3526,10 @@
 OpenJDK 和 Oracle JDK的配置是有差别的，这里推荐大家使用OracleJDK以免遇到奇怪的坑～</p>
 </blockquote>
 <h2 id="oraclejdk">附上安装OracleJDK的方法</h2>
-<pre><code class="bash">$ sudo add-apt-repository ppa:webupd8team/java
+<div class="highlight"><pre><span></span><code>$ sudo add-apt-repository ppa:webupd8team/java
 $ sudo apt-get update
 $ sudo apt-get install oracle-java8-installer
-</code></pre>
+</code></pre></div>
 
 <h2 id="openjdk">OpenJDK需要多一步操作</h2>
 <p>因为OpenJDK8默认是没有javafx包的，需要先安装 OpenJFX。</p>
@@ -3541,38 +3541,38 @@ Idea 在创建Java项目的时候默认不导入JavaFx包，所以需要我们�
 <p>点击旁边的 “+” 号，然后在 jdk 目录下，<code>/lib/ext</code>文件夹里找到 <code>jfxrt.jar</code> 这个包，并且导入，就OK啦～</p>
 <h2 id="helloworld">HelloWorld</h2>
 <p>第一个程序从HelloWorld开始！</p>
-<pre><code class="java">package lin.Learning.JavaFx;
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">lin.Learning.JavaFx</span><span class="o">;</span>
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
+<span class="kn">import</span> <span class="nn">javafx.application.Application</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.Scene</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.layout.StackPane</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javafx.stage.Stage</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.control.Label</span><span class="o">;</span>
 
 
-public class HelloWorld extends Application {
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="o">{</span>
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">launch</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
 
-    @Override
-    public void start(Stage primaryStage) {
-        Label label = new Label(&quot;the first label&quot;);
-        // 创建面板作为根节点
-        StackPane rootNode=new StackPane();
-        // 将label控件添加到根节点上
-        rootNode.getChildren().add(label);
-        // 创建场景对象，指定根节点对象和大小
-        Scene scene=new Scene(rootNode,200,60);
-        primaryStage.setTitle(&quot;Hello JavaFx&quot;);
-        // 将场景添加到舞台中
-        primaryStage.setScene(scene);
-        // 显示舞台
-        primaryStage.show();
-    }
-}
-</code></pre>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">(</span><span class="n">Stage</span> <span class="n">primaryStage</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Label</span> <span class="n">label</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Label</span><span class="o">(</span><span class="s">&quot;the first label&quot;</span><span class="o">);</span>
+        <span class="c1">// 创建面板作为根节点</span>
+        <span class="n">StackPane</span> <span class="n">rootNode</span><span class="o">=</span><span class="k">new</span> <span class="n">StackPane</span><span class="o">();</span>
+        <span class="c1">// 将label控件添加到根节点上</span>
+        <span class="n">rootNode</span><span class="o">.</span><span class="na">getChildren</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">label</span><span class="o">);</span>
+        <span class="c1">// 创建场景对象，指定根节点对象和大小</span>
+        <span class="n">Scene</span> <span class="n">scene</span><span class="o">=</span><span class="k">new</span> <span class="n">Scene</span><span class="o">(</span><span class="n">rootNode</span><span class="o">,</span><span class="mi">200</span><span class="o">,</span><span class="mi">60</span><span class="o">);</span>
+        <span class="n">primaryStage</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">&quot;Hello JavaFx&quot;</span><span class="o">);</span>
+        <span class="c1">// 将场景添加到舞台中</span>
+        <span class="n">primaryStage</span><span class="o">.</span><span class="na">setScene</span><span class="o">(</span><span class="n">scene</span><span class="o">);</span>
+        <span class="c1">// 显示舞台</span>
+        <span class="n">primaryStage</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
 
 <p>运行效果：
 <img alt="" src="../%E5%9C%A8Linux-Ubuntu%E4%B8%8A%E9%85%8D%E7%BD%AE%E5%BC%80%E5%8F%91JavaFx%E7%A8%8B%E5%BA%8F-%28%E6%9B%B4%E6%96%B0%29.assets/8869373-22a3037fb6460d91.png" /></p>
@@ -3580,11 +3580,11 @@ public class HelloWorld extends Application {
 <h2 id="scene-builder">安装 Scene Builder</h2>
 <p>JavaFx特色就是 View 和 Controller 分离，使用 fxml 写界面布局，并且 Oracle 提供了一款所见即所得的界面设计工具，不过要自己去安装。</p>
 <p>下载地址：
-https://www.oracle.com/technetwork/java/javase/downloads/javafxscenebuilder-1x-archive-2199384.html#javafx-scenebuilder-2.0-oth-JPR</p>
+<a href="https://www.oracle.com/technetwork/java/javase/downloads/javafxscenebuilder-1x-archive-2199384.html#javafx-scenebuilder-2.0-oth-JPR">https://www.oracle.com/technetwork/java/javase/downloads/javafxscenebuilder-1x-archive-2199384.html#javafx-scenebuilder-2.0-oth-JPR</a></p>
 <p>选择对应系统的版本下载就行了，这里我选择的是Debian的deb安装包。</p>
 <p><img alt="" src="../%E5%9C%A8Linux-Ubuntu%E4%B8%8A%E9%85%8D%E7%BD%AE%E5%BC%80%E5%8F%91JavaFx%E7%A8%8B%E5%BA%8F-%28%E6%9B%B4%E6%96%B0%29.assets/8869373-1e1fa17086e3142e.png" /></p>
 <p>关于 Scene Builder 的安装，可以参照 oracle 的文档：
-https://docs.oracle.com/javase/8/scene-builder-2/installation-guide/preface.htm#sthref2</p>
+<a href="https://docs.oracle.com/javase/8/scene-builder-2/installation-guide/preface.htm#sthref2">https://docs.oracle.com/javase/8/scene-builder-2/installation-guide/preface.htm#sthref2</a></p>
 <p>这里摘一段文档，关于在Linux平台安装 Scene Builder的：</p>
 <blockquote>
 <p>(Linux platform) Extract the Scene Builder 2.0 files from the javafx_scenebuilder-2_0-linux-<platform>.tar.gz to a directory on your local file system, or double-click the javafx_scenebuilder-2_0-linux-<platform>.deb file to open it with Ubuntu Software Center, where <platform> is either x64 or i586. By default, the Scene Builder application is installed at /opt/JavaFXSceneBuilder2.0/.</p>
@@ -3677,6 +3677,8 @@ Every post was in my blog：<a href="http://blog.deali.cn">blog.deali.cn</a></p>
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

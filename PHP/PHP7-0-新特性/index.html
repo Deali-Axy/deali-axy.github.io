@@ -3630,46 +3630,44 @@
 <p>PHP7版本函数的参数和返回值增加了类型限定。
 为什么PHP要加入类型呢？实际上此项特性是为了PHP7.1版本的JIT特性做准备，增加类型后PHP Jit可以准确判断变量类型，生成最佳的机器指令。
 <em>（针对密集运算的优化）</em></p>
-<p>使用示例</p>
-<pre><code class="php">function test(int $a, string $b, array $c) : int {
-    //code
-}
-</code></pre>
-
+<p>使用示例
+<div class="highlight"><pre><span></span><code><span class="x">function test(int $a, string $b, array $c) : int {</span>
+<span class="x">    //code</span>
+<span class="x">}</span>
+</code></pre></div></p>
 <h2 id="_2">错误异常</h2>
 <p>在过去，PHP程序出错之后Zend引擎会发生致命错误并终止程序运行，PHP7可以使用<code>try/catch</code>捕获错误。</p>
-<pre><code class="php">try{
-    not_exists_func();
-}catch(EngineException $e){
-    echo &quot;Exception: {$e-&gt;getMessage()}\n&quot;;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="x">try{</span>
+<span class="x">    not_exists_func();</span>
+<span class="x">}catch(EngineException $e){</span>
+<span class="x">    echo &quot;Exception: {$e-&gt;getMessage()}\n&quot;;</span>
+<span class="x">}</span>
+</code></pre></div>
 
 <h2 id="php7">PHP7的性能优化</h2>
 <h3 id="zval">zval使用栈内存</h3>
 <p>在Zend引擎和扩展中，经常要创建一个PHP的变量，底层就是一个zval指针。
 之前的版本都是通过<code>MAKE_STD_ZVAL</code>动态的从堆上分配一个zval内存，而PHP7可以直接使用栈内存。
 好处：节省分配内存的花销</p>
-<p><strong>底层代码</strong></p>
-<pre><code class="c">//php5
-zval *val;
-MAKE_STD_ZVAL(val);
+<p><strong>底层代码</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">//php5</span>
+<span class="n">zval</span> <span class="o">*</span><span class="n">val</span><span class="p">;</span>
+<span class="n">MAKE_STD_ZVAL</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
 
-//php7
-zval val;
-</code></pre>
-
+<span class="c1">//php7</span>
+<span class="n">zval</span> <span class="n">val</span><span class="p">;</span>
+</code></pre></div></p>
 <h3 id="zend_stringhasharrayhash">zend_string存储hash值，array查询不再需要重复计算hash</h3>
 <p>PHP7为字符串单独创建了新类型叫做<code>zend_string</code>，除了<code>char *</code>指针和长度之外，
 增加了一个hash字段，用于保存字符串的hash值。
 数组的键值查找不需要反复计算hash值。</p>
-<pre><code class="c++">struct _zend_string{
-    zend_refcounted     gc;
-    zend_ulong          h;
-    size_t              len;
-    char                val[1];
-};
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="n">_zend_string</span><span class="p">{</span>
+    <span class="n">zend_refcounted</span>     <span class="n">gc</span><span class="p">;</span>
+    <span class="n">zend_ulong</span>          <span class="n">h</span><span class="p">;</span>
+    <span class="kt">size_t</span>              <span class="n">len</span><span class="p">;</span>
+    <span class="kt">char</span>                <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">};</span>
+</code></pre></div>
 
 <h3 id="hashtablecache"><code>hashtable</code>桶内直接存数据，减少了内存申请次数，提升看了Cache命中率和内存访问速度</h3>
 <p>在之前版本的PHP中，在<code>array</code>里每插入一个数据，就要申请一次内存，并且使内存存储在不同的内存页上，访问的时候命中率会降低。</p>
@@ -3692,11 +3690,10 @@ PHP开发组自己重启Jit开发计划，预计PHP7.1版本会带有Jit特性</
 <h3 id="php70jit">为什么PHP7.0没有Jit</h3>
 <p>Jit对于实际项目，如WordPress没有太大的性能提升</p>
 <h2 id="php">PHP内置开发测试服务器</h2>
-<pre><code class="bash">cd ~/php
-php -S 0.0.0.0:8080
-</code></pre>
-
-<p>即可以<code>~/php</code>为网站根目录启动服务器。</p>
+<p><div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/php
+php -S <span class="m">0</span>.0.0.0:8080
+</code></pre></div>
+即可以<code>~/php</code>为网站根目录启动服务器。</p>
 <h2 id="about">About</h2>
 <p><img alt="" src="../PHP7-0-%E6%96%B0%E7%89%B9%E6%80%A7.assets/8869373-901590e019f6f85b.png" /></p>
 <hr />
@@ -3775,6 +3772,8 @@ php -S 0.0.0.0:8080
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

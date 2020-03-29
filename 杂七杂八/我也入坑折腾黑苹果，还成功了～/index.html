@@ -3546,15 +3546,14 @@ Windows的ghost差不多，感觉对硬盘会有损害，而且不是纯净版�
 <p>这样就可以开始了</p>
 <h2 id="_4">进入系统安装</h2>
 <p>制作好了启动盘之后，重启进入mac系统安装，如果这都进不去就先找一下你这个机型的clover文件，先在Windows下挂载U盘的EFI分区，（推荐用系统自带的diskpart命令），也可以用磁盘精灵这类的。</p>
-<p>diskpart挂载EFI分区其实很简单，大致如下：</p>
-<pre><code class="bash">diskpart
-list disk # 显示出所有磁盘
-sel disk 2 # 选择你的U盘，具体几号自己看
-list part # 显示所有分区
-sel part 1 # 一般EFI分区都是第一个
-assign letter=k # 分配一个盘符，具体多少自己定
-</code></pre>
-
+<p>diskpart挂载EFI分区其实很简单，大致如下：
+<div class="highlight"><pre><span></span><code>diskpart
+list disk <span class="c1"># 显示出所有磁盘</span>
+sel disk <span class="m">2</span> <span class="c1"># 选择你的U盘，具体几号自己看</span>
+list part <span class="c1"># 显示所有分区</span>
+sel part <span class="m">1</span> <span class="c1"># 一般EFI分区都是第一个</span>
+assign <span class="nv">letter</span><span class="o">=</span>k <span class="c1"># 分配一个盘符，具体多少自己定</span>
+</code></pre></div></p>
 <p>然后Windows可能还有很坑的地方，就是分配盘符之后，却打不开这个盘，说什么没有权限。。我服
 这个时候可以使用管理员权限打开powershell，输入notepad，点打开，里面不是有个文件浏览对话框吗，在这里面操作就行了，反正差不多吧，是麻烦了一点，没办法，Windows真垃圾。</p>
 <p>然后准备一个空的分区，进入mac安装界面之后，选择磁盘工具
@@ -3669,6 +3668,8 @@ assign letter=k # 分配一个盘符，具体多少自己定
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>

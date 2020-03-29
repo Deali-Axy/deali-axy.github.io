@@ -3477,15 +3477,13 @@
                 <h2 id="_1">解决方法</h2>
 <p>首先，打开WSL是不需要输入密码的，如果你打开WSL时的默认用户不是root，请按照一下方式修改。</p>
 <h3 id="wsl">修改默认登录WSL用户</h3>
-<p>以管理员权限启动Powershell</p>
-<pre><code class="python"> lxrun /setdefaultuser root
-</code></pre>
-
+<p>以管理员权限启动Powershell
+<div class="highlight"><pre><span></span><code> <span class="n">lxrun</span> <span class="o">/</span><span class="n">setdefaultuser</span> <span class="n">root</span>
+</code></pre></div></p>
 <p>此时重新打开WSL就是root用户了，并且不需要密码。</p>
-<p>然后输入以下命令修改密码。</p>
-<pre><code class="python">passwd root
-</code></pre>
-
+<p>然后输入以下命令修改密码。
+<div class="highlight"><pre><span></span><code><span class="n">passwd</span> <span class="n">root</span>
+</code></pre></div></p>
 <h2 id="about">About</h2>
 <h2 id="_2"><img alt="" src="../%E5%BF%98%E8%AE%B0WSL%E7%9A%84root%E5%AF%86%E7%A0%81%E6%80%8E%E4%B9%88%E5%8A%9E.assets/8869373-901590e019f6f85b.png" /></h2>
 <p>了解更多有趣的操作请关注我的微信公众号：DealiAxy
@@ -3563,6 +3561,8 @@
       <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
     
   </body>
