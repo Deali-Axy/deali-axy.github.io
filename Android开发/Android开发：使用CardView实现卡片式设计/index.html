@@ -3585,7 +3585,7 @@
 <p>To change CardView's elevation in a backward compatible way, use <a href="https://developer.android.com/reference/android/support/v7/widget/CardView.html#setCardElevation(float)">setCardElevation(float)</a>. CardView will use elevation API on Lollipop and before Lollipop, it will change the shadow size. To avoid moving the View while shadow size is changing, shadow size is clamped by <a href="https://developer.android.com/reference/android/support/v7/widget/CardView.html#getMaxCardElevation()">getMaxCardElevation()</a>. If you want to change elevation dynamically, you should call <a href="https://developer.android.com/reference/android/support/v7/widget/CardView.html#setMaxCardElevation(float)">setMaxCardElevation(float)</a> when CardView is initialized.</p>
 </blockquote>
 <p>简单的效果图：
-{% asset_img 8869373-4b5f632df2a85495.png %}</p>
+<img alt="" src="../Android%E5%BC%80%E5%8F%91%EF%BC%9A%E4%BD%BF%E7%94%A8CardView%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E5%BC%8F%E8%AE%BE%E8%AE%A1.assets/8869373-4b5f632df2a85495.png" /></p>
 <h2 id="_2">简略版介绍</h2>
 <blockquote>
 <p>Apps often need to display data in similarly styled containers. These containers are often used in lists to hold each item's information. The system provides the <a href="https://developer.android.com/reference/android/support/v7/widget/CardView.html">CardView</a> API as an easy way for you show information inside cards that have a consistent look across the platform. These cards have a default elevation above their containing view group, so the system draws shadows below them. Cards provide an easy way to contain a group of views while providing a consistent style for the container.</p>
@@ -3621,7 +3621,7 @@
 <p>关于Cards的设计规范可以参考官网介绍：<a href="https://material.google.com/components/cards.html#">https://material.google.com/components/cards.html#</a></p>
 <p>为了更好地实现这种 Cards UI 的设计，Google在v7包中引进了一种全新的控件：<a href="https://developer.android.com/reference/android/support/v7/widget/CardView.html#">CardVew</a>，本文将从开发的角度介绍CardView的一些常见使用细节。</p>
 <p>Google用一句话介绍了CardView：一个带圆角和阴影背景的FrameLayout。CardView在Android Lollipop（API 21）及以上版本的系统中适配较好，本文我们以一个具体的例子来学习CardView的基本使用和注意事项，效果图如下：</p>
-<p>{% asset_img 8869373-dbb473d82614922a.png %}</p>
+<p><img alt="" src="../Android%E5%BC%80%E5%8F%91%EF%BC%9A%E4%BD%BF%E7%94%A8CardView%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E5%BC%8F%E8%AE%BE%E8%AE%A1.assets/8869373-dbb473d82614922a.png" /></p>
 <p>这是一个list列表，列表中的item使用了卡片式设计，主要利用CardView控件实现，下面来分析一下布局文件的核心代码。</p>
 <pre><code class="xml">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
     xmlns:tools=&quot;http://schemas.android.com/tools&quot;
@@ -3647,20 +3647,20 @@
 <p>可以看出，核心部分在于CardView的属性使用，下面我们针对几个特殊的属性逐一分析，深化了解。</p>
 <h2 id="z">关于Z轴</h2>
 <p>Android5.0 引入了Z轴的概念，可以让组件呈现3D效果.</p>
-<p>{% asset_img 8869373-a0fc7ea8a0da7528.png %}</p>
+<p><img alt="" src="../Android%E5%BC%80%E5%8F%91%EF%BC%9A%E4%BD%BF%E7%94%A8CardView%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E5%BC%8F%E8%AE%BE%E8%AE%A1.assets/8869373-a0fc7ea8a0da7528.png" /></p>
 <h2 id="_4">排版技巧</h2>
 <p>前面我们说过，CardView从本质上属于FrameLayout，而CardView通常包含了较多的内容元素，为了方便地排版布局中的各个元素，一般借助于其他基本布局容器，比如这里我们使用了一个RelativeLayout作为CardView的唯一Child。</p>
 <h2 id="shadow-padding">Shadow Padding</h2>
 <p>在Android Lollipop之前的系统，CardView会自动添加一些额外的padding空间来绘制阴影部分，这也导致了以Lollipop为分界线的不同系统上CardView的尺寸大小不同。为了解决这个问题，有两种方法：第一种，使用不同API版本的dimension资源适配（也就是借助values和values-21文件夹中不同的dimens.xml文件）；第二种，就是使用cardUseCompatPadding属性，设置为true（默认值为false），让CardView在不同系统中使用相同的padding值。</p>
 <h2 id="_5">圆角覆盖</h2>
 <p>这也是一个解决系统兼容的问题。在pre-Lollipop平台（API 21版本之前）上，CardView不会裁剪内容元素以满足圆角需求，而是使用添加padding的替代方案，从而使内容元素不会覆盖CardView的圆角。而控制这个行为的属性就是cardPreventCornerOverlap，默认值为true。在本例中我们设置了该属性为false。这里我们看一下，在pre-Lollipop平台中，不同cardPreventCornerOverlap值的效果对比图（左false，右true）：</p>
-<p>{% asset_img 8869373-a72715f47b73cd23.png %}</p>
+<p><img alt="" src="../Android%E5%BC%80%E5%8F%91%EF%BC%9A%E4%BD%BF%E7%94%A8CardView%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E5%BC%8F%E8%AE%BE%E8%AE%A1.assets/8869373-a72715f47b73cd23.png" /></p>
 <p>显然，默认值下自动添加padding的方式不可取，所以需要设置该属性值为false。需要注意的一点是，该属性的设置在Lollipop及以上版本的系统中没有任何影响，除非cardUseCompatPadding的值为true。</p>
 <h2 id="ripple">Ripple效果</h2>
 <p>Cards一般都是可点击的，为此我们使用了foreground属性并使用系统的selectableItemBackground值，同时设置clickable为true（如果在java代码中使用了cardView.setOnClickListener，就可以不用写clickable属性了），从而达到在Lollipop及以上版本系统中实现点击时的涟漪效果（Ripple）。在pre-Lollipop版本中，则是一个普通的点击变暗的效果。</p>
 <h2 id="lift-on-touch">lift-on-touch</h2>
 <p>根据官网<a href="https://material.google.com/motion/material-motion.html#">Material motion</a>部分对交互动作规范的指导，Cards、Button等视图应该有一个触摸抬起（lift-on-touch）的交互效果，也就是在三维立体空间上的Z轴发生位移，从而产生一个阴影加深的效果，与Ripple效果共同使用，官网给了一个很好的示例图：
-{% asset_img 8869373-840421b58db987ed.png %}</p>
+<img alt="" src="../Android%E5%BC%80%E5%8F%91%EF%BC%9A%E4%BD%BF%E7%94%A8CardView%E5%AE%9E%E7%8E%B0%E5%8D%A1%E7%89%87%E5%BC%8F%E8%AE%BE%E8%AE%A1.assets/8869373-840421b58db987ed.png" /></p>
 <p>在实现这个效果也很简单，可以在<code>res/drawable</code>目录下建立一个lift_on_touch.xml文件，内容如下：</p>
 <pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;!-- animate the translationZ property of a view when pressed --&gt;

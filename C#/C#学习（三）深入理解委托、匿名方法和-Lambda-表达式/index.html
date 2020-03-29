@@ -3669,7 +3669,7 @@ IL_0096: ret
 用的方法的执行结果，所以在实际的应用中不被推荐。</p>
 <h2 id="_4">委托的本质</h2>
 <p>委托在本质上仍然是一个类，如此简洁的语法正是因为 CLR 和编译器在后台完成了一系列操作，将上述 CalculateDelegate 委托编译为 IL，你将会看得更加明白，如图：</p>
-<p>{% asset_img 8869373-26e9af8bb7c7cdb0.png %}</p>
+<p><img alt="" src="C#学习（三）深入理解委托、匿名方法和-Lambda-表达式.assets\8869373-26e9af8bb7c7cdb0.png" /></p>
 <p>所以，委托本质上仍旧是一个类，该类继承自 System.MulticastDelegate 类，该类维护一个带有链接的委托列表，在调用多播委托时，将按照委托列表的委托顺序而调用的。还包括一个接受两个参数的构造函数和 3 个重要方法：BeginInvoke、EndInvoke 和 Invoke。</p>
 <p>首先来了解 CalculateDelegate 的构造函数，它包括了两个参数：第一个参数表示一个对象引用，它指向了当前委托调用回调函数的实例，在本例中即指向一个 DelegateEx 对象；第二个参数标识了回调方法，也就是 Add 方法。因此，在创建一个委托类型实例时，将会为其初始化一个指向对象的引用和一个标识回调方法的整数，这是由编译器完成的。那么一个回调方法是如何被执行的，继续以 IL 代码来分析委托的调用，即可显露端倪（在此仅分析委托关联 Add 方法时的情况）：</p>
 <pre><code class="il">.method public hidebysig static void Main() cil managed
@@ -3828,7 +3828,7 @@ button1_Click 方法：</p>
 </code></pre>
 
 <p>事实上，匿名方法和委托在 IL 层是等效的，编译器为匿名方法增加了两个静态成员和静态方法，如图：
-{% asset_img 8869373-32f118858929f082.png %}</p>
+<img alt="" src="C#学习（三）深入理解委托、匿名方法和-Lambda-表达式.assets\8869373-32f118858929f082.png" /></p>
 <p>由编译器生成的两个静态成员和静态方法，辅助实现了委托调用一样的语法结构，这正是匿名方法在底层的真相。</p>
 <h2 id="lambda">Lambda表达式</h2>
 <p>Lambda 表达式是 Functional Programming 的核心概念，现在 C# 3.0 中也引入了 Lambda 表达式来实现更加简洁的语法，并且为 LINQ 提供了语法基础，这些将在本书第 12 章有所交代。再次应用 Lambda 表达式来实现相同的过程，其代码为：</p>

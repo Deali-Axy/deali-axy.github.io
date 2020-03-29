@@ -3361,43 +3361,43 @@
                   <h1>IT之家学院：让Win10文件管理器的详细信息窗格显示更多信息</h1>
                 
                 <p>当你在Windows的资源管理器中将详细信息窗格设置为可用，然后选中一个文件时（IT之家小编选中了一个exe文件），你将在窗口的右半部分看到这个文件的一些信息，包括修改日期、创建日期、文件大小和可用性，不过对于一些用户来说，这些信息十分有限，还是不够详细。</p>
-<p>{% asset_img 8869373-fd7fc76a059e277c.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-fd7fc76a059e277c.jpg" /></p>
 <p>在这篇文章中，IT之家将为大家演示如何进行设置，以使文件资源管理器可在详细信息窗格中显示更多的关于已被选中的文件的有用信息。</p>
-<p>{% asset_img 8869373-067ad3b3a52227ef.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-067ad3b3a52227ef.jpg" /></p>
 <p>下文中的方法适用于Windows Vista、Windows 7、Windows 8/8.1和Windows 10。在开始之前，请注意，修改注册表是有风险的，虽然按照文中的步骤来操作不会对你电脑的系统造成不好的影响，但是失误的操作可能会让你的电脑无法继续正常工作。下面我们开始。</p>
 <p>在微软小娜中搜索并打开regedit；</p>
-<p>{% asset_img 8869373-1d7f871fafef2425.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-1d7f871fafef2425.jpg" /></p>
 <p>来到以下目录：</p>
 <blockquote>
 <p>\HKEY_CLASSES_ROOT\</p>
 </blockquote>
-<p>{% asset_img 8869373-2cbe679b7bfd0744.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-2cbe679b7bfd0744.jpg" /></p>
 <p>在这个目录中，你将看到很多以“.”开头，后面跟了诸如3gp、docx、exe这样的文件扩展名的子项。</p>
 <p>这里，IT之家小编想实现当我们选中一个exe文件时，详细信息窗格中可以显示更多关于这个文件的信息，故我们选中\HKEY_CLASSES_ROOT\目录中那个名为：.exe的子项。</p>
-<p>{% asset_img 8869373-4d7628fdec87f3fe.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-4d7628fdec87f3fe.jpg" /></p>
 <p>选中后，将目光移向窗口的右半边，我们将看到一个名称为（默认）的字符串值，它的数据数值为exefile。</p>
-<p>{% asset_img 8869373-6d5e59383e6de88e.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-6d5e59383e6de88e.jpg" /></p>
 <p>记住这个单词，并在\HKEY_CLASSES_ROOT\目录中找到它，然后点击进入该子项。</p>
 <p>IT之家小编这里，exefile子项的完整路径为：</p>
 <blockquote>
 <p>\HKEY_CLASSES_ROOT\exefile</p>
 </blockquote>
-<p>{% asset_img 8869373-c06b38d9398b5ee4.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-c06b38d9398b5ee4.jpg" /></p>
 <p>选中后，将目光移向窗口的右半边，把鼠标光标放在空白处，单击右键，选择新建-字符串值，并将该新建的字符串值命名为：</p>
 <blockquote>
 <p>PreviewDetails</p>
 </blockquote>
-<p>{% asset_img 8869373-ef5317284a28af39.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-ef5317284a28af39.jpg" /></p>
 <p>双击你刚刚新建的名为PreviewDetails的字符串值，将它的数值数据设置为以下的值：</p>
 <blockquote>
 <p>prop:System.ItemNameDisplay;System.ItemTypeText;System.ItemFolderPathDisplay;System.Size;System.DateCreated;System.DateModified;System.FileAttributesSystem.FileOwner;System.FileAttributes;<em>System.OfflineAvailability;</em>System.OfflineStatus;*System.SharedWith</p>
 </blockquote>
 <p>然后点击确定按钮。</p>
-<p>{% asset_img 8869373-ee7dcc2c7e0d90a9.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-ee7dcc2c7e0d90a9.jpg" /></p>
 <p>此时，我们回到资源管理器中，焦点仍在刚刚选中的exe文件上，点击地址栏右边的刷新按钮，或者按一下键盘上的F5，你将看到，窗口右侧的详细信息窗格中显示了更多的有用的信息。</p>
-<p>{% asset_img 8869373-a5c80338ee190416.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-a5c80338ee190416.jpg" /></p>
 <p>▲修改前</p>
-<p>{% asset_img 8869373-28d500a261f919b6.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-28d500a261f919b6.jpg" /></p>
 <p>▲修改后</p>
 <p>刚刚，我们设置了PreviewDetails字符串值的数值数据，那么现在，我们看看这个值中都包括什么。</p>
 <ul>
@@ -3428,7 +3428,7 @@
 </ul>
 <p>你可以根据你的个人喜好自定义你要在文件的详细信息窗格中显示哪些关于文件的信息，并酌情修改PreviewDetails字符串值的数值数据。</p>
 <p>当然了，上面举的这个例子中所给出的元数据并不全，微软在MSDN站点中列出了一个更加完整的关于prop:元数据的列表，这个列表很长，如果你想要查看这个列表，请<a href="https://msdn.microsoft.com/en-us/library/ff521735%28v=VS.85%29.aspx?f=255&amp;MSPPError=-2147217396">点击这里</a>访问MSDN站点中的该页面。</p>
-<p>{% asset_img 8869373-d3283a41330f2ef6.jpg %}</p>
+<p><img alt="" src="../IT%E4%B9%8B%E5%AE%B6%E5%AD%A6%E9%99%A2%EF%BC%9A%E8%AE%A9Win10%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%99%A8%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E7%AA%97%E6%A0%BC%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF.assets/8869373-d3283a41330f2ef6.jpg" /></p>
 <p>如果你想将详细信息窗格中显示的信息条目恢复为默认值，那么你可以打开注册表，将</p>
 <blockquote>
 <p>\HKEY_CLASSES_ROOT\exefile</p>

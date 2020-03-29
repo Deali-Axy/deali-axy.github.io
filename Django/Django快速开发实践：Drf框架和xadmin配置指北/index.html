@@ -3651,10 +3651,10 @@ router.register('user', views.UserViewSet)
 <p>Django自带的这个admin可以说很强大了，可以省去很多中小型网站的管理后台开发工作，不过默认的界面是比较丑的，这个用过的人都懂，但是又想用，怎么办？所以要进行美化啊，以前我只知道xadmin这个库，国人开发的，基于bootstrap3界面，重写了整套admin代码，界面好看了不少，无奈有很多bug，文档又几乎是没有的，很多功能实现都只能去看代码，体验极差，严重影响开发效率……（但是为了界面好看我一开始还是只能用这个了）
 <em>关于Django配置详情可以看刘江大大的博客，很详细，在我下面的第一个参考链接里面～</em></p>
 <p>界面效果大概这样：
-{% asset_img 8869373-b63a432401231f6c.png %}</p>
+<img alt="" src="../Django%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%EF%BC%9ADrf%E6%A1%86%E6%9E%B6%E5%92%8Cxadmin%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8C%97.assets/8869373-b63a432401231f6c.png" /></p>
 <p>然后我又发现了一个新的xadmin替代品，叫simpleui，号称vue+element ui写的，界面也不错，实际体验嘛，emmm……和xadmin互有千秋。不过这货搞了个pro版本，也就是付费版，所以开源免费版这个能用就偷着乐了，你懂的。</p>
 <p>界面如下，还可以换主题。
-{% asset_img 8869373-5098bbd1dc9ed52b.png %}</p>
+<img alt="" src="../Django%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%EF%BC%9ADrf%E6%A1%86%E6%9E%B6%E5%92%8Cxadmin%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8C%97.assets/8869373-5098bbd1dc9ed52b.png" /></p>
 <p>有兴趣请看看官方github：<a href="https://github.com/newpanjing/simpleui">https://github.com/newpanjing/simpleui</a></p>
 <h2 id="xadmin">安装xadmin</h2>
 <p>现在Django-xadmin好像已经不维护了，至少在github上看到是作者去写纯前端的xadmin框架了，然后安装起来也是一波三折，你直接在pip安装也不行，因为那个是xadmin的0.x版本，支持的是Django1.x的，要安装xadmin的django2分支，才能支持Django2.x，然后我一开始用上Django3，貌似这货还和Django3有兼容问题……</p>
@@ -3721,7 +3721,7 @@ class CourseResourceInline(object):
 </code></pre>
 
 <p>效果这样：
-{% asset_img 8869373-b91877412c3a038c.png %}</p>
+<img alt="" src="../Django%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%EF%BC%9ADrf%E6%A1%86%E6%9E%B6%E5%92%8Cxadmin%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8C%97.assets/8869373-b91877412c3a038c.png" /></p>
 <h3 id="admin_2">admin类的一些方法覆盖</h3>
 <p>为啥要覆盖？当然是要自定义一些操作啊，比如你要保存用户信息的时候验证某些字段，通过才给保存，不通过就给出提示，咋搞，覆盖父类函数呀！</p>
 <p>代码例子：</p>

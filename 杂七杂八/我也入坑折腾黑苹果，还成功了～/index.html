@@ -3521,7 +3521,7 @@
                 <h2 id="_1">前言</h2>
 <p>Windows真的太难做开发了啊。。。Linux本来是最好的选择，然而又缺少太多软件，像微信、QQ这些就是想都不要想腾讯会给你开发的，用wine版本的又卡，用网页版又不能发表情包= = 所以很难受，也没有多少选择了，只剩下一个mac可以选，但是苹果电脑又贵性价比又低，怎么可能买mac呢，于是只能黑苹果啦～～</p>
 <p>先放一张桌面的截图吧，免得后面字太多没人想看。
-{% asset_img 8869373-10db4867ebb11194.png %}</p>
+<img alt="" src="../%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E.assets/8869373-10db4867ebb11194.png" /></p>
 <p>其实在以前我就了解到有黑苹果这种东西了，以我这种喜欢尝鲜和折腾的性格，应该早就开始了，但是我看了一下论坛里别人的各类教程，总觉得太复杂了，加之我现在有挺多事要做的，所以就觉得单纯折腾黑苹果也太浪费时间了吧，时间宝贵啊 = = 于是一直没有安排黑苹果</p>
 <p>直到最近，我的华硕游戏本主板坏掉，拿去修好了，现在有三台电脑，于是寻思着给它装个黑苹果试试水，最开始想到的是找淘宝商家给我安一个，但是不去试还行，试了一下，淘宝水真的太深了，首先我不能说淘宝没有靠谱的黑苹果商家，但是就我两次淘宝黑苹果的经验，销量排得很前的那几个天猫商家，都是超级坑的，好评全是刷出来的（人工成本低就是好），说说这些商家坑的地方：</p>
 <ol>
@@ -3542,7 +3542,7 @@ Windows的ghost差不多，感觉对硬盘会有损害，而且不是纯净版�
 <p>去下载原版系统镜像，我装的是10.14.6的，可以去这里下载：
 <a href="https://blog.daliansky.net/macOS-Mojave-10.14.6-18G84-Release-version-with-Clover-5027-original-image.html#more">https://blog.daliansky.net/macOS-Mojave-10.14.6-18G84-Release-version-with-Clover-5027-original-image.html#more</a></p>
 <p>对了，用<a href="https://etcher.io/">etcher</a>这个工具制作安装盘～
-{% asset_img 8869373-f20efcd58b945e5d.png %}</p>
+<img alt="" src="../%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E.assets/8869373-f20efcd58b945e5d.png" /></p>
 <p>这样就可以开始了</p>
 <h2 id="_4">进入系统安装</h2>
 <p>制作好了启动盘之后，重启进入mac系统安装，如果这都进不去就先找一下你这个机型的clover文件，先在Windows下挂载U盘的EFI分区，（推荐用系统自带的diskpart命令），也可以用磁盘精灵这类的。</p>
@@ -3558,26 +3558,26 @@ assign letter=k # 分配一个盘符，具体多少自己定
 <p>然后Windows可能还有很坑的地方，就是分配盘符之后，却打不开这个盘，说什么没有权限。。我服
 这个时候可以使用管理员权限打开powershell，输入notepad，点打开，里面不是有个文件浏览对话框吗，在这里面操作就行了，反正差不多吧，是麻烦了一点，没办法，Windows真垃圾。</p>
 <p>然后准备一个空的分区，进入mac安装界面之后，选择磁盘工具
-{% asset_img 8869373-0a08c28d876d5d42.png %}</p>
+<img alt="" src="../%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E.assets/8869373-0a08c28d876d5d42.png" /></p>
 <p>把那个空的分区抹掉，选择mac扩展或者APFS格式，都ok吧。
-{% asset_img 8869373-de1790ee25b6bae2.png %}</p>
+<img alt="" src="../%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E.assets/8869373-de1790ee25b6bae2.png" /></p>
 <p>然后就安装到这个分区上面。
-{% asset_img 8869373-b7c30afba3910554.png %}</p>
+<img alt="" src="../%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E.assets/8869373-b7c30afba3910554.png" /></p>
 <p>然后经历各种磨难，安装好了Mac系统了，这个时候重启，不要拔出来U盘，因为你还没有把Clover安装到电脑到EFI分区，拔了U盘就重启不了。</p>
 <p>重启继续进入mac系统，进一步的安装和设置系统。
-{% asset_img 8869373-f004f0992f8ed47f.png %}</p>
+<img alt="" src="../%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E.assets/8869373-f004f0992f8ed47f.png" /></p>
 <h2 id="_5">进入系统的配置</h2>
 <p>如果能重启进入系统，证明之前的配置什么的都ok，所以可以把U盘上的clover复制到本机的EFI分区上了，方法在上面有大概介绍过，同样在Windows下操作即可。</p>
 <p>mac上需要两个工具，kext utility和clover configurator，请自行下载。</p>
 <p>在mac上挂载EFI分区用到这个 clover configurator ，如图
-{% asset_img 8869373-99a07cda00f85d0e.png %}</p>
+<img alt="" src="../%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E.assets/8869373-99a07cda00f85d0e.png" /></p>
 <p>然后kext utility的作用是修复/S/L/E (/System/Library/Extensions)里面的kext文件的权限，而且也可以方便你往这个文件夹里面添加kext文件。
 一打开就会自动设置/S/L/E里面的权限，我就不截图了。</p>
 <h2 id="_6">成果</h2>
 <p>放几张截图吧，好像也没什么= =，界面比较死板，终端不如Linux，文件管理不如Windows，但是好歹是unix系的，好处是做开发比Windows好，软件比Linux多，取个折中吧～</p>
-<p>{% asset_img 8869373-6d82b45ebcfa53de.png %}</p>
-<p>{% asset_img 8869373-73d89f2db0050eae.png %}</p>
-<p>{% asset_img 8869373-48f365928874e8fa.png %}</p>
+<p><img alt="" src="../%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E.assets/8869373-6d82b45ebcfa53de.png" /></p>
+<p><img alt="" src="../%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E.assets/8869373-73d89f2db0050eae.png" /></p>
+<p><img alt="" src="../%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E.assets/8869373-48f365928874e8fa.png" /></p>
 <p>未完善的地方：
 1. 触摸板不能用
 2. 蓝牙信号好像比较弱 = = </p>
@@ -3586,7 +3586,7 @@ assign letter=k # 分配一个盘符，具体多少自己定
 <p>总之就是按照自己电脑的各类硬件型号来配置吧，确实是挺浪费时间的，但是为了用上夹在Windows和Linux中间的并且适合做开发的Mac，花点时间还是值得的吧。</p>
 <p>由于我刚刚开始接触黑苹果，也没那么多时间去了解各类原理，文中内容难免有错误的地方，我也就不求甚解了，反正现在基本完美使用，能用就行，不过多在这上面浪费时间。</p>
 <p>我的电脑配置：
-{% asset_img 8869373-02929c9258740dce.png %}</p>
+<img alt="" src="../%E6%88%91%E4%B9%9F%E5%85%A5%E5%9D%91%E6%8A%98%E8%85%BE%E9%BB%91%E8%8B%B9%E6%9E%9C%EF%BC%8C%E8%BF%98%E6%88%90%E5%8A%9F%E4%BA%86%EF%BD%9E.assets/8869373-02929c9258740dce.png" /></p>
 <p>没有百度网盘啥的，现在要分享文件也不知道怎么弄，所以就懒得折腾了，需要Clover配置的可以在公众号留言索取～</p>
 <h2 id="_8">欢迎与我交流</h2>
 <ul>

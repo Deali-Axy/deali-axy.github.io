@@ -3593,7 +3593,7 @@
 <h2 id="_2">死锁的概念</h2>
 <p>先来了解一下死锁的基本概念：<strong>一组竞争系统资源或相互通信的进程相互的“永久”阻塞。若无外力作用，这组进程将永远不能继续执行。</strong></p>
 <p>看下面两幅图片，左边是可能产生死锁的状态，四辆汽车（进程）要竞争同一个资源（通过路口），如果系统调度不当，就会陷入死锁状态，如右图<em>（每辆车占据一个车道（资源），所需车道（资源）被另一辆车占据。）</em>。</p>
-<p>{% asset_img 8869373-1404068f0d4e4cce.png %}</p>
+<p><img alt="" src="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E4%B8%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%B8%8E%E6%AD%BB%E9%94%81-%E4%BB%A5%E5%8F%8A%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81--NetCore%E5%AE%9E%E7%8E%B0.assets/8869373-1404068f0d4e4cce.png" /></p>
 <h2 id="_3">产生死锁的原因</h2>
 <p>产生死锁的原因主要有两点：</p>
 <ul>
@@ -3605,15 +3605,15 @@
 </li>
 </ul>
 <p>如下图：A、B分别代表某种资源，假设都只有一个，进程P先占用了资源A，接着进程Q占用了资源B，后面进程P再想要资源B就拿不到，进程Q想要资源A也拿不到，系统就陷入死锁状态了。</p>
-<p>{% asset_img 8869373-0ea9289dfe99ad54.png %}</p>
+<p><img alt="" src="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E4%B8%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%B8%8E%E6%AD%BB%E9%94%81-%E4%BB%A5%E5%8F%8A%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81--NetCore%E5%AE%9E%E7%8E%B0.assets/8869373-0ea9289dfe99ad54.png" /></p>
 <p>再看看下面这个图，同样说明了进程推进顺序不恰当导致的结果：</p>
 <ul>
 <li>(1)、(2) 、(4) 、(5)正常运行</li>
 <li>(3) 、(6)发生死锁</li>
 </ul>
-<p>{% asset_img 8869373-d70abb059cda7c8a.png %}</p>
+<p><img alt="" src="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E4%B8%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%B8%8E%E6%AD%BB%E9%94%81-%E4%BB%A5%E5%8F%8A%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81--NetCore%E5%AE%9E%E7%8E%B0.assets/8869373-d70abb059cda7c8a.png" /></p>
 <p>修改了进程的推进顺序之后，不会陷入死锁，可以正常运行，如下图：</p>
-<p>{% asset_img 8869373-66f8da011ee24382.png %}</p>
+<p><img alt="" src="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E4%B8%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%B8%8E%E6%AD%BB%E9%94%81-%E4%BB%A5%E5%8F%8A%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81--NetCore%E5%AE%9E%E7%8E%B0.assets/8869373-66f8da011ee24382.png" /></p>
 <h2 id="_4">产生死锁的条件</h2>
 <ol>
 <li><strong>互斥条件</strong>：进程所竞争的资源必须被互斥使用。</li>
@@ -3685,10 +3685,10 @@
 <li>安全：真正资源分配</li>
 <li>不安全：回到预分配前状态</li>
 </ul>
-<p>{% asset_img 8869373-3a543e2a1951d39d.png %}</p>
+<p><img alt="" src="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E4%B8%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%B8%8E%E6%AD%BB%E9%94%81-%E4%BB%A5%E5%8F%8A%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81--NetCore%E5%AE%9E%E7%8E%B0.assets/8869373-3a543e2a1951d39d.png" /></p>
 <h2 id="_9">算法实现</h2>
 <p>下面是银行家算法整个实现过程的流程图：</p>
-<p>{% asset_img 8869373-b59a343c8c2f357b.png %}</p>
+<p><img alt="" src="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E4%B8%89%EF%BC%9A%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%B8%8E%E6%AD%BB%E9%94%81-%E4%BB%A5%E5%8F%8A%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81--NetCore%E5%AE%9E%E7%8E%B0.assets/8869373-b59a343c8c2f357b.png" /></p>
 <p><strong>实现相关数据结构的说明：</strong></p>
 <p>1． 可利用资源向量Available ，它是一个含有m个元素的数组，其中的每一个元素代表一类可利用的资源的数目，其初始值是系统中所配置的该类全部可用资源数目。其数值随该类资源的分配和回收而动态地改变。如果<code>Available[j]=k</code>，表示系统中现有j类资源k个。</p>
 <p>2． 最大需求矩阵Max，这是一个n×m的矩阵，它定义了系统中n个进程中的每一个进程对m类资源的最大需求。如果<code>Max[i][j]=k</code>，表示进程i需要j类资源的最大数目为k。</p>

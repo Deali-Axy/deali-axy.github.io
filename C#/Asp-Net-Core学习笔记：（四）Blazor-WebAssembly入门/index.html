@@ -3546,20 +3546,20 @@
                 
                 <p>本来今天开始是有其他的安排了，也没办法抽出那么多时间来学NetCore，不过我想做事情有始有终吧，除了gRPC还没跑起来之外，Blazor这部分也了解了一点，官网地址：<a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor">https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor</a></p>
 <p>目前来说还不是很完善，真正的离线单页应用还处于预览版阶段。</p>
-<p>{% asset_img 8869373-75497a8c92c235e5.png %}</p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E5%9B%9B%EF%BC%89Blazor-WebAssembly%E5%85%A5%E9%97%A8.assets/8869373-75497a8c92c235e5.png" /></p>
 <p>Blazor目前有两种运行模式，一种是服务器端部署，一种是客户端部署，后者可以完全脱离服务器，也就是标题写的WebAssembly，不过目前处于预览版（有点标题党了）。</p>
 <p>官方文档：<a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/get-started?view=aspnetcore-3.1&amp;tabs=visual-studio">https://docs.microsoft.com/zh-cn/aspnet/core/blazor/get-started?view=aspnetcore-3.1&amp;tabs=visual-studio</a></p>
 <h2 id="_1">项目文件结构</h2>
-<p>{% asset_img 8869373-f5c38afcc43b0f16.png %}</p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E5%9B%9B%EF%BC%89Blazor-WebAssembly%E5%85%A5%E9%97%A8.assets/8869373-f5c38afcc43b0f16.png" /></p>
 <p>主要的文件夹就是这个Pages和Shared。里面包含了mvc页面(cshtml结尾)和razor组件(razor结尾)。</p>
 <p>然后再看看wwwroot文件夹：
-{% asset_img 8869373-512cc757a7f22b04.png %}</p>
+<img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E5%9B%9B%EF%BC%89Blazor-WebAssembly%E5%85%A5%E9%97%A8.assets/8869373-512cc757a7f22b04.png" /></p>
 <p>可以看到只有css，没有js文件夹，因为blazor要做的事情就是要把js代码换成C#代码，其实就是让后端开发去做前端开发。
 （PS：node就是让前端去做后端，历史总是惊人的相似hhh）</p>
 <p>先看看它的代码是怎么写的，后面再具体介绍。</p>
 <h2 id="_2">例子代码</h2>
 <p>这是官方的例子，点击按钮之后可以计算点击次数。</p>
-<p>{% asset_img 8869373-e74eebb309c83588.png %}</p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E5%9B%9B%EF%BC%89Blazor-WebAssembly%E5%85%A5%E9%97%A8.assets/8869373-e74eebb309c83588.png" /></p>
 <pre><code class="cs">@page &quot;/counter&quot;
 &lt;h1&gt;Counter&lt;/h1&gt;
 &lt;p&gt;Current count: @_currentCount&lt;/p&gt;
@@ -3580,12 +3580,12 @@
 <blockquote>
 <p>Blazor 的主体宿主模型在 WebAssembly 上的浏览器中运行客户端。 将 Blazor 应用、其依赖项以及 .NET 运行时下载到浏览器。 应用将在浏览器线程中直接执行。 UI 更新和事件处理发生在同一进程中。 应用的资产将作为静态文件部署到 web 服务器或可为客户端提供静态内容的服务。</p>
 </blockquote>
-<p>{% asset_img 8869373-8a764dee39a84138.png %}</p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E5%9B%9B%EF%BC%89Blazor-WebAssembly%E5%85%A5%E9%97%A8.assets/8869373-8a764dee39a84138.png" /></p>
 <h3 id="_5">服务端模型</h3>
 <blockquote>
 <p>使用 Blazor 服务器托管模型，可在服务器上从 ASP.NET Core 应用中执行应用。 UI 更新、事件处理和 JavaScript 调用是通过 <a href="https://docs.microsoft.com/zh-cn/aspnet/core/signalr/introduction?view=aspnetcore-3.1">SignalR</a> 连接进行处理。</p>
 </blockquote>
-<p>{% asset_img 8869373-c2826d7f6ad25ae7.png %}</p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E5%9B%9B%EF%BC%89Blazor-WebAssembly%E5%85%A5%E9%97%A8.assets/8869373-c2826d7f6ad25ae7.png" /></p>
 <p>又出现SignalR了，真的好用，关于SignalR的可以看看我上一篇：<a href="https://zhuanlan.zhihu.com/p/106321863">Asp.Net Core学习笔记：（三）使用SignalR实时通信框架开发聊天室</a></p>
 <p>Blazor Server 宿主模型具有以下几个优点：
 - 下载大小明显小于 Blazor WebAssembly 应用，且应用加载速度快得多。
@@ -3692,9 +3692,9 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 <p>可以看到就是一个普通的AspNetCore的MVC页面的写法，不过body里面有app节点，可以渲染其他Razor组件。</p>
 <h2 id="_7">效果</h2>
 <p>这是官方例子跑起来的效果，我也没想出来拿这个做什么好，所以就单纯跑一下官方例子好了（懒）</p>
-<p>{% asset_img 8869373-3d1ca6114d70ebd0.png %}</p>
-<p>{% asset_img 8869373-0e4630f06854015e.png %}</p>
-<p>{% asset_img 8869373-118343bec8559b63.png %}</p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E5%9B%9B%EF%BC%89Blazor-WebAssembly%E5%85%A5%E9%97%A8.assets/8869373-3d1ca6114d70ebd0.png" /></p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E5%9B%9B%EF%BC%89Blazor-WebAssembly%E5%85%A5%E9%97%A8.assets/8869373-0e4630f06854015e.png" /></p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E5%9B%9B%EF%BC%89Blazor-WebAssembly%E5%85%A5%E9%97%A8.assets/8869373-118343bec8559b63.png" /></p>
 <p>我发现微软的官方文档还是不错的，虽然好像有点像是机翻的，但是看起来还挺通顺，也很详细。</p>
 <p>官方文档：<a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/hosting-models?view=aspnetcore-3.1">https://docs.microsoft.com/zh-cn/aspnet/core/blazor/hosting-models?view=aspnetcore-3.1</a></p>
 <h2 id="_8">欢迎交流</h2>

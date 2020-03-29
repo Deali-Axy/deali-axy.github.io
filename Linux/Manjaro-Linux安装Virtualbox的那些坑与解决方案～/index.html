@@ -3549,7 +3549,7 @@
 <h2 id="_2">进入正题</h2>
 <h3 id="virtualbox">安装virtualbox</h3>
 <p>Manjaro的官方源里面是有virtualbox的，直接打开Octopi搜一下就有了～
-{% asset_img 8869373-8c70fe572a018d12.png %}</p>
+<img alt="" src="../Manjaro-Linux%E5%AE%89%E8%A3%85Virtualbox%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BD%9E.assets/8869373-8c70fe572a018d12.png" /></p>
 <p>或者输入命令安装：</p>
 <pre><code>sudo pacman -S virtualbox
 </code></pre>
@@ -3558,13 +3558,13 @@
 <p>上一步把virtualbox安装好了，但这个时候还不能使用，得安装内核模块并且激活才可以。
 同样在官方源里面就有对应的内核模块可以安装，但是得查一下对应版本。</p>
 <p>怎么查看内核版本呢，打开<code>Manjaro Settings Manager</code>，如下：
-{% asset_img 8869373-17f19c7df7d58b54.png %}</p>
+<img alt="" src="../Manjaro-Linux%E5%AE%89%E8%A3%85Virtualbox%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BD%9E.assets/8869373-17f19c7df7d58b54.png" /></p>
 <p>选择“内核”：
-{% asset_img 8869373-c128294af9502aaf.png %}</p>
+<img alt="" src="../Manjaro-Linux%E5%AE%89%E8%A3%85Virtualbox%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BD%9E.assets/8869373-c128294af9502aaf.png" /></p>
 <p>可以看到当前的内核版本是<code>4.19.32-1</code>，然后就可以开始安装内核模块了～
 在Octopi上搜索<code>Virtualbox</code>的时候就可以看到很多内核模块可选，这里我们选择对应内核版本的
 <code>Linux419</code>，如图：
-{% asset_img 8869373-bcd510d90d0c2fd0.png %}</p>
+<img alt="" src="../Manjaro-Linux%E5%AE%89%E8%A3%85Virtualbox%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BD%9E.assets/8869373-bcd510d90d0c2fd0.png" /></p>
 <h3 id="_4">激活内核模块</h3>
 <pre><code>sudo modprobe vboxdrv
 </code></pre>

@@ -3496,16 +3496,16 @@
 <p>只不过众所周知的，dart是一种单线程语言，虽说提供了isolate机制，但是不能共享内存，用起来缚手缚脚的，然后flutter还禁用了反射！谷歌团队真是牛逼，我折腾了一下午之后被这辣鸡玩意气到了，索性弃坑了。</p>
 <p>想要实现多线程爬虫的话看来应该是要写一部分原生代码才行，那我还不如全部用原生。。。</p>
 <p>（ps：放着好好的Android原生不用，用什么辣鸡flutter做爬虫?? 秀逗了啊，气死我了）</p>
-<p>{% asset_img 8869373-456a7d51010dc2b4.png %}</p>
+<p><img alt="" src="../%E6%8A%8A%E7%88%AC%E8%99%AB%E6%94%BE%E5%88%B0%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%B7%91%EF%BC%81Flutter%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2~.assets/8869373-456a7d51010dc2b4.png" /></p>
 <h2 id="app">app截图</h2>
-<p>{% asset_img 8869373-cb8f7d9c31648002.png %}</p>
+<p><img alt="" src="../%E6%8A%8A%E7%88%AC%E8%99%AB%E6%94%BE%E5%88%B0%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%B7%91%EF%BC%81Flutter%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2~.assets/8869373-cb8f7d9c31648002.png" /></p>
 <h2 id="_1">系统架构</h2>
 <p>画了几个图</p>
-<p>{% asset_img 8869373-ee6553c839c15978.png %}</p>
+<p><img alt="" src="../%E6%8A%8A%E7%88%AC%E8%99%AB%E6%94%BE%E5%88%B0%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%B7%91%EF%BC%81Flutter%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2~.assets/8869373-ee6553c839c15978.png" /></p>
 <p>SpiderTask基类，所有爬虫类都从这个类派生，SpiderTask内自己维护一个TaskConfig任务配置对象和一个日志对象。如下图：</p>
-<p>{% asset_img 8869373-b35644c1cf2a1d17.png %}</p>
+<p><img alt="" src="../%E6%8A%8A%E7%88%AC%E8%99%AB%E6%94%BE%E5%88%B0%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%B7%91%EF%BC%81Flutter%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2~.assets/8869373-b35644c1cf2a1d17.png" /></p>
 <p>至于数据持久化的，我用了另外一个类，采用单例模式，在app启动的时候初始化。</p>
-<p>{% asset_img 8869373-3a583eb0793954da.png %}</p>
+<p><img alt="" src="../%E6%8A%8A%E7%88%AC%E8%99%AB%E6%94%BE%E5%88%B0%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%B7%91%EF%BC%81Flutter%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2~.assets/8869373-3a583eb0793954da.png" /></p>
 <h2 id="_2">工作流程</h2>
 <ol>
 <li>在home里的任务列表中注册爬虫任务</li>
@@ -3540,7 +3540,7 @@ class CNRadioNewsSpider extends SpiderTask {
 <p>了解详情可以在GitHub查看项目代码~</p>
 <p>项目地址：<a href="https://github.com/Deali-Axy/flutter_spider_fx">https://github.com/Deali-Axy/flutter_spider_fx</a></p>
 <p>最后提一下：辣鸡flutter，千万别迷信谷歌的技术，这玩意目前仍然是个坑，写个简单GUI实现CRUD还行，高级的玩法就不要想了。
-{% asset_img 8869373-d426ed89c7bbbfed.png %}</p>
+<img alt="" src="../%E6%8A%8A%E7%88%AC%E8%99%AB%E6%94%BE%E5%88%B0%E6%89%8B%E6%9C%BA%E4%B8%8A%E8%B7%91%EF%BC%81Flutter%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2~.assets/8869373-d426ed89c7bbbfed.png" /></p>
 <h2 id="_5">欢迎交流</h2>
 <p>交流问题请在微信公众号后台留言，每一条信息我都会回复哈~
 - 微信公众号：画星星高手

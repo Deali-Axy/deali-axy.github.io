@@ -3587,13 +3587,13 @@
 <h2 id="_2">几个概念</h2>
 <h3 id="_3">回落机制</h3>
 <p>SignalR支持三种底层传输技术，根据客户端的兼容性可以自动协商传输类型。如图</p>
-<p>{% asset_img 8869373-e2c2c64bf1b5948a.png %}</p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E4%B8%89%EF%BC%89%E4%BD%BF%E7%94%A8SignalR%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1%E6%A1%86%E6%9E%B6%E5%BC%80%E5%8F%91%E8%81%8A%E5%A4%A9%E5%AE%A4.assets/8869373-e2c2c64bf1b5948a.png" /></p>
 <p>Web Socket是最好的最有效的传输方式，如果浏览器或Web服务器不支持它的话，就会降级使用SSE，实在不行就用Long Polling。</p>
 <h3 id="rpc">RPC</h3>
 <p>不用解释太多，Remote Procedure Call，SignalR采用RPC范式来进行服务端和客户端之间的通信。</p>
 <h3 id="hub">Hub</h3>
 <p>Hub是SignalR的一个组件，运行在服务端，它是一个通信用的组件， Hub使用RPC接受从客户端发来的消息，也能把消息发送给客户端 。</p>
-<p>{% asset_img 8869373-a777069138151b97.png %}</p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E4%B8%89%EF%BC%89%E4%BD%BF%E7%94%A8SignalR%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1%E6%A1%86%E6%9E%B6%E5%BC%80%E5%8F%91%E8%81%8A%E5%A4%A9%E5%AE%A4.assets/8869373-a777069138151b97.png" /></p>
 <h3 id="_4">关于横向扩展</h3>
 <p>SignalR针对多种底层通信方式有了 <strong>Sticky Sessions (粘性会话)</strong> 这种解决方案，可以保证一个客户端在一次会话中的请求都分配给同一个服务器，具体以后需要的时候再研究。</p>
 <h2 id="_5">开始使用</h2>
@@ -3685,7 +3685,7 @@
 <h2 id="_7">客户端</h2>
 <p>为了方便我就用网页来做。</p>
 <p>首先写个简单的聊天界面布局，这里就不贴代码了没啥技术含量，效果大概这样：</p>
-<p>{% asset_img 8869373-3608a6ab3bf671f6.png %}</p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E4%B8%89%EF%BC%89%E4%BD%BF%E7%94%A8SignalR%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1%E6%A1%86%E6%9E%B6%E5%BC%80%E5%8F%91%E8%81%8A%E5%A4%A9%E5%AE%A4.assets/8869373-3608a6ab3bf671f6.png" /></p>
 <p>首先要安装signalr.js，通过npm安装即可。</p>
 <p>然后需要编写js：</p>
 <pre><code class="js">function setupConnection() {
@@ -3722,7 +3722,7 @@
 
 <p>然后就可以打开多个浏览器测试了。
 这是我在手机上的截图</p>
-<p>{% asset_img 8869373-6f97ed1719a0c3b1.png %}</p>
+<p><img alt="" src="../Asp-Net-Core%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%EF%BC%88%E4%B8%89%EF%BC%89%E4%BD%BF%E7%94%A8SignalR%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1%E6%A1%86%E6%9E%B6%E5%BC%80%E5%8F%91%E8%81%8A%E5%A4%A9%E5%AE%A4.assets/8869373-6f97ed1719a0c3b1.png" /></p>
 <p><strong>PS：为了把这个部署到服务器，我还买了个新的阿里云服务器。。</strong></p>
 <h2 id="_8">参考资料</h2>
 <ul>

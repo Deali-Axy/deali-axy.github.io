@@ -3495,7 +3495,7 @@ sudo pv -tpreb /dev/sda | dd of=/dev/zero bs=4096 conv=notrunc,noerror
 <pre><code> (sudo pv -n /dev/sda | dd of=/dev/zero) 2&gt;&amp;1 | dialog --gauge &quot;dd process bar&quot; 10 70 0
 </code></pre>
 
-<p>{% asset_img 8869373-e85d9c3e97a2846a.png %}</p>
+<p><img alt="" src="../Linux%E4%B8%8B%E6%9F%A5%E7%9C%8Bdd%E5%91%BD%E4%BB%A4%E5%86%99%E5%85%A5%E8%BF%9B%E5%BA%A6.assets/8869373-e85d9c3e97a2846a.png" /></p>
 <h2 id="pkill">使用pkill打印进度</h2>
 <p>重新打开一个Shell，然后执行如下命令即可每秒输出一次进度信息</p>
 <pre><code>watch -n 1 pkill -USR1 -x dd

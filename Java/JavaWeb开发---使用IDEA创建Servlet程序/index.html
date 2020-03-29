@@ -1080,8 +1080,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asset_img-8869373-901590e019f6f85bpng" class="md-nav__link">
-    {% asset_img 8869373-901590e019f6f85b.png %}
+  <a href="#_8" class="md-nav__link">
+    
   </a>
   
 </li>
@@ -3791,8 +3791,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#asset_img-8869373-901590e019f6f85bpng" class="md-nav__link">
-    {% asset_img 8869373-901590e019f6f85b.png %}
+  <a href="#_8" class="md-nav__link">
+    
   </a>
   
 </li>
@@ -3825,70 +3825,70 @@
 <li>IDEA</li>
 </ul>
 <h2 id="_3">创建工程</h2>
-<p>{% asset_img 8869373-1f9f299c255067d6.png %}</p>
+<p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-1f9f299c255067d6.png" /></p>
 <p>设置工程名字：
-{% asset_img 8869373-e897e336d9faf433.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-e897e336d9faf433.png" /></p>
 <p>创建完成后工程结构如下：
-{% asset_img 8869373-d0a224a049837320.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-d0a224a049837320.png" /></p>
 <p>上面的图片是在网络上复制的，好像我用的<code>IDEA 2017.3.2</code>没有这个<code>Create web.xml</code>的选项，我也不知道为啥，难道是<code>IDEA</code>越更新功能越退步了？
 如下图：
-{% asset_img 8869373-f24b1140c415668f.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-f24b1140c415668f.png" /></p>
 <p>所以这里就要自己配置<code>IDEA</code>添加<code>web.xml</code>。
 步骤：打开Project Structure，在facets中选中次级的web或者在Modules中选中web，在deployment Descriptors面板里，点击 +号选择web.xml以及版本号。然后在弹出的对话框中修改xml默认的目录，加上web就可以了。</p>
-<p>{% asset_img 8869373-589fb299e8a3e934.png %}</p>
+<p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-589fb299e8a3e934.png" /></p>
 <p>然后确定，就有<code>web.xml</code>文件了。
 如图：
-{% asset_img 8869373-4cb52fbee7db0450.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-4cb52fbee7db0450.png" /></p>
 <h2 id="web">Web工程设置</h2>
 <h3 id="classeslib">创建<code>classes</code>、<code>lib</code>目录</h3>
 <p>在WEB-INF 目录下点击右键，New --&gt; Directory，创建 classes 和 lib 两个目录</p>
-<p>{% asset_img 8869373-4573e088e8cb702a.png %}</p>
+<p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-4573e088e8cb702a.png" /></p>
 <p>classes目录用于存放编译后的class文件，lib用于存放依赖的jar包</p>
 <h3 id="classes"><code>classes</code>目录配置</h3>
 <p>File --&gt; Project Structure...，进入 Project Structure窗口，点击 Modules --&gt; 选中项目“JavaWeb” --&gt; 切换到 Paths 选项卡 --&gt; 勾选 “Use module compile output path”，将 “Output path” 和 “Test output path” 都改为之前创建的classes目录</p>
-<p>{% asset_img 8869373-19e9bded8626a320.png %}</p>
+<p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-19e9bded8626a320.png" /></p>
 <p>即将后面编译的class文件默认生成到classes目录下</p>
 <h3 id="lib"><code>lib</code>目录配置</h3>
 <p>还是在这个<code>Project Structure</code>这个窗口。点击 Modules --&gt; 选中项目“JavaWeb” --&gt; 切换到 Dependencies 选项卡 --&gt; 点击右边的“+”，选择 “JARs or directories...”，选择创建的lib目录。
 <img alt="
 " src="http://upload-images.jianshu.io/upload_images/8869373-e79cc56965c39fdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
-<p>{% asset_img 8869373-0f1e771baa970ce2.png %}</p>
+<p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-0f1e771baa970ce2.png" /></p>
 <p>选择<code>Jar Directory</code>
-{% asset_img 8869373-a60df78d2e597b11.png %}</p>
-<p>{% asset_img 8869373-2934bba46b41aa60.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-a60df78d2e597b11.png" /></p>
+<p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-2934bba46b41aa60.png" /></p>
 <h3 id="artifacts">配置打包方式Artifacts</h3>
 <p>点击 Artifacts选项卡，IDEA会为该项目自动创建一个名为“JavaWeb:war exploded”的打包方式，表示 打包成war包，并且是文件展开性的，输出路径为当前项目下的 out 文件夹，保持默认即可。另外勾选下“Build on make”，表示编译的时候就打包部署，勾选“Show content of elements”，表示显示详细的内容列表。
-{% asset_img 8869373-109630a7d88b250a.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-109630a7d88b250a.png" /></p>
 <h2 id="tomcat">Tomcat配置</h2>
 <h3 id="tomcat_1">创建<code>Tomcat</code>容器</h3>
 <p>Run -&gt; Edit Configurations，进入“Run Configurations”窗口，点击"+"-&gt; Tomcat Server -&gt; Local，创建一个新的Tomcat容器。
-{% asset_img 8869373-2d1c30fcaf1a87f8.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-2d1c30fcaf1a87f8.png" /></p>
 <h3 id="_4">配置服务器名称路径</h3>
 <p>在"Name"处输入新的服务名，点击“Application server”后面的“Configure...”，弹出Tomcat Server窗口，选择本地安装的Tomcat目录 -&gt; OK
-{% asset_img 8869373-8d4096e494b82a66.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-8d4096e494b82a66.png" /></p>
 <h3 id="_5">运行配置</h3>
 <p>在“Run Configurations”窗口的“Server”选项板中，去掉勾选“After launch”，设置“HTTP port”和“JMX port”，点击 Apply -&gt; OK，至此Tomcat配置完成。
-{% asset_img 8869373-7c9ca4363598fc3e.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-7c9ca4363598fc3e.png" /></p>
 <h2 id="javaweb">JavaWeb测试</h2>
 <h3 id="_6">运行配置</h3>
 <p>Run -&gt; Edit Configurations，进入“Run Configurations”窗口，选择之前配置好的Tomcat，点击“Deployment”选项卡，点击“+” -&gt; “Artifact”-&gt; 选择创建的web项目的Artifact...
 修改“Application context”-&gt; Apply -&gt; OK
-{% asset_img 8869373-bf7fdf301465c966.png %}
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-bf7fdf301465c966.png" />
 说明：此处的Application context是指定本工程的根目录。就是你访问服务器的路径，比如这里设置了<code>JavaWeb</code>，那么访问服务器的地址就是<code>http://localhost:8080/JavaWeb</code>。</p>
 <h3 id="jsp">编辑Jsp文件</h3>
 <p>在index.jsp文件中的body之间添加要显示的内容，然后点击“运行”的绿色三角
-{% asset_img 8869373-da525964619a6f22.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-da525964619a6f22.png" /></p>
 <p>打开浏览器，输入：localhost:8080/JavaWeb
-{% asset_img 8869373-f029d2dff47b7676.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-f029d2dff47b7676.png" /></p>
 <p>至此，intellij idea创建并设置javaweb工程全部完成，下面是在其中编写并运行Servlet。</p>
 <h2 id="servlet">Servlet实现</h2>
 <p>接下来记录一下怎么编写一个<code>Servlet</code>程序，到<code>Servlet</code>程序运行起来的全过程。</p>
 <h3 id="servlet_1">引入<code>Servlet</code>相关包</h3>
 <p>我感觉IDEA还是有点不太智能，明明配置了<code>Tomcat</code>了，都不给我自动引入<code>Servlet</code>包，导致在IDEA中建立Servlet使用javax.servlet.http.HttpServlet等类时，出现了如下错误：
-{% asset_img 8869373-dd315ca14262f05b.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-dd315ca14262f05b.png" /></p>
 <p>原因：IntelliJ IDEA 没有导入 <code>servlet-api.jar</code> 这个.jar包，需要手动导入。</p>
 <p>导入步骤如下：选中项目，右击选择“Open Modules Settings”，选择“Libraries”，点击“+”，选“Java”；在弹出的窗口中选择tomcat所在的目录，在lib目录下找到<code>servlet-api.jar</code>这个jar包导入完成即可。</p>
-<p>{% asset_img 8869373-d7bbd56167919701.png %}</p>
+<p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-d7bbd56167919701.png" /></p>
 <h3 id="servlet_2">编写<code>Servlet</code>源文件</h3>
 <p>在src目录下新建HelloWorld.java，并编写一下代码并进行编译：
 代码如下：</p>
@@ -3925,7 +3925,7 @@ private String message;
 </code></pre>
 
 <p>编译后会发现在classes目录下生成了HelloWorld.class文件</p>
-<p>{% asset_img 8869373-553a1f7765e86b03.png %}</p>
+<p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-553a1f7765e86b03.png" /></p>
 <h3 id="servlet_3">部署<code>servlet</code></h3>
 <h4 id="1">方法1</h4>
 <p>在WEB-INF目录下web.xml文件的<web-app>标签中添加如下内容：</p>
@@ -3945,13 +3945,13 @@ private String message;
 在HelloWorld文件的类前面加上：@WebServlet("/HelloWorld")</p>
 <h3 id="servlet_4">运行Servlet</h3>
 <p>点击运行按钮
-{% asset_img 8869373-4f50baf13ac0ad38.png %}</p>
+<img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-4f50baf13ac0ad38.png" /></p>
 <p>控制台出现successfully则tomcat服务启动成功！打开浏览器输入：localhost:8080/JavaWeb/HelloWorld即可查看servlet运行状态了.</p>
-<p>{% asset_img 8869373-cc5f316238045270.png %}</p>
+<p><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-cc5f316238045270.png" /></p>
 <h2 id="_7">后记</h2>
 <p>作为一个写习惯了<code>PHP</code>和<code>Python</code>的人来说，刚刚转到<code>Java</code>还是有各种不适应的，还好Java和我最喜欢写的C#语法很相近，所以上手也不是很难，就是各种环境配置好麻烦= =...</p>
 <h2 id="about">About</h2>
-<h2 id="asset_img-8869373-901590e019f6f85bpng">{% asset_img 8869373-901590e019f6f85b.png %}</h2>
+<h2 id="_8"><img alt="" src="../JavaWeb%E5%BC%80%E5%8F%91---%E4%BD%BF%E7%94%A8IDEA%E5%88%9B%E5%BB%BAServlet%E7%A8%8B%E5%BA%8F.assets/8869373-901590e019f6f85b.png" /></h2>
 <p>了解更多有趣的操作请关注我的微信公众号：DealiAxy
 每一篇文章都在我的博客有收录：<a href="http://blog.deali.cn">blog.deali.cn</a></p>
                 
